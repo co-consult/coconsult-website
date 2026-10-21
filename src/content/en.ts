@@ -1,4 +1,5 @@
 import type { PageContent, RouteKey } from '@/content/types';
+import { legalPage, privacyPage } from '@/content/legal-pages';
 
 export const pages: Record<RouteKey, PageContent> = {
   home: {
@@ -417,7 +418,6 @@ export const pages: Record<RouteKey, PageContent> = {
           'Founded in 2018',
           'Present in Paris and Sfax',
           'Contact: contact@coconsult.fr',
-          'Registration identifiers are published once they have been validated for this site',
         ],
       },
       { type: 'cta', title: 'Meet the team on a concrete subject.', text: 'A message is enough to propose a time. The project context matters more than a general presentation.', primary: 'project', secondary: 'partnership' },
@@ -482,75 +482,6 @@ export const pages: Record<RouteKey, PageContent> = {
       { type: 'note', text: 'Do not send secrets, card data or customer files in this first message. A suitable channel is agreed later if the topic requires it.' },
     ],
   },
-  legal: {
-    key: 'legal',
-    metaTitle: 'Legal notice | Coconsult',
-    description:
-      'Public information about Coconsult: publisher, contact, Paris and Sfax. Registration identifiers will be added after validation.',
-    eyebrow: 'LEGAL NOTICE',
-    h1: 'Legal notice',
-    intro: 'This page contains only information that is already established. Missing registration details are not replaced with placeholders.',
-    blocks: [
-      {
-        type: 'prose',
-        title: 'Publisher',
-        paragraphs: [
-          'Coconsult, a French IT consulting and software engineering company, founded in 2018, present in Paris and Sfax.',
-          'Contact: contact@coconsult.fr.',
-          'Website: https://coconsult.fr/',
-        ],
-      },
-      {
-        type: 'prose',
-        title: 'Not yet published',
-        paragraphs: [
-          'Legal form, share capital, SIREN, SIRET, trade-register and VAT numbers, registered address, phone number, publishing director, the host’s legal identity and a data-protection officer will be added after validation. They are omitted here until confirmed.',
-        ],
-      },
-      {
-        type: 'prose',
-        title: 'Content',
-        paragraphs: [
-          'The text on this site describes Coconsult’s activity. Software delivered to clients remains theirs when the code was transferred. Project names are used with the status shown on their card.',
-        ],
-      },
-    ],
-  },
-  privacy: {
-    key: 'privacy',
-    metaTitle: 'Privacy policy | Coconsult',
-    description:
-      'The Coconsult website sets no trackers and stores no form. Email you send from your mail client is received at contact@coconsult.fr.',
-    eyebrow: 'PRIVACY',
-    h1: 'Privacy policy',
-    intro:
-      'This policy describes the public site as it works today: static pages and links into your mail client. It does not describe the processing that comes with a delivery contract, which is handled in that engagement.',
-    blocks: [
-      {
-        type: 'prose',
-        title: 'What the site processes',
-        paragraphs: [
-          'Pages are served without a user account and without a form stored by Coconsult. No audience-measurement tool, advertising pixel or marketing cookie is installed.',
-          'If you use an email link, your mail software prepares a message to contact@coconsult.fr. The website does not receive the content. Coconsult receives it as an ordinary email, containing whatever you choose to write.',
-        ],
-      },
-      {
-        type: 'prose',
-        title: 'Purpose and retention',
-        paragraphs: [
-          'Those messages are used to answer a request about a project, a team, testing, payments, automation, a demo or a partnership. They are kept while the request is handled and, where relevant, for the relationship that follows.',
-          'Servers that deliver the pages may produce ordinary technical logs (IP address, time, requested URL) for security and diagnostics. They are not used to build a marketing profile.',
-        ],
-      },
-      {
-        type: 'prose',
-        title: 'Requests',
-        paragraphs: [
-          'For a question about a message you sent us, write to contact@coconsult.fr. Which rights apply depends on the situation and the law governing the relationship. They are not reduced here to a generic list presented as a complete legal commitment.',
-          'No data-protection officer is named until that appointment is confirmed.',
-        ],
-      },
-      { type: 'note', text: 'If a measurement tool is added later, this page will be updated before it is switched on. No cookie banner is shown while no tracker is set.' },
-    ],
-  },
+  legal: legalPage('en'),
+  privacy: privacyPage('en'),
 };

@@ -146,4 +146,32 @@ assert.match(fs.readFileSync(path.join(root, '.gitignore'), 'utf8'), /compose\.p
 assert.equal(fs.existsSync(path.join(root, 'compose.proxy.yaml')), false);
 assert.ok(fs.statSync(path.join(dist, 'assets', 'brand', 'coconsult-logo.png')).size > 1000);
 
+const legalFr = read('/mentions-legales/');
+const legalEn = read('/en/legal-notice/');
+const privacyFr = read('/confidentialite/');
+const privacyEn = read('/en/privacy-policy/');
+for (const html of [legalFr, legalEn]) {
+  assert.match(html, /SAS/);
+  assert.match(html, /838 913 838/);
+  assert.match(html, /FR90838913838/);
+  assert.match(html, /10 rue de Penthièvre/);
+  assert.match(html, /OVH SAS/);
+  assert.equal(html.includes('00036'), false, 'SIRET must stay off the public page');
+  assert.equal(/racem/i.test(html), false, 'unverified publisher name must stay unpublished');
+  assert.equal(html.includes('tel:'), false);
+}
+assert.match(privacyFr, /Sfax/);
+assert.match(privacyFr, /n’est pas confirmé/);
+assert.match(privacyEn, /Sfax/);
+assert.match(privacyEn, /not confirmed/);
+assert.equal(/google workspace/i.test(privacyFr + privacyEn), false);
+assert.equal(/aucun transfert/i.test(privacyFr), false);
+for (const file of fs.readdirSync(dist, { recursive: true })) {
+  const full = path.join(dist, String(file));
+  if (!fs.statSync(full).isFile()) continue;
+  if (!full.endsWith('.html') && !full.endsWith('.js')) continue;
+  const text = fs.readFileSync(full, 'utf8');
+  assert.equal(/document\.cookie|localStorage|sessionStorage|googletagmanager|gtag\(/.test(text), false, full);
+}
+
 console.log(`Static checks passed for ${pages.length * 2} localized pages`);

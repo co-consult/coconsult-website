@@ -13,7 +13,8 @@
     "test:static": "node tests/static.spec.mjs",
     "test:e2e": "playwright test",
     "test:docker": "node tests/docker.spec.mjs",
-    "test": "node tests/static.spec.mjs && playwright test"
+    "test": "node tests/static.spec.mjs && playwright test",
+    "check:legal": "node --experimental-strip-types tests/legal-publication.mjs"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.11",

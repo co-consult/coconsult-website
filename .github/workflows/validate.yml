@@ -20,6 +20,8 @@ jobs:
       - run: npm run check
       - run: npm run build
       - run: npm test
+      - name: Legal publication gaps
+        run: npm run check:legal
       - name: Container health and relative redirects
         run: |
           docker compose -p coconsult-ci -f compose.yaml up -d --build

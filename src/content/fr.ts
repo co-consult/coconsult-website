@@ -1,4 +1,5 @@
 import type { PageContent, RouteKey } from '@/content/types';
+import { legalPage, privacyPage } from '@/content/legal-pages';
 
 export const pages: Record<RouteKey, PageContent> = {
   home: {
@@ -467,7 +468,6 @@ export const pages: Record<RouteKey, PageContent> = {
           'Fondation en 2018',
           'Présence à Paris et à Sfax',
           'Contact : contact@coconsult.fr',
-          'Les identifiants d’immatriculation sont publiés lorsqu’ils ont été validés pour ce site',
         ],
       },
       { type: 'cta', title: 'Rencontrer l’équipe sur un sujet concret.', text: 'Un message suffit pour proposer un créneau. Le contexte du projet compte plus qu’une présentation générale.', primary: 'project', secondary: 'partnership' },
@@ -532,76 +532,6 @@ export const pages: Record<RouteKey, PageContent> = {
       { type: 'note', text: 'N’envoyez pas de secrets, de données de cartes ou de fichiers clients dans ce premier message. Un canal adapté se définit ensuite si le sujet l’exige.' },
     ],
   },
-  legal: {
-    key: 'legal',
-    metaTitle: 'Mentions légales | Coconsult',
-    description:
-      'Informations publiques de Coconsult : éditeur, contact, Paris et Sfax. Les identifiants d’immatriculation seront ajoutés après validation.',
-    eyebrow: 'MENTIONS LÉGALES',
-    h1: 'Mentions légales',
-    intro:
-      'Cette page ne contient que des informations déjà établies. Les mentions d’immatriculation manquantes ne sont pas remplacées par des valeurs provisoires.',
-    blocks: [
-      {
-        type: 'prose',
-        title: 'Éditeur du site',
-        paragraphs: [
-          'Coconsult, entreprise française de conseil et d’ingénierie informatique, fondée en 2018, présente à Paris et à Sfax.',
-          'Contact : contact@coconsult.fr.',
-          'Site : https://coconsult.fr/',
-        ],
-      },
-      {
-        type: 'prose',
-        title: 'Informations non encore publiées',
-        paragraphs: [
-          'La forme juridique, le capital, les numéros SIREN, SIRET, RCS et de TVA, l’adresse du siège, le téléphone, le directeur de la publication, l’identité juridique de l’hébergeur et le délégué à la protection des données seront ajoutés après validation. Ils ne figurent pas ici tant qu’ils ne sont pas confirmés.',
-        ],
-      },
-      {
-        type: 'prose',
-        title: 'Propriété du contenu',
-        paragraphs: [
-          'Les textes de ce site décrivent l’activité de Coconsult. Les logiciels livrés à des clients restent la propriété de ces clients lorsque le code leur a été cédé. Les marques citées comme projets Coconsult le sont avec le statut indiqué sur leur fiche.',
-        ],
-      },
-    ],
-  },
-  privacy: {
-    key: 'privacy',
-    metaTitle: 'Politique de confidentialité | Coconsult',
-    description:
-      'Le site Coconsult ne dépose pas de traceur et n’enregistre pas de formulaire. Un e-mail envoyé via votre messagerie est reçu par contact@coconsult.fr.',
-    eyebrow: 'CONFIDENTIALITÉ',
-    h1: 'Politique de confidentialité',
-    intro:
-      'Cette politique décrit le site public tel qu’il fonctionne aujourd’hui : des pages statiques et des liens vers votre messagerie. Elle ne décrit pas les traitements d’un contrat de prestation, qui font l’objet d’un échange dédié.',
-    blocks: [
-      {
-        type: 'prose',
-        title: 'Ce que le site traite',
-        paragraphs: [
-          'Les pages sont servies sans compte utilisateur et sans formulaire enregistré par Coconsult. Aucun outil de mesure d’audience, aucun pixel publicitaire et aucun cookie marketing ne sont installés.',
-          'Si vous cliquez sur un lien d’e-mail, votre logiciel de messagerie prépare un message à destination de contact@coconsult.fr. Le site ne reçoit pas le contenu de ce message. Coconsult le reçoit comme un e-mail ordinaire, avec les informations que vous choisissez d’écrire.',
-        ],
-      },
-      {
-        type: 'prose',
-        title: 'Finalité et durée',
-        paragraphs: [
-          'Ces messages servent à répondre à une demande de projet, d’équipe, de test, de paiement, d’automatisation, de démonstration ou de partenariat. Ils sont conservés le temps d’instruire la demande et, le cas échéant, la relation qui en découle.',
-          'Les serveurs qui délivrent les pages peuvent produire des journaux techniques habituels (adresse IP, horodatage, adresse demandée) pour la sécurité et le diagnostic. Ils ne sont pas utilisés pour constituer un profil commercial.',
-        ],
-      },
-      {
-        type: 'prose',
-        title: 'Vos demandes',
-        paragraphs: [
-          'Pour une question sur un message que vous nous avez envoyé, écrivez à contact@coconsult.fr. Les droits applicables dépendent de la situation et du droit qui régit la relation ; ils ne sont pas résumés ici par une liste générique présentée comme un engagement juridique complet.',
-          'Aucun délégué à la protection des données n’est publié tant que la désignation n’est pas confirmée.',
-        ],
-      },
-      { type: 'note', text: 'Si un outil de mesure est ajouté plus tard, cette page sera mise à jour avant son activation. Aucun bandeau de cookies n’est affiché tant qu’aucun traceur n’est déposé.' },
-    ],
-  },
+  legal: legalPage('fr'),
+  privacy: privacyPage('fr'),
 };

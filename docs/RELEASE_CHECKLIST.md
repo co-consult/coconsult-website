@@ -1,32 +1,37 @@
 # Checklist de validation V1
 
-Les pages mentions légales et confidentialité ne sont pas complètes. Elles publient seulement les faits déjà établis et indiquent ce qui manque. Ne pas inventer d’identifiants pour les faire paraître complètes.
+Les mentions légales publient les données confirmées. Elles ne sont pas juridiquement closes : le téléphone de la société, le directeur de la publication et le téléphone de l’hébergeur manquent encore. La politique de confidentialité ne chiffre pas une durée et ne tranche pas un transfert vers la Tunisie.
 
-## Prérequis juridiques indispensables
+`npm run check:legal` liste ces lacunes. Il ne fait pas échouer la CI technique.
 
-Ces éléments manquent dans `src/data/company.ts`. Tant qu’ils ne sont pas confirmés et publiés, il n’y a pas de validation juridique pour la mise en production.
+## Prérequis juridiques encore indispensables
 
-- [ ] Forme juridique
-- [ ] Capital social
-- [ ] SIREN
-- [ ] SIRET
-- [ ] RCS
-- [ ] Numéro de TVA
-- [ ] Directeur de la publication
-- [ ] Adresse du siège
-- [ ] Identité juridique de l’hébergeur (raison sociale et adresse)
+- [ ] Téléphone professionnel de Coconsult, demandé puis validé. Ne pas inventer de numéro.
+- [ ] Directeur de la publication. Un nom est pressenti ; ne le publier qu’après confirmation de la qualité de représentant légal (Kbis ou RNE). Le nom n’est pas affiché tant que ce point n’est pas vérifié.
+- [ ] Téléphone officiel de l’hébergeur, vérifié avant publication.
+- [ ] Confirmation, sur les documents du VPS, que le contrat est au nom d’OVH SAS.
+- [ ] Durée chiffrée de conservation des e-mails de demande, fixée par la direction avant de l’écrire.
+- [ ] Accès réel de l’équipe de Sfax aux e-mails, aux prospects ou à un CRM.
+- [ ] Prestataire qui héberge réellement `contact@coconsult.fr`.
+
+## Déjà publié, source `src/data/company.ts`
+
+- [x] COCONSULT, SAS au capital de 1 000 €
+- [x] Siège : 10 rue de Penthièvre, 75008 Paris, France
+- [x] RCS Paris 838 913 838 et SIREN 838 913 838
+- [x] TVA intracommunautaire FR90838913838
+- [x] E-mail contact@coconsult.fr
+- [x] Hébergeur indiqué : OVH SAS, 2 rue Kellermann, 59100 Roubaix, France
+- [x] SIRET du siège conservé dans la configuration et non affiché
 
 ## Informations facultatives
 
-Ces données ne sont pas requises pour décrire le site tel qu’il fonctionne aujourd’hui. Les ajouter seulement si elles existent et sont confirmées.
-
-- [ ] Téléphone, en plus de `contact@coconsult.fr`
 - [ ] DPO, seulement si une personne est réellement désignée
-- [ ] URL LinkedIn officielle, après vérification du lien. Ce n’est pas une mention légale.
+- [ ] URL LinkedIn officielle, après vérification. Ce n’est pas une mention légale.
 
 ## Données commerciales à confirmer
 
-- [ ] Nom commercial définitif de la plateforme SaaS métier (aujourd’hui : « Plateforme SaaS métier (nom à venir) »)
+- [ ] Nom commercial définitif de la plateforme SaaS métier
 - [ ] Périmètre réel des modules Cogeex
 - [ ] Autorisation de citer un client, un logo ou un chiffre
 - [ ] Niveau d’anglais garanti pour une mission QA internationale
@@ -35,11 +40,9 @@ Ces données ne sont pas requises pour décrire le site tel qu’il fonctionne a
 
 ## Technique
 
-- [ ] `npm ci`, `npm run check`, `npm run build`, `npm test`
-- [ ] `HEAD /en` répond 301 avec `Location: /en/`, sans `:8080` ni hôte absolu
-- [ ] `https://coconsult.fr/en/` répond 200
-- [ ] Logo officiel visible sur fond clair dans l’en-tête, FR et EN
-- [ ] Parcours mobile : menu, FR/EN, page QA
+- [ ] `npm run check`, `npm run build`, `npm test`
+- [ ] `npm run check:legal` lu, sans bloquer le build
+- [ ] `HEAD /en` répond 301 avec `Location: /en/`
+- [ ] Logo officiel visible sur fond clair, FR et EN
+- [ ] Liens footer vers les mentions légales et la confidentialité
 - [ ] `compose.proxy.yaml` du VPS inchangé
-- [ ] Aucun autre conteneur redémarré
-- [ ] Rollback testé sur le commit précédent si la mise à jour est refusée
