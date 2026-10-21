@@ -1,0 +1,48 @@
+---
+import { heroTeamLabel } from '@/content/ui';
+import type { Locale, PageContent } from '@/content/types';
+import { getInquiry, mailto } from '@/data/inquiries';
+
+interface Props { locale: Locale; page: PageContent; }
+const { locale, page } = Astro.props;
+const visual = page.hero;
+const primary = page.heroPrimary ? getInquiry(locale, page.heroPrimary) : null;
+const secondary = page.heroSecondary ? getInquiry(locale, page.heroSecondary) : null;
+const secondaryLabel = page.heroSecondary === 'team' ? heroTeamLabel[locale] : secondary?.label;
+---
+{visual && primary && secondary && secondaryLabel && (
+  <div class="hero-wrap">
+    <section class="hero container" aria-labelledby="hero-heading">
+      <div>
+        <p class="eyebrow"><span class="pulse-dot" aria-hidden="true"></span>{page.eyebrow}</p>
+        <h1 id="hero-heading">{page.h1}<br /><span>{page.h1Accent}</span></h1>
+        <p class="hero-lead">{page.intro}</p>
+        <div class="hero-buttons">
+          <a class="btn primary" href={mailto(primary)}>{primary.label}</a>
+          <a class="btn secondary" href={mailto(secondary)}>{secondaryLabel}</a>
+        </div>
+        <ul class="hero-facts">
+          {visual.facts.map((fact) => <li>{fact}</li>)}
+        </ul>
+      </div>
+      <div class="hero-visual">
+        <div class="visual-eyebrow"><span class="pulse-dot" aria-hidden="true"></span>{visual.diagramTitle}</div>
+        <div class="network">
+          <div class="network-glow"></div>
+          <svg class="network-lines" viewBox="0 0 560 430" fill="none" aria-hidden="true">
+            <path d="M280 216 120 102M280 216 440 102M280 216 115 334M280 216 441 334" stroke-width="1.4" />
+            <circle cx="280" cy="216" r="132" stroke-width="1" />
+          </svg>
+          <div class="center-node">
+            <strong>{visual.centerTitle}</strong>
+            <small>{visual.centerSub}</small>
+          </div>
+          {visual.nodes.map((node, index) => (
+            <div class={`floating-node n${index + 1}`}><span class="node-badge" aria-hidden="true">{index + 1}</span>{node}</div>
+          ))}
+        </div>
+        <div class="visual-bottom">{visual.note}</div>
+      </div>
+    </section>
+  </div>
+)}

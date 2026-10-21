@@ -1,0 +1,37 @@
+---
+import Base from '@/layouts/Base.astro';
+import Blocks from '@/components/Blocks.astro';
+import Hero from '@/components/Hero.astro';
+import { ui } from '@/content/ui';
+import type { Locale, PageContent } from '@/content/types';
+import { crumbsFor } from '@/lib/seo';
+
+interface Props { locale: Locale; page: PageContent; }
+const { locale, page } = Astro.props;
+const crumbs = crumbsFor(locale, page.key, ui[locale].home);
+---
+<Base locale={locale} title={page.metaTitle} description={page.description} routeKey={page.key}>
+  {page.key === 'home' ? (
+    <Hero locale={locale} page={page} />
+  ) : (
+    <header class="page-hero">
+      <div class="container">
+        {crumbs.length > 0 && (
+          <nav aria-label={ui[locale].breadcrumb}>
+            <ol class="crumbs">
+              {crumbs.map((crumb) => (
+                <li>
+                  {crumb.href ? <a href={crumb.href}>{crumb.label}</a> : <span aria-current="page">{crumb.label}</span>}
+                </li>
+              ))}
+            </ol>
+          </nav>
+        )}
+        <p class="eyebrow">{page.eyebrow}</p>
+        <h1>{page.h1}</h1>
+        <p class="lede">{page.intro}</p>
+      </div>
+    </header>
+  )}
+  <Blocks locale={locale} blocks={page.blocks} />
+</Base>
