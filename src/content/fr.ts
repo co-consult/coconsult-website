@@ -6,7 +6,7 @@ export const pages: Record<RouteKey, PageContent> = {
     key: 'home',
     metaTitle: 'Coconsult — Ingénierie logicielle, équipes et systèmes métier',
     description:
-      'Coconsult conçoit, intègre et fiabilise les applications métier. Équipes dédiées, QA, paiements et intégration, entre Paris et Sfax.',
+      'Coconsult conçoit, intègre et fiabilise les applications métier. Équipes dédiées, QA, paiements et intégration, depuis la France, en collaboration avec Sfax.',
     eyebrow: 'INGÉNIERIE LOGICIELLE · FRANCE & TUNISIE',
     h1: 'Des systèmes plus fiables.',
     h1Accent: 'Des projets qui avancent.',
@@ -15,7 +15,7 @@ export const pages: Record<RouteKey, PageContent> = {
     heroPrimary: 'project',
     heroSecondary: 'team',
     hero: {
-      facts: ['Ingénierie et intégration', 'Équipes mobilisées depuis Sfax', 'De l’architecture à la production'],
+      facts: ['Ingénierie et intégration', 'Compétences mobilisées avec Sfax', 'De l’architecture à la production'],
       diagramTitle: 'L’INGÉNIERIE QUI RELIE VOS SYSTÈMES',
       centerTitle: 'Vos systèmes',
       centerSub: 'Fiabilité · Intégration · Delivery',
@@ -61,7 +61,7 @@ export const pages: Record<RouteKey, PageContent> = {
         items: [
           { title: 'Systèmes déjà en place', text: 'Nous partons de votre SI, de vos contraintes d’exploitation et des équipes qui s’en servent.' },
           { title: 'Flux qui tiennent', text: 'Timeouts, reprises, idempotence et supervision sont traités comme des sujets de delivery, pas comme une option tardive.' },
-          { title: 'France et Tunisie', text: 'Cadrage et proximité en France, équipe d’ingénierie à Sfax, consultants indépendants mobilisés quand le besoin le justifie.' },
+          { title: 'France et Tunisie', text: 'Cadrage depuis la France, avec Coconsult Nearshore, société tunisienne juridiquement indépendante basée à Sfax, pour l’ingénierie et les équipes dédiées.' },
           { title: 'Automatisation utile', text: 'Un connecteur ou un contrôle ciblé vaut mieux qu’un discours général sur la transformation.' },
         ],
       },
@@ -123,6 +123,7 @@ export const pages: Record<RouteKey, PageContent> = {
         paragraphs: [
           'Directions des systèmes d’information, CTO, responsables d’ingénierie, responsables produit, opérations et qualité. Les entreprises qui ont déjà un système à faire tenir, pas seulement une idée à prototyper.',
           'Les modalités se choisissent après échange : régie, équipe dédiée ou projet au forfait. Les disponibilités, la langue de travail et le chevauchement horaire se confirment au cadrage.',
+          'Lorsque des compétences sont mobilisées à Sfax, c’est avec Coconsult Nearshore, société tunisienne juridiquement indépendante. Le devis nomme la société qui contracte avec le client.',
         ],
       },
       { type: 'cta', title: 'Décrire le besoin suffit pour commencer.', text: 'Indiquez le sujet dans votre message. Nous revenons vers vous pour un premier échange.', primary: 'project', secondary: 'team' },
@@ -136,7 +137,7 @@ export const pages: Record<RouteKey, PageContent> = {
     eyebrow: 'ÉQUIPES DÉDIÉES',
     h1: 'Constituer une équipe d’ingénierie adaptée au besoin réel.',
     intro:
-      'Coconsult mobilise des ingénieurs logiciels et, quand le sujet le demande, des consultants indépendants. L’équipe de Sfax et le cadrage en France permettent un dispositif suivi, sans promettre que tous les profils sont disponibles immédiatement.',
+      'Coconsult accompagne ses clients depuis la France et collabore avec Coconsult Nearshore, une société tunisienne juridiquement indépendante basée à Sfax, pour mobiliser des compétences d’ingénierie et constituer des équipes dédiées. Des consultants indépendants complètent un dispositif lorsque le besoin le justifie. Tous les profils ne sont pas disponibles immédiatement.',
     blocks: [
       {
         type: 'columns',
@@ -171,7 +172,7 @@ export const pages: Record<RouteKey, PageContent> = {
       },
       {
         type: 'note',
-        text: 'Nous ne publions pas de tarifs, de salaires ni d’effectif permanent. Une équipe se constitue pour un besoin identifié, pas à partir d’un catalogue figé.',
+        text: 'Nous ne publions pas de tarifs, de salaires ni d’effectif permanent. Une équipe se constitue pour un besoin identifié, pas à partir d’un catalogue figé. Le devis, le contrat et la facture identifient la société qui contracte avec le client. Les ingénieurs situés à Sfax ne sont pas, du seul fait de cette collaboration, salariés de COCONSULT SAS.',
       },
       { type: 'cta', title: 'Décrivez l’équipe dont vous avez besoin.', text: 'Stack, séniorité, durée envisagée et mode de travail : ces éléments suffisent pour un premier échange.', primary: 'team', secondary: 'project' },
     ],
@@ -438,18 +439,18 @@ export const pages: Record<RouteKey, PageContent> = {
     key: 'about',
     metaTitle: 'À propos de Coconsult | Paris et Sfax',
     description:
-      'Coconsult, entreprise française de conseil et d’ingénierie informatique fondée en 2018, présente à Paris et à Sfax. Équipes adaptées au besoin réel.',
+      'COCONSULT SAS, société française fondée en 2018, accompagne ses clients depuis Paris et collabore avec Coconsult Nearshore, société tunisienne indépendante basée à Sfax.',
     eyebrow: 'À PROPOS',
-    h1: 'Une entreprise d’ingénierie entre Paris et Sfax.',
+    h1: 'Une société d’ingénierie française, en collaboration avec Sfax.',
     intro:
-      'Coconsult est une entreprise française de conseil et d’ingénierie informatique, fondée en 2018. Elle conçoit, intègre et exploite des applications métier, avec une équipe à Sfax et une capacité d’avant-vente et d’ingénierie en France.',
+      'Coconsult accompagne ses clients depuis la France et collabore avec Coconsult Nearshore, une société tunisienne juridiquement indépendante basée à Sfax, pour mobiliser des compétences d’ingénierie et constituer des équipes dédiées. Fondée en 2018, la société française conçoit, intègre et exploite des applications métier.',
     blocks: [
       {
         type: 'columns',
         title: 'La façon de travailler',
         items: [
           { title: 'Proximité de cadrage', text: 'Le besoin, les contraintes et les priorités se comprennent avec vos équipes, depuis la France lorsque c’est le bon relais.' },
-          { title: 'Delivery à Sfax', text: 'L’équipe tunisienne porte une part substantielle de l’ingénierie, en lien direct avec le périmètre convenu.' },
+          { title: 'Ingénierie à Sfax', text: 'Coconsult Nearshore peut mobiliser des compétences d’ingénierie sur le périmètre convenu. Les deux sociétés ont des dirigeants différents.' },
           { title: 'Renforts indépendants', text: 'Des consultants indépendants peuvent compléter un dispositif. Leur présence dépend du besoin, pas d’un effectif affiché.' },
         ],
       },
@@ -458,6 +459,7 @@ export const pages: Record<RouteKey, PageContent> = {
         title: 'Ce que l’entreprise vend',
         paragraphs: [
           'Des projets au forfait lorsque le périmètre le permet, de l’intégration dans des systèmes existants, des équipes dédiées, des missions de test et de paiement, et l’accompagnement de solutions métier en cours de construction.',
+          'Le devis, le contrat et la facture identifient la société qui contracte avec le client.',
           'Le site sert à qualifier une conversation commerciale. Il ne catalogue pas toutes les idées de produits, et il ne fonctionne pas comme une place de marché de recrutement.',
         ],
       },
@@ -466,7 +468,8 @@ export const pages: Record<RouteKey, PageContent> = {
         title: 'Repères publics',
         items: [
           'Fondation en 2018',
-          'Présence à Paris et à Sfax',
+          'Éditeur du site : COCONSULT SAS, Paris',
+          'Collaboration avec Coconsult Nearshore, Sfax',
           'Contact : contact@coconsult.fr',
         ],
       },

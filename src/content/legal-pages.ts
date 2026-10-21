@@ -176,8 +176,8 @@ export function privacyPage(locale: Locale): PageContent {
           type: 'prose',
           title: 'Hors de l’Espace économique européen',
           paragraphs: [
-            'L’hébergement du site est situé en France. Coconsult a aussi une équipe d’ingénierie à Sfax, en Tunisie.',
-            'Il n’est pas confirmé que cette équipe accède aux e-mails reçus, aux données de prospects ou à un outil de suivi. Cette page n’affirme donc pas que les données restent exclusivement dans l’Espace économique européen.',
+            'L’hébergement du site est situé en France. L’éditeur est COCONSULT SAS. Coconsult Nearshore est une société tunisienne juridiquement indépendante, basée à Sfax, avec des dirigeants différents. Elle collabore à l’ingénierie. Elle n’édite pas ce site et n’est pas un service interne de la SAS française.',
+            'Il n’est pas confirmé que Coconsult Nearshore ou ses collaborateurs accèdent aux e-mails reçus sur contact@coconsult.fr, au suivi des prospects, aux informations de recrutement ou aux données clients des projets. Cette page ne décrit donc pas de transfert hors de l’Espace économique européen, ni de clause contractuelle type. Une mention ici n’autoriserait pas un tel transfert.',
           ],
         },
         {
@@ -253,8 +253,8 @@ export function privacyPage(locale: Locale): PageContent {
         type: 'prose',
         title: 'Outside the European Economic Area',
         paragraphs: [
-          'The site is hosted in France. Coconsult also has an engineering team in Sfax, Tunisia.',
-          'It is not confirmed whether that team can access incoming email, prospect data or a tracking tool. This page therefore does not state that data stays exclusively inside the European Economic Area.',
+          'The site is hosted in France. The publisher is COCONSULT SAS. Coconsult Nearshore is a legally independent Tunisian company based in Sfax, with different directors. It collaborates on engineering. It does not publish this site and it is not an internal department of the French company.',
+          'It is not confirmed whether Coconsult Nearshore or its staff can access email sent to contact@coconsult.fr, prospect records, recruitment information or client data used on projects. This page therefore does not describe a transfer outside the European Economic Area, nor standard contractual clauses. A sentence on this page would not authorise such a transfer.',
         ],
       },
       {

@@ -156,13 +156,33 @@ for (const html of [legalFr, legalEn]) {
   assert.match(html, /FR90838913838/);
   assert.match(html, /10 rue de Penthièvre/);
   assert.match(html, /OVH SAS/);
+  assert.match(html, /06 37 19 17 97/);
+  assert.match(html, /09 72 10 10 07/);
+  assert.match(html, /Racem Smaoui/);
   assert.equal(html.includes('00036'), false, 'SIRET must stay off the public page');
-  assert.equal(/racem/i.test(html), false, 'unverified publisher name must stay unpublished');
   assert.equal(html.includes('tel:'), false);
 }
-assert.match(privacyFr, /Sfax/);
+const homeFr = read('/');
+const homeEn = read('/en/');
+const aboutFr = read('/a-propos/');
+const aboutEn = read('/en/about/');
+for (const html of [homeFr, homeEn, aboutFr, aboutEn]) {
+  assert.equal(html.includes('06 37 19 17 97'), false, 'company phone stays on the legal notice');
+  assert.equal(/racem/i.test(html), false, 'publisher name stays on the legal notice');
+}
+assert.match(aboutFr, /Coconsult Nearshore/);
+assert.match(aboutFr, /juridiquement indépendante/);
+assert.match(aboutEn, /Coconsult Nearshore/);
+assert.match(aboutEn, /legally independent/);
+assert.match(read('/services/equipes-dediees/'), /Coconsult Nearshore/);
+assert.match(read('/en/services/dedicated-teams/'), /Coconsult Nearshore/);
+assert.equal(/filiale|notre bureau|subsidiary/i.test(aboutFr + aboutEn + homeFr + homeEn), false);
+const homeLd = homeFr.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)?.join('\n') ?? '';
+assert.match(homeLd, /75008/);
+assert.equal(homeLd.includes('"addressLocality":"Sfax"'), false, 'Sfax is not a registered establishment of the French publisher');
+assert.match(privacyFr, /Coconsult Nearshore/);
 assert.match(privacyFr, /n’est pas confirmé/);
-assert.match(privacyEn, /Sfax/);
+assert.match(privacyEn, /Coconsult Nearshore/);
 assert.match(privacyEn, /not confirmed/);
 assert.equal(/google workspace/i.test(privacyFr + privacyEn), false);
 assert.equal(/aucun transfert/i.test(privacyFr), false);

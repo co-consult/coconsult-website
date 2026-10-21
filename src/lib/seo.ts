@@ -33,14 +33,13 @@ export function organizationLd() {
     email: company.email,
     foundingDate: String(company.founded),
     areaServed: ['FR', 'TN', 'US'],
-    location: company.locations.map((place) => ({
-      '@type': 'Place',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: place.city,
-        addressCountry: place.countryCode,
-      },
-    })),
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: '10 rue de Penthièvre',
+      postalCode: '75008',
+      addressLocality: 'Paris',
+      addressCountry: 'FR',
+    },
   };
 }
 

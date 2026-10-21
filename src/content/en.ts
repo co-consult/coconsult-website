@@ -6,7 +6,7 @@ export const pages: Record<RouteKey, PageContent> = {
     key: 'home',
     metaTitle: 'Coconsult — Software engineering, teams and business systems',
     description:
-      'Coconsult designs, integrates and strengthens business-critical software. Dedicated teams, QA, payments and integration from France and Tunisia.',
+      'Coconsult designs, integrates and strengthens business-critical software. Dedicated teams, QA, payments and integration from France, in collaboration with Sfax.',
     eyebrow: 'SOFTWARE ENGINEERING · FRANCE & TUNISIA',
     h1: 'Reliable systems.',
     h1Accent: 'Projects that move forward.',
@@ -15,7 +15,7 @@ export const pages: Record<RouteKey, PageContent> = {
     heroPrimary: 'project',
     heroSecondary: 'team',
     hero: {
-      facts: ['Engineering and integration', 'Teams staffed from Sfax', 'From architecture to production'],
+      facts: ['Engineering and integration', 'Skills mobilised with Sfax', 'From architecture to production'],
       diagramTitle: 'ENGINEERING THAT CONNECTS YOUR SYSTEMS',
       centerTitle: 'Your systems',
       centerSub: 'Reliability · Integration · Delivery',
@@ -41,7 +41,7 @@ export const pages: Record<RouteKey, PageContent> = {
         items: [
           { title: 'Systems you already run', text: 'We start from your landscape, operating constraints and the teams who use the software.' },
           { title: 'Flows that recover', text: 'Timeouts, retries, idempotency and supervision are delivery work, not a late extra.' },
-          { title: 'France and Tunisia', text: 'Scoping and engineering leadership in France, a delivery team in Sfax, and independent specialists when a role truly requires one.' },
+          { title: 'France and Tunisia', text: 'Scoping from France, with Coconsult Nearshore, a legally independent Tunisian company based in Sfax, for engineering and dedicated teams.' },
           { title: 'Automation with a job', text: 'A specific connector or control beats a general speech about digital change.' },
         ],
       },
@@ -87,6 +87,7 @@ export const pages: Record<RouteKey, PageContent> = {
         paragraphs: [
           'CIOs, CTOs, engineering managers, heads of product, operations and quality. Companies that already have a system to keep reliable, not only an idea to prototype.',
           'Engagement shape is chosen after a conversation: time and materials, a dedicated team, or a fixed-scope project. Availability, working language and hours of overlap are confirmed during discovery.',
+          'When skills are mobilised in Sfax, that is with Coconsult Nearshore, a legally independent Tunisian company. The quotation names the company that contracts with the client.',
         ],
       },
       { type: 'cta', title: 'Describing the need is enough to begin.', text: 'Put the subject in the message. We reply to arrange a first conversation.', primary: 'project', secondary: 'team' },
@@ -100,7 +101,7 @@ export const pages: Record<RouteKey, PageContent> = {
     eyebrow: 'DEDICATED TEAMS',
     h1: 'Build an engineering team around the work you actually have.',
     intro:
-      'Coconsult fields software engineers and, when a role calls for it, independent consultants. The Sfax team and France-based scoping support a managed setup. We do not claim that every profile is free to start immediately.',
+      'Coconsult supports its clients from France and works with Coconsult Nearshore, a legally independent Tunisian company based in Sfax, to bring in engineering skills and build dedicated teams. Independent consultants complete a setup when the role calls for it. Not every profile is free to start immediately.',
     blocks: [
       {
         type: 'columns',
@@ -133,7 +134,7 @@ export const pages: Record<RouteKey, PageContent> = {
           { title: 'Evolution', text: 'The setup can grow or shrink. No staffing lead time is guaranteed up front.' },
         ],
       },
-      { type: 'note', text: 'We do not publish rates, salaries or a standing headcount. A team is assembled for an identified need, not from a frozen catalogue.' },
+      { type: 'note', text: 'We do not publish rates, salaries or a standing headcount. A team is assembled for an identified need, not from a frozen catalogue. The quotation, the contract and the invoice name the company that contracts with the client. Engineers based in Sfax are not employees of COCONSULT SAS merely because of this collaboration.' },
       { type: 'cta', title: 'Tell us about the team you need.', text: 'Stack, seniority, expected duration and working mode are enough for a first conversation.', primary: 'team', secondary: 'project' },
     ],
   },
@@ -388,18 +389,18 @@ export const pages: Record<RouteKey, PageContent> = {
     key: 'about',
     metaTitle: 'About Coconsult | Paris and Sfax',
     description:
-      'Coconsult is a French IT consulting and software engineering company founded in 2018, working from Paris and Sfax.',
+      'COCONSULT SAS, a French company founded in 2018, supports clients from Paris and works with Coconsult Nearshore, an independent Tunisian company based in Sfax.',
     eyebrow: 'ABOUT',
-    h1: 'An engineering company between Paris and Sfax.',
+    h1: 'A French engineering company, in collaboration with Sfax.',
     intro:
-      'Coconsult is a French consulting and software engineering company, founded in 2018. It designs, integrates and runs business applications, with a team in Sfax and presales and engineering capacity in France.',
+      'Coconsult supports its clients from France and works with Coconsult Nearshore, a legally independent Tunisian company based in Sfax, to bring in engineering skills and build dedicated teams. Founded in 2018, the French company designs, integrates and runs business applications.',
     blocks: [
       {
         type: 'columns',
         title: 'How the company works',
         items: [
           { title: 'Scoping close to the client', text: 'Needs, constraints and priorities are understood with your team, from France when that is the right relay.' },
-          { title: 'Delivery in Sfax', text: 'The Tunisian team carries a substantial share of the engineering, against the scope that was agreed.' },
+          { title: 'Engineering in Sfax', text: 'Coconsult Nearshore can mobilise engineering skills for the agreed scope. The two companies have different directors.' },
           { title: 'Independent specialists', text: 'Independent consultants can complete a setup. They are engaged for a need, not to inflate a published headcount.' },
         ],
       },
@@ -408,6 +409,7 @@ export const pages: Record<RouteKey, PageContent> = {
         title: 'What the company sells',
         paragraphs: [
           'Fixed-scope projects when the scope allows it, integration into existing systems, dedicated teams, testing and payments missions, and support for business solutions still being built.',
+          'The quotation, the contract and the invoice name the company that contracts with the client.',
           'The site exists to qualify a commercial conversation. It is not a catalogue of every product idea, and it is not a recruiting marketplace.',
         ],
       },
@@ -416,7 +418,8 @@ export const pages: Record<RouteKey, PageContent> = {
         title: 'Public facts',
         items: [
           'Founded in 2018',
-          'Present in Paris and Sfax',
+          'Site publisher: COCONSULT SAS, Paris',
+          'Collaboration with Coconsult Nearshore, Sfax',
           'Contact: contact@coconsult.fr',
         ],
       },
