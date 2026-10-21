@@ -62,6 +62,8 @@
   const formStatus = panel.querySelector('[data-form-status]');
   const hiddenType = panel.querySelector('[data-hidden-type]');
   const hiddenProduct = panel.querySelector('[data-hidden-product]');
+  const hiddenToken = panel.querySelector('[data-contact-token]');
+  let contactToken = '';
   const params = new URLSearchParams(window.location.search);
   const type = params.get('type');
   const product = (params.get('product') || '').toLowerCase();
@@ -118,29 +120,49 @@
     failed: panel.dataset.failed || '',
   };
 
+  function applyToken(value) {
+    contactToken = typeof value === 'string' ? value : '';
+    if (hiddenToken instanceof HTMLInputElement) hiddenToken.value = contactToken;
+  }
+
+  if (form instanceof HTMLFormElement) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      data.token = contactToken;
+      if (formStatus) formStatus.textContent = '';
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json', accept: 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const payload = await response.json().catch(() => null);
+        const sentOk = response.ok && payload && payload.ok;
+        if (formStatus) formStatus.textContent = sentOk ? messages.sent : messages.failed;
+        if (sentOk) {
+          form.reset();
+          refreshMail();
+        }
+        if (!payload || payload.error !== 'early') {
+          const next = await fetch('/api/contact', { headers: { accept: 'application/json' } })
+            .then((renew) => (renew.ok ? renew.json() : null))
+            .catch(() => null);
+          if (next && next.configured === true) applyToken(next.token);
+        }
+      } catch {
+        if (formStatus) formStatus.textContent = messages.failed;
+      }
+    });
+  }
+
   fetch('/api/contact', { headers: { accept: 'application/json' } })
     .then((response) => (response.ok ? response.json() : null))
     .then((body) => {
-      if (!body || body.configured !== true || !(form instanceof HTMLFormElement)) return;
+      if (!body || body.configured !== true || typeof body.token !== 'string' || !(form instanceof HTMLFormElement)) return;
+      applyToken(body.token);
       form.hidden = false;
       if (unavailable instanceof HTMLElement) unavailable.hidden = true;
-      form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const data = Object.fromEntries(new FormData(form).entries());
-        if (formStatus) formStatus.textContent = '';
-        try {
-          const response = await fetch('/api/contact', {
-            method: 'POST',
-            headers: { 'content-type': 'application/json', accept: 'application/json' },
-            body: JSON.stringify(data),
-          });
-          const payload = await response.json().catch(() => null);
-          if (formStatus) formStatus.textContent = response.ok && payload && payload.ok ? messages.sent : messages.failed;
-          if (response.ok && payload && payload.ok) form.reset();
-        } catch {
-          if (formStatus) formStatus.textContent = messages.failed;
-        }
-      });
     })
     .catch(() => {});
 })();
