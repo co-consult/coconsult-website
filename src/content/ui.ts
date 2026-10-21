@@ -13,8 +13,6 @@ export const ui: Record<
     servicesGroup: string;
     footerPlaces: string;
     emailLabel: string;
-    conceptual: string;
-    conceptualNote: string;
     status: string;
     sector: string;
     benefits: string;
@@ -58,11 +56,9 @@ export const ui: Record<
     servicesGroup: 'Expertises',
     footerPlaces: 'Paris · collaboration avec Sfax · depuis 2018',
     emailLabel: 'E-mail',
-    conceptual: 'Illustration conceptuelle',
-    conceptualNote: 'Schéma de principe.',
     status: 'Statut',
     sector: 'Secteur',
-    benefits: 'Bénéfices possibles',
+    benefits: 'Ce que cela apporte',
     storyContext: 'Contexte',
     storyStake: 'Enjeu',
     storyWork: 'Intervention',
@@ -101,11 +97,9 @@ export const ui: Record<
     servicesGroup: 'Capabilities',
     footerPlaces: 'Paris · collaboration with Sfax · since 2018',
     emailLabel: 'Email',
-    conceptual: 'Conceptual illustration',
-    conceptualNote: 'A principle diagram.',
     status: 'Status',
     sector: 'Sector',
-    benefits: 'Possible benefits',
+    benefits: 'What this changes',
     storyContext: 'Context',
     storyStake: 'Stake',
     storyWork: 'What we did',

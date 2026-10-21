@@ -107,13 +107,13 @@ export const workItems: WorkItem[] = [
         context: 'Une activité sportive avait besoin d’une plateforme pour ses opérations numériques.',
         stake: 'Membres, abonnements, billetterie, dons, paiements et streaming devaient vivre ensemble.',
         intervention: 'Coconsult a construit la plateforme et les parcours qui relient ces opérations.',
-        result: 'Un produit utilisé au quotidien, présenté ici comme une expérience d’ingénierie.',
+        result: 'La plateforme est utilisée au quotidien.',
       },
       en: {
         context: 'A sports operation needed a platform for its digital services.',
         stake: 'Members, subscriptions, ticketing, donations, payments and streaming had to work as one.',
         intervention: 'Coconsult built the platform and the journeys that connect those operations.',
-        result: 'Software people use day to day, shown here as engineering experience.',
+        result: 'The platform is used day to day.',
       },
     },
     benefits: {

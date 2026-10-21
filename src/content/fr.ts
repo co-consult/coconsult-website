@@ -26,7 +26,7 @@ export const pages: Record<RouteKey, PageContent> = {
       {
         type: 'cards',
         title: 'Nos expertises',
-        intro: 'L’intelligence artificielle ouvre le catalogue. Les modes d’intervention et les secteurs viennent ensuite.',
+        intro: 'De l’IA aux applications métier, chaque expertise répond à un problème concret : livrer, fiabiliser ou moderniser un système déjà utile.',
         layout: 'bento',
         items: [
           {
@@ -70,7 +70,7 @@ export const pages: Record<RouteKey, PageContent> = {
       {
         type: 'challenge',
         title: 'Quel est votre défi ?',
-        intro: 'Choisissez un sujet. L’expertise, un cas d’usage et un mode d’intervention s’affichent.',
+        intro: 'Indiquez ce qui bloque. L’expertise utile, un cas d’usage et une façon de travailler ensemble s’affichent.',
         items: [
           {
             id: 'ai',
@@ -123,7 +123,7 @@ export const pages: Record<RouteKey, PageContent> = {
         type: 'columns',
         title: 'Modes d’intervention',
         layout: 'rail',
-        intro: 'La façon de contractualiser le travail, distincte de l’expertise mobilisée. Coconsult accompagne ses clients depuis la France et collabore avec Coconsult Nearshore, une société tunisienne juridiquement indépendante basée à Sfax, pour mobiliser des compétences d’ingénierie et constituer des équipes dédiées.',
+        intro: 'Cinq façons de mener le projet, selon le périmètre et le rythme. Coconsult accompagne ses clients depuis la France et collabore avec Coconsult Nearshore, une société tunisienne juridiquement indépendante basée à Sfax, pour mobiliser des compétences d’ingénierie et constituer des équipes dédiées.',
         items: [
           { title: 'Régie', text: 'Un ou plusieurs ingénieurs en assistance technique, le temps d’un palier de delivery.' },
           { title: 'Équipes dédiées', text: 'Une squad stable quand le backlog justifie un dispositif continu.' },
@@ -135,7 +135,7 @@ export const pages: Record<RouteKey, PageContent> = {
       {
         type: 'columns',
         title: 'Domaines d’expérience',
-        intro: 'Des contextes métier dans lesquels les expertises s’exercent. Les API relèvent du développement, pas d’un secteur.',
+        intro: 'Des secteurs où Coconsult a déjà conçu, intégré ou fiabilisé des systèmes.',
         items: [
           { title: 'Banque, finance et paiements', text: 'Parcours transactionnels, intégration d’API de paiement et fiabilité des flux.' },
           { title: 'E-commerce et retail', text: 'Parcours d’achat, catalogues et opérations reliés aux systèmes déjà en place.' },
@@ -148,19 +148,19 @@ export const pages: Record<RouteKey, PageContent> = {
         type: 'work',
         source: 'cases',
         title: 'Réalisations sélectionnées',
-        intro: 'Des systèmes livrés, décrits par ce qu’ils font et par le statut du code.',
+        intro: 'Deux systèmes livrés : le contexte, l’enjeu et ce que Coconsult a réalisé.',
       },
       {
         type: 'work',
         source: 'solutions',
         title: 'Solutions développées par Coconsult',
-        intro: 'Des produits en cours de construction, distincts des projets dont le code a été cédé à un client.',
+        intro: 'COPHARIA est un ERP pharmaceutique encore en développement, distinct des projets déjà livrés.',
       },
       {
         type: 'columns',
         title: 'Pourquoi travailler avec Coconsult',
         items: [
-          { title: 'Innovation utile', text: 'L’IA et les nouvelles architectures sont branchées sur un processus que vous connaissez, pas sur une démonstration isolée.' },
+          { title: 'Innovation utile', text: 'L’IA et les nouvelles architectures s’appliquent à un processus que vos équipes utilisent déjà.' },
           { title: 'Exécution', text: 'Développement, qualité, cloud ou intégration, menés jusqu’à une mise en production que vos équipes peuvent tenir.' },
           { title: 'Un cadre clair', text: 'Le devis, le contrat et la facture identifient la société qui contracte avec le client.' },
         ],
@@ -178,18 +178,18 @@ export const pages: Record<RouteKey, PageContent> = {
     key: 'services',
     metaTitle: 'Expertises | Coconsult',
     description:
-      'Intelligence artificielle, développement, qualité, cloud, cybersécurité et intégration. Les modes d’intervention et les secteurs sont présentés à part.',
+      'Intelligence artificielle, développement, qualité, cloud, cybersécurité et intégration, pour concevoir et faire tenir vos systèmes.',
     eyebrow: 'EXPERTISES',
     h1: 'Les expertises techniques de Coconsult.',
     intro:
-      'L’IA, le logiciel, la qualité, le cloud, la cybersécurité et l’intégration sont les disciplines du projet. La régie, l’équipe dédiée, le nearshore et le forfait sont des modes d’intervention, décrits séparément.',
+      'Quand un système doit intégrer l’IA, évoluer, tenir en production ou relier des outils qui ne se parlent pas, ces six expertises couvrent le travail technique. La façon de collaborer se choisit ensuite, selon le périmètre.',
     blocks: [
       {
         type: 'cards',
         title: 'Six expertises',
         items: [
           { kicker: 'IA', title: 'Intelligence artificielle et data', text: 'IA générative, modèles, agents et automatisation intelligente, branchés sur vos données et vos droits d’accès.', hrefKey: 'ai' },
-          { kicker: 'Logiciel', title: 'Développement logiciel', text: 'Web, mobile, API, backends et intégration. Les API sont une compétence de développement, pas un secteur.', hrefKey: 'software' },
+          { kicker: 'Logiciel', title: 'Développement logiciel', text: 'Web, mobile, API, backends et intégration dans les systèmes déjà en production.', hrefKey: 'software' },
           { kicker: 'Qualité', title: 'QA et testing', text: 'Tests fonctionnels, API, non-régression et automatisation, avec un pilote avant d’élargir l’équipe.', hrefKey: 'qa' },
           { kicker: 'Cloud', title: 'Cloud et DevOps', text: 'Infrastructures, CI/CD, conteneurs et observabilité, pour tenir la mise en production.', hrefKey: 'cloud' },
           { kicker: 'Sécurité', title: 'Cybersécurité', text: 'Durcissement des applications, des accès et des systèmes exposés, dans le périmètre du projet.', hrefKey: 'cyber' },
@@ -200,7 +200,7 @@ export const pages: Record<RouteKey, PageContent> = {
         type: 'prose',
         title: 'À qui s’adressent ces services',
         paragraphs: [
-          'Directions des systèmes d’information, CTO, responsables d’ingénierie, responsables produit, opérations et qualité. Les entreprises qui ont déjà un système à faire tenir, pas seulement une idée à prototyper.',
+          'Directions des systèmes d’information, CTO, responsables d’ingénierie, responsables produit, opérations et qualité. Des entreprises qui ont un système à faire évoluer, fiabiliser ou ouvrir à de nouveaux usages, dont l’IA.',
           'Les modalités se choisissent après échange : régie, équipe dédiée ou projet au forfait. Les disponibilités, la langue de travail et le chevauchement horaire se confirment au cadrage.',
           'Lorsque des compétences sont mobilisées à Sfax, c’est avec Coconsult Nearshore, société tunisienne juridiquement indépendante. Le devis nomme la société qui contracte avec le client.',
         ],
@@ -242,11 +242,11 @@ export const pages: Record<RouteKey, PageContent> = {
         title: 'De la demande au rythme de croisière',
         items: [
           { title: 'Découverte', text: 'Contexte, stack, séniorité attendue, langue, chevauchement horaire et mode de collaboration.' },
-          { title: 'Sourcing et sélection', text: 'Recherche dans l’équipe et, si besoin, auprès de consultants indépendants. Nous ne présentons que des profils que nous pouvons expliquer.' },
+          { title: 'Sourcing et sélection', text: 'Recherche dans l’équipe et, si besoin, auprès de consultants indépendants. Chaque profil proposé est décrit avec son niveau et son expérience.' },
           { title: 'Entretien avec vous', text: 'Vous rencontrez les personnes proposées avant un démarrage.' },
           { title: 'Onboarding', text: 'Accès, référents, outils et périmètre des premières semaines, définis avec vos équipes.' },
           { title: 'Coordination', text: 'Un suivi entre la France et Sfax : priorités, blocages, qualité de ce qui est livré.' },
-          { title: 'Évolution', text: 'Le dispositif peut s’élargir ou se resserrer. Aucun délai de mise à disposition chiffré n’est garanti à l’avance.' },
+          { title: 'Évolution', text: 'Le dispositif peut s’élargir ou se resserrer. Le délai de mise à disposition se confirme au cadrage, selon les profils disponibles.' },
         ],
       },
       {
@@ -271,14 +271,14 @@ export const pages: Record<RouteKey, PageContent> = {
         title: 'Pour qui',
         intro: 'CTO, VP Engineering, Engineering Managers, QA leads et responsables produit, en France ou à l’international.',
         items: [
-          { title: 'Produit déjà en service', text: 'Le risque principal est une régression ou un parcours métier mal couvert, pas l’absence d’un slogan qualité.' },
+          { title: 'Produit déjà en service', text: 'Le risque principal est une régression ou un parcours métier mal couvert au moment d’une mise en production.' },
           { title: 'Équipe interne saturée', text: 'Le renfort prend une partie des campagnes, des scénarios ou de l’exécution, sous votre gouvernance.' },
           { title: 'Lancement ou palier', text: 'Un besoin daté, avec un périmètre de test que l’on peut expliquer en quelques parcours.' },
         ],
       },
       {
         type: 'cards',
-        title: 'Trois formats, à ne pas confondre',
+        title: 'Trois façons de renforcer la qualité',
         items: [
           { kicker: 'Renfort', title: 'Staff augmentation', text: 'Une ou plusieurs personnes rejoignent votre rituel de test existant. Vous gardez la priorité du backlog.' },
           { kicker: 'Équipe', title: 'Équipe QA dédiée', text: 'Un noyau stable, avec un point de coordination, lorsque les campagnes sont continues.' },
@@ -300,10 +300,10 @@ export const pages: Record<RouteKey, PageContent> = {
       {
         type: 'steps',
         title: 'Quatre étapes',
-        intro: 'Aucun nombre de testeurs, aucun prix et aucun délai standard ne sont promis ici.',
+        intro: 'Le premier résultat est une proposition de pilote, après avoir vu le produit et le rythme de livraison.',
         items: [
           { title: 'Discovery', text: 'Produit, risques, environnements, langue de travail, fuseau et ce qu’une première période doit démontrer.' },
-          { title: 'Matching et proposition', text: 'Profils proposés avec leur niveau réel. Vous les interviewez. La proposition décrit le pilote, pas une armée déjà en poste.' },
+          { title: 'Matching et proposition', text: 'Profils proposés avec leur niveau réel. Vous les interviewez. La proposition décrit le pilote et les personnes que vous rencontrez.' },
           { title: 'Pilote et onboarding', text: 'Accès limités aux environnements que vous ouvrez, référent, rituels et premiers scénarios. La taille de départ reste celle que le pilote peut absorber.' },
           { title: 'Delivery et reporting', text: 'Anomalies qualifiées, avancement des campagnes, points de blocage. L’élargissement de l’équipe se décide ensuite, sur la base de ce premier cycle.' },
         ],
@@ -322,7 +322,7 @@ export const pages: Record<RouteKey, PageContent> = {
         type: 'faq',
         title: 'Questions utiles avant un premier échange',
         items: [
-          { q: 'Par quelle taille commencer ?', a: 'Par un pilote que vos équipes peuvent onboarder et évaluer. Nous ne recommandons pas un effectif cible avant d’avoir vu le produit et le flux de travail.' },
+          { q: 'Par quelle taille commencer ?', a: 'Par un pilote que vos équipes peuvent intégrer et évaluer. La taille se décide après avoir vu le produit et votre façon de travailler.' },
           { q: 'Le travail est-il à distance ?', a: 'Oui. Les accès, les outils et les créneaux communs sont définis avec vous. Une présence sur site n’est pas le mode par défaut.' },
           { q: 'Quels types de tests ?', a: 'Fonctionnels, exploratoires, non-régression et API en priorité. L’automatisation et la CI/CD dépendent des profils retenus et de votre chaîne existante.' },
           { q: 'Comment les profils sont-ils évalués ?', a: 'Sélection interne, puis entretien avec vous avant démarrage. Un profil qui ne correspond pas ne rejoint pas le pilote.' },
@@ -348,13 +348,13 @@ export const pages: Record<RouteKey, PageContent> = {
         items: [
           { title: 'Double débit ou double appel', text: 'Clés d’idempotence et règles de rejeu lorsque le client ou le réseau répète une demande.' },
           { title: 'Timeouts ambigus', text: 'Un délai dépassé n’est pas un échec certain. Le parcours doit pouvoir interroger un statut et reprendre proprement.' },
-          { title: 'Écarts de caisse', text: 'La réconciliation dépend du contexte et des fichiers ou API disponibles. Elle se cadre, elle ne se décrète pas.' },
+          { title: 'Écarts de caisse', text: 'Le rapprochement se définit avec vos fichiers et vos API, selon le contexte réel des opérations.' },
           { title: 'Backends à moderniser', text: 'Services Java et contrats d’API rendus plus explicites, sans réécrire l’ensemble du système si ce n’est pas utile.' },
         ],
       },
       {
         type: 'diagram',
-        title: 'Un flux de paiement, de façon générique',
+        title: 'D’un clic jusqu’au suivi d’exploitation',
         caption: 'Parcours type d’un paiement, du clic jusqu’au suivi d’exploitation.',
         steps: [
           { title: 'Parcours', text: 'L’utilisateur confirme un paiement dans votre application.' },
@@ -456,8 +456,8 @@ export const pages: Record<RouteKey, PageContent> = {
         type: 'prose',
         title: 'Sécurité et données',
         paragraphs: [
-          'La confidentialité, le RGPD et le consentement se traitent selon le projet et les bases légales qui vous concernent. Le site ne prétend pas qu’un connecteur rend l’ensemble conforme.',
-          'Nous ne présentons pas un clone conversationnel comme un produit propriétaire prêt à l’emploi.',
+          'La confidentialité et le RGPD se traitent pour le projet concerné, selon les bases légales applicables. Brancher un modèle ne rend pas, à lui seul, un traitement conforme.',
+          'L’intégration s’appuie sur des services d’IA que vous êtes autorisé à utiliser. Coconsult ne commercialise pas un assistant conversationnel propriétaire clé en main.',
         ],
       },
       { type: 'cta', title: 'Un diagnostic cadré, avant toute intégration.', text: 'Décrivez le processus, les données en jeu et l’outil que vous envisagez. Nous dirons si un pilote est raisonnable.', primary: 'ai' },
@@ -471,9 +471,9 @@ export const pages: Record<RouteKey, PageContent> = {
     eyebrow: 'SOLUTIONS',
     h1: 'Les solutions que Coconsult construit.',
     intro:
-      'Ces produits sont distincts des réalisations livrées à des clients. COPHARIA est en développement. Une démonstration se demande en indiquant la solution.',
+      'COPHARIA est un ERP métier pour la pharmacie, encore en développement. Une démonstration se demande en nommant cette solution.',
     blocks: [
-      { type: 'work', source: 'solutions', title: 'En développement', intro: 'Le statut de chaque solution est indiqué sur la fiche.' },
+      { type: 'work', source: 'solutions', title: 'En développement', intro: 'COPHARIA est présentée avec son statut réel : une solution en développement.' },
       { type: 'cta', title: 'Demander une démonstration de COPHARIA.', text: 'Indiquez votre contexte. Nous revenons vers vous pour convenir d’un échange.', primary: 'demo' },
     ],
   },
@@ -481,17 +481,17 @@ export const pages: Record<RouteKey, PageContent> = {
     key: 'cases',
     metaTitle: 'Réalisations d’ingénierie | Coconsult',
     description:
-      'Applications métier livrées par Coconsult : gestion documentaire cédée au client, plateforme d’opérations sportives. Faits vérifiés, sans logos imposés.',
+      'Applications métier livrées par Coconsult : une gestion documentaire remise au client, et une plateforme d’opérations sportives.',
     eyebrow: 'RÉALISATIONS',
     h1: 'Des systèmes livrés, décrits avec précision.',
     intro:
-      'Chaque fiche indique la nature du système et le statut du code. Lorsqu’un client n’est pas nommé, l’expérience d’ingénierie reste la sienne.',
+      'Deux expériences vérifiées. Les clients ne sont pas nommés. Le contexte, l’enjeu et le résultat sont ceux du projet réel.',
     blocks: [
       { type: 'work', source: 'cases', title: 'Projets livrés' },
       {
         type: 'prose',
         paragraphs: [
-          'Quand le code a été cédé, il n’est pas reproposé comme un produit Coconsult.',
+          'Lorsqu’un logiciel a été remis au client, il n’est pas proposé comme un produit Coconsult.',
         ],
       },
       { type: 'cta', title: 'Un projet comparable se discute à partir du vôtre.', text: 'Décrivez le système à construire ou à fiabiliser. Nous dirons si le retour d’expérience est pertinent.', primary: 'project' },
@@ -553,7 +553,7 @@ export const pages: Record<RouteKey, PageContent> = {
         items: [
           { title: 'Client pilote', text: 'Vous testez une solution en développement sur un périmètre limité, avec un statut affiché comme tel et une démonstration préalable.' },
           { title: 'Partenaire commercial', text: 'Vous apportez un accès à un marché ou à des opérations, et Coconsult apporte l’ingénierie. Le cadre se contractualise avant toute promesse commune.' },
-          { title: 'Partenaire technique', text: 'Éditeur, intégrateur ou hébergeur : la collaboration porte sur une brique précise, pas sur un logo échangé.' },
+          { title: 'Partenaire technique', text: 'Éditeur, intégrateur ou hébergeur : la collaboration porte sur une brique précise du système.' },
         ],
       },
       {
@@ -582,7 +582,7 @@ export const pages: Record<RouteKey, PageContent> = {
       {
         type: 'inquiries',
         title: 'Votre demande',
-        intro: 'Le type se préremplit lorsque vous arrivez depuis un bouton du site.',
+        intro: 'Le sujet est déjà indiqué si vous arrivez depuis une expertise, une offre ou une solution.',
         ids: ['project', 'team', 'qaDiscuss', 'qaTeam', 'payments', 'automation', 'ai', 'partnership', 'demo'],
       },
       { type: 'note', text: 'Pour ce premier échange, restez sur le contexte du projet. Les données de cartes et les secrets se traitent ensuite sur un canal adapté.' },
@@ -655,11 +655,11 @@ export const pages: Record<RouteKey, PageContent> = {
     key: 'modes',
     metaTitle: 'Modes d’intervention | Coconsult',
     description:
-      'Régie, équipes dédiées, développement nearshore, forfait et conseil. Des modalités commerciales distinctes des expertises techniques.',
+      'Régie, équipes dédiées, développement nearshore, forfait et conseil, selon le périmètre et le rythme du projet.',
     eyebrow: 'MODES D’INTERVENTION',
     h1: 'Choisir la forme de la collaboration.',
     intro:
-      'L’expertise et le mode d’intervention se choisissent séparément. Une même équipe peut faire du développement, de l’IA, de la qualité ou du cloud.',
+      'Selon le périmètre, le travail se fait en régie, en équipe dédiée, en nearshore, au forfait ou en conseil. La même équipe peut porter le développement, l’IA, la qualité ou le cloud.',
     blocks: [
       {
         type: 'columns',
@@ -690,7 +690,7 @@ export const pages: Record<RouteKey, PageContent> = {
     eyebrow: 'CYBERSÉCURITÉ',
     h1: 'Durcir les applications et les accès que vous exposez.',
     intro:
-      'Revue des surfaces exposées, des droits et des secrets, puis correction dans le code et l’infrastructure du projet. Ce n’est pas un centre de surveillance permanent.',
+      'Vos applications, vos accès et vos secrets exposent une surface. Nous la réduisons dans le code et l’infrastructure du projet. Coconsult ne propose pas un centre de surveillance permanent.',
     blocks: [
       {
         type: 'columns',

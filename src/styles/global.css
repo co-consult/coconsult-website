@@ -509,28 +509,6 @@ h1 {
 .flow span { color: var(--muted-dark); font-size: 14px; line-height: 1.5; }
 .caption { color: var(--muted); font-size: 14px; }
 
-.concept {
-  height: 92px;
-  border-radius: 10px;
-  margin-bottom: 14px;
-  background:
-    radial-gradient(circle at 18% 50%, rgba(239, 122, 26, 0.9) 0 10px, transparent 11px),
-    radial-gradient(circle at 38% 30%, rgba(16, 164, 126, 0.9) 0 12px, transparent 13px),
-    radial-gradient(circle at 62% 40%, rgba(20, 110, 170, 0.95) 0 14px, transparent 15px),
-    linear-gradient(135deg, #0d2744, #12385f);
-  display: flex;
-  align-items: flex-end;
-  padding: 8px;
-}
-.concept span {
-  background: rgba(255, 255, 255, 0.92);
-  color: var(--ink);
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 750;
-  padding: 3px 8px;
-}
-
 .badge {
   display: inline-block;
   margin: 0 0 8px;
