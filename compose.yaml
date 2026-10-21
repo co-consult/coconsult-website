@@ -1,0 +1,16 @@
+services:
+  coconsult-web:
+    build: .
+    container_name: coconsult-web
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+      - /var/cache/nginx:rw,noexec,nosuid,size=16m
+      - /var/run:rw,noexec,nosuid,size=2m
+    ports:
+      - "127.0.0.1:3601:8080"
+    mem_limit: 128m
+    cpus: 0.5
+    security_opt:
+      - no-new-privileges:true
