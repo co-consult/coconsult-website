@@ -92,6 +92,18 @@ export const inquiries: Record<InquiryId, Record<Locale, Inquiry>> = {
       body: enBody('a scoped enterprise AI integration'),
     },
   },
+  demo: {
+    fr: {
+      label: 'Demander une démonstration',
+      subject: 'Demande de démonstration - Coconsult',
+      body: frBody('une démonstration'),
+    },
+    en: {
+      label: 'Request a demonstration',
+      subject: 'Demo request - Coconsult',
+      body: enBody('a demonstration'),
+    },
+  },
   partnership: {
     fr: {
       label: 'Proposer un partenariat',
@@ -112,6 +124,29 @@ export function getInquiry(locale: Locale, id: InquiryId): Inquiry {
 
 export function mailto(inquiry: Pick<Inquiry, 'subject' | 'body'>): string {
   return `mailto:${company.email}?subject=${encodeURIComponent(inquiry.subject)}&body=${encodeURIComponent(inquiry.body)}`;
+}
+
+const contactType: Record<InquiryId, string> = {
+  project: 'project',
+  team: 'team',
+  qaDiscuss: 'qa',
+  qaTeam: 'qa-team',
+  payments: 'payments',
+  automation: 'automation',
+  ai: 'ai',
+  partnership: 'partnership',
+  demo: 'demo',
+};
+
+export function contactPath(locale: Locale, id: InquiryId, product?: string): string {
+  const base = locale === 'fr' ? '/contact/' : '/en/contact/';
+  const params = new URLSearchParams({ type: contactType[id] });
+  if (product) params.set('product', product);
+  return `${base}?${params.toString()}`;
+}
+
+export function plainMailto(): string {
+  return `mailto:${company.email}`;
 }
 
 export function demoInquiry(locale: Locale, productName: string): Inquiry {
@@ -138,4 +173,5 @@ export const contactIntentOrder: InquiryId[] = [
   'automation',
   'ai',
   'partnership',
+  'demo',
 ];

@@ -12,6 +12,7 @@ export interface WorkItem {
   sector: Record<Locale, string>;
   summary: Record<Locale, string>;
   benefits: Record<Locale, string[]>;
+  story?: Record<Locale, { context: string; stake: string; intervention: string; result: string }>;
   cta: Record<Locale, MailLink>;
 }
 
@@ -38,8 +39,22 @@ export const workItems: WorkItem[] = [
       en: 'Document management',
     },
     summary: {
-      fr: 'Application métier de gestion documentaire et de workflows, développée pour un client et livrée. Le code d’origine a été cédé au client. Ce logiciel n’est pas un produit Coconsult réutilisable, et aucun résultat confidentiel n’est publié ici.',
-      en: 'A business application for document management and workflows, built for a client and delivered. The original source code was transferred to the client. It is not a reusable Coconsult product, and no confidential results are published here.',
+      fr: 'Application de gestion documentaire et de workflows, construite pour les opérations d’un client : parcours de traitement, suivi des dossiers et livraison du logiciel. Le code source a été cédé.',
+      en: 'A document and workflow application built for a client’s operations: processing journeys, case tracking and a delivered system. The source code was transferred.',
+    },
+    story: {
+      fr: {
+        context: 'Un client devait suivre des dossiers et des documents à travers plusieurs étapes de traitement.',
+        stake: 'Les circuits manuels rendaient le suivi difficile et le logiciel devait coller au métier réel.',
+        intervention: 'Coconsult a conçu et développé l’application de gestion documentaire et de workflows.',
+        result: 'Le logiciel a été livré. Le code source a été cédé au client.',
+      },
+      en: {
+        context: 'A client needed to follow cases and documents through several processing steps.',
+        stake: 'Manual hand-offs made the work hard to track, and the software had to fit the real operation.',
+        intervention: 'Coconsult designed and built the document and workflow application.',
+        result: 'The software was delivered. The source code was transferred to the client.',
+      },
     },
     benefits: {
       fr: [
@@ -84,8 +99,22 @@ export const workItems: WorkItem[] = [
       en: 'Sports and digital operations',
     },
     summary: {
-      fr: 'Plateforme construite autour des membres et abonnements, de la billetterie, des dons, des paiements, du streaming et des opérations. Présentée comme une expérience d’ingénierie, sans identité de club, sans chiffres et sans visuels de client.',
-      en: 'A platform built around members and subscriptions, ticketing, donations, payments, streaming and operations. Shown as engineering experience, without a club identity, metrics or client visuals.',
+      fr: 'Plateforme d’opérations autour des membres, des abonnements, de la billetterie, des dons, des paiements et du streaming. Une expérience d’ingénierie sur un produit réellement utilisé.',
+      en: 'An operations platform around members, subscriptions, ticketing, donations, payments and streaming. Engineering experience on software people actually use.',
+    },
+    story: {
+      fr: {
+        context: 'Une activité sportive avait besoin d’une plateforme pour ses opérations numériques.',
+        stake: 'Membres, abonnements, billetterie, dons, paiements et streaming devaient vivre ensemble.',
+        intervention: 'Coconsult a construit la plateforme et les parcours qui relient ces opérations.',
+        result: 'La plateforme est utilisée au quotidien.',
+      },
+      en: {
+        context: 'A sports operation needed a platform for its digital services.',
+        stake: 'Members, subscriptions, ticketing, donations, payments and streaming had to work as one.',
+        intervention: 'Coconsult built the platform and the journeys that connect those operations.',
+        result: 'The platform is used day to day.',
+      },
     },
     benefits: {
       fr: [
@@ -116,7 +145,7 @@ export const workItems: WorkItem[] = [
     id: 'business-saas',
     group: 'solution',
     order: 30,
-    visible: true,
+    visible: false,
     title: {
       fr: 'Plateforme SaaS métier (nom à venir)',
       en: 'Business SaaS platform (name to be confirmed)',
@@ -173,8 +202,8 @@ export const workItems: WorkItem[] = [
       en: 'Pharmaceutical business ERP',
     },
     summary: {
-      fr: 'ERP métier pour la pharmacie, avec des modules en cours de développement. Aucune validation réglementaire n’est revendiquée.',
-      en: 'A pharmaceutical business ERP, with modules still in development. No regulatory validation is claimed.',
+      fr: 'ERP métier pour la pharmacie, avec des modules en cours de développement.',
+      en: 'A pharmaceutical business ERP, with modules still in development.',
     },
     benefits: {
       fr: [
@@ -205,7 +234,7 @@ export const workItems: WorkItem[] = [
     id: 'cogeex',
     group: 'solution',
     order: 50,
-    visible: true,
+    visible: false,
     title: { fr: 'Cogeex', en: 'Cogeex' },
     status: {
       fr: 'Projet en développement',

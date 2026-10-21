@@ -1,48 +1,71 @@
 ---
-import { heroTeamLabel } from '@/content/ui';
+import { ui } from '@/content/ui';
 import type { Locale, PageContent } from '@/content/types';
-import { getInquiry, mailto } from '@/data/inquiries';
+import { contactPath, getInquiry } from '@/data/inquiries';
+import { pathFor } from '@/data/routes';
 
 interface Props { locale: Locale; page: PageContent; }
 const { locale, page } = Astro.props;
+const t = ui[locale];
 const visual = page.hero;
 const primary = page.heroPrimary ? getInquiry(locale, page.heroPrimary) : null;
-const secondary = page.heroSecondary ? getInquiry(locale, page.heroSecondary) : null;
-const secondaryLabel = page.heroSecondary === 'team' ? heroTeamLabel[locale] : secondary?.label;
+const secondaryInquiry = page.heroSecondary ? getInquiry(locale, page.heroSecondary) : null;
+const secondaryHref = page.heroExplore
+  ? pathFor(locale, 'services')
+  : page.heroSecondary
+    ? contactPath(locale, page.heroSecondary)
+    : '';
+const secondaryLabel = page.heroExplore ? t.explore : secondaryInquiry?.label;
+const nodeHrefs = [pathFor(locale, 'ai'), pathFor(locale, 'software'), pathFor(locale, 'cloud'), pathFor(locale, 'qa')];
 ---
-{visual && primary && secondary && secondaryLabel && (
+{visual && primary && secondaryHref && secondaryLabel && (
   <div class="hero-wrap">
     <section class="hero container" aria-labelledby="hero-heading">
-      <div>
+      <div class="hero-copy">
         <p class="eyebrow"><span class="pulse-dot" aria-hidden="true"></span>{page.eyebrow}</p>
-        <h1 id="hero-heading">{page.h1}<br /><span>{page.h1Accent}</span></h1>
+        <h1 id="hero-heading">{page.h1}{page.h1Accent && <><br /><span>{page.h1Accent}</span></>}</h1>
         <p class="hero-lead">{page.intro}</p>
         <div class="hero-buttons">
-          <a class="btn primary" href={mailto(primary)}>{primary.label}</a>
-          <a class="btn secondary" href={mailto(secondary)}>{secondaryLabel}</a>
+          <a class="btn primary" href={contactPath(locale, page.heroPrimary!)}>{primary.label}</a>
+          <a class="btn secondary" href={secondaryHref}>{secondaryLabel}</a>
         </div>
         <ul class="hero-facts">
           {visual.facts.map((fact) => <li>{fact}</li>)}
         </ul>
       </div>
-      <div class="hero-visual">
-        <div class="visual-eyebrow"><span class="pulse-dot" aria-hidden="true"></span>{visual.diagramTitle}</div>
-        <div class="network">
-          <div class="network-glow"></div>
-          <svg class="network-lines" viewBox="0 0 560 430" fill="none" aria-hidden="true">
-            <path d="M280 216 120 102M280 216 440 102M280 216 115 334M280 216 441 334" stroke-width="1.4" />
-            <circle cx="280" cy="216" r="132" stroke-width="1" />
-          </svg>
-          <div class="center-node">
-            <strong>{visual.centerTitle}</strong>
-            <small>{visual.centerSub}</small>
-          </div>
+      <figure class="ecosystem">
+        <figcaption class="visual-eyebrow"><span class="pulse-dot" aria-hidden="true"></span>{visual.diagramTitle}</figcaption>
+        <svg class="ecosystem-svg" viewBox="0 0 640 480" aria-hidden="true">
+          <defs>
+            <radialGradient id="hub-glow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#3ee0ff" stop-opacity="0.55" />
+              <stop offset="70%" stop-color="#12345c" stop-opacity="0.2" />
+              <stop offset="100%" stop-color="#06101f" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+          <circle cx="320" cy="230" r="168" class="orbit" />
+          <circle cx="320" cy="230" r="108" class="orbit orbit-inner" />
+          <path class="flow" d="M320 230 L320 86" />
+          <path class="flow flow-b" d="M320 230 L108 250" />
+          <path class="flow flow-c" d="M320 230 L532 168" />
+          <path class="flow flow-d" d="M320 230 L320 392" />
+          <circle cx="320" cy="230" r="78" fill="url(#hub-glow)" />
+          <circle class="node-dot" cx="320" cy="86" r="5" />
+          <circle class="node-dot" cx="108" cy="250" r="5" />
+          <circle class="node-dot" cx="532" cy="168" r="5" />
+          <circle class="node-dot" cx="320" cy="392" r="5" />
+        </svg>
+        <p class="hub-label">
+          <strong>{visual.centerTitle}</strong>
+          <small>{visual.centerSub}</small>
+        </p>
+        <ul class="orbit-nodes">
           {visual.nodes.map((node, index) => (
-            <div class={`floating-node n${index + 1}`}><span class="node-badge" aria-hidden="true">{index + 1}</span>{node}</div>
+            <li><a href={nodeHrefs[index]}>{node}</a></li>
           ))}
-        </div>
-        <div class="visual-bottom">{visual.note}</div>
-      </div>
+        </ul>
+        <p class="visual-bottom">{visual.note}</p>
+      </figure>
     </section>
   </div>
 )}

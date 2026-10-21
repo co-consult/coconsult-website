@@ -4,88 +4,157 @@ import { legalPage, privacyPage } from '@/content/legal-pages';
 export const pages: Record<RouteKey, PageContent> = {
   home: {
     key: 'home',
-    metaTitle: 'Coconsult — Software engineering, teams and business systems',
+    metaTitle: 'Coconsult — Software engineering, artificial intelligence and tech teams',
     description:
-      'Coconsult designs, integrates and strengthens business-critical software. Dedicated teams, QA, payments and integration from France, in collaboration with Sfax.',
-    eyebrow: 'SOFTWARE ENGINEERING · FRANCE & TUNISIA',
-    h1: 'Reliable systems.',
-    h1Accent: 'Projects that move forward.',
+      'Coconsult designs, builds and modernises digital products: software, AI and data, quality, cloud and DevOps, with teams shaped around the project.',
+    eyebrow: 'SOFTWARE ENGINEERING · AI · TECH TEAMS',
+    h1: 'From artificial intelligence to business applications.',
+    h1Accent: 'We build your digital systems.',
     intro:
-      'We design, integrate and strengthen business-critical software. From specialized engineers to dedicated teams, Coconsult helps you deliver with confidence.',
+      'Coconsult designs, builds and modernises the systems its clients run. Engineering teams in France, working with Coconsult Nearshore in Sfax, carry a project through to production.',
     heroPrimary: 'project',
-    heroSecondary: 'team',
+    heroExplore: true,
     hero: {
-      facts: ['Engineering and integration', 'Skills mobilised with Sfax', 'From architecture to production'],
-      diagramTitle: 'ENGINEERING THAT CONNECTS YOUR SYSTEMS',
-      centerTitle: 'Your systems',
-      centerSub: 'Reliability · Integration · Delivery',
-      nodes: ['Payments & APIs', 'QA & testing', 'Business workflows', 'Cloud & DevOps'],
-      note: 'Connect systems. Keep flows dependable. Ship software operations can run.',
+      facts: ['Artificial intelligence', 'Software development', 'Teams in France and Sfax'],
+      diagramTitle: 'AN ENGINEERING SYSTEM',
+      centerTitle: 'Your system',
+      centerSub: 'Design · Build · Modernise',
+      nodes: ['AI and data', 'Software engineering', 'Cloud and DevOps', 'Quality and security'],
+      note: 'Four disciplines, one person to scope the work.',
     },
     blocks: [
       {
         type: 'cards',
-        title: 'Four ways to start',
-        intro: 'Each offer has its own page: who it is for, what is delivered, and how a collaboration begins.',
+        title: 'Our expertise',
+        intro: 'From AI to business applications, each discipline answers a concrete problem: ship, stabilise or modernise a system that already matters.',
+        layout: 'bento',
         items: [
-          { kicker: '01', title: 'Dedicated teams', text: 'Java, Angular, full-stack or DevOps engineers, as individual reinforcement or as a squad, based on people we can actually staff.', hrefKey: 'dedicated' },
-          { kicker: '02', title: 'QA and testing', text: 'Functional, exploratory, regression and API testing. A reasonable pilot first, then a gradual increase if it is working.', hrefKey: 'qa' },
-          { kicker: '03', title: 'Payments', text: 'Payment APIs, transaction flows, retries and observability. No card-security certification is claimed.', hrefKey: 'payments' },
-          { kicker: '04', title: 'Business automation', text: 'ERP, document systems, APIs and workflows connected so people stop retyping the same data.', hrefKey: 'automation' },
+          { kicker: '01', title: 'Artificial intelligence and data', text: 'Generative AI, model integration, agents and intelligent automation, applied to your data and your processes.', hrefKey: 'ai' },
+          { kicker: '02', title: 'Software development', text: 'Web and mobile applications, APIs, backends and integration into the system you already run.', hrefKey: 'software' },
+          { kicker: '03', title: 'QA and testing', text: 'Functional, API, regression and automated testing, so the software your teams run stays dependable.', hrefKey: 'qa' },
+          { kicker: '04', title: 'Cloud and DevOps', text: 'Cloud platforms, CI/CD, containers and observability, so a release can be operated.', hrefKey: 'cloud' },
+          { kicker: '05', title: 'Cybersecurity', text: 'Hardening of applications, access and exposed systems, within the project scope.', hrefKey: 'cyber' },
+          { kicker: '06', title: 'Integration and processes', text: 'APIs, connectors and workflows between the tools that still force people to retype.', hrefKey: 'automation' },
+        ],
+      },
+      {
+        type: 'challenge',
+        title: 'What is the challenge?',
+        intro: 'Name what is blocking you. The useful expertise, a use case and a way of working together appear.',
+        items: [
+          {
+            id: 'ai',
+            label: 'Bring in AI',
+            expertise: 'Artificial intelligence and data',
+            expertiseKey: 'ai',
+            useCase: 'Connect a model to a process your teams already know: access rights, traceability and a bounded use case before it grows.',
+            mode: 'A fixed-scope pilot, or a team for the discovery.',
+            inquiry: 'ai',
+          },
+          {
+            id: 'app',
+            label: 'Build an application',
+            expertise: 'Software development',
+            expertiseKey: 'software',
+            useCase: 'A web or mobile application tied to your APIs and business rules, through to a release your teams can run.',
+            mode: 'Fixed scope when the boundary is clear. Otherwise, staff augmentation or a dedicated team.',
+            inquiry: 'project',
+          },
+          {
+            id: 'team',
+            label: 'Strengthen my team',
+            expertise: 'Dedicated teams',
+            expertiseKey: 'dedicated',
+            useCase: 'Engineers who join your delivery, with scoping from France.',
+            mode: 'Staff augmentation or a dedicated team. Nearshore work is with Coconsult Nearshore, a separate company in Sfax.',
+            inquiry: 'team',
+          },
+          {
+            id: 'quality',
+            label: 'Raise software quality',
+            expertise: 'QA and testing',
+            expertiseKey: 'qa',
+            useCase: 'Functional campaigns, API tests and regression, starting with a pilot you can judge.',
+            mode: 'QA staff augmentation or a dedicated team.',
+            inquiry: 'qaDiscuss',
+          },
+          {
+            id: 'infra',
+            label: 'Modernise my infrastructure',
+            expertise: 'Cloud and DevOps',
+            expertiseKey: 'cloud',
+            useCase: 'Delivery pipeline, environments and observability for an application already in production.',
+            mode: 'Advisory to scope the work, then a team if the platform needs it.',
+            inquiry: 'project',
+          },
         ],
       },
       {
         type: 'columns',
-        title: 'How the work is different',
-        intro: 'Engineering for complex business systems, from integration through production.',
+        title: 'Ways of working',
+        layout: 'rail',
+        intro: 'Five ways to run the project, depending on scope and pace. Coconsult supports its clients from France and works with Coconsult Nearshore, a legally independent Tunisian company based in Sfax, to bring in engineering skills and build dedicated teams.',
         items: [
-          { title: 'Systems you already run', text: 'We start from your landscape, operating constraints and the teams who use the software.' },
-          { title: 'Flows that recover', text: 'Timeouts, retries, idempotency and supervision are delivery work, not a late extra.' },
-          { title: 'France and Tunisia', text: 'Scoping from France, with Coconsult Nearshore, a legally independent Tunisian company based in Sfax, for engineering and dedicated teams.' },
-          { title: 'Automation with a job', text: 'A specific connector or control beats a general speech about digital change.' },
+          { title: 'Staff augmentation', text: 'One or more engineers for a defined stretch of delivery.' },
+          { title: 'Dedicated teams', text: 'A stable squad when the backlog justifies a continuous setup.' },
+          { title: 'Nearshore development', text: 'Technical skills mobilised with Coconsult Nearshore, an independent Tunisian company based in Sfax.' },
+          { title: 'Fixed scope', text: 'A scope clear enough to estimate, deliver and accept.' },
+          { title: 'Advisory', text: 'Architecture, business analysis and technical leadership when the project needs them.' },
         ],
       },
       {
-        type: 'steps',
-        title: 'How a collaboration starts',
+        type: 'columns',
+        title: 'Where we have worked',
+        intro: 'Sectors where Coconsult has already designed, integrated or stabilised systems.',
         items: [
-          { title: 'Understand', text: 'Goals, systems, timing and how much autonomy you expect from the team.' },
-          { title: 'Propose', text: 'A readable shape: staff augmentation, a dedicated team, or a fixed scope when the scope is real.' },
-          { title: 'Deliver', text: 'Design, build, test and release, with a technical counterpart.' },
-          { title: 'Adjust', text: 'The team changes with the actual backlog. We do not publish a fictional headcount.' },
+          { title: 'Banking, finance and payments', text: 'Transaction journeys, payment API integration and flows that recover.' },
+          { title: 'E-commerce and retail', text: 'Purchase journeys, catalogues and operations connected to the systems already in place.' },
+          { title: 'Industry and operations', text: 'ERP, documents and workflows where retyping and manual hand-offs cost time.' },
+          { title: 'Health and pharmacy', text: 'COPHARIA, a pharmaceutical business ERP currently in development.' },
+          { title: 'Digital platforms', text: 'Products people use: members, operations, content and payments on one foundation.' },
         ],
       },
-      { type: 'work', source: 'cases', title: 'Work we can explain', intro: 'Verified facts and an explicit status. No client logos and no unpublished metrics.' },
-      { type: 'work', source: 'solutions', title: 'Solutions in progress', intro: 'Coconsult products and projects, separate from software whose code now belongs to a client.' },
-      { type: 'cta', title: 'The next project starts with a conversation.', text: 'Fixed scope, a team, testing, payments or automation: the message is sent from your own mail client.', primary: 'project', secondary: 'team' },
+      { type: 'work', source: 'cases', title: 'Selected delivery', intro: 'Two delivered systems: the context, the stake and what Coconsult built.' },
+      { type: 'work', source: 'solutions', title: 'Products Coconsult is building', intro: 'COPHARIA is a pharmaceutical ERP still in development, separate from projects already delivered.' },
+      {
+        type: 'columns',
+        title: 'Why work with Coconsult',
+        items: [
+          { title: 'Useful innovation', text: 'AI and new architecture are applied to a process your teams already use.' },
+          { title: 'Execution', text: 'Development, quality, cloud or integration, carried through to a release your teams can operate.' },
+          { title: 'A clear frame', text: 'The quotation, the contract and the invoice name the company that contracts with the client.' },
+        ],
+      },
+      { type: 'cta', title: 'Tell us about the project you have in mind.', text: 'Development, AI, quality, cloud or a team: describe the need and we will come back to you.', primary: 'project', secondary: 'team' },
     ],
   },
   services: {
     key: 'services',
-    metaTitle: 'Software engineering services | Coconsult',
+    metaTitle: 'Expertise | Coconsult',
     description:
-      'Dedicated teams, QA, payments, automation and enterprise AI integration. Coconsult connects France–Tunisia engineering to the systems you already run.',
-    eyebrow: 'SERVICES',
-    h1: 'From a single specialist to a team that can hold delivery.',
+      'Artificial intelligence, software, quality, cloud, cybersecurity and integration, to design systems and keep them running.',
+    eyebrow: 'EXPERTISE',
+    h1: 'Coconsult’s technical expertise.',
     intro:
-      'Coconsult sells engineering, integration and team setups. The right shape depends on the scope, the systems already in place, and the people we can actually mobilize.',
+      'When a system needs AI, has to evolve, must stay in production, or has to connect tools that do not talk, these six disciplines cover the technical work. How we collaborate is chosen afterwards, from the scope.',
     blocks: [
       {
         type: 'cards',
-        title: 'Five offers, one technical counterpart',
+        title: 'Six disciplines',
         items: [
-          { kicker: 'Teams', title: 'Engineering and dedicated teams', text: 'Java/Spring, Angular, full-stack, cloud and DevOps. Reinforcement or a squad, time-and-materials or fixed scope after discovery.', hrefKey: 'dedicated' },
-          { kicker: 'Quality', title: 'QA and software testing', text: 'Functional, exploratory, regression and API testing. A pilot, then more capacity if the setup fits.', hrefKey: 'qa' },
-          { kicker: 'Transactions', title: 'Payments engineering', text: 'Transaction journeys, provider APIs, retries and observability. No certification badge is displayed.', hrefKey: 'payments' },
-          { kicker: 'Operations', title: 'Automation and integration', text: 'ERP, document systems, APIs and approval flows. We do not promise to replace every ERP.', hrefKey: 'automation' },
-          { kicker: 'AI', title: 'Scoped enterprise AI', text: 'Existing tools, permissions, traceability and a defined use case. Not a proprietary general chatbot.', hrefKey: 'ai' },
+          { kicker: 'AI', title: 'Artificial intelligence and data', text: 'Generative AI, models, agents and intelligent automation, connected to your data and access rights.', hrefKey: 'ai' },
+          { kicker: 'Software', title: 'Software development', text: 'Web, mobile, APIs, backends and integration into systems already in production.', hrefKey: 'software' },
+          { kicker: 'Quality', title: 'QA and testing', text: 'Functional, API, regression and automated testing, with a pilot before the team grows.', hrefKey: 'qa' },
+          { kicker: 'Cloud', title: 'Cloud and DevOps', text: 'Platforms, CI/CD, containers and observability, so a release can be operated.', hrefKey: 'cloud' },
+          { kicker: 'Security', title: 'Cybersecurity', text: 'Hardening of applications, access and exposed systems, within the project scope.', hrefKey: 'cyber' },
+          { kicker: 'Process', title: 'Integration and processes', text: 'Connectors and workflows across ERP, documents and business tools.', hrefKey: 'automation' },
         ],
       },
       {
         type: 'prose',
         title: 'Who these services are for',
         paragraphs: [
-          'CIOs, CTOs, engineering managers, heads of product, operations and quality. Companies that already have a system to keep reliable, not only an idea to prototype.',
+          'CIOs, CTOs, engineering managers, heads of product, operations and quality. Companies with a system to evolve, stabilise, or open to new uses, including AI.',
           'Engagement shape is chosen after a conversation: time and materials, a dedicated team, or a fixed-scope project. Availability, working language and hours of overlap are confirmed during discovery.',
           'When skills are mobilised in Sfax, that is with Coconsult Nearshore, a legally independent Tunisian company. The quotation names the company that contracts with the client.',
         ],
@@ -127,14 +196,14 @@ export const pages: Record<RouteKey, PageContent> = {
         title: 'From the request to a steady rhythm',
         items: [
           { title: 'Discovery', text: 'Context, stack, seniority, language, overlap hours and how you want to collaborate.' },
-          { title: 'Sourcing and selection', text: 'Search within the team and, if needed, among independent consultants. We only introduce people we can explain.' },
+          { title: 'Sourcing and selection', text: 'Search within the team and, if needed, among independent consultants. Each proposed profile is described with their level and experience.' },
           { title: 'Your interview', text: 'You meet the proposed people before anyone starts.' },
           { title: 'Onboarding', text: 'Access, counterparts, tools and the first weeks of scope, defined with your team.' },
           { title: 'Coordination', text: 'A France–Sfax follow-up on priorities, blockers and the quality of what ships.' },
-          { title: 'Evolution', text: 'The setup can grow or shrink. No staffing lead time is guaranteed up front.' },
+          { title: 'Evolution', text: 'The setup can grow or shrink. Staffing lead time is confirmed during discovery, according to who is available.' },
         ],
       },
-      { type: 'note', text: 'We do not publish rates, salaries or a standing headcount. A team is assembled for an identified need, not from a frozen catalogue. The quotation, the contract and the invoice name the company that contracts with the client. Engineers based in Sfax are not employees of COCONSULT SAS merely because of this collaboration.' },
+      { type: 'note', text: 'The quotation, the contract and the invoice name the company that contracts with the client. Engineers based in Sfax are not employees of COCONSULT SAS merely because of this collaboration.' },
       { type: 'cta', title: 'Tell us about the team you need.', text: 'Stack, seniority, expected duration and working mode are enough for a first conversation.', primary: 'team', secondary: 'project' },
     ],
   },
@@ -146,21 +215,21 @@ export const pages: Record<RouteKey, PageContent> = {
     eyebrow: 'QA & TESTING',
     h1: 'Dedicated QA and testing teams',
     intro:
-      'Hand us a testing need, review qualified profiles, start a pilot your team can absorb, then add people only when the work rate justifies it. No headcount, price or service level is promised on this page.',
+      'Hand us a testing need, review qualified profiles, start a pilot your team can absorb, then add people when the work rate justifies it.',
     blocks: [
       {
         type: 'columns',
         title: 'Who this is for',
         intro: 'CTOs, VPs of Engineering, engineering managers, QA leads and heads of product, including teams outside France.',
         items: [
-          { title: 'A product already in use', text: 'The risk is a regression or a business path with thin coverage, not the lack of a quality slogan.' },
+          { title: 'A product already in use', text: 'The main risk is a regression, or a business journey that is thinly covered, at the moment of a release.' },
           { title: 'An internal team at capacity', text: 'Extra people take campaigns, scenarios or execution, under your governance.' },
           { title: 'A release or a step-up', text: 'A dated need, with a test scope that can be explained as a handful of journeys.' },
         ],
       },
       {
         type: 'cards',
-        title: 'Three setups, kept distinct',
+        title: 'Three ways to add testing capacity',
         items: [
           { kicker: 'Augmentation', title: 'Staff augmentation', text: 'One or more testers join the ritual you already run. You keep backlog priority.' },
           { kicker: 'Team', title: 'Dedicated QA team', text: 'A stable core with a coordination point, when campaigns are continuous.' },
@@ -182,10 +251,10 @@ export const pages: Record<RouteKey, PageContent> = {
       {
         type: 'steps',
         title: 'Four steps',
-        intro: 'You leave with a proposal for a pilot, not a promise that a large bench is waiting.',
+        intro: 'The first result is a pilot proposal, after we have seen the product and the release rhythm.',
         items: [
           { title: 'Discovery', text: 'Product, risks, environments, working language, time zone and what the first period must prove.' },
-          { title: 'Matching and proposal', text: 'Profiles described at their real level. You interview them. The proposal covers the pilot, not a team already sitting idle.' },
+          { title: 'Matching and proposal', text: 'Profiles described at their real level. You interview them. The proposal covers the pilot and the people you meet.' },
           { title: 'Pilot and onboarding', text: 'Access limited to the environments you open, a counterpart, rituals and the first scenarios. Starting size is whatever the pilot can absorb.' },
           { title: 'Delivery and reporting', text: 'Qualified defects, campaign progress and blockers. Growing the team is a decision after that first cycle, not a default.' },
         ],
@@ -204,26 +273,25 @@ export const pages: Record<RouteKey, PageContent> = {
         type: 'faq',
         title: 'Before the first call',
         items: [
-          { q: 'How large should we start?', a: 'With a pilot your people can onboard and judge. We will not recommend a target headcount before seeing the product and the way you work.' },
+          { q: 'How large should we start?', a: 'With a pilot your people can onboard and judge. The size is decided after we have seen the product and the way you work.' },
           { q: 'Is the work remote?', a: 'Yes. Access, tools and shared hours are defined with you. On-site presence is not the default.' },
           { q: 'What kinds of testing?', a: 'Functional, exploratory, regression and API testing come first. Automation and CI/CD depend on the people selected and on the pipeline you already have.' },
           { q: 'How are people evaluated?', a: 'Internal selection, then an interview with you before a start. A profile that does not fit does not join the pilot.' },
           { q: 'How does the team change later?', a: 'After the pilot, people can be added if the volume justifies it and profiles are available. Reducing the team is equally possible.' },
         ],
       },
-      { type: 'note', text: 'Coconsult does not present dozens of QA engineers as already on staff. People are proposed, hired or contracted for a confirmed need.' },
-      { type: 'cta', title: 'Start with the testing need, or ask for a team.', text: 'Both buttons open your mail client. The subject line is different so the request is routed clearly.', primary: 'qaDiscuss', secondary: 'qaTeam' },
+      { type: 'cta', title: 'Start with the testing need, or ask for a team.', text: 'Two ways in: scope the subject, or ask for a team for a pilot.', primary: 'qaDiscuss', secondary: 'qaTeam' },
     ],
   },
   payments: {
     key: 'payments',
     metaTitle: 'Payments and transaction API engineering | Coconsult',
     description:
-      'Payment-provider integration, transaction flows, idempotency, retries and observability. Coconsult does not claim a card-security certification.',
+      'Payment-provider integration, transaction flows, idempotency, retries and observability.',
     eyebrow: 'PAYMENTS',
     h1: 'Make payment flows and the APIs behind them dependable.',
     intro:
-      'Coconsult designs and integrates transaction journeys into existing applications: provider calls, statuses, retries and supervision. Banking and payments experience is not a licence to publish client names.',
+      'Coconsult designs and integrates transaction journeys into existing applications: provider calls, statuses, retries and supervision.',
     blocks: [
       {
         type: 'columns',
@@ -231,14 +299,14 @@ export const pages: Record<RouteKey, PageContent> = {
         items: [
           { title: 'Duplicate charges or duplicate calls', text: 'Idempotency keys and replay rules when the client or the network repeats a request.' },
           { title: 'Ambiguous timeouts', text: 'A timeout is not automatically a failure. The flow has to be able to read a status and continue cleanly.' },
-          { title: 'Reconciliation gaps', text: 'Matching payments to operations depends on the context and on the files or APIs you can use. It is scoped, not assumed.' },
+          { title: 'Reconciliation gaps', text: 'Matching payments to operations is defined with your files and APIs, from the way the operation actually runs.' },
           { title: 'Backends to modernise', text: 'Java services and API contracts made more explicit, without rewriting the whole estate when that is not useful.' },
         ],
       },
       {
         type: 'diagram',
-        title: 'A payment flow, drawn generically',
-        caption: 'An explanatory diagram. No provider, bank or real data is shown.',
+        title: 'From the click to operations follow-up',
+        caption: 'A typical payment journey, from the click through to operations follow-up.',
         steps: [
           { title: 'Journey', text: 'A user confirms a payment in your application.' },
           { title: 'Control', text: 'Amount, unique reference, maximum wait and the rule if the same request returns.' },
@@ -257,7 +325,6 @@ export const pages: Record<RouteKey, PageContent> = {
           'Observability that operations can actually use',
         ],
       },
-      { type: 'note', text: 'No card-security certification is claimed. Banks and payment-product names are not used as commercial references.' },
       { type: 'cta', title: 'A diagnostic starts with a focused note.', text: 'Describe the journey, the provider you have in mind and the current symptom: duplicate calls, an uncertain status, or an operations gap.', primary: 'payments' },
     ],
   },
@@ -265,7 +332,7 @@ export const pages: Record<RouteKey, PageContent> = {
     key: 'automation',
     metaTitle: 'Business automation and systems integration | Coconsult',
     description:
-      'Diagnostics, APIs, connectors and workflows across ERP and document systems. Coconsult reduces retyping without promising to replace your ERP.',
+      'Diagnostics, APIs, connectors and workflows across ERP and document systems. The aim is to cut retyping where the rules are stable.',
     eyebrow: 'BUSINESS AUTOMATION',
     h1: 'Connect the tools that still make people retype.',
     intro:
@@ -302,7 +369,6 @@ export const pages: Record<RouteKey, PageContent> = {
           'We hand over a scope your team can run: written rules, logs and a counterpart during the first weeks of operation.',
         ],
       },
-      { type: 'note', text: 'Coconsult does not promise to replace every ERP, or to automate a process whose business rules are still moving.' },
       { type: 'cta', title: 'Describe the circuit that sticks.', text: 'One concrete example — an order, a case file, an approval — is enough to see whether a diagnostic is worthwhile.', primary: 'automation' },
     ],
   },
@@ -310,11 +376,11 @@ export const pages: Record<RouteKey, PageContent> = {
     key: 'ai',
     metaTitle: 'Secure enterprise AI integration | Coconsult',
     description:
-      'Coconsult integrates AI tools you already use: permissions, traceability and a bounded use case. No automatic compliance claim.',
-    eyebrow: 'ENTERPRISE AI',
-    h1: 'Integrate AI into the system you already operate.',
+      'Coconsult integrates AI tools you already use: permissions, traceability and a bounded use case.',
+    eyebrow: 'ARTIFICIAL INTELLIGENCE AND DATA',
+    h1: 'Put AI to work on a process you already understand.',
     intro:
-      'The offer is integration, not a general-purpose assistant for sale. We scope a use case, connect an existing tool under your organisation’s permissions, and leave a record of what was asked.',
+      'Generation, model integration, agents and intelligent automation. The use case, access rights and traceability are scoped before a pilot, inside the applications you already run.',
     blocks: [
       {
         type: 'columns',
@@ -341,8 +407,8 @@ export const pages: Record<RouteKey, PageContent> = {
         type: 'prose',
         title: 'Security and data',
         paragraphs: [
-          'Confidentiality, privacy law and consent are handled for the specific project and the legal bases that apply to you. A connector is not presented as making the whole company compliant.',
-          'We do not offer a conversational clone as a ready-made proprietary product.',
+          'Confidentiality and privacy law are handled for the project in question, under the legal bases that apply. Connecting a model does not, by itself, make a processing activity compliant.',
+          'Integration uses AI services you are entitled to use. Coconsult does not sell a proprietary conversational assistant as a finished product.',
         ],
       },
       { type: 'cta', title: 'A bounded diagnostic, before any integration.', text: 'Describe the process, the data involved and the tool you have in mind. We will say whether a pilot is reasonable.', primary: 'ai' },
@@ -350,36 +416,33 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   solutions: {
     key: 'solutions',
-    metaTitle: 'Solutions and demos | Coconsult',
+    metaTitle: 'Coconsult solutions | COPHARIA',
     description:
-      'COPHARIA, Cogeex and a business SaaS platform still without a trade name. Honest status, demos on request, no invented screenshots.',
+      'COPHARIA, a pharmaceutical business ERP in development. Request a demonstration from the contact page.',
     eyebrow: 'SOLUTIONS',
-    h1: 'Solutions described at the stage they have reached.',
+    h1: 'Products Coconsult is building.',
     intro:
-      'This page separates Coconsult products and projects from deliveries whose code belongs to the client. Status is shown as it is. A demo request is an email that names the solution.',
+      'COPHARIA is a business ERP for pharmacy, still in development. A demonstration request names that solution.',
     blocks: [
-      { type: 'work', source: 'solutions', title: 'Entries maintained in the site configuration', intro: 'Titles, order, visibility and copy change in a single data file.' },
-      { type: 'note', text: 'Illustrations are diagrams. Until an authorised capture is provided, no image is presented as a real interface.' },
-      { type: 'cta', title: 'Request the demo that matches your context.', text: 'Each card opens an email whose subject line carries the solution name.', primary: 'project' },
+      { type: 'work', source: 'solutions', title: 'In development', intro: 'COPHARIA is shown with its real status: a solution in development.' },
+      { type: 'cta', title: 'Request a COPHARIA demonstration.', text: 'Share your context. We will come back to arrange a conversation.', primary: 'demo' },
     ],
   },
   cases: {
     key: 'cases',
     metaTitle: 'Engineering case studies | Coconsult',
     description:
-      'Business applications delivered by Coconsult: a document system transferred to the client, and a sports operations platform. Verified facts only.',
+      'Business applications delivered by Coconsult: a document system handed to the client, and a sports operations platform.',
     eyebrow: 'CASE STUDIES',
-    h1: 'What delivered projects allow us to say.',
+    h1: 'Systems we have delivered.',
     intro:
-      'We publish only what we can stand behind: the kind of system, the status of the code, and a general sector. No invented quotes and no metrics we are not allowed to share.',
+      'Two verified experiences. Clients are not named. The context, the stake and the result are those of the real project.',
     blocks: [
-      { type: 'work', source: 'cases', title: 'References, explained', intro: 'A case stays anonymous when commercial detail is not publishable.' },
+      { type: 'work', source: 'cases', title: 'Delivered projects' },
       {
         type: 'prose',
-        title: 'How to read these entries',
         paragraphs: [
-          'A client delivery is not a product to relicense. When the code was transferred, Coconsult does not sell it again.',
-          'A platform described without its customer remains engineering experience. It is not offered as a white-label product ready for resale.',
+          'When software was handed to the client, it is not offered as a Coconsult product.',
         ],
       },
       { type: 'cta', title: 'A similar project starts from yours.', text: 'Describe the system to build or to stabilise. We will say whether the experience is relevant.', primary: 'project' },
@@ -401,16 +464,15 @@ export const pages: Record<RouteKey, PageContent> = {
         items: [
           { title: 'Scoping close to the client', text: 'Needs, constraints and priorities are understood with your team, from France when that is the right relay.' },
           { title: 'Engineering in Sfax', text: 'Coconsult Nearshore can mobilise engineering skills for the agreed scope. The two companies have different directors.' },
-          { title: 'Independent specialists', text: 'Independent consultants can complete a setup. They are engaged for a need, not to inflate a published headcount.' },
+          { title: 'Independent specialists', text: 'Independent consultants can complete a setup when the role calls for it.' },
         ],
       },
       {
         type: 'prose',
         title: 'What the company sells',
         paragraphs: [
-          'Fixed-scope projects when the scope allows it, integration into existing systems, dedicated teams, testing and payments missions, and support for business solutions still being built.',
+          'Fixed-scope projects when the scope allows it, integration into existing systems, dedicated teams, testing and payments engineering, and support for business solutions still being built.',
           'The quotation, the contract and the invoice name the company that contracts with the client.',
-          'The site exists to qualify a commercial conversation. It is not a catalogue of every product idea, and it is not a recruiting marketplace.',
         ],
       },
       {
@@ -442,7 +504,7 @@ export const pages: Record<RouteKey, PageContent> = {
         items: [
           { title: 'Pilot customer', text: 'You try a solution in development on a limited scope, with that status shown openly, after a demo.' },
           { title: 'Commercial partner', text: 'You bring market or operational access. Coconsult brings engineering. The frame is contracted before any joint promise.' },
-          { title: 'Technical partner', text: 'A vendor, integrator or host: the collaboration is about a specific component, not an exchanged logo.' },
+          { title: 'Technical partner', text: 'A vendor, integrator or host: the collaboration is about a specific part of the system.' },
         ],
       },
       {
@@ -455,34 +517,149 @@ export const pages: Record<RouteKey, PageContent> = {
           'What will be decided at the end: extend, change or stop',
         ],
       },
-      { type: 'note', text: 'No partner is displayed until they have explicitly allowed the citation.' },
-      { type: 'cta', title: 'Propose a pilot or a partnership.', text: 'The subject line keeps this request distinct from a standard engineering project.', primary: 'partnership' },
+      { type: 'cta', title: 'Propose a pilot or a partnership.', text: 'The request type is already selected when you arrive from this page.', primary: 'partnership' },
     ],
   },
   contact: {
     key: 'contact',
-    metaTitle: 'Contact Coconsult | Project, team, QA, demo',
+    metaTitle: 'Contact Coconsult',
     description:
-      'Email contact@coconsult.fr. Pick the intent: project, dedicated team, QA, payments, automation, AI, demo or partnership.',
+      'Describe your project to Coconsult. contact@coconsult.fr is on the page. The request type can be preselected from elsewhere on the site.',
     eyebrow: 'CONTACT',
-    h1: 'One email, with the right subject.',
+    h1: 'Describe what you need.',
     intro:
-      'The site does not store a form. Each button opens your mail client with a subject and a short prompt. The address contact@coconsult.fr is on the page if you prefer to copy it.',
+      'Name the type of need and write to us. The address is on this page, and you can also open your mail app.',
     blocks: [
       {
         type: 'inquiries',
-        title: 'Choose the intent',
-        intro: 'The subject changes with the button. You can edit the draft before sending.',
-        ids: ['project', 'team', 'qaDiscuss', 'qaTeam', 'payments', 'automation', 'ai', 'partnership'],
+        title: 'Your request',
+        intro: 'The subject is already set if you arrive from an expertise, an offer or a solution.',
+        ids: ['project', 'team', 'qaDiscuss', 'qaTeam', 'payments', 'automation', 'ai', 'partnership', 'demo'],
+      },
+      { type: 'note', text: 'For this first note, stay with the project context. Card data and secrets belong on a channel agreed afterwards.' },
+    ],
+  },
+  software: {
+    key: 'software',
+    metaTitle: 'Software development | Coconsult',
+    description:
+      'Web and mobile applications, APIs, backends and integration. Coconsult designs and evolves business software.',
+    eyebrow: 'SOFTWARE DEVELOPMENT',
+    h1: 'Design and evolve your applications.',
+    intro:
+      'Web, mobile, backend, frontend and APIs. The work starts from the system you run and ends in a release your teams can operate.',
+    blocks: [
+      {
+        type: 'columns',
+        title: 'What development covers',
+        items: [
+          { title: 'Applications', text: 'Web or mobile interfaces tied to the business rules and the data you already have.' },
+          { title: 'APIs and integration', text: 'Stable interfaces between your tools, with retries and observability when the flow is critical.' },
+          { title: 'Architecture', text: 'A readable structure as the product grows, without a decorative rewrite.' },
+        ],
+      },
+      {
+        type: 'list',
+        title: 'Concrete work',
+        items: [
+          'Evolve a web application already in production',
+          'Connect a mobile app or a portal to the backend you run',
+          'Steady the APIs between two systems that do not talk',
+        ],
+      },
+      { type: 'cta', title: 'Describe the software to build or to modernise.', text: 'Stack, users and timing are enough for a first conversation.', primary: 'project' },
+    ],
+  },
+  cloud: {
+    key: 'cloud',
+    metaTitle: 'Cloud, DevOps and access security | Coconsult',
+    description:
+      'Cloud infrastructure, CI/CD, containers, observability and access security for the applications you operate.',
+    eyebrow: 'CLOUD AND DEVOPS',
+    h1: 'Release software, then keep it running.',
+    intro:
+      'Cloud, delivery pipelines, containers and observability. Securing applications, access and systems belongs to the same scope when the project needs it.',
+    blocks: [
+      {
+        type: 'columns',
+        title: 'The usual scope',
+        items: [
+          { title: 'Platform', text: 'Cloud environments aligned with the way the application is actually deployed.' },
+          { title: 'Delivery', text: 'CI/CD and containers so each release can be reproduced.' },
+          { title: 'Operations', text: 'Logs, alerts and retries, so an incident is visible before your users find it.' },
+          { title: 'Access', text: 'Rights, secrets and hardening of exposed services, limited to the system in scope.' },
+        ],
+      },
+      {
+        type: 'list',
+        title: 'Concrete work',
+        items: [
+          'Make a delivery pipeline reproducible',
+          'Clarify the environments of an application already deployed',
+          'Surface an incident before users report it',
+        ],
+      },
+      { type: 'cta', title: 'Talk about the platform you run.', text: 'Current hosting, release cadence and the pain point are enough to start.', primary: 'project' },
+    ],
+  },
+  modes: {
+    key: 'modes',
+    metaTitle: 'Ways of working | Coconsult',
+    description:
+      'Staff augmentation, dedicated teams, nearshore development, fixed scope and advisory, according to the scope and pace of the project.',
+    eyebrow: 'WAYS OF WORKING',
+    h1: 'Choose how we work together.',
+    intro:
+      'Depending on the scope, the work is staff augmentation, a dedicated team, nearshore delivery, a fixed scope or advisory. The same team can build software, apply AI, test or run a platform.',
+    blocks: [
+      {
+        type: 'columns',
+        title: 'Five ways to engage',
+        items: [
+          { title: 'Staff augmentation', text: 'One or more engineers for an identified stretch of delivery.' },
+          { title: 'Dedicated teams', text: 'A squad followed over time, coordinated from France.' },
+          { title: 'Nearshore development', text: 'Skills mobilised with Coconsult Nearshore in Sfax. The two companies are legally separate.' },
+          { title: 'Fixed scope', text: 'A scope that can be estimated, with a result to accept.' },
+          { title: 'Advisory', text: 'Architecture, business analysis and technical leadership, before or during delivery.' },
+        ],
       },
       {
         type: 'prose',
-        title: 'Demos',
         paragraphs: [
-          'Demo requests start from the solution cards. The subject includes the solution name, so the message arrives already qualified.',
+          'Coconsult supports its clients from France and works with Coconsult Nearshore, a legally independent Tunisian company based in Sfax, to bring in engineering skills and build dedicated teams.',
+          'The quotation, the contract and the invoice name the company that contracts with the client.',
         ],
       },
-      { type: 'note', text: 'Do not send secrets, card data or customer files in this first message. A suitable channel is agreed later if the topic requires it.' },
+      { type: 'cta', title: 'Describe the team or the setup you need.', text: 'We propose the engagement model after the scope is clear.', primary: 'team', secondary: 'project' },
+    ],
+  },
+  cyber: {
+    key: 'cyber',
+    metaTitle: 'Application security | Coconsult',
+    description: 'Hardening of applications, access and exposed systems, within the scope of the project.',
+    eyebrow: 'CYBERSECURITY',
+    h1: 'Harden the applications and the access you expose.',
+    intro: 'Your applications, access and secrets expose a surface. We reduce it in the code and the infrastructure of the project. Coconsult does not offer a standing monitoring centre.',
+    blocks: [
+      {
+        type: 'columns',
+        title: 'Typical work',
+        items: [
+          { title: 'Applications', text: 'Access control, input validation and a smaller surface on the APIs you publish.' },
+          { title: 'Identities', text: 'Accounts, roles and secrets aligned with the people who actually need to act.' },
+          { title: 'Platform', text: 'Hardening of published services, alongside the cloud and the delivery pipeline you already run.' },
+        ],
+      },
+      {
+        type: 'list',
+        title: 'Concrete work',
+        items: [
+          'Shrink what a public API exposes',
+          'Review the roles and secrets of an application',
+          'Harden a published service with the team that runs it',
+        ],
+      },
+      { type: 'cta', title: 'Describe the system to protect.', text: 'The application, current access and the risk you see are enough for a first conversation.', primary: 'project' },
     ],
   },
   legal: legalPage('en'),

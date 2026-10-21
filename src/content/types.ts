@@ -8,6 +8,10 @@ export type RouteKey =
   | 'payments'
   | 'automation'
   | 'ai'
+  | 'software'
+  | 'cloud'
+  | 'cyber'
+  | 'modes'
   | 'solutions'
   | 'cases'
   | 'about'
@@ -24,7 +28,8 @@ export type InquiryId =
   | 'payments'
   | 'automation'
   | 'ai'
-  | 'partnership';
+  | 'partnership'
+  | 'demo';
 
 export interface Inquiry {
   label: string;
@@ -45,10 +50,21 @@ export interface CardItem {
   inquiry?: InquiryId;
 }
 
+export interface ChallengeItem {
+  id: string;
+  label: string;
+  expertise: string;
+  expertiseKey: RouteKey;
+  useCase: string;
+  mode: string;
+  inquiry: InquiryId;
+}
+
 export type Block =
-  | { type: 'cards'; title: string; intro?: string; items: CardItem[] }
+  | { type: 'cards'; title: string; intro?: string; layout?: 'bento'; items: CardItem[] }
+  | { type: 'challenge'; title: string; intro?: string; items: ChallengeItem[] }
   | { type: 'steps'; title: string; intro?: string; items: TitledText[] }
-  | { type: 'columns'; title: string; intro?: string; items: TitledText[] }
+  | { type: 'columns'; title: string; intro?: string; layout?: 'rail'; items: TitledText[] }
   | { type: 'prose'; title?: string; paragraphs: string[] }
   | { type: 'list'; title: string; items: string[] }
   | { type: 'faq'; title: string; items: { q: string; a: string }[] }
@@ -77,6 +93,7 @@ export interface PageContent {
   intro: string;
   heroPrimary?: InquiryId;
   heroSecondary?: InquiryId;
+  heroExplore?: boolean;
   hero?: HeroVisual;
   blocks: Block[];
 }

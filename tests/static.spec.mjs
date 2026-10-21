@@ -13,6 +13,10 @@ const pages = [
   ['/services/paiements/', 'fr', '/en/services/payments/'],
   ['/services/automatisation/', 'fr', '/en/services/business-automation/'],
   ['/services/ia-entreprise/', 'fr', '/en/services/enterprise-ai/'],
+  ['/services/developpement/', 'fr', '/en/services/software-engineering/'],
+  ['/services/cloud-devops/', 'fr', '/en/services/cloud-devops/'],
+  ['/services/cybersecurite/', 'fr', '/en/services/cybersecurity/'],
+  ['/modes-intervention/', 'fr', '/en/engagement/'],
   ['/solutions/', 'fr', '/en/solutions/'],
   ['/realisations/', 'fr', '/en/case-studies/'],
   ['/a-propos/', 'fr', '/en/about/'],
@@ -88,8 +92,9 @@ for (const [urlPath, lang, alternate] of pages) {
     }
     if (href.startsWith('/')) {
       const [pathname] = href.split('#');
-      if (pathname.startsWith('/assets/') || pathname.includes('.')) continue;
-      assert.equal(fs.existsSync(fileFor(pathname)), true, `${urlPath} -> ${pathname}`);
+      const pathOnly = pathname.split('?')[0];
+      if (pathOnly.startsWith('/assets/') || pathOnly.includes('.')) continue;
+      assert.equal(fs.existsSync(fileFor(pathOnly)), true, `${urlPath} -> ${pathOnly}`);
     }
   }
 }
@@ -97,8 +102,11 @@ for (const [urlPath, lang, alternate] of pages) {
 const qa = read('/en/services/qa-testing/');
 assert.match(qa, /Discuss your QA needs/);
 assert.match(qa, /Request a QA team/);
-assert.match(decodeURIComponent(qa), /Discuss your QA needs - Coconsult/);
-assert.match(decodeURIComponent(qa), /Request a QA team - Coconsult/);
+assert.match(qa, /href="\/en\/contact\/\?type=qa"/);
+assert.match(qa, /href="\/en\/contact\/\?type=qa-team"/);
+const qaFr = read('/services/qa-testing/');
+assert.match(qaFr, /href="\/contact\/\?type=qa"/);
+assert.match(qaFr, /href="\/contact\/\?type=qa-team"/);
 
 const contact = decodeURIComponent(read('/contact/'));
 for (const subject of [
@@ -114,13 +122,31 @@ for (const subject of [
   assert.match(contact, new RegExp(subject.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
 }
 
-const solutions = decodeURIComponent(read('/solutions/'));
-assert.match(solutions, /Demande de demo - COPHARIA - Coconsult/);
-assert.match(solutions, /Demande de demo - Cogeex - Coconsult/);
-assert.match(solutions, /Plateforme SaaS métier \(nom à venir\)/);
-
-assert.match(read('/'), /Des systèmes plus fiables\./);
-assert.match(read('/en/'), /Reliable systems\./);
+const home = read('/');
+const homeEn = read('/en/');
+assert.match(home, /De l’intelligence artificielle aux applications métier\./);
+assert.match(home, /Intelligence artificielle et data/);
+assert.match(home, /Quel est votre défi/);
+assert.match(home, /href="\/services\/"/);
+assert.match(home, /href="\/contact\/\?type=project"/);
+assert.match(home, /href="\/contact\/\?type=ai"/);
+assert.match(home, /href="\/contact\/\?type=team"/);
+assert.match(homeEn, /From artificial intelligence to business applications\./);
+assert.match(homeEn, /Artificial intelligence and data/);
+assert.match(homeEn, /What is the challenge/);
+assert.match(homeEn, /href="\/en\/contact\/\?type=project"/);
+assert.match(homeEn, /href="\/en\/contact\/\?type=ai"/);
+assert.equal(home.includes('Paiements et API'), false);
+assert.equal(home.includes('nom à venir'), false);
+assert.match(read('/solutions/'), /type=demo&amp;product=copharia|type=demo&product=copharia/);
+assert.equal(read('/solutions/').includes('Cogeex'), false);
+assert.equal(read('/solutions/').includes('nom à venir'), false);
+const contactPage = read('/contact/');
+assert.match(contactPage, /contact@coconsult\.fr/);
+assert.match(contactPage, /data-copy-email/);
+assert.match(contactPage, /data-open-mail/);
+assert.match(contactPage, /data-contact-form hidden/);
+assert.equal(contactPage.includes('Votre demande a été envoyée'), false);
 assert.equal(fs.existsSync(path.join(dist, '404.html')), true);
 assert.equal(
   fs.existsSync(path.join(dist, 'en', '404', 'index.html')) || fs.existsSync(path.join(dist, 'en', '404.html')),
@@ -162,11 +188,9 @@ for (const html of [legalFr, legalEn]) {
   assert.equal(html.includes('00036'), false, 'SIRET must stay off the public page');
   assert.equal(html.includes('tel:'), false);
 }
-const homeFr = read('/');
-const homeEn = read('/en/');
 const aboutFr = read('/a-propos/');
 const aboutEn = read('/en/about/');
-for (const html of [homeFr, homeEn, aboutFr, aboutEn]) {
+for (const html of [home, homeEn, aboutFr, aboutEn]) {
   assert.equal(html.includes('06 37 19 17 97'), false, 'company phone stays on the legal notice');
   assert.equal(/racem/i.test(html), false, 'publisher name stays on the legal notice');
 }
@@ -176,8 +200,8 @@ assert.match(aboutEn, /Coconsult Nearshore/);
 assert.match(aboutEn, /legally independent/);
 assert.match(read('/services/equipes-dediees/'), /Coconsult Nearshore/);
 assert.match(read('/en/services/dedicated-teams/'), /Coconsult Nearshore/);
-assert.equal(/filiale|notre bureau|subsidiary/i.test(aboutFr + aboutEn + homeFr + homeEn), false);
-const homeLd = homeFr.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)?.join('\n') ?? '';
+assert.equal(/filiale|notre bureau|subsidiary/i.test(aboutFr + aboutEn + home + homeEn), false);
+const homeLd = home.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)?.join('\n') ?? '';
 assert.match(homeLd, /75008/);
 assert.equal(homeLd.includes('"addressLocality":"Sfax"'), false, 'Sfax is not a registered establishment of the French publisher');
 assert.match(privacyFr, /Coconsult Nearshore/);

@@ -14,8 +14,8 @@ export const company = {
     en: 'Engineering for complex business systems, from integration through production.',
   },
   signature: {
-    fr: 'Partenaire d’ingénierie numérique et d’innovation',
-    en: 'Digital Engineering & Innovation Partner',
+    fr: 'Ingénierie logicielle, intelligence artificielle et équipes tech',
+    en: 'Software engineering, artificial intelligence and tech teams',
   },
   /** Registered office of the French publisher. Sfax is not an establishment of this company. */
   locations: [{ city: 'Paris', countryFr: 'France', countryEn: 'France', countryCode: 'FR' }],
