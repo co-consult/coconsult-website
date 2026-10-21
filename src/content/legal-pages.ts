@@ -125,7 +125,7 @@ export function privacyPage(locale: Locale): PageContent {
       key: 'privacy',
       metaTitle: 'Politique de confidentialité | Coconsult',
       description:
-        'COCONSULT SAS traite les e-mails envoyés à contact@coconsult.fr. Pas de formulaire, pas de traceur publicitaire.',
+        'COCONSULT SAS traite les demandes envoyées à contact@coconsult.fr. Des commerciaux à Sfax accèdent à la prospection. Pas de traceur publicitaire.',
       eyebrow: 'CONFIDENTIALITÉ',
       h1: 'Politique de confidentialité',
       intro:
@@ -135,7 +135,7 @@ export function privacyPage(locale: Locale): PageContent {
           type: 'prose',
           title: 'Responsable',
           paragraphs: [
-            `Le responsable du traitement est ${company.legalName} ${legal.legalForm}, ${legal.headquarters}.`,
+            `${company.legalName} ${legal.legalForm}, ${legal.headquarters}, est responsable des traitements dont elle détermine les finalités et les moyens.`,
             `Contact : ${company.email}. Aucun délégué à la protection des données n’est désigné.`,
           ],
         },
@@ -154,13 +154,15 @@ export function privacyPage(locale: Locale): PageContent {
           paragraphs: [
             'Les messages servent à répondre à une demande et à l’échange précontractuel ou commercial qui suit : projet, équipe, tests, paiement, automatisation, démonstration ou partenariat.',
             'Quand vous écrivez pour obtenir une réponse à un projet, le traitement repose sur les mesures précontractuelles prises à votre demande. Le suivi de cette demande professionnelle repose sur l’intérêt légitime de Coconsult à y répondre. Le consentement n’est pas exigé pour cet échange.',
+            'La qualification des demandes, la prospection professionnelle et le suivi des opportunités reposent sur l’intérêt légitime, avec un droit d’opposition. Cette page ne fixe ni l’origine des fichiers ni une durée chiffrée.',
           ],
         },
         {
           type: 'prose',
           title: 'Destinataires',
           paragraphs: [
-            'Les messages sont lus par les personnes habilitées chez Coconsult. Ils transitent par le prestataire de messagerie du domaine et les pages sont servies par l’hébergeur.',
+            'Les messages reçus sur contact@coconsult.fr sont lus par les personnes habilitées de COCONSULT SAS. Les e-mails de prospection, les fichiers de prospects ou l’outil de suivi commercial sont aussi accessibles à des commerciaux habilités de Coconsult Nearshore, à Sfax.',
+            'Ces échanges transitent par le prestataire de messagerie du domaine. Les pages du site sont servies par l’hébergeur.',
             'Le nom du prestataire de messagerie n’est pas publié tant qu’il n’est pas confirmé.',
           ],
         },
@@ -176,8 +178,10 @@ export function privacyPage(locale: Locale): PageContent {
           type: 'prose',
           title: 'Hors de l’Espace économique européen',
           paragraphs: [
-            'L’hébergement du site est situé en France. L’éditeur est COCONSULT SAS. Coconsult Nearshore est une société tunisienne juridiquement indépendante, basée à Sfax, avec des dirigeants différents. Elle collabore à l’ingénierie. Elle n’édite pas ce site et n’est pas un service interne de la SAS française.',
-            'Il n’est pas confirmé que Coconsult Nearshore ou ses collaborateurs accèdent aux e-mails reçus sur contact@coconsult.fr, au suivi des prospects, aux informations de recrutement ou aux données clients des projets. Cette page ne décrit donc pas de transfert hors de l’Espace économique européen, ni de clause contractuelle type. Une mention ici n’autoriserait pas un tel transfert.',
+            'L’hébergement du site est situé en France. L’éditeur est COCONSULT SAS. Coconsult Nearshore est une société tunisienne juridiquement indépendante, basée à Sfax, avec des dirigeants différents. Elle n’édite pas ce site et n’est pas un service interne de la SAS française.',
+            'Des commerciaux habilités de Coconsult Nearshore accèdent aux mêmes e-mails de prospection professionnelle, aux mêmes fichiers de prospects ou au même outil de suivi commercial que Coconsult en France. Cet accès ne couvre pas toutes les boîtes de messagerie. Il sert à qualifier les demandes, à prospecter et à suivre les opportunités.',
+            'La Tunisie est hors de l’Espace économique européen. Les garanties de ce transfert seront celles des contrats réellement signés. Aucune clause contractuelle type n’est indiquée ici : aucun contrat de transfert n’est formalisé. Une information sur ce site ne rend pas le transfert licite.',
+            `Lorsque ce mécanisme sera formalisé, Coconsult en indiquera la nature sur cette page. Une copie ou des informations sur les garanties applicables pourront être demandées à ${company.email}.`,
           ],
         },
         {
@@ -202,7 +206,7 @@ export function privacyPage(locale: Locale): PageContent {
     key: 'privacy',
     metaTitle: 'Privacy policy | Coconsult',
     description:
-      'COCONSULT SAS handles email sent to contact@coconsult.fr. No form, no advertising tracker.',
+      'COCONSULT SAS handles email sent to contact@coconsult.fr. Sales staff in Sfax can access prospecting records. No advertising tracker.',
     eyebrow: 'PRIVACY',
     h1: 'Privacy policy',
     intro:
@@ -212,7 +216,7 @@ export function privacyPage(locale: Locale): PageContent {
         type: 'prose',
         title: 'Controller',
         paragraphs: [
-          `The controller is ${company.legalName} ${legal.legalForm}, ${legal.headquarters}.`,
+          `${company.legalName} ${legal.legalForm}, ${legal.headquarters}, is the controller for the processing whose purposes and means it determines.`,
           `Contact: ${company.email}. No data-protection officer is appointed.`,
         ],
       },
@@ -231,13 +235,15 @@ export function privacyPage(locale: Locale): PageContent {
         paragraphs: [
           'Messages are used to answer a request and the pre-contractual or commercial exchange that follows: a project, a team, testing, payments, automation, a demo or a partnership.',
           'When you write to obtain a reply about a project, processing is based on pre-contractual steps taken at your request. Following up that professional enquiry is based on Coconsult’s legitimate interest in answering it. Consent is not required for this exchange.',
+          'Qualifying enquiries, professional prospecting and following opportunities are based on legitimate interest, with a right to object. This page does not set the origin of prospect files or a fixed retention period.',
         ],
       },
       {
         type: 'prose',
         title: 'Recipients',
         paragraphs: [
-          'Messages are read by authorised people at Coconsult. They pass through the domain’s email provider, and the pages are served by the host.',
+          'Messages received at contact@coconsult.fr are read by authorised people at COCONSULT SAS. Prospecting email, prospect files or the sales-tracking tool are also accessible to authorised sales staff at Coconsult Nearshore, in Sfax.',
+          'Those exchanges pass through the domain’s email provider. The site pages are served by the host.',
           'The email provider is not named until it has been confirmed.',
         ],
       },
@@ -253,8 +259,10 @@ export function privacyPage(locale: Locale): PageContent {
         type: 'prose',
         title: 'Outside the European Economic Area',
         paragraphs: [
-          'The site is hosted in France. The publisher is COCONSULT SAS. Coconsult Nearshore is a legally independent Tunisian company based in Sfax, with different directors. It collaborates on engineering. It does not publish this site and it is not an internal department of the French company.',
-          'It is not confirmed whether Coconsult Nearshore or its staff can access email sent to contact@coconsult.fr, prospect records, recruitment information or client data used on projects. This page therefore does not describe a transfer outside the European Economic Area, nor standard contractual clauses. A sentence on this page would not authorise such a transfer.',
+          'The site is hosted in France. The publisher is COCONSULT SAS. Coconsult Nearshore is a legally independent Tunisian company based in Sfax, with different directors. It does not publish this site and it is not an internal department of the French company.',
+          'Authorised sales staff at Coconsult Nearshore can access the same professional prospecting email, the same prospect files or the same sales-tracking tool as Coconsult in France. This access does not cover every mailbox. It is used to qualify enquiries, to prospect and to follow commercial opportunities.',
+          'Tunisia is outside the European Economic Area. The safeguards for this transfer will be those in the contracts that are actually signed. No standard contractual clauses are stated here: no transfer contract has been formalised. A notice on this website does not make the transfer lawful.',
+          `Once that mechanism is in place, Coconsult will describe it on this page. A copy or information about the applicable safeguards can be requested from ${company.email}.`,
         ],
       },
       {

@@ -181,11 +181,20 @@ const homeLd = homeFr.match(/<script type="application\/ld\+json">([\s\S]*?)<\/s
 assert.match(homeLd, /75008/);
 assert.equal(homeLd.includes('"addressLocality":"Sfax"'), false, 'Sfax is not a registered establishment of the French publisher');
 assert.match(privacyFr, /Coconsult Nearshore/);
+assert.match(privacyFr, /e-mails de prospection/);
+assert.match(privacyFr, /hors de l’Espace économique européen/);
+assert.match(privacyFr, /ne rend pas le transfert licite/);
 assert.match(privacyFr, /n’est pas confirmé/);
 assert.match(privacyEn, /Coconsult Nearshore/);
-assert.match(privacyEn, /not confirmed/);
+assert.match(privacyEn, /prospecting email/);
+assert.match(privacyEn, /outside the European Economic Area/);
+assert.match(privacyEn, /does not make the transfer lawful/);
+assert.match(privacyEn, /not named until it has been confirmed/);
+assert.equal(/clauses contractuelles types sont signées|standard contractual clauses are signed/i.test(privacyFr + privacyEn), false);
+assert.equal(/restent en France|stay in France|exclusively inside/i.test(privacyFr + privacyEn), false);
 assert.equal(/google workspace/i.test(privacyFr + privacyEn), false);
 assert.equal(/aucun transfert/i.test(privacyFr), false);
+assert.equal(/cette checklist ne constitue pas un contrat/i.test(privacyFr + privacyEn), false);
 for (const file of fs.readdirSync(dist, { recursive: true })) {
   const full = path.join(dist, String(file));
   if (!fs.statSync(full).isFile()) continue;

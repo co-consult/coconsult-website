@@ -1,47 +1,66 @@
 # Checklist de validation V1
 
-Les mentions légales publient l’identité confirmée de COCONSULT SAS, le téléphone autorisé et le directeur de publication indiqué par la direction. Elles ne sont pas juridiquement closes : la qualité de représentant légal et le contrat d’hébergement restent à vérifier sur pièces. La politique de confidentialité ne décrit pas de transfert vers Coconsult Nearshore tant que l’accès réel n’est pas établi.
+Les tests techniques peuvent passer alors que la publication juridique reste ouverte. `npm run check:legal` liste les écarts et ne fait pas échouer la CI.
 
-`npm run check:legal` sépare les données confirmées, les pièces à vérifier et les points RGPD. Il ne fait pas échouer la CI technique.
+## Informations juridiques du site
 
-## Confirmé et publié
+Publiées depuis `src/data/company.ts` :
 
-- [x] COCONSULT, SAS au capital de 1 000 €
-- [x] Siège : 10 rue de Penthièvre, 75008 Paris, France
-- [x] RCS Paris 838 913 838 et SIREN 838 913 838
-- [x] TVA intracommunautaire FR90838913838
+- [x] COCONSULT, SAS au capital de 1 000 €, siège parisien, RCS Paris 838 913 838, SIREN 838 913 838, TVA FR90838913838
 - [x] E-mail contact@coconsult.fr
-- [x] Téléphone 06 37 19 17 97, sur les mentions légales seulement. Numéro mobile provisoire, à remplacer dans `src/data/company.ts` si un fixe est ouvert.
+- [x] Téléphone 06 37 19 17 97, mentions légales seulement. Mobile provisoire, remplaçable dans `company.ts`
 - [x] Directeur de la publication indiqué : Racem Smaoui
-- [x] Hébergeur indiqué : OVH SAS, 2 rue Kellermann, 59100 Roubaix, France, téléphone 09 72 10 10 07
-- [x] SIRET du siège conservé dans la configuration et non affiché
-- [x] Coconsult Nearshore, à Sfax, présentée comme une société juridiquement distincte. Elle n’édite pas le site. Aucun lien capitalistique n’est affirmé.
-- [x] Le devis, le contrat et la facture doivent identifier la société qui contracte.
+- [x] Hébergeur indiqué : OVH SAS, 2 rue Kellermann, 59100 Roubaix, téléphone 09 72 10 10 07
+- [x] SIRET conservé en configuration, non affiché
+- [x] Coconsult Nearshore, société distincte à Sfax, n’édite pas le site. Aucun lien capitalistique n’est affirmé
+- [x] Le devis, le contrat et la facture identifient la société qui contracte
 
-## À vérifier sur pièces
+À vérifier sur pièces avant de considérer les mentions closes :
 
 - [ ] Kbis ou RNE : Racem Smaoui est-il le représentant légal de COCONSULT SAS ?
-- [ ] Contrat du VPS : la société contractante est-elle OVH SAS ? Le dépôt ne contient pas ce document.
+- [ ] Contrat du VPS : la société contractante est-elle OVH SAS ?
 
-## RGPD encore à clarifier
+## Informations RGPD publiées
 
-- [ ] Accès réel de Coconsult Nearshore, ou de ses collaborateurs, aux e-mails de contact@coconsult.fr
-- [ ] Accès au CRM et aux coordonnées de prospects
-- [ ] Accès aux CV et informations de recrutement
-- [ ] Accès aux données clients traitées pour les projets
-- [ ] Si un de ces accès existe : rôle de chaque société, transfert hors EEE, et garanties appropriées. Une phrase dans la politique ne suffit pas à l’autoriser.
-- [ ] Prestataire qui héberge réellement contact@coconsult.fr
-- [ ] Pratique effective de conservation des e-mails, alignée sur le critère publié. Ne pas inventer de durée chiffrée.
+- [x] COCONSULT SAS est responsable des traitements dont elle détermine les finalités et les moyens
+- [x] Des commerciaux habilités de Coconsult Nearshore accèdent aux e-mails de prospection, aux fichiers de prospects ou à l’outil de suivi. Pas à toutes les boîtes
+- [x] Finalités confirmées : qualification, prospection, suivi des opportunités
+- [x] La Tunisie est hors EEE
+- [x] Aucune clause contractuelle type n’est présentée comme signée. La page dit qu’une mention sur le site ne rend pas le transfert licite
+- [x] La copie des garanties sera proposée à contact@coconsult.fr une fois le mécanisme formalisé
+- [ ] Prestataire réel de la messagerie, encore non nommé
+- [ ] Pratique de conservation alignée sur le critère publié. Pas de durée chiffrée inventée
+- [ ] Accès aux CV et aux données clients de projet : non confirmé, donc non écrit dans la politique
 
-## Si Coconsult Nearshore vend en son nom
+## Formalités intersociétés restant à effectuer
 
-- [ ] Mettre à jour l’éditeur, le parcours commercial et la politique de confidentialité avant d’ouvrir une prise de contact au nom de la société tunisienne.
+Voir `docs/legal/FR-TN-DATA-SHARING-CHECKLIST.md`, `docs/legal/B2B-PROSPECTING-CHECKLIST.md` et `docs/legal/ACCESS-SECURITY.md`. Ces fichiers ne sont pas des pages du site.
+
+- [ ] Qualifier le rôle de Coconsult Nearshore : sous-traitant, responsables distincts ou responsables conjoints
+- [ ] Signer le contrat qui correspond à ce rôle (article 26 ou 28)
+- [ ] Choisir et signer l’outil de transfert, le cas échéant les clauses de la décision 2021/914, module adapté au rôle
+- [ ] Réaliser l’analyse d’impact du transfert avant de s’appuyer sur ces clauses
+- [ ] Relever l’immatriculation et le représentant légal de Coconsult Nearshore
+- [ ] Régler l’information des prospects contactés sans avoir écrit, la liste d’opposition commune et les durées réellement appliquées
+- [ ] Appliquer les mesures d’accès (comptes nominatifs, MFA, permissions, départs) seulement après validation explicite. Ne pas modifier Google Workspace, la messagerie, le CRM ni l’infrastructure depuis cette checklist
+
+## Prérequis de mise en production
+
+- [ ] Les deux cases « à vérifier sur pièces » des mentions sont cochées, ou le texte public est ajusté
+- [ ] La direction accepte de publier la politique actuelle, qui décrit l’accès à Sfax sans garantie signée
+- [ ] `npm run check`, `npm run build`, `npm test`
+- [ ] `npm run check:legal` lu. Un NO-GO juridique n’est pas effacé par des tests verts
+- [ ] `HEAD /en` répond 301 avec `Location: /en/`
+- [ ] Logo officiel visible sur fond clair, FR et EN
+- [ ] Liens footer vers les mentions légales et la confidentialité
+- [ ] `compose.proxy.yaml` du VPS inchangé
+- [ ] Aucun merge ni déploiement tant que cette liste n’est pas assumée
 
 ## Informations facultatives
 
 - [ ] DPO, seulement si une personne est réellement désignée
-- [ ] URL LinkedIn officielle, après vérification. Ce n’est pas une mention légale.
-- [ ] Remplacer le mobile provisoire par un numéro fixe, le moment venu
+- [ ] URL LinkedIn officielle, après vérification
+- [ ] Remplacer le mobile provisoire par un numéro fixe
 
 ## Données commerciales à confirmer
 
@@ -52,11 +71,6 @@ Les mentions légales publient l’identité confirmée de COCONSULT SAS, le té
 - [ ] Chevauchement horaire type avec un client aux États-Unis
 - [ ] Réception effective de contact@coconsult.fr
 
-## Technique
+## Si Coconsult Nearshore vend en son nom
 
-- [ ] `npm run check`, `npm run build`, `npm test`
-- [ ] `npm run check:legal` lu, sans bloquer le build
-- [ ] `HEAD /en` répond 301 avec `Location: /en/`
-- [ ] Logo officiel visible sur fond clair, FR et EN
-- [ ] Liens footer vers les mentions légales et la confidentialité
-- [ ] `compose.proxy.yaml` du VPS inchangé
+- [ ] Mettre à jour l’éditeur, le parcours et la politique avant une prise de contact au nom de la société tunisienne
