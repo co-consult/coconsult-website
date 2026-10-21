@@ -1,16 +1,53 @@
-name: Verify static pages
+name: Verify V1
 on:
   push:
   pull_request:
 permissions:
   contents: read
 jobs:
-  validate:
+  verify:
     runs-on: ubuntu-latest
+    env:
+      ASTRO_TELEMETRY_DISABLED: "1"
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-node@v4
         with:
-          python-version: '3.12'
-      - run: python3 scripts/build.py
-      - run: python3 scripts/check.py
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run check
+      - run: npm run build
+      - run: npm test
+      - name: Container health and relative /en redirect
+        run: |
+          docker compose -p coconsult-ci -f compose.yaml up -d --build
+          for i in 1 2 3 4 5 6 7 8 9 10; do
+            curl -fsS http://127.0.0.1:3601/healthz && break
+            sleep 2
+          done
+          python3 - <<'PY'
+          import urllib.request
+          def headers(path):
+              req = urllib.request.Request('http://127.0.0.1:3601' + path, method='HEAD')
+              try:
+                  with urllib.request.urlopen(req) as res:
+                      return res.status, res.headers.get('Location')
+              except urllib.error.HTTPError as err:
+                  return err.code, err.headers.get('Location')
+          checks = ['/en', '/services', '/en/services/qa-testing']
+          for path in checks:
+              status, location = headers(path)
+              print(path, status, location)
+              assert status in (301, 308), (path, status)
+              assert location == path + '/', (path, location)
+              assert location and ':8080' not in location and '://' not in location
+          status, _ = headers('/en/')
+          assert status == 200, status
+          health = urllib.request.urlopen('http://127.0.0.1:3601/healthz').read()
+          assert health.strip() == b'ok'
+          print('nginx redirect checks passed')
+          PY
+          docker compose -p coconsult-ci -f compose.yaml stop
+          docker compose -p coconsult-ci -f compose.yaml rm -f

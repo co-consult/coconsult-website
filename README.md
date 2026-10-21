@@ -1,55 +1,44 @@
-# Coconsult — landing V0 (FR / EN)
+# Coconsult — site corporate V1 (FR / EN)
 
-Première version statique de présentation de Coconsult, conçue pour une mise en ligne rapide avant le site corporate complet.
+Site statique bilingue de Coconsult. Le français est servi à la racine, l’anglais sous `/en/`. Astro génère les pages ; Nginx les sert sur le port interne `8080`.
 
 ## Pages
-- Français : `/`
-- English : `/en/`
-- Contact : `mailto:contact@coconsult.fr` avec sujets adaptés
 
-Le contenu commercial porte sur l'ingénierie logicielle, les équipes dédiées, QA/testing, les paiements et l'automatisation métier. Aucune démonstration de produit, aucune donnée client et aucun service de collecte de données ne sont inclus dans cette V0.
+Accueil, services (équipes dédiées, QA, paiements, automatisation, IA), solutions, réalisations, à propos, partenariats, contact, mentions légales, confidentialité, et les équivalents anglais. Le détail des URL est dans `src/data/routes.ts`.
 
 ## Prévisualiser
 
 ```bash
-cd site
-python3 -m http.server 8000
-# Ouvrir http://localhost:8000/ puis http://localhost:8000/en/
+npm ci
+npm run check
+npm run build
+npm run preview -- --host 127.0.0.1 --port 4321
 ```
 
-## Modifier le texte
+Ouvrir `http://127.0.0.1:4321/` puis `http://127.0.0.1:4321/en/`.
 
-Le contenu FR/EN est dans `scripts/build.py`. Après modification :
+## Modifier le contenu
+
+- Textes des pages : `src/content/fr.ts` et `src/content/en.ts`
+- Libellés d’interface : `src/content/ui.ts`
+- Sujets d’e-mail : `src/data/inquiries.ts`
+- Solutions et réalisations (titres, ordre, visibilité, statuts) : `src/data/work.ts`
+- Faits société et champs juridiques encore vides : `src/data/company.ts`
+- Routes : `src/data/routes.ts`
+
+Une seule chaîne de build : `npm run build`. Les anciens générateurs `scripts/build.py` et le HTML de `site/` ne font plus foi.
+
+## Tests
 
 ```bash
-python3 scripts/build.py
-python3 scripts/check.py
+npm run build
+npm test
 ```
 
-Les sorties `site/index.html` et `site/en/index.html` sont versionnées pour servir immédiatement la V0 sans outil de build sur le serveur.
+`npm test` exécute les contrôles statiques puis Playwright (navigation, langue, menu mobile, débordement, axe). Le contrôle Docker est dans la GitHub Action. S’il n’y a pas de démon Docker local, ne pas le compter comme réussi.
 
-## Tester le conteneur (local)
+## Conteneur
 
-```bash
-docker compose up -d --build
-curl -f http://127.0.0.1:3601/healthz
-curl -f http://127.0.0.1:3601/
-curl -f http://127.0.0.1:3601/en/
-```
+Le service s’appelle `coconsult-web`. Il n’écoute pas sur 80 ni 443. Sur le VPS, le port publié reste `127.0.0.1:3601:8080`. Nginx Proxy Manager joint `coconsult-web:8080` via le réseau externe décrit dans le fichier **non versionné** `compose.proxy.yaml`. Ce fichier ne doit pas être remplacé par Git. Un exemple est fourni dans `compose.proxy.example.yaml`.
 
-Le service écoute uniquement sur `127.0.0.1:3601` de la machine Docker, pas sur les ports 80/443. Pour le brancher à Nginx Proxy Manager existant, voir `docs/DEPLOYMENT.md`. Ne pas basculer les DNS avant les vérifications HTTPS.
-
-## Sécurité et limites
-- Dépôt sans secrets : ne jamais committer `.env`, clés API ou informations clients.
-- Le repo est actuellement **public** : seules des informations publiques y ont leur place.
-- Logo/wordmark temporaire : remplacer par la charte officielle après validation.
-- Pas de formulaire backend ; les CTA ouvrent l'application de messagerie du visiteur.
-- Les mentions légales et la politique de confidentialité restent à valider et à publier avant une mise en ligne corporate définitive.
-- Cette V0 est volontairement un site **HTML/CSS/JS statique**, sans Astro : migration vers Astro envisagée en V1 lorsque les contenus et pages supplémentaires seront prêts.
-
-## Roadmap
-- Valider textes, logo et coordonnées.
-- Ajouter pages légales FR/EN et contact amélioré.
-- Ajouter page QA/dedicated teams pour les prospects internationaux.
-- Développer pages services, réalisations et démos autorisées.
-- Ajouter un système de suivi des conversions conforme au RGPD seulement si nécessaire.
+Voir `docs/DEPLOYMENT.md` avant toute mise à jour du serveur.

@@ -1,3 +1,8 @@
+# Public HTTP stays on Nginx Proxy Manager.
+# This service publishes 8080 only on the host loopback, port 3601.
+# The VPS override compose.proxy.yaml (not versioned) attaches proxy-network.
+# Deploy with:
+#   docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml up -d --build
 services:
   coconsult-web:
     build: .

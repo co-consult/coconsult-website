@@ -1,0 +1,11 @@
+# Example only. On the VPS, keep the existing untracked compose.proxy.yaml.
+# Do not copy this file over the server file: inspect the live network first.
+# Expected shape: attach coconsult-web to the external proxy network used by Nginx Proxy Manager.
+services:
+  coconsult-web:
+    networks:
+      - proxy
+networks:
+  proxy:
+    external: true
+    name: proxy-network

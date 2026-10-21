@@ -5,3 +5,12 @@
 !.env.example
 __pycache__/
 *.pyc
+node_modules/
+.astro/
+dist/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+compose.proxy.yaml
+_logo_crop_preview.png

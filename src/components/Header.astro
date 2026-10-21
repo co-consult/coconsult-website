@@ -1,0 +1,56 @@
+---
+import Logo from '@/components/Logo.astro';
+import { ui } from '@/content/ui';
+import { getInquiry, mailto } from '@/data/inquiries';
+import { alternatePath, pathFor, primaryNav, routes, serviceNav } from '@/data/routes';
+import type { Locale, RouteKey } from '@/content/types';
+
+interface Props {
+  locale: Locale;
+  routeKey: RouteKey | 'notFound';
+}
+const { locale, routeKey } = Astro.props;
+const t = ui[locale];
+const home = pathFor(locale, 'home');
+const other = alternatePath(locale, routeKey);
+const otherLocale = locale === 'fr' ? 'en' : 'fr';
+const contact = getInquiry(locale, 'project');
+---
+<a class="skip-link" href="#main">{t.skip}</a>
+<header class="site-header">
+  <div class="container header-bar">
+    <a class="brand" href={home}>
+      <Logo />
+    </a>
+    <nav class="desktop-nav" aria-label={t.navLabel}>
+      {primaryNav.map((key) => (
+        <a href={pathFor(locale, key)} aria-current={routeKey === key ? 'page' : undefined}>{routes[key].label[locale]}</a>
+      ))}
+    </nav>
+    <div class="header-actions">
+      <a class="lang" href={other} lang={otherLocale} hreflang={otherLocale} aria-label={t.langAria}>{t.langCode}</a>
+      <a class="header-contact" href={mailto(contact)}>{contact.label}</a>
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label={t.menu}
+        data-closed-label={t.menu}
+        data-open-label={t.close}
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav id="mobile-menu" class="mobile-nav" aria-label={t.navLabel} hidden>
+    {primaryNav.map((key) => (
+      <a href={pathFor(locale, key)} aria-current={routeKey === key ? 'page' : undefined}>{routes[key].label[locale]}</a>
+    ))}
+    <p class="mobile-label">{t.servicesGroup}</p>
+    {serviceNav.map((key) => (
+      <a href={pathFor(locale, key)} aria-current={routeKey === key ? 'page' : undefined}>{routes[key].label[locale]}</a>
+    ))}
+    <a href={other} lang={otherLocale} hreflang={otherLocale}>{t.langAria}</a>
+  </nav>
+</header>

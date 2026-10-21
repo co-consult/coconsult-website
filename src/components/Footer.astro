@@ -1,0 +1,42 @@
+---
+import Logo from '@/components/Logo.astro';
+import { ui } from '@/content/ui';
+import { company } from '@/data/company';
+import { pathFor, routes, routeOrder } from '@/data/routes';
+import type { Locale } from '@/content/types';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = ui[locale];
+const services = routeOrder.filter((key) => routes[key].footer === 'services');
+const companyLinks = routeOrder.filter((key) => routes[key].footer === 'company');
+const legal = routeOrder.filter((key) => routes[key].footer === 'legal');
+---
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href={pathFor(locale, 'home')}><Logo height={42} /></a>
+      <p>{company.signature[locale]}</p>
+      <p>{t.footerPlaces}</p>
+      <p><span>{t.emailLabel} </span><a href={`mailto:${company.email}`}>{company.email}</a></p>
+    </div>
+    <nav aria-label={t.servicesGroup}>
+      <h2>{t.servicesGroup}</h2>
+      <ul>
+        {services.map((key) => <li><a href={pathFor(locale, key)}>{routes[key].label[locale]}</a></li>)}
+      </ul>
+    </nav>
+    <nav aria-label={t.companyHeading}>
+      <h2>{t.companyHeading}</h2>
+      <ul>
+        {companyLinks.map((key) => <li><a href={pathFor(locale, key)}>{routes[key].label[locale]}</a></li>)}
+      </ul>
+    </nav>
+    <nav aria-label={t.legalHeading}>
+      <h2>{t.legalHeading}</h2>
+      <ul>
+        {legal.map((key) => <li><a href={pathFor(locale, key)}>{routes[key].label[locale]}</a></li>)}
+      </ul>
+    </nav>
+  </div>
+</footer>

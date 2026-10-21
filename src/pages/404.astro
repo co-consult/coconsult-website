@@ -1,0 +1,22 @@
+---
+import Base from '@/layouts/Base.astro';
+---
+<Base
+  locale="fr"
+  title="Page introuvable | Coconsult"
+  description="Cette adresse ne correspond à aucune page du site Coconsult."
+  routeKey="notFound"
+  noindex={true}
+>
+  <header class="page-hero">
+    <div class="container">
+      <p class="eyebrow">404</p>
+      <h1>Page introuvable</h1>
+      <p class="lede">Cette adresse ne correspond à aucune page. Vous pouvez revenir à l’accueil ou écrire à Coconsult.</p>
+      <div class="hero-buttons">
+        <a class="btn primary" href="/">Retour à l’accueil</a>
+        <a class="btn secondary" href="/contact/">Contact</a>
+      </div>
+    </div>
+  </header>
+</Base>

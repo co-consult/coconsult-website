@@ -1,0 +1,22 @@
+---
+import Base from '@/layouts/Base.astro';
+---
+<Base
+  locale="en"
+  title="Page not found | Coconsult"
+  description="This address does not match a page on the Coconsult website."
+  routeKey="notFound"
+  noindex={true}
+>
+  <header class="page-hero">
+    <div class="container">
+      <p class="eyebrow">404</p>
+      <h1>Page not found</h1>
+      <p class="lede">This address does not match a page. You can return home or email Coconsult.</p>
+      <div class="hero-buttons">
+        <a class="btn primary" href="/en/">Back to home</a>
+        <a class="btn secondary" href="/en/contact/">Contact</a>
+      </div>
+    </div>
+  </header>
+</Base>
