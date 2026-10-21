@@ -772,6 +772,10 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
 .panel[hidden] { display: none; }
 .choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .choice {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
   text-align: left;
   background: #102233;
   border: 1px solid var(--line);
