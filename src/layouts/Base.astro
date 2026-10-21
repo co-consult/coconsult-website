@@ -1,5 +1,6 @@
 ---
 import '@/styles/global.css';
+import '@/styles/experience.css';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import { ui } from '@/content/ui';
@@ -39,7 +40,7 @@ const graph = routeKey === 'home'
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#08152b" />
+    <meta name="theme-color" content="#07111c" />
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={canonical} />
     {routeKey !== 'notFound' && <link rel="alternate" hreflang="fr" href={frHref} />}
@@ -66,5 +67,6 @@ const graph = routeKey === 'home'
     </main>
     <Footer locale={locale} />
     <script is:inline src="/assets/main.js" defer></script>
+    <script is:inline src="/assets/home.js" defer></script>
   </body>
 </html>

@@ -526,9 +526,9 @@ export const pages: Record<RouteKey, PageContent> = {
     description:
       'Describe your project to Coconsult. contact@coconsult.fr is on the page. The request type can be preselected from elsewhere on the site.',
     eyebrow: 'CONTACT',
-    h1: 'Describe what you need.',
-    intro:
-      'Name the type of need and write to us. The address is on this page, and you can also open your mail app.',
+    h1: "Let's talk about your challenge.",
+    h1Accent: 'Four steps, then email.',
+    intro: 'The site prepares the message. It does not send it.',
     blocks: [
       {
         type: 'inquiries',

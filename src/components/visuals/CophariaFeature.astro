@@ -1,0 +1,53 @@
+---
+import type { Locale } from '@/content/types';
+import { contactPath } from '@/data/inquiries';
+import { workItems } from '@/data/work';
+
+interface Props {
+  locale: Locale;
+  images?: Partial<Record<'dashboard' | 'quality' | 'lab', string>>;
+}
+const { locale, images = {} } = Astro.props;
+const item = workItems.find((entry) => entry.id === 'copharia');
+const copy = locale === 'fr'
+  ? {
+      need: 'Pour remplacer cet emplacement : transmettre les captures autorisées du tableau de bord, de la qualité et du laboratoire.',
+      slot: 'Capture à fournir',
+      items: [
+        ['dashboard', 'Tableau de bord'],
+        ['quality', 'Qualité'],
+        ['lab', 'Laboratoire'],
+      ] as const,
+    }
+  : {
+      need: 'To replace this slot: send the authorized captures of the dashboard, quality and laboratory screens.',
+      slot: 'Capture still needed',
+      items: [
+        ['dashboard', 'Dashboard'],
+        ['quality', 'Quality'],
+        ['lab', 'Laboratory'],
+      ] as const,
+    };
+---
+<div class="experience work-host copharia-host">
+  <div class="feature">
+    <div class="feature-copy">
+      <span class="badge">{item?.status[locale]}</span>
+      <h2>COPHARIA</h2>
+      <p>{item?.summary[locale]}</p>
+      <p>{copy.need}</p>
+      <ul class="shot-wait">
+        {copy.items.map(([key, label]) => {
+          const src = images[key];
+          return (
+            <li>
+              {src ? <img src={src} alt={`${label} — COPHARIA`} /> : <em>{copy.slot}</em>}
+              <strong>{label}</strong>
+            </li>
+          );
+        })}
+      </ul>
+      <a class="btn primary" href={contactPath(locale, 'demo', 'copharia')}>{item?.cta[locale].label}</a>
+    </div>
+  </div>
+</div>

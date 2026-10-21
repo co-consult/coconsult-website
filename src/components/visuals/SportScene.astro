@@ -1,0 +1,46 @@
+---
+import type { Locale } from '@/content/types';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const copy = locale === 'fr'
+  ? {
+      note: "Composition originale. Aucune interface client n'est reproduite.",
+      account: 'Compte membre',
+      items: [
+        ['Abonnements', 'Le compte membre ouvre la saison.'],
+        ['Billetterie', "Un accès est émis pour l'événement."],
+        ['Dons', 'Le geste est rattaché au même compte.'],
+        ['Streaming', "Le direct s'ouvre depuis ce compte."],
+      ],
+    }
+  : {
+      note: 'Original composition. No client interface is reproduced.',
+      account: 'Member account',
+      items: [
+        ['Memberships', 'The member account opens the season.'],
+        ['Ticketing', 'An access is issued for the event.'],
+        ['Donations', 'The gift is tied to the same account.'],
+        ['Streaming', 'The live feed opens from that account.'],
+      ],
+    };
+---
+<div class="scene scene-sport">
+  <p class="scene-note">{copy.note}</p>
+  <div class="member-app">
+    <div class="member-bar">
+      <span>{copy.account}</span>
+      <em id="sport-now">{copy.items[0][0]}</em>
+    </div>
+    <div class="cap-list">
+      {copy.items.map(([label, detail], index) => (
+        <button type="button" data-sport={index} data-label={label} data-detail={detail} aria-pressed={index === 0 ? 'true' : 'false'}>
+          <span class="cap-index">0{index + 1}</span>
+          <b>{label}</b>
+          <small>{detail}</small>
+        </button>
+      ))}
+    </div>
+  </div>
+  <p class="scene-read" id="sport-read">{copy.items[0][1]}</p>
+</div>

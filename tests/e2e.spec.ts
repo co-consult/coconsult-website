@@ -97,15 +97,16 @@ test('qa calls to action open the contact page with a request type', async ({ pa
   await expect(page.getByText('Your request has been sent.')).toHaveCount(0);
 });
 
-test('the challenge picker opens the matching contact request', async ({ page }) => {
+test('the hero follows a lane and the expertise links keep their contact types', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('radio', { name: 'Intégrer l’IA' }).check();
-  const panel = page.locator('[data-panel="ai"]');
-  await expect(panel).toBeVisible();
-  await expect(panel.getByRole('link', { name: 'Cadrer un diagnostic IA' })).toHaveAttribute('href', '/contact/?type=ai');
-  await page.getByRole('radio', { name: 'Renforcer mon équipe' }).check();
-  await expect(page.locator('[data-panel="team"]')).toBeVisible();
-  await expect(page.locator('[data-panel="ai"]')).toBeHidden();
+  const system = page.locator('#systeme');
+  await page.locator('#systeme button[data-lane="ai"]').first().click();
+  await expect(system).toHaveAttribute('data-focus', 'ai');
+  await expect(page.locator('.focus-read')).toContainText('Parcours IA');
+  await page.locator('#systeme button[data-lane="ai"]').first().click();
+  await expect(system).toHaveAttribute('data-focus', 'all');
+  await expect(page.getByRole('link', { name: 'Cadrer un diagnostic IA' })).toHaveAttribute('href', '/contact/?type=ai');
+  await expect(page.getByRole('link', { name: 'Constituer mon équipe' })).toHaveAttribute('href', '/contact/?type=team');
 });
 
 test('homepage and demo links preselect the contact request', async ({ page }) => {
@@ -125,7 +126,7 @@ test('logo sits on a light plate', async ({ page }) => {
   const brand = page.locator('.site-header .brand');
   await expect(brand.locator('img')).toBeVisible();
   const background = await brand.evaluate((element) => getComputedStyle(element).backgroundColor);
-  expect(background).toBe('rgb(247, 250, 252)');
+  expect(background).toBe('rgb(255, 255, 255)');
 });
 
 for (const viewport of viewports) {

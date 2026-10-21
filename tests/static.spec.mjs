@@ -124,16 +124,18 @@ for (const subject of [
 
 const home = read('/');
 const homeEn = read('/en/');
-assert.match(home, /De l’intelligence artificielle aux applications métier\./);
+assert.match(home, /L(?:'|&#39;)intelligence au cœur de vos systèmes\./);
+assert.match(home, /L(?:'|&#39;)ingénierie pour les concrétiser\./);
 assert.match(home, /Intelligence artificielle et data/);
-assert.match(home, /Quel est votre défi/);
+assert.match(home, /Voir le geste, pas le catalogue\./);
 assert.match(home, /href="\/services\/"/);
 assert.match(home, /href="\/contact\/\?type=project"/);
 assert.match(home, /href="\/contact\/\?type=ai"/);
 assert.match(home, /href="\/contact\/\?type=team"/);
-assert.match(homeEn, /From artificial intelligence to business applications\./);
+assert.match(homeEn, /Intelligence at the core of your systems\./);
+assert.match(homeEn, /Engineering to make them real\./);
 assert.match(homeEn, /Artificial intelligence and data/);
-assert.match(homeEn, /What is the challenge/);
+assert.match(homeEn, /The system, layer by layer\./);
 assert.match(homeEn, /href="\/en\/contact\/\?type=project"/);
 assert.match(homeEn, /href="\/en\/contact\/\?type=ai"/);
 assert.equal(home.includes('Paiements et API'), false);

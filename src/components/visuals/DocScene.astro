@@ -1,0 +1,65 @@
+---
+import type { Locale } from '@/content/types';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const copy = locale === 'fr'
+  ? {
+      note: "Composition originale. Ce n'est pas une capture du logiciel livré.",
+      files: 'Dossiers',
+      f: ['Dossier reçu', 'Pièce associée', 'Archive'],
+      s: ['Dépôt', 'Validation', 'Suivi', 'Historique'],
+      d: [
+        'Le fichier entre dans le dossier.',
+        'Une personne décide de la suite.',
+        "L'état du dossier reste visible.",
+        'Chaque passage est consigné.',
+      ],
+      trace: 'Étapes consignées',
+    }
+  : {
+      note: 'Original composition. This is not a capture of the delivered software.',
+      files: 'Files',
+      f: ['File received', 'Attached piece', 'Archive'],
+      s: ['Intake', 'Validation', 'Tracking', 'History'],
+      d: [
+        'The file enters the case.',
+        'A person decides the next step.',
+        'The case status stays visible.',
+        'Each step is kept.',
+      ],
+      trace: 'Steps kept',
+    };
+---
+<div class="scene scene-docs" style="--doc-step:0">
+  <p class="scene-note">{copy.note}</p>
+  <div class="doc-layout">
+    <div class="file-col">
+      <p>{copy.files}</p>
+      {copy.f.map((label, index) => (
+        <button type="button" data-file={index} data-label={label} aria-pressed={index === 0 ? 'true' : 'false'}>{label}</button>
+      ))}
+    </div>
+    <div class="sheet">
+      <p class="sheet-kicker" id="doc-file">{copy.f[0]}</p>
+      <div class="sheet-lines" aria-hidden="true"><span></span><span></span><span></span></div>
+      <p class="sheet-stamp" id="doc-stamp">{copy.s[0]}</p>
+    </div>
+  </div>
+  <ol class="flow-rail">
+    {copy.s.map((label, index) => (
+      <li>
+        <button type="button" data-doc-stage={index} data-label={label} data-detail={copy.d[index]} aria-pressed={index === 0 ? 'true' : 'false'}>
+          <span>0{index + 1}</span><b>{label}</b>
+        </button>
+      </li>
+    ))}
+  </ol>
+  <p class="trace-label">{copy.trace}</p>
+  <ol class="trace">
+    {copy.s.map((label, index) => (
+      <li data-hist={index} class={index === 0 ? 'is-kept' : undefined}>{label}</li>
+    ))}
+  </ol>
+  <p class="scene-read" id="doc-read">{copy.d[0]}</p>
+</div>

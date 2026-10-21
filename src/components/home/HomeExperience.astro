@@ -1,0 +1,399 @@
+---
+import CophariaFeature from '@/components/visuals/CophariaFeature.astro';
+import WorkCase from '@/components/visuals/WorkCase.astro';
+import type { Locale } from '@/content/types';
+import { contactPath } from '@/data/inquiries';
+import { pathFor } from '@/data/routes';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const fr = locale === 'fr';
+const talk = fr ? 'Parlons de votre projet' : "Let's talk about your project";
+const projectHref = contactPath(locale, 'project');
+const copy = fr
+  ? {
+      signature: 'Coconsult · Ingénierie',
+      h1a: "L'intelligence au cœur de vos systèmes.",
+      h1b: "L'ingénierie pour les concrétiser.",
+      lede: 'IA, développement logiciel, cloud et qualité : Coconsult imagine et construit les solutions numériques qui font avancer les entreprises.',
+      explore: 'Explorer nos expertises',
+      sysTitle: "Écosystème : un système relié à l'IA, au logiciel, au cloud et à la qualité.",
+      core: 'Système',
+      lanes: [
+        ['ai', 'IA & Data', "Parcours IA : les données entrent, le modèle s'applique au processus, la décision reste humaine."],
+        ['software', 'Développement', "Parcours développement : l'interface, l'API et les services tiennent le même produit."],
+        ['cloud', 'Cloud & DevOps', "Parcours cloud : une version se construit, se teste, se déploie, puis s'observe."],
+        ['quality', 'Qualité & Sécurité', 'Parcours qualité et sécurité : les tests et les droits protègent ce qui est exposé.'],
+      ],
+      focusAll: 'Quatre parcours alimentent le même système. Choisissez un univers pour le suivre.',
+      exKicker: 'Expertises',
+      exTitle: 'Voir le geste, pas le catalogue.',
+      exIntro: "Chaque schéma est une démonstration pédagogique. Il n'exécute aucun traitement réel.",
+      aiService: 'Intelligence artificielle et data',
+      aiCta: 'Cadrer un diagnostic IA',
+      teamCta: 'Constituer mon équipe',
+      workKicker: 'Réalisations',
+      workTitle: 'Notre ingénierie en action.',
+      modeKicker: 'Modes',
+      modeTitle: 'La forme du travail.',
+      modes: [
+        ['Régie', "Un ou plusieurs ingénieurs, le temps d'un palier."],
+        ['Forfait', 'Un périmètre clair, estimé puis réceptionné.'],
+        ['Équipe dédiée', 'Une squad suivie dans la durée, cadrée depuis la France.'],
+        ['Nearshore', 'Avec Coconsult Nearshore, société tunisienne juridiquement indépendante, à Sfax.'],
+      ],
+      domains: ['Finance', 'Industrie', 'Santé', 'E-commerce', 'Plateformes'],
+      end: 'Décrivez le défi. On part de là.',
+    }
+  : {
+      signature: 'Coconsult · Engineering',
+      h1a: 'Intelligence at the core of your systems.',
+      h1b: 'Engineering to make them real.',
+      lede: 'AI, software, cloud and quality: Coconsult designs and builds the digital systems that move companies forward.',
+      explore: 'Explore our expertise',
+      sysTitle: 'Ecosystem: one system linked to AI, software, cloud and quality.',
+      core: 'System',
+      lanes: [
+        ['ai', 'AI & Data', 'AI path: data comes in, a model serves the process, a person keeps the decision.'],
+        ['software', 'Software Engineering', 'Software engineering path: interface, API and services hold the same product.'],
+        ['cloud', 'Cloud & DevOps', 'Cloud path: a release is built, tested, deployed, then watched.'],
+        ['quality', 'Quality & Security', 'Quality and security path: tests and access rights protect what is exposed.'],
+      ],
+      focusAll: 'Four paths feed the same system. Choose one to follow it.',
+      exKicker: 'Expertise',
+      exTitle: 'The system, layer by layer.',
+      exIntro: 'Each diagram is a teaching sketch. It runs no real processing.',
+      aiService: 'Artificial intelligence and data',
+      aiCta: 'Request an AI diagnostic',
+      teamCta: 'Build your team',
+      workKicker: 'Work',
+      workTitle: 'Our engineering in action.',
+      modeKicker: 'Engagement',
+      modeTitle: 'How the work is shaped.',
+      modes: [
+        ['Staff augmentation', 'One or more engineers, for a defined stretch.'],
+        ['Fixed scope', 'A clear scope, estimated and then accepted.'],
+        ['Dedicated team', 'A squad over time, scoped from France.'],
+        ['Nearshore', 'With Coconsult Nearshore, a legally independent Tunisian company in Sfax.'],
+      ],
+      domains: ['Finance', 'Industry', 'Health', 'E-commerce', 'Platforms'],
+      end: 'Describe the challenge. We start there.',
+    };
+const skills = fr
+  ? [
+      ['ai', 'IA & Data'],
+      ['software', 'Développement'],
+      ['cloud', 'Cloud & DevOps'],
+      ['qa', 'QA & Testing'],
+      ['cyber', 'Cybersécurité'],
+      ['integration', 'Intégration métier'],
+    ]
+  : [
+      ['ai', 'AI & Data'],
+      ['software', 'Software'],
+      ['cloud', 'Cloud & DevOps'],
+      ['qa', 'QA & Testing'],
+      ['cyber', 'Cybersecurity'],
+      ['integration', 'Business integration'],
+    ];
+const demo = fr
+  ? {
+      aiH: 'Du document au résultat métier.',
+      docs: [['invoice', 'Facture', 'Exemple : montant et échéance relevés.'], ['contract', 'Contrat', 'Exemple : date de fin et signataire isolés.'], ['mail', 'Message', 'Exemple : demande classée en suivi.']],
+      extract: 'Extraction',
+      model: 'Analyse',
+      out: 'Résultat',
+      aiIdle: "Choisissez une pièce. L'exemple qui s'affiche est écrit à l'avance.",
+      aiNote: "Démonstration illustrative. Aucun modèle n'est appelé.",
+      softH: "De l'écran jusqu'à la donnée.",
+      layers: [
+        ['ui', 'Interface', "L'écran appelle l'API. La règle métier n'y habite pas."],
+        ['api', 'API', "L'API tient le contrat entre l'écran et les services."],
+        ['svc', 'Services métier', 'Les règles de gestion sont ici.'],
+        ['db', 'Base de données', "La donnée persiste. L'écran ne l'écrit pas directement."],
+      ],
+      softIdle: "Sélectionnez une couche pour voir ce qu'elle relie.",
+      cloudH: "Le chemin d'une version.",
+      steps: ['Code', 'Build', 'Tests', 'Déploiement', 'Monitoring'],
+      run: 'Suivre une version',
+      plain: "Démonstration illustrative. Aucun système réel n'est exécuté.",
+      qaH: 'Une campagne, puis la correction.',
+      checks: ['Parcours nominal', 'API commande', 'Non-régression', "Cas d'erreur"],
+      qaRun: 'Lancer la campagne',
+      qaFix: 'Valider la correction',
+      qaIdle: "La séquence est fictive. Elle montre le rythme d'une campagne.",
+      qaFail: "Un cas d'erreur reste ouvert. Le reste passe.",
+      qaOk: 'Campagne illustrée close, après correction.',
+      cyberH: 'Qui peut voir quoi.',
+      roles: [['read', 'Lecture'], ['edit', 'Édition'], ['admin', 'Admin']],
+      file: 'Dossier',
+      api: 'API',
+      secret: 'Secrets',
+      access: 'Accès',
+      view: 'Visible',
+      write: 'Modifiable',
+      none: 'Fermé',
+      cyberNote: "Schéma de droits. Ce n'est pas un audit, ni une attaque.",
+      intH: 'Un dossier qui traverse les outils.',
+      hops: ['ERP', 'GED', 'API', 'Application'],
+      hopText: [
+        "Le dossier est dans l'ERP.",
+        'Le dossier est passé dans la GED.',
+        "L'API porte le dossier vers l'application.",
+        "L'application métier reçoit le dossier.",
+      ],
+      next: 'Faire passer le dossier',
+    }
+  : {
+      aiH: 'From a document to a business result.',
+      docs: [['invoice', 'Invoice', 'Example: amount and due date picked out.'], ['contract', 'Contract', 'Example: end date and signatory isolated.'], ['mail', 'Message', 'Example: request filed as a follow-up.']],
+      extract: 'Extraction',
+      model: 'Analysis',
+      out: 'Result',
+      aiIdle: 'Pick a document. The example that appears was written in advance.',
+      aiNote: 'Illustrative demo. No model is called.',
+      softH: 'From the screen down to the data.',
+      layers: [
+        ['ui', 'Interface', 'The screen calls the API. The business rule does not live there.'],
+        ['api', 'API', 'The API holds the contract between the screen and the services.'],
+        ['svc', 'Business services', 'The business rules sit here.'],
+        ['db', 'Database', 'The data persists. The screen does not write it directly.'],
+      ],
+      softIdle: 'Select a layer to see what it connects.',
+      cloudH: 'The path of a release.',
+      steps: ['Code', 'Build', 'Tests', 'Deployment', 'Monitoring'],
+      run: 'Follow a release',
+      plain: 'Illustrative demo. No real system is executed.',
+      qaH: 'A campaign, then the fix.',
+      checks: ['Happy path', 'Order API', 'Regression', 'Error case'],
+      qaRun: 'Run the campaign',
+      qaFix: 'Mark the fix',
+      qaIdle: 'The sequence is fictional. It shows the rhythm of a campaign.',
+      qaFail: 'One error case stays open. The rest pass.',
+      qaOk: 'Illustrated campaign closed, after the fix.',
+      cyberH: 'Who can see what.',
+      roles: [['read', 'Read'], ['edit', 'Edit'], ['admin', 'Admin']],
+      file: 'File',
+      api: 'API',
+      secret: 'Secrets',
+      access: 'Access',
+      view: 'Visible',
+      write: 'Editable',
+      none: 'Closed',
+      cyberNote: 'A rights sketch. Not an audit, and not an attack.',
+      intH: 'A case file crossing the tools.',
+      hops: ['ERP', 'Document store', 'API', 'Application'],
+      hopText: [
+        'The file is in the ERP.',
+        'The file has moved into the document store.',
+        'The API carries the file toward the application.',
+        'The business application receives the file.',
+      ],
+      next: 'Move the file',
+    };
+---
+<div class="experience">
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">{copy.signature}</p>
+      <h1>
+        <span>{copy.h1a}</span>
+        <span class="accent">{copy.h1b}</span>
+      </h1>
+      <p class="lede">{copy.lede}</p>
+      <div class="cta-row">
+        <a class="btn primary" href={projectHref}>{talk}</a>
+        <a class="btn ghost" href="#expertises">{copy.explore}</a>
+      </div>
+    </div>
+    <div class="system" data-focus="all" id="systeme">
+      <div class="orbit-stage">
+        <svg viewBox="0 0 640 640" role="img" aria-labelledby="sysTitle">
+          <title id="sysTitle">{copy.sysTitle}</title>
+          <defs>
+            <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#8ef3ff" stop-opacity="0.45"></stop>
+              <stop offset="70%" stop-color="#8ef3ff" stop-opacity="0"></stop>
+            </radialGradient>
+          </defs>
+          <circle cx="320" cy="318" r="168" fill="url(#coreGlow)"></circle>
+          <g class="field" fill="#8ef3ff">
+            <circle cx="120" cy="120" r="1.4"></circle><circle cx="200" cy="88" r="1.4"></circle>
+            <circle cx="440" cy="96" r="1.4"></circle><circle cx="540" cy="150" r="1.4"></circle>
+            <circle cx="88" cy="300" r="1.4"></circle><circle cx="560" cy="340" r="1.4"></circle>
+            <circle cx="150" cy="470" r="1.4"></circle><circle cx="500" cy="500" r="1.4"></circle>
+            <circle cx="300" cy="540" r="1.4"></circle><circle cx="380" cy="70" r="1.4"></circle>
+          </g>
+          <circle class="orbit" cx="320" cy="318" r="92"></circle>
+          <circle class="orbit" cx="320" cy="318" r="168"></circle>
+          <path class="lane" data-lane="ai" d="M320 264 C 300 190 340 150 320 112"></path>
+          <path class="lane" data-lane="software" d="M272 338 C 210 300 186 270 158 248"></path>
+          <path class="lane" data-lane="cloud" d="M368 286 C 430 240 470 210 508 178"></path>
+          <path class="lane" data-lane="quality" d="M356 364 C 400 410 424 450 448 478"></path>
+          <circle class="endpoint" data-lane="ai" cx="320" cy="112" r="5"></circle>
+          <circle class="endpoint" data-lane="software" cx="158" cy="248" r="5"></circle>
+          <circle class="endpoint" data-lane="cloud" cx="508" cy="178" r="5"></circle>
+          <circle class="endpoint" data-lane="quality" cx="448" cy="478" r="5"></circle>
+          <circle class="core-ring" cx="320" cy="318" r="54"></circle>
+          <circle class="core-ring inner" cx="320" cy="318" r="28"></circle>
+          <circle class="particle" data-lane="ai" r="3.2"><animateMotion dur="4.2s" repeatCount="indefinite" path="M320 264 C 300 190 340 150 320 112"></animateMotion></circle>
+          <circle class="particle" data-lane="software" r="3.2"><animateMotion dur="4.8s" repeatCount="indefinite" path="M272 338 C 210 300 186 270 158 248"></animateMotion></circle>
+          <circle class="particle" data-lane="cloud" r="3.2"><animateMotion dur="3.8s" repeatCount="indefinite" path="M368 286 C 430 240 470 210 508 178"></animateMotion></circle>
+          <circle class="particle" data-lane="quality" r="3.2"><animateMotion dur="5s" repeatCount="indefinite" path="M356 364 C 400 410 424 450 448 478"></animateMotion></circle>
+        </svg>
+        <div class="core-label"><strong>{copy.core}</strong></div>
+        <div class="nodes">
+          {copy.lanes.map(([id, label, focus]) => (
+            <button class={`node node-${id}`} type="button" data-lane={id} data-focus-text={focus} aria-pressed="false"><span>{label}</span></button>
+          ))}
+        </div>
+      </div>
+      <div class="mobile-nodes">
+        <div class="mobile-core" aria-hidden="true"><strong>{copy.core}</strong></div>
+        {copy.lanes.map(([id, label, focus]) => (
+          <button class="node" type="button" data-lane={id} data-focus-text={focus} aria-pressed="false"><span>{label}</span></button>
+        ))}
+      </div>
+      <p class="focus-read" aria-live="polite" data-all={copy.focusAll}>{copy.focusAll}</p>
+    </div>
+  </section>
+
+  <section class="section" id="expertises">
+    <div class="section-head">
+      <p class="eyebrow">{copy.exKicker}</p>
+      <div>
+        <h2>{copy.exTitle}</h2>
+        <p>{copy.exIntro}</p>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="skill-list">
+        {skills.map(([id, label], index) => (
+          <button class="skill" type="button" id={`tab-${id}`} aria-controls={`panel-${id}`} aria-pressed={index === 0 ? 'true' : 'false'} data-skill={id}>
+            <span>0{index + 1}</span><b>{label}</b>
+          </button>
+        ))}
+      </div>
+      <div class="viz">
+        <div class="viz-panel" id="panel-ai">
+          <h3>{demo.aiH}</h3>
+          <div class="pipeline" id="ai-pipe">
+            <div class="station docs">
+              {demo.docs.map(([id, label, result]) => (
+                <button class="chip" type="button" data-doc={id} data-result={result} aria-pressed="false">{label}</button>
+              ))}
+            </div>
+            <div class="rail" aria-hidden="true"><span class="token"></span></div>
+            <div class="plate"><small>02</small><b>{demo.extract}</b></div>
+            <div class="rail" aria-hidden="true"><span class="token"></span></div>
+            <div class="plate ai-plate"><small>03</small><b>{demo.model}</b></div>
+            <div class="rail" aria-hidden="true"><span class="token"></span></div>
+            <div class="plate out-plate"><small>04</small><b>{demo.out}</b></div>
+          </div>
+          <p class="result-line" id="ai-result" data-idle={demo.aiIdle}>{demo.aiIdle}</p>
+          <p class="demo-note">{demo.aiNote}</p>
+        </div>
+        <div class="viz-panel" id="panel-software" hidden>
+          <h3>{demo.softH}</h3>
+          <div class="arch" id="arch">
+            {demo.layers.map(([id, label, result], index) => (
+              <button class="layer" type="button" data-layer={id} data-result={result} aria-pressed="false"><small>0{index + 1}</small><b>{label}</b></button>
+            ))}
+          </div>
+          <p class="result-line" id="soft-result" data-idle={demo.softIdle}>{demo.softIdle}</p>
+        </div>
+        <div class="viz-panel" id="panel-cloud" hidden>
+          <h3>{demo.cloudH}</h3>
+          <div class="pipe" id="pipe">
+            {demo.steps.map((label, index) => (
+              <button class="step" type="button" data-step={index}>{label}</button>
+            ))}
+          </div>
+          <button class="btn ghost small" type="button" id="run-pipe">{demo.run}</button>
+          <p class="demo-note">{demo.plain}</p>
+        </div>
+        <div class="viz-panel" id="panel-qa" hidden>
+          <h3>{demo.qaH}</h3>
+          <div class="checks" id="checks">
+            {demo.checks.map((label) => <div class="check">{label}</div>)}
+          </div>
+          <div class="cta-row">
+            <button class="btn ghost small" type="button" id="run-qa">{demo.qaRun}</button>
+            <button class="btn ghost small" type="button" id="fix-qa" hidden>{demo.qaFix}</button>
+          </div>
+          <p class="result-line" id="qa-result" data-idle={demo.qaIdle} data-fail={demo.qaFail} data-ok={demo.qaOk}>{demo.qaIdle}</p>
+        </div>
+        <div class="viz-panel" id="panel-cyber" hidden>
+          <h3>{demo.cyberH}</h3>
+          <div class="cta-row" id="roles">
+            {demo.roles.map(([id, label], index) => (
+              <button class="role" type="button" data-role={id} aria-pressed={index === 0 ? 'true' : 'false'}>{label}</button>
+            ))}
+          </div>
+          <div class="matrix" id="matrix" data-view={demo.view} data-write={demo.write} data-none={demo.none}>
+            <div></div><div class="res">{demo.file}</div><div class="res">{demo.api}</div><div class="res">{demo.secret}</div>
+            <div class="res">{demo.access}</div>
+            <div class="res cell" data-cell="file">{demo.view}</div>
+            <div class="res cell" data-cell="api">{demo.view}</div>
+            <div class="res cell" data-cell="secret">{demo.none}</div>
+          </div>
+          <p class="demo-note">{demo.cyberNote}</p>
+        </div>
+        <div class="viz-panel" id="panel-integration" hidden>
+          <h3>{demo.intH}</h3>
+          <div class="bridge" id="bridge">
+            <span class="packet" aria-hidden="true"></span>
+            {demo.hops.map((label, index) => (
+              <button type="button" data-hop={index} data-result={demo.hopText[index]} aria-pressed={index === 0 ? 'true' : 'false'}>{label}</button>
+            ))}
+          </div>
+          <button class="btn ghost small" type="button" id="advance-hop">{demo.next}</button>
+          <p class="result-line" id="hop-result">{demo.hopText[0]}</p>
+        </div>
+      </div>
+    </div>
+    <p class="service-links">
+      <a href={pathFor(locale, 'ai')}>{copy.aiService}</a>
+      <a href={pathFor(locale, 'software')}>{fr ? 'Développement logiciel' : 'Software development'}</a>
+      <a href={pathFor(locale, 'cloud')}>{fr ? 'Cloud et DevOps' : 'Cloud and DevOps'}</a>
+      <a href={pathFor(locale, 'qa')}>{fr ? 'QA et testing' : 'QA & testing'}</a>
+      <a href={contactPath(locale, 'ai')}>{copy.aiCta}</a>
+      <a href={contactPath(locale, 'team')}>{copy.teamCta}</a>
+    </p>
+  </section>
+
+  <section class="section paper" id="realisations">
+    <div class="section-head">
+      <p class="eyebrow">{copy.workKicker}</p>
+      <div><h2>{copy.workTitle}</h2></div>
+    </div>
+    <div class="work-grid">
+      <WorkCase locale={locale} id="iaps" />
+      <WorkCase locale={locale} id="cssforever" />
+    </div>
+  </section>
+
+  <section class="section paper" id="modes">
+    <div class="section-head">
+      <p class="eyebrow">{copy.modeKicker}</p>
+      <h2>{copy.modeTitle}</h2>
+    </div>
+    <div class="mode-row">
+      {copy.modes.map(([title, text]) => (
+        <article class="mode"><strong>{title}</strong><p>{text}</p></article>
+      ))}
+    </div>
+    <div class="domain-row">
+      {copy.domains.map((domain) => <span>{domain}</span>)}
+    </div>
+  </section>
+
+  <section class="section">
+    <CophariaFeature locale={locale} />
+  </section>
+
+  <section class="final">
+    <h2>{copy.end}</h2>
+    <a class="btn primary" href={projectHref}>{talk}</a>
+  </section>
+</div>
