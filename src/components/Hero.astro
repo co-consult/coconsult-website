@@ -16,6 +16,7 @@ const secondaryHref = page.heroExplore
     ? contactPath(locale, page.heroSecondary)
     : '';
 const secondaryLabel = page.heroExplore ? t.explore : secondaryInquiry?.label;
+const nodeHrefs = [pathFor(locale, 'ai'), pathFor(locale, 'software'), pathFor(locale, 'cloud'), pathFor(locale, 'qa')];
 ---
 {visual && primary && secondaryHref && secondaryLabel && (
   <div class="hero-wrap">
@@ -59,7 +60,9 @@ const secondaryLabel = page.heroExplore ? t.explore : secondaryInquiry?.label;
           <small>{visual.centerSub}</small>
         </p>
         <ul class="orbit-nodes">
-          {visual.nodes.map((node) => <li>{node}</li>)}
+          {visual.nodes.map((node, index) => (
+            <li><a href={nodeHrefs[index]}>{node}</a></li>
+          ))}
         </ul>
         <p class="visual-bottom">{visual.note}</p>
       </figure>

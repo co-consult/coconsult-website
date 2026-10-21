@@ -18,6 +18,10 @@ export const ui: Record<
     status: string;
     sector: string;
     benefits: string;
+    storyContext: string;
+    storyStake: string;
+    storyWork: string;
+    storyResult: string;
     contactHeading: string;
     companyHeading: string;
     legalHeading: string;
@@ -59,6 +63,10 @@ export const ui: Record<
     status: 'Statut',
     sector: 'Secteur',
     benefits: 'Bénéfices possibles',
+    storyContext: 'Contexte',
+    storyStake: 'Enjeu',
+    storyWork: 'Intervention',
+    storyResult: 'Solution livrée',
     contactHeading: 'Contact',
     companyHeading: 'Entreprise',
     legalHeading: 'Informations',
@@ -98,6 +106,10 @@ export const ui: Record<
     status: 'Status',
     sector: 'Sector',
     benefits: 'Possible benefits',
+    storyContext: 'Context',
+    storyStake: 'Stake',
+    storyWork: 'What we did',
+    storyResult: 'What shipped',
     contactHeading: 'Contact',
     companyHeading: 'Company',
     legalHeading: 'Information',

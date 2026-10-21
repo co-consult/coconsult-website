@@ -66,9 +66,10 @@ const tones = ['band', 'band-alt', 'band', 'band-alt'];
               <h2>{block.title}</h2>
               {block.intro && <p>{block.intro}</p>}
             </div>
-            <div class="column-grid">
-              {block.items.map((item) => (
+            <div class:list={['column-grid', { rail: block.layout === 'rail' }]}>
+              {block.items.map((item, itemIndex) => (
                 <article class="info-card">
+                  {block.layout === 'rail' && <span class="rail-no">{String(itemIndex + 1).padStart(2, '0')}</span>}
                   <h3>{item.title}</h3>
                   <p>{item.text}</p>
                 </article>
@@ -151,7 +152,16 @@ const tones = ['band', 'band-alt', 'band', 'band-alt'];
                     <p class="badge">{item.status[locale]}</p>
                     <h3>{item.title[locale]}</h3>
                     <p class="meta-line">{t.sector} · {item.sector[locale]}</p>
-                    <p>{item.summary[locale]}</p>
+                    {item.story ? (
+                      <dl class="story">
+                        <div><dt>{t.storyContext}</dt><dd>{item.story[locale].context}</dd></div>
+                        <div><dt>{t.storyStake}</dt><dd>{item.story[locale].stake}</dd></div>
+                        <div><dt>{t.storyWork}</dt><dd>{item.story[locale].intervention}</dd></div>
+                        <div><dt>{t.storyResult}</dt><dd>{item.story[locale].result}</dd></div>
+                      </dl>
+                    ) : (
+                      <p>{item.summary[locale]}</p>
+                    )}
                     <p class="meta-line">{t.benefits}</p>
                     <ul>
                       {item.benefits[locale].map((benefit) => <li>{benefit}</li>)}

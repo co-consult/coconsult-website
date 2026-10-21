@@ -122,6 +122,7 @@ export const pages: Record<RouteKey, PageContent> = {
       {
         type: 'columns',
         title: 'Modes d’intervention',
+        layout: 'rail',
         intro: 'La façon de contractualiser le travail, distincte de l’expertise mobilisée. Coconsult accompagne ses clients depuis la France et collabore avec Coconsult Nearshore, une société tunisienne juridiquement indépendante basée à Sfax, pour mobiliser des compétences d’ingénierie et constituer des équipes dédiées.',
         items: [
           { title: 'Régie', text: 'Un ou plusieurs ingénieurs en assistance technique, le temps d’un palier de delivery.' },
@@ -606,6 +607,15 @@ export const pages: Record<RouteKey, PageContent> = {
           { title: 'Architecture', text: 'Un découpage lisible quand le produit grandit, sans refonte décorative.' },
         ],
       },
+      {
+        type: 'list',
+        title: 'Interventions concrètes',
+        items: [
+          'Faire évoluer une application web déjà en production',
+          'Relier un mobile ou un portail au backend existant',
+          'Stabiliser des API entre deux systèmes qui ne se parlent pas',
+        ],
+      },
       { type: 'cta', title: 'Décrivez le logiciel à construire ou à moderniser.', text: 'Stack, utilisateurs et contrainte de délai suffisent pour un premier échange.', primary: 'project' },
     ],
   },
@@ -627,6 +637,15 @@ export const pages: Record<RouteKey, PageContent> = {
           { title: 'Livraison', text: 'CI/CD et conteneurisation pour que chaque version soit reproductible.' },
           { title: 'Exploitation', text: 'Journaux, alertes et reprises, afin qu’un incident se voie avant vos utilisateurs.' },
           { title: 'Accès', text: 'Droits, secrets et durcissement des services exposés, limités au système concerné.' },
+        ],
+      },
+      {
+        type: 'list',
+        title: 'Interventions concrètes',
+        items: [
+          'Rendre une chaîne de livraison reproductible',
+          'Clarifier les environnements d’une application déjà déployée',
+          'Rendre un incident visible avant que les utilisateurs ne le signalent',
         ],
       },
       { type: 'cta', title: 'Parler de la plateforme que vous exploitez.', text: 'Hébergement actuel, fréquence de livraison et point de douleur suffisent pour commencer.', primary: 'project' },
@@ -680,6 +699,15 @@ export const pages: Record<RouteKey, PageContent> = {
           { title: 'Applications', text: 'Contrôles d’accès, validation des entrées et réduction de ce qu’une API expose.' },
           { title: 'Identités', text: 'Comptes, rôles et secrets alignés sur les personnes qui doivent réellement intervenir.' },
           { title: 'Plateforme', text: 'Durcissement des services publiés, en lien avec le cloud et la chaîne de livraison déjà en place.' },
+        ],
+      },
+      {
+        type: 'list',
+        title: 'Interventions concrètes',
+        items: [
+          'Réduire ce qu’une API expose publiquement',
+          'Revoir les rôles et les secrets d’une application',
+          'Durcir un service déjà publié, avec l’équipe qui l’exploite',
         ],
       },
       { type: 'cta', title: 'Décrire le système à protéger.', text: 'L’application, les accès actuels et le risque que vous voyez suffisent pour un premier échange.', primary: 'project' },

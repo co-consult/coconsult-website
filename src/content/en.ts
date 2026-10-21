@@ -92,6 +92,7 @@ export const pages: Record<RouteKey, PageContent> = {
       {
         type: 'columns',
         title: 'Ways of working',
+        layout: 'rail',
         intro: 'How the work is contracted, separate from the technical discipline. Coconsult supports its clients from France and works with Coconsult Nearshore, a legally independent Tunisian company based in Sfax, to bring in engineering skills and build dedicated teams.',
         items: [
           { title: 'Staff augmentation', text: 'One or more engineers for a defined stretch of delivery.' },
@@ -557,6 +558,15 @@ export const pages: Record<RouteKey, PageContent> = {
           { title: 'Architecture', text: 'A readable structure as the product grows, without a decorative rewrite.' },
         ],
       },
+      {
+        type: 'list',
+        title: 'Concrete work',
+        items: [
+          'Evolve a web application already in production',
+          'Connect a mobile app or a portal to the backend you run',
+          'Steady the APIs between two systems that do not talk',
+        ],
+      },
       { type: 'cta', title: 'Describe the software to build or to modernise.', text: 'Stack, users and timing are enough for a first conversation.', primary: 'project' },
     ],
   },
@@ -578,6 +588,15 @@ export const pages: Record<RouteKey, PageContent> = {
           { title: 'Delivery', text: 'CI/CD and containers so each release can be reproduced.' },
           { title: 'Operations', text: 'Logs, alerts and retries, so an incident is visible before your users find it.' },
           { title: 'Access', text: 'Rights, secrets and hardening of exposed services, limited to the system in scope.' },
+        ],
+      },
+      {
+        type: 'list',
+        title: 'Concrete work',
+        items: [
+          'Make a delivery pipeline reproducible',
+          'Clarify the environments of an application already deployed',
+          'Surface an incident before users report it',
         ],
       },
       { type: 'cta', title: 'Talk about the platform you run.', text: 'Current hosting, release cadence and the pain point are enough to start.', primary: 'project' },
@@ -629,6 +648,15 @@ export const pages: Record<RouteKey, PageContent> = {
           { title: 'Applications', text: 'Access control, input validation and a smaller surface on the APIs you publish.' },
           { title: 'Identities', text: 'Accounts, roles and secrets aligned with the people who actually need to act.' },
           { title: 'Platform', text: 'Hardening of published services, alongside the cloud and the delivery pipeline you already run.' },
+        ],
+      },
+      {
+        type: 'list',
+        title: 'Concrete work',
+        items: [
+          'Shrink what a public API exposes',
+          'Review the roles and secrets of an application',
+          'Harden a published service with the team that runs it',
         ],
       },
       { type: 'cta', title: 'Describe the system to protect.', text: 'The application, current access and the risk you see are enough for a first conversation.', primary: 'project' },
