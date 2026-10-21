@@ -10,6 +10,10 @@ const paths = [
   '/services/paiements/',
   '/services/automatisation/',
   '/services/ia-entreprise/',
+  '/services/developpement/',
+  '/services/cloud-devops/',
+  '/services/cybersecurite/',
+  '/modes-intervention/',
   '/solutions/',
   '/realisations/',
   '/a-propos/',
@@ -23,6 +27,10 @@ const paths = [
   '/en/services/payments/',
   '/en/services/business-automation/',
   '/en/services/enterprise-ai/',
+  '/en/services/software-engineering/',
+  '/en/services/cloud-devops/',
+  '/en/services/cybersecurity/',
+  '/en/engagement/',
   '/en/solutions/',
   '/en/case-studies/',
   '/en/about/',
@@ -74,17 +82,42 @@ test('mobile menu opens, closes on Escape, and follows a link', async ({ page })
   await expect(page).toHaveURL(/\/en\/services\/qa-testing\/$/);
 });
 
-test('qa calls to action are distinct mailto links', async ({ page }) => {
+test('qa calls to action open the contact page with a request type', async ({ page }) => {
   await page.goto('/en/services/qa-testing/');
   const discuss = page.getByRole('link', { name: 'Discuss your QA needs' });
   const request = page.getByRole('link', { name: 'Request a QA team' });
-  await expect(discuss).toHaveAttribute('href', /mailto:contact@coconsult\.fr\?subject=/);
-  await expect(request).toHaveAttribute('href', /mailto:contact@coconsult\.fr\?subject=/);
-  const discussHref = await discuss.getAttribute('href');
-  const requestHref = await request.getAttribute('href');
-  expect(decodeURIComponent(discussHref || '')).toContain('Discuss your QA needs - Coconsult');
-  expect(decodeURIComponent(requestHref || '')).toContain('Request a QA team - Coconsult');
-  expect(discussHref).not.toBe(requestHref);
+  await expect(discuss).toHaveAttribute('href', '/en/contact/?type=qa');
+  await expect(request).toHaveAttribute('href', '/en/contact/?type=qa-team');
+  await discuss.click();
+  await expect(page).toHaveURL(/\/en\/contact\/\?type=qa$/);
+  await expect(page.locator('#main').getByRole('link', { name: 'contact@coconsult.fr' })).toBeVisible();
+  await expect(page.locator('[data-contact-type]')).toHaveValue('qaDiscuss');
+  await expect(page.getByRole('button', { name: 'Copy the address' })).toBeVisible();
+  await expect(page.locator('[data-contact-form]')).toBeHidden();
+  await expect(page.getByText('Your request has been sent.')).toHaveCount(0);
+});
+
+test('the challenge picker opens the matching contact request', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('radio', { name: 'Intégrer l’IA' }).check();
+  const panel = page.locator('[data-panel="ai"]');
+  await expect(panel).toBeVisible();
+  await expect(panel.getByRole('link', { name: 'Cadrer un diagnostic IA' })).toHaveAttribute('href', '/contact/?type=ai');
+  await page.getByRole('radio', { name: 'Renforcer mon équipe' }).check();
+  await expect(page.locator('[data-panel="team"]')).toBeVisible();
+  await expect(page.locator('[data-panel="ai"]')).toBeHidden();
+});
+
+test('homepage and demo links preselect the contact request', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('link', { name: 'Parlons de votre projet' }).first().click();
+  await expect(page).toHaveURL(/\/contact\/\?type=project$/);
+  await expect(page.locator('[data-contact-type]')).toHaveValue('project');
+  await page.goto('/contact/?type=demo&product=copharia');
+  await expect(page.locator('[data-contact-type]')).toHaveValue('demo');
+  await expect(page.locator('[data-open-mail]')).toHaveAttribute('href', /subject=.*COPHARIA/);
+  await page.goto('/contact/?type=demo&product=other');
+  await expect(page.locator('[data-open-mail]')).not.toHaveAttribute('href', /OTHER/);
 });
 
 test('logo sits on a light plate', async ({ page }) => {

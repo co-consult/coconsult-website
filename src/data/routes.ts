@@ -23,14 +23,13 @@ export const routes: Record<RouteKey, RouteDef> = {
     en: '/en/services/',
     nav: true,
     footer: 'services',
-    label: { fr: 'Services', en: 'Services' },
+    label: { fr: 'Expertises', en: 'Expertise' },
   },
   dedicated: {
     key: 'dedicated',
     fr: '/services/equipes-dediees/',
     en: '/en/services/dedicated-teams/',
-    parent: 'services',
-    footer: 'services',
+    parent: 'modes',
     label: { fr: 'Équipes dédiées', en: 'Dedicated teams' },
   },
   qa: {
@@ -39,14 +38,13 @@ export const routes: Record<RouteKey, RouteDef> = {
     en: '/en/services/qa-testing/',
     parent: 'services',
     footer: 'services',
-    label: { fr: 'QA & testing', en: 'QA & testing' },
+    label: { fr: 'QA et testing', en: 'QA & testing' },
   },
   payments: {
     key: 'payments',
     fr: '/services/paiements/',
     en: '/en/services/payments/',
     parent: 'services',
-    footer: 'services',
     label: { fr: 'Paiements', en: 'Payments' },
   },
   automation: {
@@ -55,7 +53,7 @@ export const routes: Record<RouteKey, RouteDef> = {
     en: '/en/services/business-automation/',
     parent: 'services',
     footer: 'services',
-    label: { fr: 'Automatisation', en: 'Business automation' },
+    label: { fr: 'Processus métier', en: 'Business processes' },
   },
   ai: {
     key: 'ai',
@@ -63,7 +61,39 @@ export const routes: Record<RouteKey, RouteDef> = {
     en: '/en/services/enterprise-ai/',
     parent: 'services',
     footer: 'services',
-    label: { fr: 'IA d’entreprise', en: 'Enterprise AI' },
+    label: { fr: 'IA et data', en: 'AI and data' },
+  },
+  software: {
+    key: 'software',
+    fr: '/services/developpement/',
+    en: '/en/services/software-engineering/',
+    parent: 'services',
+    footer: 'services',
+    label: { fr: 'Développement logiciel', en: 'Software development' },
+  },
+  cloud: {
+    key: 'cloud',
+    fr: '/services/cloud-devops/',
+    en: '/en/services/cloud-devops/',
+    parent: 'services',
+    footer: 'services',
+    label: { fr: 'Cloud et DevOps', en: 'Cloud and DevOps' },
+  },
+  cyber: {
+    key: 'cyber',
+    fr: '/services/cybersecurite/',
+    en: '/en/services/cybersecurity/',
+    parent: 'services',
+    footer: 'services',
+    label: { fr: 'Cybersécurité', en: 'Cybersecurity' },
+  },
+  modes: {
+    key: 'modes',
+    fr: '/modes-intervention/',
+    en: '/en/engagement/',
+    nav: true,
+    footer: 'company',
+    label: { fr: 'Nos offres', en: 'Engagement' },
   },
   solutions: {
     key: 'solutions',
@@ -128,6 +158,10 @@ export const routeOrder: RouteKey[] = [
   'payments',
   'automation',
   'ai',
+  'software',
+  'cloud',
+  'cyber',
+  'modes',
   'solutions',
   'cases',
   'about',
@@ -137,8 +171,8 @@ export const routeOrder: RouteKey[] = [
   'privacy',
 ];
 
-export const primaryNav: RouteKey[] = ['services', 'solutions', 'cases', 'about', 'contact'];
-export const serviceNav: RouteKey[] = ['dedicated', 'qa', 'payments', 'automation', 'ai'];
+export const primaryNav: RouteKey[] = ['services', 'modes', 'cases', 'solutions', 'about', 'contact'];
+export const serviceNav: RouteKey[] = ['ai', 'software', 'qa', 'cloud', 'cyber', 'automation'];
 
 export function pathFor(locale: Locale, key: RouteKey): string {
   return routes[key][locale];

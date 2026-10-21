@@ -4,93 +4,170 @@ import { legalPage, privacyPage } from '@/content/legal-pages';
 export const pages: Record<RouteKey, PageContent> = {
   home: {
     key: 'home',
-    metaTitle: 'Coconsult — Ingénierie logicielle, équipes et systèmes métier',
+    metaTitle: 'Coconsult — Ingénierie logicielle, intelligence artificielle et équipes tech',
     description:
-      'Coconsult conçoit, intègre et fiabilise les applications métier. Équipes dédiées, QA, paiements et intégration, depuis la France, en collaboration avec Sfax.',
-    eyebrow: 'INGÉNIERIE LOGICIELLE · FRANCE & TUNISIE',
-    h1: 'Des systèmes plus fiables.',
-    h1Accent: 'Des projets qui avancent.',
+      'Coconsult conçoit, développe et modernise des solutions numériques : logiciel, IA et data, qualité, cloud et DevOps, avec des équipes adaptées au projet.',
+    eyebrow: 'INGÉNIERIE LOGICIELLE · IA · ÉQUIPES TECH',
+    h1: 'De l’intelligence artificielle aux applications métier.',
+    h1Accent: 'Nous construisons vos solutions numériques.',
     intro:
-      'Nous concevons, intégrons et fiabilisons les applications de votre activité. De l’expertise individuelle aux équipes dédiées, Coconsult vous aide à livrer avec maîtrise.',
+      'Coconsult conçoit, développe et modernise les systèmes de ses clients. Des équipes d’ingénierie, en France et avec Coconsult Nearshore à Sfax, mènent le projet jusqu’à la mise en production.',
     heroPrimary: 'project',
-    heroSecondary: 'team',
+    heroExplore: true,
     hero: {
-      facts: ['Ingénierie et intégration', 'Compétences mobilisées avec Sfax', 'De l’architecture à la production'],
-      diagramTitle: 'L’INGÉNIERIE QUI RELIE VOS SYSTÈMES',
-      centerTitle: 'Vos systèmes',
-      centerSub: 'Fiabilité · Intégration · Delivery',
-      nodes: ['Paiements et API', 'QA et testing', 'Workflows métier', 'Cloud et DevOps'],
-      note: 'Connecter les systèmes. Sécuriser les flux. Livrer des solutions exploitables.',
+      facts: ['Intelligence artificielle', 'Développement logiciel', 'Équipes en France et à Sfax'],
+      diagramTitle: 'ÉCOSYSTÈME D’INGÉNIERIE',
+      centerTitle: 'Votre système',
+      centerSub: 'Concevoir · Développer · Moderniser',
+      nodes: ['IA et data', 'Développement logiciel', 'Cloud et DevOps', 'Qualité et sécurité'],
+      note: 'Quatre univers, un même interlocuteur de cadrage.',
     },
     blocks: [
       {
         type: 'cards',
-        title: 'Quatre façons de travailler ensemble',
-        intro: 'Chaque offre a une page dédiée : à qui elle s’adresse, ce qui est livré, et comment démarrer.',
+        title: 'Nos expertises',
+        intro: 'L’intelligence artificielle ouvre le catalogue. Les modes d’intervention et les secteurs viennent ensuite.',
+        layout: 'bento',
         items: [
           {
             kicker: '01',
-            title: 'Équipes dédiées',
-            text: 'Ingénieurs Java, Angular, full-stack ou DevOps, en renfort ou en équipe, selon les profils réellement disponibles.',
-            hrefKey: 'dedicated',
+            title: 'Intelligence artificielle et data',
+            text: 'IA générative, intégration de modèles, agents et automatisation intelligente, au service de vos données et de vos processus.',
+            hrefKey: 'ai',
           },
           {
             kicker: '02',
-            title: 'QA et testing',
-            text: 'Tests fonctionnels, exploratoires, de non-régression et API. Un pilote d’abord, puis une montée en charge progressive.',
-            hrefKey: 'qa',
+            title: 'Développement logiciel',
+            text: 'Applications web et mobiles, API, backends et intégration dans le système que vous exploitez déjà.',
+            hrefKey: 'software',
           },
           {
             kicker: '03',
-            title: 'Paiements',
-            text: 'Intégration d’API de paiement, parcours transactionnels, reprises et observabilité, sans promesse de certification.',
-            hrefKey: 'payments',
+            title: 'QA et testing',
+            text: 'Tests fonctionnels, API, non-régression et automatisation, pour livrer un logiciel que vos équipes peuvent tenir.',
+            hrefKey: 'qa',
           },
           {
             kicker: '04',
-            title: 'Automatisation métier',
-            text: 'ERP, GED, API et workflows reliés pour réduire la double saisie et les circuits qui s’arrêtent dans une boîte mail.',
+            title: 'Cloud et DevOps',
+            text: 'Infrastructures cloud, CI/CD, conteneurs et observabilité, pour tenir la mise en production.',
+            hrefKey: 'cloud',
+          },
+          {
+            kicker: '05',
+            title: 'Cybersécurité',
+            text: 'Sécurisation des applications, des accès et des systèmes, dans le périmètre du projet.',
+            hrefKey: 'cyber',
+          },
+          {
+            kicker: '06',
+            title: 'Intégration et processus',
+            text: 'API, connecteurs et workflows entre les outils qui forcent encore la ressaisie.',
             hrefKey: 'automation',
           },
         ],
       },
       {
-        type: 'columns',
-        title: 'Ce qui distingue le travail',
-        intro: 'L’ingénierie des systèmes métier complexes, de l’intégration à la production.',
+        type: 'challenge',
+        title: 'Quel est votre défi ?',
+        intro: 'Choisissez un sujet. L’expertise, un cas d’usage et un mode d’intervention s’affichent.',
         items: [
-          { title: 'Systèmes déjà en place', text: 'Nous partons de votre SI, de vos contraintes d’exploitation et des équipes qui s’en servent.' },
-          { title: 'Flux qui tiennent', text: 'Timeouts, reprises, idempotence et supervision sont traités comme des sujets de delivery, pas comme une option tardive.' },
-          { title: 'France et Tunisie', text: 'Cadrage depuis la France, avec Coconsult Nearshore, société tunisienne juridiquement indépendante basée à Sfax, pour l’ingénierie et les équipes dédiées.' },
-          { title: 'Automatisation utile', text: 'Un connecteur ou un contrôle ciblé vaut mieux qu’un discours général sur la transformation.' },
+          {
+            id: 'ai',
+            label: 'Intégrer l’IA',
+            expertise: 'Intelligence artificielle et data',
+            expertiseKey: 'ai',
+            useCase: 'Brancher un modèle sur un processus déjà connu : droits d’accès, traçabilité et un cas d’usage limité avant d’élargir.',
+            mode: 'Un pilote au forfait, ou une équipe le temps du cadrage.',
+            inquiry: 'ai',
+          },
+          {
+            id: 'app',
+            label: 'Développer une application',
+            expertise: 'Développement logiciel',
+            expertiseKey: 'software',
+            useCase: 'Une application web ou mobile reliée à vos API et à vos règles métier, jusqu’à une version que vos équipes exploitent.',
+            mode: 'Forfait si le périmètre est clair. Sinon, régie ou équipe dédiée.',
+            inquiry: 'project',
+          },
+          {
+            id: 'team',
+            label: 'Renforcer mon équipe',
+            expertise: 'Équipes dédiées',
+            expertiseKey: 'dedicated',
+            useCase: 'Des ingénieurs qui rejoignent votre delivery, avec un cadrage depuis la France.',
+            mode: 'Régie ou équipe dédiée. Le nearshore se fait avec Coconsult Nearshore, société distincte à Sfax.',
+            inquiry: 'team',
+          },
+          {
+            id: 'quality',
+            label: 'Améliorer la qualité logicielle',
+            expertise: 'QA et testing',
+            expertiseKey: 'qa',
+            useCase: 'Campagnes fonctionnelles, tests d’API et non-régression, d’abord sur un pilote que vous pouvez juger.',
+            mode: 'Renfort QA ou équipe dédiée.',
+            inquiry: 'qaDiscuss',
+          },
+          {
+            id: 'infra',
+            label: 'Moderniser mon infrastructure',
+            expertise: 'Cloud et DevOps',
+            expertiseKey: 'cloud',
+            useCase: 'Chaîne de livraison, environnements et observabilité pour une application déjà en production.',
+            mode: 'Conseil pour le cadrage, puis une équipe si la plateforme le demande.',
+            inquiry: 'project',
+          },
         ],
       },
       {
-        type: 'steps',
-        title: 'Comment une collaboration démarre',
+        type: 'columns',
+        title: 'Modes d’intervention',
+        intro: 'La façon de contractualiser le travail, distincte de l’expertise mobilisée. Coconsult accompagne ses clients depuis la France et collabore avec Coconsult Nearshore, une société tunisienne juridiquement indépendante basée à Sfax, pour mobiliser des compétences d’ingénierie et constituer des équipes dédiées.',
         items: [
-          { title: 'Comprendre', text: 'Objectifs, systèmes, contraintes de délai et niveau d’autonomie attendu.' },
-          { title: 'Proposer', text: 'Un périmètre lisible : renfort, équipe dédiée ou projet au forfait, selon ce qui est cadrable.' },
-          { title: 'Livrer', text: 'Conception, développement, tests et mise en production, avec un interlocuteur technique.' },
-          { title: 'Ajuster', text: 'Le dispositif évolue avec le backlog réel. Nous ne figeons pas un effectif fictif.' },
+          { title: 'Régie', text: 'Un ou plusieurs ingénieurs en assistance technique, le temps d’un palier de delivery.' },
+          { title: 'Équipes dédiées', text: 'Une squad stable quand le backlog justifie un dispositif continu.' },
+          { title: 'Développement nearshore', text: 'Des compétences techniques mobilisées avec Coconsult Nearshore, société tunisienne indépendante basée à Sfax.' },
+          { title: 'Projet au forfait', text: 'Un périmètre assez clair pour être estimé, livré et réceptionné.' },
+          { title: 'Conseil et accompagnement', text: 'Architecture, analyse métier et pilotage technique lorsque le projet le demande.' },
+        ],
+      },
+      {
+        type: 'columns',
+        title: 'Domaines d’expérience',
+        intro: 'Des contextes métier dans lesquels les expertises s’exercent. Les API relèvent du développement, pas d’un secteur.',
+        items: [
+          { title: 'Banque, finance et paiements', text: 'Parcours transactionnels, intégration d’API de paiement et fiabilité des flux.' },
+          { title: 'E-commerce et retail', text: 'Parcours d’achat, catalogues et opérations reliés aux systèmes déjà en place.' },
+          { title: 'Industrie et processus', text: 'ERP, documents et workflows lorsque la double saisie et les circuits manuels coûtent du temps.' },
+          { title: 'Santé et pharmacie', text: 'COPHARIA, ERP métier pharmaceutique en cours de développement.' },
+          { title: 'Plateformes digitales', text: 'Produits à usage réel : membres, opérations, contenus et paiements sur une même base.' },
         ],
       },
       {
         type: 'work',
         source: 'cases',
-        title: 'Réalisations que nous pouvons expliquer',
-        intro: 'Des faits vérifiés, avec le statut de chaque sujet. Pas de logos clients et pas de chiffres non publiables.',
+        title: 'Réalisations sélectionnées',
+        intro: 'Des systèmes livrés, décrits par ce qu’ils font et par le statut du code.',
       },
       {
         type: 'work',
         source: 'solutions',
-        title: 'Solutions en cours',
-        intro: 'Produits et projets Coconsult, distincts des logiciels dont le code a été cédé à un client.',
+        title: 'Solutions développées par Coconsult',
+        intro: 'Des produits en cours de construction, distincts des projets dont le code a été cédé à un client.',
+      },
+      {
+        type: 'columns',
+        title: 'Pourquoi travailler avec Coconsult',
+        items: [
+          { title: 'Innovation utile', text: 'L’IA et les nouvelles architectures sont branchées sur un processus que vous connaissez, pas sur une démonstration isolée.' },
+          { title: 'Exécution', text: 'Développement, qualité, cloud ou intégration, menés jusqu’à une mise en production que vos équipes peuvent tenir.' },
+          { title: 'Un cadre clair', text: 'Le devis, le contrat et la facture identifient la société qui contracte avec le client.' },
+        ],
       },
       {
         type: 'cta',
-        title: 'Votre prochain projet commence par une conversation.',
-        text: 'Projet au forfait, équipe, tests, paiement ou automatisation : écrivez-nous, l’e-mail part depuis votre messagerie.',
+        title: 'Parlons du projet que vous avez en tête.',
+        text: 'Développement, IA, qualité, cloud ou équipe : décrivez le besoin, nous revenons vers vous.',
         primary: 'project',
         secondary: 'team',
       },
@@ -98,23 +175,24 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   services: {
     key: 'services',
-    metaTitle: 'Services d’ingénierie logicielle | Coconsult',
+    metaTitle: 'Expertises | Coconsult',
     description:
-      'Équipes dédiées, QA, paiements, automatisation et intégration d’IA. Coconsult relie l’ingénierie France–Tunisie à vos systèmes existants.',
-    eyebrow: 'SERVICES',
-    h1: 'De l’expertise ponctuelle à l’équipe qui tient le delivery.',
+      'Intelligence artificielle, développement, qualité, cloud, cybersécurité et intégration. Les modes d’intervention et les secteurs sont présentés à part.',
+    eyebrow: 'EXPERTISES',
+    h1: 'Les expertises techniques de Coconsult.',
     intro:
-      'Coconsult vend de l’ingénierie, de l’intégration et des dispositifs d’équipe. Le bon format dépend du périmètre, des systèmes déjà en place et des profils que nous pouvons réellement mobiliser.',
+      'L’IA, le logiciel, la qualité, le cloud, la cybersécurité et l’intégration sont les disciplines du projet. La régie, l’équipe dédiée, le nearshore et le forfait sont des modes d’intervention, décrits séparément.',
     blocks: [
       {
         type: 'cards',
-        title: 'Cinq offres, un même interlocuteur technique',
+        title: 'Six expertises',
         items: [
-          { kicker: 'Équipes', title: 'Ingénierie et équipes dédiées', text: 'Java/Spring, Angular, full-stack, cloud et DevOps. Renfort ou squad, en régie ou au forfait selon le cadrage.', hrefKey: 'dedicated' },
-          { kicker: 'Qualité', title: 'QA et software testing', text: 'Tests fonctionnels, exploratoires, non-régression et API. Pilote, puis montée en charge si le dispositif convient.', hrefKey: 'qa' },
-          { kicker: 'Transactions', title: 'Paiements et ingénierie financière', text: 'Parcours transactionnels, API de prestataires, reprises et observabilité. Aucune certification n’est affichée.', hrefKey: 'payments' },
-          { kicker: 'Opérations', title: 'Automatisation et intégration', text: 'ERP, GED, API et circuits de validation. Nous ne promettons pas de remplacer tous les ERP.', hrefKey: 'automation' },
-          { kicker: 'IA', title: 'Intégration d’IA encadrée', text: 'Connexion d’outils existants, permissions, traçabilité et cas d’usage cadrés. Pas un produit conversationnel propriétaire.', hrefKey: 'ai' },
+          { kicker: 'IA', title: 'Intelligence artificielle et data', text: 'IA générative, modèles, agents et automatisation intelligente, branchés sur vos données et vos droits d’accès.', hrefKey: 'ai' },
+          { kicker: 'Logiciel', title: 'Développement logiciel', text: 'Web, mobile, API, backends et intégration. Les API sont une compétence de développement, pas un secteur.', hrefKey: 'software' },
+          { kicker: 'Qualité', title: 'QA et testing', text: 'Tests fonctionnels, API, non-régression et automatisation, avec un pilote avant d’élargir l’équipe.', hrefKey: 'qa' },
+          { kicker: 'Cloud', title: 'Cloud et DevOps', text: 'Infrastructures, CI/CD, conteneurs et observabilité, pour tenir la mise en production.', hrefKey: 'cloud' },
+          { kicker: 'Sécurité', title: 'Cybersécurité', text: 'Durcissement des applications, des accès et des systèmes exposés, dans le périmètre du projet.', hrefKey: 'cyber' },
+          { kicker: 'Processus', title: 'Intégration et processus', text: 'Connecteurs et workflows entre ERP, documents et outils métier.', hrefKey: 'automation' },
         ],
       },
       {
@@ -133,7 +211,7 @@ export const pages: Record<RouteKey, PageContent> = {
     key: 'dedicated',
     metaTitle: 'Équipes d’ingénierie dédiées | Coconsult',
     description:
-      'Constitution d’équipes Java, Angular, full-stack et DevOps entre la France et Sfax. Cadrage, sélection, entretien et pilotage, sans effectif fictif.',
+      'Constitution d’équipes Java, Angular, full-stack et DevOps entre la France et Sfax. Cadrage, sélection, entretien et pilotage.',
     eyebrow: 'ÉQUIPES DÉDIÉES',
     h1: 'Constituer une équipe d’ingénierie adaptée au besoin réel.',
     intro:
@@ -172,7 +250,7 @@ export const pages: Record<RouteKey, PageContent> = {
       },
       {
         type: 'note',
-        text: 'Nous ne publions pas de tarifs, de salaires ni d’effectif permanent. Une équipe se constitue pour un besoin identifié, pas à partir d’un catalogue figé. Le devis, le contrat et la facture identifient la société qui contracte avec le client. Les ingénieurs situés à Sfax ne sont pas, du seul fait de cette collaboration, salariés de COCONSULT SAS.',
+        text: 'Le devis, le contrat et la facture identifient la société qui contracte avec le client. Les ingénieurs situés à Sfax ne sont pas, du seul fait de cette collaboration, salariés de COCONSULT SAS.',
       },
       { type: 'cta', title: 'Décrivez l’équipe dont vous avez besoin.', text: 'Stack, séniorité, durée envisagée et mode de travail : ces éléments suffisent pour un premier échange.', primary: 'team', secondary: 'project' },
     ],
@@ -181,7 +259,7 @@ export const pages: Record<RouteKey, PageContent> = {
     key: 'qa',
     metaTitle: 'Équipes QA et tests logiciels | Coconsult',
     description:
-      'Tests fonctionnels, exploratoires, non-régression et API. Coconsult propose un pilote QA puis une montée en charge, sans promesses d’effectif ou de SLA.',
+      'Tests fonctionnels, exploratoires, non-régression et API. Coconsult propose un pilote QA, puis élargit l’équipe si le volume le justifie.',
     eyebrow: 'QA & TESTING',
     h1: 'Des équipes de test que vous pouvez faire grandir après un pilote.',
     intro:
@@ -250,22 +328,18 @@ export const pages: Record<RouteKey, PageContent> = {
           { q: 'Comment l’équipe évolue-t-elle ?', a: 'Après le pilote, on peut ajouter des personnes si le volume le justifie et si les profils sont disponibles. L’inverse est tout aussi possible.' },
         ],
       },
-      {
-        type: 'note',
-        text: 'Coconsult ne présente pas des dizaines d’ingénieurs QA déjà en poste. Les personnes sont proposées, recrutées ou mobilisées pour le besoin confirmé.',
-      },
-      { type: 'cta', title: 'Parler du besoin de test, puis des profils.', text: 'Deux portes d’entrée : cadrer le sujet, ou demander directement une équipe pour un pilote.', primary: 'qaDiscuss', secondary: 'qaTeam' },
+      { type: 'cta', title: 'Parler du besoin de test, puis des profils.', text: 'Deux portes d’entrée : cadrer le sujet, ou demander une équipe pour un pilote.', primary: 'qaDiscuss', secondary: 'qaTeam' },
     ],
   },
   payments: {
     key: 'payments',
     metaTitle: 'Ingénierie des paiements et API transactionnelles | Coconsult',
     description:
-      'Intégration de prestataires de paiement, parcours transactionnels, idempotence, reprises et observabilité. Coconsult n’affiche aucune certification de cartes.',
+      'Intégration de prestataires de paiement, parcours transactionnels, idempotence, reprises et observabilité.',
     eyebrow: 'PAIEMENTS',
     h1: 'Fiabiliser les parcours de paiement et les API qui les portent.',
     intro:
-      'Coconsult conçoit et intègre des parcours transactionnels dans des applications existantes : appels à un prestataire, statuts, reprises et supervision. L’expérience acquise sur des sujets bancaires et de paiement ne se traduit pas par l’usage de noms de clients.',
+      'Coconsult conçoit et intègre des parcours transactionnels dans des applications existantes : appels à un prestataire, statuts, reprises et supervision.',
     blocks: [
       {
         type: 'columns',
@@ -280,7 +354,7 @@ export const pages: Record<RouteKey, PageContent> = {
       {
         type: 'diagram',
         title: 'Un flux de paiement, de façon générique',
-        caption: 'Schéma pédagogique. Aucun prestataire, aucune banque et aucune donnée réelle ne sont représentés.',
+        caption: 'Parcours type d’un paiement, du clic jusqu’au suivi d’exploitation.',
         steps: [
           { title: 'Parcours', text: 'L’utilisateur confirme un paiement dans votre application.' },
           { title: 'Contrôle', text: 'Montant, référence unique, délai maximal et règle si la même demande revient.' },
@@ -299,10 +373,6 @@ export const pages: Record<RouteKey, PageContent> = {
           'Points d’observabilité utiles à l’exploitation',
         ],
       },
-      {
-        type: 'note',
-        text: 'Aucune certification de sécurité des cartes n’est revendiquée. Les noms d’établissements ou de produits de paiement ne sont pas utilisés comme références commerciales.',
-      },
       { type: 'cta', title: 'Un diagnostic tient en un échange ciblé.', text: 'Décrivez le parcours, le prestataire envisagé et le symptôme actuel : double appel, statut incertain ou écart d’exploitation.', primary: 'payments' },
     ],
   },
@@ -310,7 +380,7 @@ export const pages: Record<RouteKey, PageContent> = {
     key: 'automation',
     metaTitle: 'Automatisation métier et intégration de systèmes | Coconsult',
     description:
-      'Diagnostic, API, connecteurs et workflows entre ERP, GED et outils métier. Coconsult réduit la double saisie sans promettre de remplacer votre ERP.',
+      'Diagnostic, API, connecteurs et workflows entre ERP, GED et outils métier. L’objectif est de réduire la double saisie là où les règles sont stables.',
     eyebrow: 'AUTOMATISATION',
     h1: 'Relier les outils qui forcent encore vos équipes à ressaisir.',
     intro:
@@ -347,7 +417,6 @@ export const pages: Record<RouteKey, PageContent> = {
           'Nous livrons un périmètre que vos équipes peuvent exploiter : règles écrites, journaux et un interlocuteur pendant la mise en route.',
         ],
       },
-      { type: 'note', text: 'Coconsult ne promet pas de remplacer tous les ERP, ni d’automatiser un processus dont les règles métier ne sont pas encore stables.' },
       { type: 'cta', title: 'Décrivez le circuit qui coince.', text: 'Un exemple concret — une commande, un dossier, une validation — suffit pour voir si un diagnostic a du sens.', primary: 'automation' },
     ],
   },
@@ -355,11 +424,11 @@ export const pages: Record<RouteKey, PageContent> = {
     key: 'ai',
     metaTitle: 'Intégration d’IA pour systèmes d’entreprise | Coconsult',
     description:
-      'Coconsult intègre des outils d’IA existants dans vos applications : permissions, traçabilité et cas d’usage cadrés. Pas de promesse de conformité automatique.',
-    eyebrow: 'IA D’ENTREPRISE',
-    h1: 'Intégrer l’IA dans le système que vous avez déjà.',
+      'Coconsult intègre des outils d’IA existants dans vos applications : permissions, traçabilité et cas d’usage cadrés.',
+    eyebrow: 'INTELLIGENCE ARTIFICIELLE ET DATA',
+    h1: 'Mettre l’IA au service d’un processus que vous connaissez.',
     intro:
-      'Le sujet est l’intégration, pas la mise en vente d’un assistant généraliste. Nous cadrons un cas d’usage, connectons un outil existant sous les permissions de votre organisation, et laissons une trace de ce qui a été demandé.',
+      'Génération, intégration de modèles, agents et automatisation intelligente. Le cas d’usage, les droits d’accès et la traçabilité se cadrent avant le pilote, dans vos applications existantes.',
     blocks: [
       {
         type: 'columns',
@@ -395,22 +464,16 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   solutions: {
     key: 'solutions',
-    metaTitle: 'Solutions et démonstrations | Coconsult',
+    metaTitle: 'Solutions Coconsult | COPHARIA',
     description:
-      'COPHARIA, Cogeex et une plateforme SaaS métier encore sans nom commercial. Statuts réels, démonstration sur demande, sans captures inventées.',
+      'COPHARIA, ERP métier pharmaceutique en cours de développement. Une démonstration se demande depuis la page Contact.',
     eyebrow: 'SOLUTIONS',
-    h1: 'Des solutions au stade où elles sont vraiment.',
+    h1: 'Les solutions que Coconsult construit.',
     intro:
-      'Cette page distingue les produits et projets Coconsult des réalisations dont le code appartient au client. Les statuts sont affichés tels quels. Une démonstration se demande par e-mail et cite la solution.',
+      'Ces produits sont distincts des réalisations livrées à des clients. COPHARIA est en développement. Une démonstration se demande en indiquant la solution.',
     blocks: [
-      {
-        type: 'work',
-        source: 'solutions',
-        title: 'Fiches maintenues dans la configuration du site',
-        intro: 'Titres, ordre, visibilité et textes se modifient dans un seul fichier de données.',
-      },
-      { type: 'note', text: 'Les illustrations sont des schémas. Tant qu’aucune capture autorisée n’est fournie, aucune image n’est présentée comme une interface réelle.' },
-      { type: 'cta', title: 'Demander la démonstration qui correspond à votre contexte.', text: 'Chaque fiche ouvre un e-mail dont l’objet porte le nom de la solution.', primary: 'project' },
+      { type: 'work', source: 'solutions', title: 'En développement', intro: 'Le statut de chaque solution est indiqué sur la fiche.' },
+      { type: 'cta', title: 'Demander une démonstration de COPHARIA.', text: 'Indiquez votre contexte. Nous revenons vers vous pour convenir d’un échange.', primary: 'demo' },
     ],
   },
   cases: {
@@ -419,17 +482,15 @@ export const pages: Record<RouteKey, PageContent> = {
     description:
       'Applications métier livrées par Coconsult : gestion documentaire cédée au client, plateforme d’opérations sportives. Faits vérifiés, sans logos imposés.',
     eyebrow: 'RÉALISATIONS',
-    h1: 'Ce que les projets livrés permettent de dire.',
+    h1: 'Des systèmes livrés, décrits avec précision.',
     intro:
-      'Nous publions uniquement des éléments que nous pouvons assumer : nature du système, statut du code, secteur décrit de façon générale. Pas de témoignage inventé et pas de résultats chiffrés non autorisés.',
+      'Chaque fiche indique la nature du système et le statut du code. Lorsqu’un client n’est pas nommé, l’expérience d’ingénierie reste la sienne.',
     blocks: [
-      { type: 'work', source: 'cases', title: 'Références expliquées', intro: 'Une étude de cas reste anonyme lorsque les détails commerciaux ne sont pas publiables.' },
+      { type: 'work', source: 'cases', title: 'Projets livrés' },
       {
         type: 'prose',
-        title: 'Comment lire ces fiches',
         paragraphs: [
-          'Une réalisation client n’est pas un produit à relicencier. Lorsque le code a été cédé, Coconsult n’en fait pas une offre.',
-          'Une plateforme décrite sans son commanditaire reste une expérience d’ingénierie. Elle n’est pas proposée comme une solution blanche prête à revendre.',
+          'Quand le code a été cédé, il n’est pas reproposé comme un produit Coconsult.',
         ],
       },
       { type: 'cta', title: 'Un projet comparable se discute à partir du vôtre.', text: 'Décrivez le système à construire ou à fiabiliser. Nous dirons si le retour d’expérience est pertinent.', primary: 'project' },
@@ -451,16 +512,15 @@ export const pages: Record<RouteKey, PageContent> = {
         items: [
           { title: 'Proximité de cadrage', text: 'Le besoin, les contraintes et les priorités se comprennent avec vos équipes, depuis la France lorsque c’est le bon relais.' },
           { title: 'Ingénierie à Sfax', text: 'Coconsult Nearshore peut mobiliser des compétences d’ingénierie sur le périmètre convenu. Les deux sociétés ont des dirigeants différents.' },
-          { title: 'Renforts indépendants', text: 'Des consultants indépendants peuvent compléter un dispositif. Leur présence dépend du besoin, pas d’un effectif affiché.' },
+          { title: 'Renforts indépendants', text: 'Des consultants indépendants peuvent compléter un dispositif lorsque le besoin le justifie.' },
         ],
       },
       {
         type: 'prose',
         title: 'Ce que l’entreprise vend',
         paragraphs: [
-          'Des projets au forfait lorsque le périmètre le permet, de l’intégration dans des systèmes existants, des équipes dédiées, des missions de test et de paiement, et l’accompagnement de solutions métier en cours de construction.',
+          'Des projets au forfait lorsque le périmètre le permet, de l’intégration dans des systèmes existants, des équipes dédiées, des missions de test et d’ingénierie des paiements, et l’accompagnement de solutions métier en cours de construction.',
           'Le devis, le contrat et la facture identifient la société qui contracte avec le client.',
-          'Le site sert à qualifier une conversation commerciale. Il ne catalogue pas toutes les idées de produits, et il ne fonctionne pas comme une place de marché de recrutement.',
         ],
       },
       {
@@ -505,34 +565,124 @@ export const pages: Record<RouteKey, PageContent> = {
           'Ce qui sera décidé à la fin : étendre, modifier ou arrêter',
         ],
       },
-      { type: 'note', text: 'Aucun partenaire n’est affiché tant qu’une autorisation explicite de citation n’a pas été donnée.' },
-      { type: 'cta', title: 'Proposer un pilote ou un partenariat.', text: 'L’objet du message distingue cette demande d’un projet d’ingénierie classique.', primary: 'partnership' },
+      { type: 'cta', title: 'Proposer un pilote ou un partenariat.', text: 'Le type de demande est déjà sélectionné lorsque vous arrivez depuis cette page.', primary: 'partnership' },
     ],
   },
   contact: {
     key: 'contact',
-    metaTitle: 'Contacter Coconsult | Projet, équipe, QA, démo',
+    metaTitle: 'Contacter Coconsult',
     description:
-      'Écrivez à contact@coconsult.fr. Choisissez le sujet : projet, équipe dédiée, QA, paiements, automatisation, IA, démonstration ou partenariat.',
+      'Décrivez votre projet à Coconsult. L’adresse contact@coconsult.fr est visible. Le type de besoin peut être prérempli depuis les pages du site.',
     eyebrow: 'CONTACT',
-    h1: 'Un e-mail, avec le bon sujet.',
+    h1: 'Décrivez votre besoin.',
     intro:
-      'Le site n’enregistre pas de formulaire. Chaque bouton ouvre votre messagerie avec un objet et une trame. L’adresse contact@coconsult.fr reste visible pour copier-coller.',
+      'Indiquez le type de besoin et écrivez-nous. L’adresse est sur cette page ; vous pouvez aussi ouvrir votre messagerie.',
     blocks: [
       {
         type: 'inquiries',
-        title: 'Choisissez l’intention',
-        intro: 'Le sujet change selon le bouton. Vous pouvez modifier le texte avant l’envoi.',
-        ids: ['project', 'team', 'qaDiscuss', 'qaTeam', 'payments', 'automation', 'ai', 'partnership'],
+        title: 'Votre demande',
+        intro: 'Le type se préremplit lorsque vous arrivez depuis un bouton du site.',
+        ids: ['project', 'team', 'qaDiscuss', 'qaTeam', 'payments', 'automation', 'ai', 'partnership', 'demo'],
+      },
+      { type: 'note', text: 'Pour ce premier échange, restez sur le contexte du projet. Les données de cartes et les secrets se traitent ensuite sur un canal adapté.' },
+    ],
+  },
+  software: {
+    key: 'software',
+    metaTitle: 'Développement logiciel | Coconsult',
+    description:
+      'Applications web et mobiles, API, backends et intégration. Coconsult conçoit et fait évoluer des logiciels métier.',
+    eyebrow: 'DÉVELOPPEMENT LOGICIEL',
+    h1: 'Concevoir et faire évoluer vos applications.',
+    intro:
+      'Web, mobile, backend, frontend et API. Le travail part du système en place et va jusqu’à une mise en production que vos équipes peuvent exploiter.',
+    blocks: [
+      {
+        type: 'columns',
+        title: 'Ce que couvre le développement',
+        items: [
+          { title: 'Applications', text: 'Interfaces web ou mobiles reliées aux règles métier et aux données dont vous disposez déjà.' },
+          { title: 'API et intégration', text: 'Des contrats d’interface stables entre vos outils, avec reprises et observabilité lorsque le flux est critique.' },
+          { title: 'Architecture', text: 'Un découpage lisible quand le produit grandit, sans refonte décorative.' },
+        ],
+      },
+      { type: 'cta', title: 'Décrivez le logiciel à construire ou à moderniser.', text: 'Stack, utilisateurs et contrainte de délai suffisent pour un premier échange.', primary: 'project' },
+    ],
+  },
+  cloud: {
+    key: 'cloud',
+    metaTitle: 'Cloud, DevOps et sécurisation | Coconsult',
+    description:
+      'Infrastructures cloud, CI/CD, conteneurs, observabilité et sécurisation des accès pour les applications que vous exploitez.',
+    eyebrow: 'CLOUD ET DEVOPS',
+    h1: 'Mettre en production, puis tenir l’exploitation.',
+    intro:
+      'Cloud, chaînes de livraison, conteneurs et observabilité. La sécurisation des applications, des accès et des systèmes fait partie du même périmètre, lorsque le projet le demande.',
+    blocks: [
+      {
+        type: 'columns',
+        title: 'Le périmètre habituel',
+        items: [
+          { title: 'Plateforme', text: 'Environnements cloud alignés sur la façon dont l’application est réellement déployée.' },
+          { title: 'Livraison', text: 'CI/CD et conteneurisation pour que chaque version soit reproductible.' },
+          { title: 'Exploitation', text: 'Journaux, alertes et reprises, afin qu’un incident se voie avant vos utilisateurs.' },
+          { title: 'Accès', text: 'Droits, secrets et durcissement des services exposés, limités au système concerné.' },
+        ],
+      },
+      { type: 'cta', title: 'Parler de la plateforme que vous exploitez.', text: 'Hébergement actuel, fréquence de livraison et point de douleur suffisent pour commencer.', primary: 'project' },
+    ],
+  },
+  modes: {
+    key: 'modes',
+    metaTitle: 'Modes d’intervention | Coconsult',
+    description:
+      'Régie, équipes dédiées, développement nearshore, forfait et conseil. Des modalités commerciales distinctes des expertises techniques.',
+    eyebrow: 'MODES D’INTERVENTION',
+    h1: 'Choisir la forme de la collaboration.',
+    intro:
+      'L’expertise et le mode d’intervention se choisissent séparément. Une même équipe peut faire du développement, de l’IA, de la qualité ou du cloud.',
+    blocks: [
+      {
+        type: 'columns',
+        title: 'Cinq façons de travailler',
+        items: [
+          { title: 'Régie', text: 'Assistance technique d’un ou plusieurs ingénieurs, pour un palier identifié.' },
+          { title: 'Équipes dédiées', text: 'Une squad suivie dans la durée, avec coordination depuis la France.' },
+          { title: 'Développement nearshore', text: 'Compétences mobilisées avec Coconsult Nearshore, à Sfax. Les deux sociétés sont juridiquement distinctes.' },
+          { title: 'Forfait', text: 'Un périmètre estimable, avec un résultat à réceptionner.' },
+          { title: 'Conseil', text: 'Architecture, analyse métier et pilotage, lorsque le projet a besoin d’un cadrage avant ou pendant la réalisation.' },
+        ],
       },
       {
         type: 'prose',
-        title: 'Démonstrations',
         paragraphs: [
-          'Les demandes de démonstration partent des fiches Solutions. L’objet contient le nom de la solution, afin que le message arrive déjà qualifié.',
+          'Coconsult accompagne ses clients depuis la France et collabore avec Coconsult Nearshore, une société tunisienne juridiquement indépendante basée à Sfax, pour mobiliser des compétences d’ingénierie et constituer des équipes dédiées.',
+          'Le devis, le contrat et la facture identifient la société qui contracte avec le client.',
         ],
       },
-      { type: 'note', text: 'N’envoyez pas de secrets, de données de cartes ou de fichiers clients dans ce premier message. Un canal adapté se définit ensuite si le sujet l’exige.' },
+      { type: 'cta', title: 'Décrire l’équipe ou le cadre qui vous manque.', text: 'Nous proposons le mode d’intervention après avoir compris le périmètre.', primary: 'team', secondary: 'project' },
+    ],
+  },
+  cyber: {
+    key: 'cyber',
+    metaTitle: 'Cybersécurité applicative | Coconsult',
+    description:
+      'Sécurisation des applications, des accès et des systèmes exposés, dans le périmètre du projet.',
+    eyebrow: 'CYBERSÉCURITÉ',
+    h1: 'Durcir les applications et les accès que vous exposez.',
+    intro:
+      'Revue des surfaces exposées, des droits et des secrets, puis correction dans le code et l’infrastructure du projet. Ce n’est pas un centre de surveillance permanent.',
+    blocks: [
+      {
+        type: 'columns',
+        title: 'Interventions habituelles',
+        items: [
+          { title: 'Applications', text: 'Contrôles d’accès, validation des entrées et réduction de ce qu’une API expose.' },
+          { title: 'Identités', text: 'Comptes, rôles et secrets alignés sur les personnes qui doivent réellement intervenir.' },
+          { title: 'Plateforme', text: 'Durcissement des services publiés, en lien avec le cloud et la chaîne de livraison déjà en place.' },
+        ],
+      },
+      { type: 'cta', title: 'Décrire le système à protéger.', text: 'L’application, les accès actuels et le risque que vous voyez suffisent pour un premier échange.', primary: 'project' },
     ],
   },
   legal: legalPage('fr'),

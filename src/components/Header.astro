@@ -1,7 +1,7 @@
 ---
 import Logo from '@/components/Logo.astro';
 import { ui } from '@/content/ui';
-import { getInquiry, mailto } from '@/data/inquiries';
+import { contactPath } from '@/data/inquiries';
 import { alternatePath, pathFor, primaryNav, routes, serviceNav } from '@/data/routes';
 import type { Locale, RouteKey } from '@/content/types';
 
@@ -14,7 +14,7 @@ const t = ui[locale];
 const home = pathFor(locale, 'home');
 const other = alternatePath(locale, routeKey);
 const otherLocale = locale === 'fr' ? 'en' : 'fr';
-const contact = getInquiry(locale, 'project');
+const contactHref = contactPath(locale, 'project');
 ---
 <a class="skip-link" href="#main">{t.skip}</a>
 <header class="site-header">
@@ -29,7 +29,7 @@ const contact = getInquiry(locale, 'project');
     </nav>
     <div class="header-actions">
       <a class="lang" href={other} lang={otherLocale} hreflang={otherLocale} aria-label={t.langAria}>{t.langCode}</a>
-      <a class="header-contact" href={mailto(contact)}>{contact.label}</a>
+      <a class="header-contact" href={contactHref}>{t.headerCta}</a>
       <button
         class="menu-toggle"
         type="button"
