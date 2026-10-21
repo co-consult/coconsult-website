@@ -217,7 +217,7 @@ const tones = ['band', 'band-alt', 'band', 'band-alt'];
             <h2>{block.title}</h2>
             <p>{block.text}</p>
             <div class="cta-actions">
-              <a class="btn primary" href={contactPath(locale, block.primary)}>{getInquiry(locale, block.primary).label}</a>
+              <a class="btn primary" href={contactPath(locale, block.primary, block.product)}>{block.product === 'copharia' ? (locale === 'fr' ? 'Demander une démonstration de COPHARIA' : 'Request a COPHARIA demonstration') : getInquiry(locale, block.primary).label}</a>
               {block.secondary && <a class="btn secondary" href={contactPath(locale, block.secondary)}>{block.secondary === 'team' ? (locale === 'fr' ? 'Constituer une équipe' : 'Build your team') : getInquiry(locale, block.secondary).label}</a>}
             </div>
           </div>

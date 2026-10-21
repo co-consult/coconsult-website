@@ -655,34 +655,36 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
   overflow: hidden;
   border: 1px solid var(--line);
 }
-.shot-wait {
+.capabilities {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  margin: 22px 0 4px;
+  gap: 12px;
+  margin: 28px 0 8px;
   padding: 0;
   list-style: none;
 }
-.shot-wait li {
+.capabilities li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
   border: 1px solid rgba(142, 243, 255, 0.35);
-  border-radius: 14px;
-  padding: 12px 14px;
-  background: #102233;
+  border-radius: 18px;
+  padding: 22px 18px;
+  background:
+    linear-gradient(180deg, rgba(142, 243, 255, 0.1), transparent 46%),
+    #102233;
 }
-.shot-wait em {
-  font-style: normal;
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--cyan);
+.capabilities img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
 }
-.shot-wait strong {
-  display: block;
-  margin-top: 6px;
+.capabilities strong {
   font-family: var(--display);
   font-weight: 400;
-  font-size: 1.45rem;
+  font-size: clamp(1.35rem, 2vw, 1.75rem);
+  line-height: 1.05;
 }
 .feature-copy { padding: 36px; min-width: 0; }
 .feature-copy p + p { margin-top: 12px; }
@@ -735,6 +737,12 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
   padding-inline-start: 0.04em;
   max-width: 100%;
   overflow-wrap: normal;
+}
+.prepare-note {
+  margin: 16px 0 0;
+  max-width: 38ch;
+  color: var(--muted);
+  font-size: 0.92rem;
 }
 .steps {
   display: flex;
@@ -852,7 +860,7 @@ textarea { min-height: 140px; resize: vertical; }
   .doc-layout { grid-template-columns: 1fr; }
   .flow-rail::before, .flow-rail::after, .flow-rail button::before { display: none; }
   .flow-rail { padding-top: 0; grid-template-columns: 1fr 1fr; }
-  .shot-wait { grid-template-columns: 1fr; }
+  .capabilities { grid-template-columns: 1fr; }
   .mode-row { grid-template-columns: 1fr 1fr; }
   .pipeline, .arch, .pipe, .bridge { grid-template-columns: 1fr; }
   .rail { height: 18px; background: linear-gradient(var(--cyan), var(--cyan)) center / 2px 100% no-repeat; }

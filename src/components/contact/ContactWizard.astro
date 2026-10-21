@@ -22,7 +22,7 @@ const copy = fr
         ['team', 'team', 'Équipe dédiée / nearshore', 'Renfort, squad ou compétences à Sfax.'],
         ['cloud', 'project', 'Cloud / infrastructure', 'Livraison, environnements, exploitation.'],
         ['quality', 'qaDiscuss', 'QA / cybersécurité', 'Campagnes de test ou durcissement des accès.'],
-        ['other', 'partnership', 'Autre demande', 'COPHARIA, partenariat ou autre sujet.'],
+        ['other', 'other', 'Autre demande', 'COPHARIA, partenariat ou autre sujet.'],
       ],
       next: 'Continuer',
       back: 'Retour',
@@ -67,7 +67,7 @@ const copy = fr
         ['team', 'team', 'Dedicated team / nearshore', 'Extra people, a squad, or skills in Sfax.'],
         ['cloud', 'project', 'Cloud / infrastructure', 'Delivery, environments, operations.'],
         ['quality', 'qaDiscuss', 'QA / cybersecurity', 'Test campaigns or tighter access.'],
-        ['other', 'partnership', 'Another request', 'COPHARIA, a partnership, or another subject.'],
+        ['other', 'other', 'Another request', 'COPHARIA, a partnership, or another subject.'],
       ],
       next: 'Continue',
       back: 'Back',
@@ -140,7 +140,7 @@ const copy = fr
         <span>{page.h1}</span>
         {page.h1Accent && <span class="accent">{page.h1Accent}</span>}
       </h1>
-      <p class="lede">{page.intro}</p>
+      <p class="prepare-note">{page.intro}</p>
       <p class="topic-flag" id="topic-flag" hidden></p>
       <div class="steps">
         {copy.steps.map((label, index) => (
@@ -210,6 +210,7 @@ const copy = fr
           const inquiry = getInquiry(locale, id);
           return <option value={id} data-subject={inquiry.subject}>{inquiry.subject}</option>;
         })}
+        <option value="other" data-subject={fr ? 'Autre demande - Coconsult' : 'Another request - Coconsult'}>{fr ? 'Autre demande - Coconsult' : 'Another request - Coconsult'}</option>
       </select>
       <form class="contact-form" data-contact-form hidden action="/api/contact" method="post">
         <input type="hidden" name="type" data-hidden-type value="project" />

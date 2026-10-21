@@ -52,7 +52,7 @@
     team: 'team',
     cloud: 'project',
     quality: 'qaDiscuss',
-    other: 'partnership',
+    other: 'other',
   };
   const hints = hintNode ? JSON.parse(hintNode.textContent || '{}') : {};
   const state = { need: '', inquiry: 'project', topic: '', reached: 1 };
@@ -102,6 +102,7 @@
       button.addEventListener('click', () => {
         if (!(message instanceof HTMLTextAreaElement)) return;
         message.value = message.value ? `${message.value.replace(/\s+$/, '')} ${text}` : text;
+        invalidatePrepared();
       });
       hintsBox.appendChild(button);
     });
@@ -148,7 +149,30 @@
     if (preview) preview.textContent = `${panel.dataset.toLabel || 'To'} ${email} · ${panel.dataset.subjectLabel || 'Subject'} ${selectedSubject()}`;
   }
 
-  function show(step) {
+  function retractMailLinks() {
+    if (prepare instanceof HTMLElement) prepare.hidden = false;
+    if (outcome instanceof HTMLElement) outcome.hidden = true;
+    if (copyFullStatus) copyFullStatus.textContent = '';
+    if (copyFallback) {
+      copyFallback.hidden = true;
+      copyFallback.textContent = '';
+    }
+    if (preview) preview.textContent = '';
+    if (gmail instanceof HTMLAnchorElement) {
+      gmail.href = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}`;
+    }
+    if (outlook instanceof HTMLAnchorElement) {
+      outlook.href = `https://outlook.office.com/mail/deeplink/compose?to=${encodeURIComponent(email)}`;
+    }
+    refreshMail();
+  }
+
+  function invalidatePrepared() {
+    if (!(prepare instanceof HTMLElement) || !prepare.hidden) return;
+    retractMailLinks();
+  }
+
+  function show(step, moveFocus) {
     document.querySelectorAll('[data-step]').forEach((item) => {
       if (item instanceof HTMLElement) item.hidden = Number(item.dataset.step) !== step;
     });
@@ -161,6 +185,10 @@
     });
     if (step === 2) paintHints();
     if (step === 4) paintSummary();
+    if (!moveFocus) return;
+    const current = document.querySelector(`[data-step="${step}"]`);
+    const target = current?.querySelector('textarea, input, #prepare, .btn.primary');
+    if (target instanceof HTMLElement) target.focus();
   }
 
   function validate(step) {
@@ -190,19 +218,25 @@
   function goto(step, checkFrom) {
     if (checkFrom && !validate(checkFrom)) return;
     state.reached = Math.max(state.reached, step);
-    show(step);
+    show(step, true);
   }
 
   document.querySelectorAll('[data-need]').forEach((button) => {
     button.addEventListener('click', () => {
       if (!(button instanceof HTMLElement)) return;
       const need = button.dataset.need || '';
+      const previous = `${state.need}|${state.inquiry}|${state.topic}`;
       setNeed(need);
       if (state.topic === 'copharia' && need !== 'other') state.topic = '';
       const inquiry = state.topic === 'copharia' ? 'demo' : button.dataset.inquiry || needToInquiry[need] || 'project';
       setInquiry(inquiry);
       if (flag) flag.hidden = state.topic !== 'copharia';
+      if (`${state.need}|${state.inquiry}|${state.topic}` !== previous) invalidatePrepared();
     });
+  });
+
+  [message, nameField, emailField, companyField].forEach((field) => {
+    field?.addEventListener('input', invalidatePrepared);
   });
 
   document.querySelectorAll('[data-next]').forEach((button) => {
@@ -219,7 +253,7 @@
     button.addEventListener('click', () => {
       if (!(button instanceof HTMLElement)) return;
       const target = Number(button.dataset.goto);
-      if (target <= state.reached) show(target);
+      if (target <= state.reached) show(target, true);
     });
   });
 
