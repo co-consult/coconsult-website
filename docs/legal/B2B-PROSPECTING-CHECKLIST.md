@@ -4,6 +4,8 @@ Document interne. Il n’est pas publié sur coconsult.fr. Il ne met en place ni
 
 Les commerciaux habilités de Coconsult Nearshore, à Sfax, accèdent déjà aux mêmes e-mails de prospection, fichiers de prospects ou outil de suivi que Coconsult France. Cet accès est un fait. Il ne vaut pas conformité.
 
+Cette liste ne couvre pas une sous-traitance de développement. Aucun contrat avec un client européen n’est aujourd’hui confié à Coconsult Nearshore. Les données de ces clients ne font pas partie de la prospection.
+
 ## À renseigner
 
 - [ ] **Origine des coordonnées.** Pour chaque fichier : la personne a écrit à contact@coconsult.fr, la coordonnée vient d’un échange professionnel, d’un annuaire ou d’un autre apport. Noter la source, la date et qui a constitué la liste. Ne pas utiliser une liste dont l’origine n’est pas connue.

@@ -180,6 +180,7 @@ export function privacyPage(locale: Locale): PageContent {
           paragraphs: [
             'L’hébergement du site est situé en France. L’éditeur est COCONSULT SAS. Coconsult Nearshore est une société tunisienne juridiquement indépendante, basée à Sfax, avec des dirigeants différents. Elle n’édite pas ce site et n’est pas un service interne de la SAS française.',
             'Des commerciaux habilités de Coconsult Nearshore accèdent aux mêmes e-mails de prospection professionnelle, aux mêmes fichiers de prospects ou au même outil de suivi commercial que Coconsult en France. Cet accès ne couvre pas toutes les boîtes de messagerie. Il sert à qualifier les demandes, à prospecter et à suivre les opportunités.',
+            'Aucun contrat n’est en cours par lequel un développement commandé par un client européen serait confié à Coconsult Nearshore. Cette page ne décrit pas de transfert de données de ces clients vers des développeurs en Tunisie. Le développement nearshore reste une offre commerciale.',
             'La Tunisie est hors de l’Espace économique européen. Les garanties de ce transfert seront celles des contrats réellement signés. Aucune clause contractuelle type n’est indiquée ici : aucun contrat de transfert n’est formalisé. Une information sur ce site ne rend pas le transfert licite.',
             `Lorsque ce mécanisme sera formalisé, Coconsult en indiquera la nature sur cette page. Une copie ou des informations sur les garanties applicables pourront être demandées à ${company.email}.`,
           ],
@@ -261,6 +262,7 @@ export function privacyPage(locale: Locale): PageContent {
         paragraphs: [
           'The site is hosted in France. The publisher is COCONSULT SAS. Coconsult Nearshore is a legally independent Tunisian company based in Sfax, with different directors. It does not publish this site and it is not an internal department of the French company.',
           'Authorised sales staff at Coconsult Nearshore can access the same professional prospecting email, the same prospect files or the same sales-tracking tool as Coconsult in France. This access does not cover every mailbox. It is used to qualify enquiries, to prospect and to follow commercial opportunities.',
+          'No contract is in place under which development ordered by a European client is then entrusted to Coconsult Nearshore. This page does not describe a transfer of those clients’ data to developers in Tunisia. Nearshore development remains a commercial offer.',
           'Tunisia is outside the European Economic Area. The safeguards for this transfer will be those in the contracts that are actually signed. No standard contractual clauses are stated here: no transfer contract has been formalised. A notice on this website does not make the transfer lawful.',
           `Once that mechanism is in place, Coconsult will describe it on this page. A copy or information about the applicable safeguards can be requested from ${company.email}.`,
         ],

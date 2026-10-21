@@ -60,7 +60,12 @@ export const company = {
     /** Same commercial scope as the files. No product name is confirmed. */
     crm: 'shared' as 'shared' | 'none' | 'unknown',
     recruitment: 'unknown' as 'shared' | 'none' | 'unknown',
-    clientProjectData: 'unknown' as 'shared' | 'none' | 'unknown',
+    /**
+     * No current contract under which a European client’s development
+     * is subcontracted to Coconsult Nearshore. Not a transfer in progress.
+     */
+    clientProjectData: 'none' as 'shared' | 'none' | 'unknown',
+    euClientDeliverySubcontract: false,
     /** Not presumed: processor, separate controllers, or joint controllers. */
     nearshoreRole: 'undetermined' as 'processor' | 'separate-controllers' | 'joint-controllers' | 'undetermined',
     sharingAgreementSigned: false,
@@ -110,18 +115,24 @@ export function publicationReview(): PublicationReview {
         'L’accès confirmé porte sur les e-mails de prospection, les fichiers de prospects et le suivi commercial, pas sur toutes les boîtes. Ne pas élargir cette description sans un fait nouveau.',
     });
   }
-  if (legal.recruitment === 'unknown' || legal.clientProjectData === 'unknown') {
+  if (legal.clientProjectData !== 'none' || legal.euClientDeliverySubcontract) {
     gdpr.push({
-      id: 'otherNearshoreAccess',
+      id: 'clientDeliveryTransfer',
       detail:
-        'L’accès aux CV et aux données clients de projet n’est pas confirmé. Ne pas l’écrire dans la politique.',
+        'Ne pas décrire un transfert de données de clients européens vers des développeurs en Tunisie. Aucun contrat de ce type n’est en cours.',
+    });
+  }
+  if (legal.recruitment === 'unknown') {
+    gdpr.push({
+      id: 'recruitmentAccess',
+      detail: 'L’accès aux CV n’est pas confirmé. Ne pas l’écrire dans la politique.',
     });
   }
   if (legal.nearshoreRole === 'undetermined' || !legal.sharingAgreementSigned || !legal.sccSigned || !legal.tiaCompleted) {
     gdpr.push({
       id: 'transferInstruments',
       detail:
-        'Le rôle RGPD de Coconsult Nearshore n’est pas tranché. Aucun accord article 26 ou 28, aucune clause contractuelle type et aucune analyse d’impact du transfert ne sont signés. La page publique ne doit pas les présenter comme existants.',
+        'Pour la prospection partagée : le rôle de Coconsult Nearshore n’est pas tranché. Aucun accord article 26 ou 28, aucune clause module 1 ou 2 et aucune analyse d’impact ne sont signés. Tant que ce partage n’est pas encadré, le GO juridique reste fermé. Le module 3 et l’annexe de sous-traitance ultérieure ne sont pas des obligations actuelles.',
     });
   }
   if (!legal.mailProvider) {
@@ -144,7 +155,8 @@ export function publicationReview(): PublicationReview {
       'Téléphone 06 37 19 17 97, autorisé pour les mentions légales. Numéro mobile provisoire, remplaçable dans company.ts.',
       'Hébergeur indiqué : OVH SAS, 2 rue Kellermann, 59100 Roubaix, téléphone 09 72 10 10 07.',
       'Coconsult Nearshore, à Sfax, est une société juridiquement distincte. Elle n’édite pas ce site. Aucun lien capitalistique n’est affirmé.',
-      'Des commerciaux habilités de Coconsult Nearshore accèdent aux mêmes e-mails de prospection, fichiers de prospects et suivi commercial. Pas à toutes les boîtes. La Tunisie est hors EEE. Les garanties contractuelles ne sont pas signées.',
+      'Des commerciaux habilités de Coconsult Nearshore accèdent aux mêmes e-mails de prospection, fichiers de prospects et suivi commercial. Pas à toutes les boîtes. La Tunisie est hors EEE. Les garanties de ce partage ne sont pas signées.',
+      'Aucun contrat client européen n’est ensuite confié en développement à Coconsult Nearshore. Pas de transfert de données de ces clients vers des développeurs en Tunisie.',
     ],
     documents,
     gdpr,

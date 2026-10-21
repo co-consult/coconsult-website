@@ -2,6 +2,8 @@
 
 Document interne. Il n’est pas publié sur coconsult.fr. Cette checklist ne constitue pas un contrat signé et ne remplace pas la revue d’un juriste compétent.
 
+Les obligations actuelles portent sur la prospection commerciale partagée entre COCONSULT SAS et Coconsult Nearshore. Le développement nearshore reste une offre. Aucun contrat avec un client européen n’est aujourd’hui suivi d’une sous-traitance de développement vers la Tunisie.
+
 Source des faits côté site : `src/data/company.ts`. Ne pas y marquer un accord, des clauses ou une analyse d’impact comme faits tant qu’un document signé n’est pas au dossier.
 
 ## 1. Identité des deux sociétés
@@ -33,10 +35,13 @@ Confirmé pour les commerciaux habilités de Coconsult Nearshore :
 
 Cet accès ne couvre pas toutes les boîtes de messagerie.
 
+Confirmé comme absent :
+
+- données de clients européens transmises à des développeurs de Coconsult Nearshore parce qu’un contrat français aurait été sous-traité en Tunisie. Ce scénario n’est pas en cours.
+
 Non confirmé, donc hors du texte public :
 
-- CV et informations de recrutement ;
-- données clients traitées pour l’exécution des projets.
+- CV et informations de recrutement.
 
 ## 3. Systèmes concernés
 
@@ -56,7 +61,7 @@ La Tunisie est hors de l’Espace économique européen. Les pages du site sont 
 
 ## 5. Rôles possibles
 
-Trois qualifications restent ouvertes. Aucune n’est retenue.
+Trois qualifications restent ouvertes pour le fichier de prospection. Aucune n’est retenue. Elles ne décrivent pas une sous-traitance de développement, qui n’est pas en cours.
 
 - **Sous-traitant** (article 28) : Nearshore traite pour le compte de COCONSULT SAS, sur instruction documentée, sans déterminer les finalités.
 - **Responsables distincts** : chaque société détermine ses propres finalités sur les prospects auxquels elle a accès.
@@ -85,10 +90,12 @@ Aucun de ces contrats n’est signé à ce jour (`sharingAgreementSigned: false`
 
 Outil visé : clauses de la décision d’exécution (UE) 2021/914 de la Commission, seulement s’il est choisi. Elles ne sont pas signées (`sccSigned: false`).
 
+Pour le partage de prospection, selon le rôle qui sera retenu :
+
 - Responsable vers responsable : module 1.
 - Responsable vers sous-traitant : module 2.
-- Sous-traitant vers sous-traitant : module 3, s’il existe une chaîne. Ce n’est pas le cas décrit.
-- Sous-traitant vers responsable : module 4, non décrit ici.
+
+Le module 3 et l’annexe de sous-traitance ultérieure sont traités plus bas. Ils ne sont pas des outils du partage actuel.
 
 Un accord article 26 ne dispense pas d’un outil de transfert du chapitre V pour l’accès depuis la Tunisie. Les dérogations de l’article 49 ne sont pas une base durable pour un accès systématique de prospection.
 
@@ -122,6 +129,17 @@ Tant que le contrat n’existe pas, COCONSULT SAS répond aux demandes adressée
 - Revue d’un juriste compétent sur le rôle, le contrat et les clauses.
 - Validation interne de l’AITD avant toute affirmation publique de garanties.
 - Mise à jour de `/confidentialite/` et `/en/privacy-policy/` seulement après signature, pour nommer le mécanisme et le moyen d’en obtenir copie.
+
+## Pour de futurs contrats seulement
+
+À examiner lorsque les traitements réels le justifieront. Rien de cette section n’est à signer ni à publier aujourd’hui.
+
+Le jour où Coconsult France conclura avec un client européen un contrat dont le développement sera confié à Coconsult Nearshore, revoir :
+
+- l’annexe RGPD de sous-traitance ultérieure (article 28, paragraphes 2 et 4), si le sous-traitant recourt lui-même à un autre sous-traitant ;
+- les clauses contractuelles types module 3 de la décision 2021/914 (sous-traitant vers sous-traitant), si cette chaîne comporte un transfert hors de l’Espace économique européen.
+
+Tant que ce contrat client n’existe pas, ne pas rédiger ces pièces et ne pas les présenter comme en vigueur. Le module 4 (sous-traitant vers responsable) n’est pas non plus le cadre du partage de prospection.
 
 ## Références
 
