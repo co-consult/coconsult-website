@@ -20,34 +20,65 @@ jobs:
       - run: npm run check
       - run: npm run build
       - run: npm test
-      - name: Container health and relative /en redirect
+      - name: Container health and relative redirects
         run: |
           docker compose -p coconsult-ci -f compose.yaml up -d --build
+          ok=0
           for i in 1 2 3 4 5 6 7 8 9 10; do
-            curl -fsS http://127.0.0.1:3601/healthz && break
+            if curl -fsS http://127.0.0.1:3601/healthz; then
+              ok=1
+              break
+            fi
             sleep 2
           done
+          test "$ok" = 1
           python3 - <<'PY'
-          import urllib.request
-          def headers(path):
-              req = urllib.request.Request('http://127.0.0.1:3601' + path, method='HEAD')
-              try:
-                  with urllib.request.urlopen(req) as res:
-                      return res.status, res.headers.get('Location')
-              except urllib.error.HTTPError as err:
-                  return err.code, err.headers.get('Location')
-          checks = ['/en', '/services', '/en/services/qa-testing']
-          for path in checks:
-              status, location = headers(path)
+          import http.client
+
+          def head(path):
+              conn = http.client.HTTPConnection('127.0.0.1', 3601, timeout=10)
+              conn.request('HEAD', path)
+              res = conn.getresponse()
+              status = res.status
+              location = res.getheader('Location')
+              res.read()
+              conn.close()
+              return status, location
+
+          def assert_relative(location):
+              assert location is not None, location
+              assert location.startswith('/'), location
+              assert ':8080' not in location, location
+              assert 'http://' not in location, location
+              assert 'https://' not in location, location
+              assert '://' not in location, location
+
+          redirects = {
+              '/en': '/en/',
+              '/services': '/services/',
+              '/en/services/qa-testing': '/en/services/qa-testing/',
+          }
+          for path, expected in redirects.items():
+              status, location = head(path)
               print(path, status, location)
-              assert status in (301, 308), (path, status)
-              assert location == path + '/', (path, location)
-              assert location and ':8080' not in location and '://' not in location
-          status, _ = headers('/en/')
-          assert status == 200, status
-          health = urllib.request.urlopen('http://127.0.0.1:3601/healthz').read()
-          assert health.strip() == b'ok'
+              assert status == 301, (path, status, location)
+              assert location == expected, (path, location)
+              assert_relative(location)
+          status, location = head('/en/')
+          print('/en/', status, location)
+          assert status == 200, (status, location)
+          assert location is None
+          conn = http.client.HTTPConnection('127.0.0.1', 3601, timeout=10)
+          conn.request('GET', '/healthz')
+          res = conn.getresponse()
+          body = res.read()
+          conn.close()
+          assert res.status == 200, res.status
+          assert body.strip() == b'ok', body
           print('nginx redirect checks passed')
           PY
+      - name: Remove the coconsult-ci containers
+        if: always()
+        run: |
           docker compose -p coconsult-ci -f compose.yaml stop
           docker compose -p coconsult-ci -f compose.yaml rm -f
