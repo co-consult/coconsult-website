@@ -552,6 +552,134 @@ test('v3.2 screenshots for sectors desktop and mobile', async ({ page }) => {
   await page.locator('#secteurs').screenshot({ path: `${dir}/05-home-sectors-390.png` });
 });
 
+test('v3.3 contact stays on the mail fallback until send is available', async ({ page }) => {
+  const urls: string[] = [];
+  page.on('request', (request) => urls.push(request.url()));
+  await page.goto('/contact/?type=project');
+  await reachSummary(page, 'Nous voulons faire evoluer le portail sans envoi serveur.');
+  await expect(page.getByRole('button', { name: 'Préparer le message' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Envoyer ma demande' })).toHaveCount(0);
+  await page.getByRole('button', { name: 'Préparer le message' }).click();
+  await expect(page.locator('#outcome-text')).toContainText("Aucun envoi n'a été effectué");
+  await expect(page.getByText(/acceptée pour transmission/)).toHaveCount(0);
+  expect(urls.some((url) => url.includes('api.brevo.com'))).toBe(false);
+
+  await page.goto('/en/contact/?type=project');
+  await reachSummary(page, 'We want to evolve an application that is already running.');
+  await expect(page.getByRole('button', { name: 'Prepare the message' })).toBeVisible();
+  await page.getByRole('button', { name: 'Prepare the message' }).click();
+  await expect(page.locator('#outcome-text')).toContainText('Nothing has been sent');
+  expect(urls.some((url) => url.includes('api.brevo.com'))).toBe(false);
+});
+
+test('v3.3 simulated send covers generic and COPHARIA requests in French and English', async ({ page }) => {
+  const posts: { url: string; body: string }[] = [];
+  await page.route('**/api/contact', async (route) => {
+    const request = route.request();
+    if (request.method() === 'GET') {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ ok: true, available: true, token: 'a'.repeat(32) }),
+      });
+      return;
+    }
+    posts.push({ url: request.url(), body: request.postData() || '' });
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ ok: true, accepted: true }),
+    });
+  });
+
+  await page.goto('/contact/?type=project');
+  await reachSummary(page, 'Nous voulons moderniser une application deja en production.');
+  await expect(page.getByRole('button', { name: 'Envoyer ma demande' })).toBeVisible();
+  await page.getByRole('button', { name: 'Envoyer ma demande' }).click();
+  await expect(page.locator('#outcome-text')).toContainText('acceptée pour transmission');
+  await expect(page.locator('#outcome-text')).not.toContainText('Aucun envoi');
+  await expect(page.locator('#open-gmail')).toBeHidden();
+  expect(posts.at(-1)?.url).not.toContain('brevo');
+  expect(posts.at(-1)?.body).toContain('"type":"project"');
+  expect(posts.at(-1)?.body).not.toContain('test-key');
+
+  posts.length = 0;
+  await page.goto('/contact/?type=demo&product=copharia');
+  await expect(page.locator('[data-contact-panel]')).toHaveAttribute('data-mode', 'demo');
+  await page.locator('#message').fill('');
+  await reachDemoSummary(page);
+  await expect(page.getByRole('button', { name: 'Envoyer ma demande' })).toBeVisible();
+  await page.getByRole('button', { name: 'Envoyer ma demande' }).click();
+  await expect(page.locator('#outcome-text')).toContainText('acceptée pour transmission');
+  expect(posts.at(-1)?.body).toContain('"type":"demo"');
+  expect(posts.at(-1)?.body).toContain('"product":"copharia"');
+
+  posts.length = 0;
+  await page.goto('/en/contact/?type=ai');
+  await reachSummary(page, 'We want to connect a model to a process we already run.');
+  await expect(page.getByRole('button', { name: 'Send my request' })).toBeVisible();
+  await page.getByRole('button', { name: 'Send my request' }).click();
+  await expect(page.locator('#outcome-text')).toContainText('accepted for transmission');
+  expect(posts.at(-1)?.body).toContain('"locale":"en"');
+  expect(posts.at(-1)?.body).toContain('"type":"ai"');
+
+  posts.length = 0;
+  await page.goto('/en/contact/?type=demo&product=copharia');
+  await page.locator('#message').fill('');
+  await reachDemoSummary(page, '');
+  await expect(page.getByRole('button', { name: 'Send my request' })).toBeVisible();
+  await page.getByRole('button', { name: 'Send my request' }).click();
+  await expect(page.locator('#outcome-text')).toContainText('accepted for transmission');
+  expect(posts.at(-1)?.body).toContain('"product":"copharia"');
+});
+
+test('v3.3 a failed send keeps the message and restores the mail fallback', async ({ page }) => {
+  let posts = 0;
+  await page.route('**/api/contact', async (route) => {
+    if (route.request().method() === 'GET') {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ ok: true, available: true, token: 'b'.repeat(32) }),
+      });
+      return;
+    }
+    posts += 1;
+    await route.fulfill({
+      status: 502,
+      contentType: 'application/json',
+      body: JSON.stringify({ ok: false, error: 'provider' }),
+    });
+  });
+  await page.goto('/contact/?type=project');
+  const text = 'Nous voulons conserver ce texte TOKEN-KEEP apres un echec.';
+  await reachSummary(page, text);
+  await expect(page.getByRole('button', { name: 'Envoyer ma demande' })).toBeVisible();
+  await page.getByRole('button', { name: 'Envoyer ma demande' }).click();
+  await expect(page.locator('#err-4')).toContainText('Vos informations sont conservées');
+  await expect(page.locator('#message')).toHaveValue(text);
+  await expect(page.locator('#open-gmail')).toBeVisible();
+  await expect(page.locator('#open-gmail')).toHaveAttribute('href', /TOKEN-KEEP/);
+  await expect(page.getByRole('button', { name: 'Envoyer ma demande' })).toBeEnabled();
+  expect(posts).toBe(1);
+  await page.getByRole('button', { name: 'Envoyer ma demande' }).click();
+  await expect.poll(() => posts).toBe(2);
+});
+
+test('v3.3 screenshots for contact desktop and mobile', async ({ page }) => {
+  const dir = 'docs/v3.3-screenshots';
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/contact/');
+  await page.screenshot({ path: `${dir}/01-contact-1440.png`, fullPage: true });
+  await page.goto('/contact/?type=demo&product=copharia');
+  await page.screenshot({ path: `${dir}/02-copharia-1440.png`, fullPage: true });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/contact/');
+  await page.screenshot({ path: `${dir}/03-contact-390.png`, fullPage: true });
+  await page.goto('/en/contact/?type=demo&product=copharia');
+  await page.screenshot({ path: `${dir}/04-copharia-en-390.png`, fullPage: true });
+});
+
 test('home and QA pages meet WCAG AA checks we can automate', async ({ page }) => {
   for (const urlPath of ['/', '/en/', '/contact/', '/en/contact/', '/solutions/', '/secteurs/', '/en/industries/', '/services/paiements/', '/services/qa-testing/', '/en/services/qa-testing/']) {
     await page.goto(urlPath);
