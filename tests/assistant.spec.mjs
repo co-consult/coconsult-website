@@ -3,6 +3,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { contactHref, entries, KNOWLEDGE_VERSION } from '../src/assistant/knowledge.mjs';
 import { start, turn } from '../src/assistant/guide.mjs';
+import { decodeHandoff, encodeHandoff } from '../src/assistant/handoff.mjs';
+import { safeHref } from '../src/assistant/widget.mjs';
 import { guardOutput, handleAssistant, resetAssistantLimits, resolveAssistantIp } from '../server/assistant.mjs';
 
 const root = path.resolve(import.meta.dirname, '..');
@@ -49,7 +51,11 @@ assert.equal(noted.contact, null);
 assert.match(noted.text, /Moderniser un outil interne/);
 const confirmed = choose(noted, 'confirm-summary');
 assert.equal(confirmed.contact.href, '/contact/?type=ai');
+assert.equal(confirmed.handoff.href, '/contact/?type=ai');
+assert.match(confirmed.handoff.message, /Moderniser un outil interne/);
 assert.equal(confirmed.contact.href.includes('Moderniser'), false);
+assert.equal(confirmed.handoff.href.includes('Moderniser'), false);
+assert.equal(noted.handoff, null);
 assert.equal(confirmed.state.questions <= 3, true);
 
 const staffing = choose(choose(start('fr'), 'topics'), 'ai');
@@ -94,6 +100,27 @@ const editedMode = choose(edited, 'mode-team');
 assert.equal(editedMode.state.questions, 3);
 assert.equal(editedMode.summary.pending, true);
 
+const cii = turn(start('fr').state, { type: 'text', text: 'Quel est le numero d agrement CII ?' });
+assert.match(cii.text, /28910108/);
+assert.match(cii.text, /ne décide pas/);
+assert.equal(cii.links.some((link) => link.href === '/innovation/'), true);
+const certification = turn(start('fr').state, { type: 'text', text: 'Avez-vous une certification ?' });
+assert.match(certification.text, /Aucune certification/);
+assert.equal(/iso\s*9001/i.test(knowledgeText), false);
+assert.match(knowledgeText, /agents/);
+assert.equal(/crédit d’impôt garanti|tax credit is guaranteed|tous les projets sont éligibles|every project is eligible/i.test(knowledgeText), false);
+
+const handoffRaw = encodeHandoff('Sujet : IA et data\nMode : Projet\nContexte : Outil interne.', 1_000);
+assert.match(handoffRaw, /Outil interne/);
+assert.equal(handoffRaw.includes('?'), false);
+assert.equal(decodeHandoff(handoffRaw, 1_000 + 10_000), 'Sujet : IA et data\nMode : Projet\nContexte : Outil interne.');
+assert.equal(decodeHandoff(handoffRaw, 1_000 + 120_001), '');
+assert.equal(encodeHandoff('Écrire à ada@example.com', 1_000), '');
+assert.equal(encodeHandoff('Appeler 06 37 19 17 97', 1_000), '');
+assert.equal(safeHref('/innovation/'), '/innovation/');
+assert.equal(safeHref('/en/innovation/'), '/en/innovation/');
+assert.equal(safeHref('https://evil.example/innovation/'), '/contact/');
+
 assert.equal(contactHref('fr', 'payments', 'team'), '/contact/?type=payments');
 assert.equal(contactHref('fr', 'qa', 'team'), '/contact/?type=qa-team');
 assert.equal(contactHref('en', 'cyber', 'project'), '/en/contact/?type=qa');
@@ -107,8 +134,10 @@ assert.equal(guardOutput('Write to someone@example.com.').ok, false);
 assert.equal(guardOutput(`Write to contact@coconsult.fr.`).ok, true);
 assert.equal(guardOutput('token sk-live-secret').ok, false);
 
-const widgetSource = read('src/assistant/widget.mjs') + read('src/assistant/guide.mjs');
+const widgetSource = read('src/assistant/widget.mjs') + read('src/assistant/guide.mjs') + read('src/assistant/handoff.mjs') + read('public/assets/contact.js');
 assert.equal(/localStorage|sessionStorage|document\.cookie|innerHTML/.test(widgetSource), false);
+assert.match(read('public/assets/contact.js'), /cc-guide-handoff/);
+assert.match(read('public/assets/contact.js'), /caches\.delete\(GUIDE_CACHE\)/);
 assert.equal(read('src/components/Assistant.astro').includes('Aucun modèle d’IA externe'), false);
 assert.match(read('src/assistant/knowledge.mjs'), /Aucun modèle d’IA externe n’est appelé/);
 
@@ -116,9 +145,12 @@ const siteCompose = read('compose.yaml');
 const siteNginx = read('nginx.conf');
 const siteImage = read('Dockerfile');
 assert.equal(siteCompose.includes('assistant'), false);
+assert.equal(siteCompose.includes('PUBLIC_ASSISTANT'), false);
 assert.equal(siteNginx.includes('assistant'), false);
-assert.equal(siteImage.includes('PUBLIC_ASSISTANT'), false);
+assert.match(siteImage, /ARG PUBLIC_ASSISTANT=false/);
+assert.equal(siteImage.includes('PUBLIC_ASSISTANT=true'), false);
 assert.equal(siteImage.includes('assistant'), false);
+assert.match(read('compose.guide.yaml.example'), /PUBLIC_ASSISTANT:\s*"true"/);
 assert.equal(read('compose.contact.yaml').includes('assistant'), false);
 assert.equal(read('server/contact.mjs').includes('assistant'), false);
 

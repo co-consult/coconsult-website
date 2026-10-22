@@ -1,12 +1,12 @@
 # Assistant Coconsult
 
-Guide de conversation pour les visiteurs. Il présente les expertises et les réalisations publiques, pose au plus trois questions, puis propose le formulaire de contact déjà en place. Il n’envoie pas de message et ne modifie pas le formulaire.
+Guide de conversation pour les visiteurs. Il présente les expertises et les réalisations publiques, pose au plus trois questions, puis propose le formulaire de contact déjà en place. Il n’envoie pas de message. Le résumé n’est recopié dans le formulaire que si le visiteur le demande, et cet envoi reste celui du formulaire.
 
-Le guide est éteint sur le site public. Deux interrupteurs indépendants doivent rester sur `false` tant qu’une personne n’a pas validé le parcours et le traitement des données.
+Le guide est éteint sur le site public. Le widget n’entre dans l’image que si le build Docker reçoit exactement `PUBLIC_ASSISTANT=true`. Deux interrupteurs du service, indépendants, doivent rester sur `false` : le mode guidé ne les utilise pas.
 
 ## Architecture
 
-Le site Astro reste statique. Le widget n’est pas dans l’image de production : `PUBLIC_ASSISTANT` n’est pas défini dans le `Dockerfile` ni dans la CI. Sans la valeur exacte `true` au moment du build, les pages ne contiennent ni bouton ni script de conversation.
+Le site Astro reste statique. `Dockerfile` déclare `ARG PUBLIC_ASSISTANT=false`. Sans la valeur exacte `true` au moment du build, les pages ne contiennent ni bouton ni script de conversation. `compose.yaml` ne passe pas cet argument. Le fichier d’exemple `compose.guide.yaml.example` le fait, et seulement lorsqu’il est ajouté à la commande.
 
 La conversation du widget, lorsqu’il est construit pour un essai local, s’exécute dans la page. Elle importe `src/assistant/guide.mjs` et `src/assistant/knowledge.mjs`. Aucune clé n’est présente dans ce code. Rien n’est écrit dans `localStorage`, `sessionStorage` ou un cookie.
 
@@ -29,7 +29,7 @@ Le conteneur écoute uniquement `10.230.23.10:3603` sur le réseau interne `10.2
 
 Le guide répond à partir des textes de `knowledge.mjs` : société, expertises, technologies publiées sur la page équipes, modes de collaboration, trois réalisations visibles (application documentaire, plateforme d’opérations sportives, COPHARIA). Les fiches non publiées ne sont pas dans cette base.
 
-Les questions de qualification sont au nombre de trois au plus : le sujet, le mode, une phrase de contexte. Le visiteur valide le résumé. Le lien ouvre un `type` déjà géré par le formulaire (`project`, `team`, `qa`, `qa-team`, `payments`, `automation`, `ai`, `demo`). Pour COPHARIA, le lien ajoute `product=COPHARIA`. Le résumé n’est pas placé dans l’URL et n’est pas injecté dans le formulaire.
+Les questions de qualification sont au nombre de trois au plus : le sujet, le mode, une phrase de contexte. Le visiteur valide le résumé. Deux actions apparaissent alors. « Ouvrir le formulaire sans ce résumé » ouvre seulement le `type` déjà géré par le formulaire (`project`, `team`, `qa`, `qa-team`, `payments`, `automation`, `ai`, `demo`). Pour COPHARIA, l’adresse ajoute `product=COPHARIA`. « Reprendre ce résumé dans le formulaire » recopie le résumé dans le champ message, puis l’efface. Le résumé n’est pas placé dans l’URL, ni dans `localStorage`, `sessionStorage` ou un cookie. Il n’est pas envoyé de lui-même : le visiteur relit le message et utilise le bouton du formulaire. La copie temporaire tient dans le cache du navigateur, pour cette origine seulement, deux minutes au plus. Fermer le guide, modifier le résumé ou choisir le lien sans résumé efface cette copie. La base publique inclut la page Innovation et l’agrément CII n° 28910108 pour 2026-2030, sans en faire une éligibilité automatique ni un crédit d’impôt garanti. Aucune certification n’est attribuée à Coconsult.
 
 Une question hors base, un prix, une donnée personnelle ou une tentative de changer les consignes renvoie vers le formulaire. Le service ne transmet pas ces messages au fournisseur.
 
@@ -89,6 +89,41 @@ npx astro dev --host 127.0.0.1 --port 4322
 
 Retirer la variable avant un build destiné au dépôt ou au VPS. `npm run build` et `npm test` se lancent sans elle.
 
+## Activer et éteindre le guide
+
+Le guide et le service sont deux choses différentes. Cette section ne démarre pas `compose.assistant.yaml` et ne modifie pas le service de contact, Nginx Proxy Manager, ni `compose.proxy.yaml`.
+
+Le déploiement habituel du site laisse le guide éteint :
+
+```bash
+cd /home/ubuntu/apps/coconsult-website
+docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml up -d --build
+```
+
+Pour le publier, une fois la recette acceptée, copier l’exemple sur le serveur (le fichier réel est ignoré par Git) et l’ajouter à chaque reconstruction qui doit conserver le guide :
+
+```bash
+cp compose.guide.yaml.example compose.guide.yaml
+docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml -f compose.guide.yaml build
+docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml -f compose.guide.yaml up -d
+```
+
+L’équivalent sans fichier, sur une seule construction :
+
+```bash
+docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml build --build-arg PUBLIC_ASSISTANT=true
+docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml up -d
+```
+
+Une reconstruction ultérieure sans l’argument ni `compose.guide.yaml` retire le guide. C’est aussi la manière de l’éteindre sans revenir en arrière dans Git :
+
+```bash
+docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml build --build-arg PUBLIC_ASSISTANT=false
+docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml up -d
+```
+
+Contrôle après coup : la page d’accueil contient `data-assistant-open` seulement lorsque le guide est dans l’image. Elle ne doit contenir aucun appel vers un fournisseur de modèle. `ASSISTANT_ENABLED` et `ASSISTANT_MODEL_ENABLED` restent `false`.
+
 ## Déploiement du service
 
 À ne pas lancer dans le cadre du déploiement du site. La commande du site reste celle de `docs/DEPLOYMENT.md` et ne doit pas recevoir `-f compose.assistant.yaml`.
@@ -120,4 +155,4 @@ npm run build
 npm test
 ```
 
-`npm test` couvre le parcours FR et EN, les injections, les données personnelles, le plafond de questions, le service éteint, le plafond de débit, le refus d’une base `http`, et l’absence du widget dans `dist`. Les tests Docker du contact restent indépendants : s’ils sont ignorés parce que le démon est arrêté, ils ne valident pas cet overlay.
+`npm test` couvre le parcours FR et EN, les injections, les données personnelles, le plafond de questions, le service éteint, le plafond de débit, le refus d’une base `http`, et l’absence du widget dans `dist`. Il construit aussi un second site, sur le port 4322, avec `PUBLIC_ASSISTANT=true`, et vérifie le clavier, le résumé et la recopie dans le formulaire. Les tests Docker du contact restent indépendants : s’ils sont ignorés parce que le démon est arrêté, ils ne valident pas l’overlay du service.

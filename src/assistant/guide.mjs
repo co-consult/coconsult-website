@@ -19,7 +19,7 @@ const PII = /([\w.+-]+@[\w.-]+\.[a-z]{2,})|(\+?\d[\d\s().-]{8,}\d)/i;
 const COMMERCIAL = /\b(prix|tarif|tarifs|devis|price|pricing|cost|costs|combien)\b/i;
 const PRIVATE = /\b(siret|siren|salaire|salary|marge|password|mot de passe)\b/i;
 
-const EXPERTISE = ['ai', 'software', 'cloud', 'qa', 'cyber', 'automation', 'payments', 'teams'];
+const EXPERTISE = ['ai', 'software', 'cloud', 'qa', 'cyber', 'automation', 'payments', 'teams', 'innovation'];
 const MODES = ['regie', 'forfait', 'squad', 'nearshore'];
 const WORKS = ['iaps', 'sports', 'copharia'];
 
@@ -123,8 +123,8 @@ function topicMenu(state) {
   const en = state.locale === 'en';
   return pack(state, {
     text: en
-      ? 'The published expertise covers AI, software, cloud, QA, cybersecurity, business automation, payments and dedicated teams.'
-      : 'Les expertises publiées couvrent l’IA, le logiciel, le cloud, la QA, la cybersécurité, l’automatisation, les paiements et les équipes dédiées.',
+      ? 'The published expertise covers AI and AI agents, custom software, web and mobile applications, cloud, QA, cybersecurity, business automation, payments, dedicated teams, and the innovation agreement.'
+      : 'Les expertises publiées couvrent l’IA et les agents, le logiciel sur mesure, les applications web et mobiles, le cloud, la QA, la cybersécurité, l’automatisation, les paiements, les équipes dédiées et l’agrément innovation.',
     choices: [...entryChoices(state.locale, EXPERTISE), backChoice(state.locale)],
     links: [{ href: pathFor(state.locale, 'services'), label: state.locale === 'en' ? 'Expertise' : 'Expertises' }],
     matched: true,
@@ -242,13 +242,15 @@ function summary(state, pending) {
   state.editing = false;
   const lines = summaryLines(state);
   const en = state.locale === 'en';
+  const href = contactHref(state.locale, state.topic, state.mode);
+  const message = lines.join('\n');
   const text = pending
     ? (en
-      ? `Please confirm this summary.\n${lines.join('\n')}\nThe contact link appears after you confirm. The summary stays in this window and is not copied into the form.`
-      : `Voici le résumé à valider.\n${lines.join('\n')}\nLe lien vers le formulaire apparaît après confirmation. Le résumé reste dans cette fenêtre et n’est pas recopié dans le formulaire.`)
+      ? `Please confirm this summary.\n${message}\nAfter confirmation you can open the form, or ask for this summary to be copied into the message. Nothing is sent until you send it from the form.`
+      : `Voici le résumé à valider.\n${message}\nAprès validation, vous pouvez ouvrir le formulaire, ou demander que ce résumé y soit recopié. Rien n’est envoyé tant que vous ne le faites pas depuis le formulaire.`)
     : (en
-      ? `Confirmed.\n${lines.join('\n')}\nThe link opens the matching form. Copy the summary into your message if you want the team to read it.`
-      : `Résumé confirmé.\n${lines.join('\n')}\nLe lien ouvre le formulaire correspondant. Reprenez le résumé dans votre message si vous voulez que l’équipe le lise.`);
+      ? `Confirmed.\n${message}\nThe button copies this text into the form message. It is not added to the page address and it is not sent. You can still edit it.`
+      : `Résumé confirmé.\n${message}\nLe bouton recopie ce texte dans le message du formulaire. Il n’est pas ajouté à l’adresse de la page et il n’est pas envoyé. Vous pourrez encore le modifier.`);
   return pack(state, {
     text,
     choices: pending
@@ -258,7 +260,12 @@ function summary(state, pending) {
       ]
       : [backChoice(state.locale)],
     summary: { lines, pending },
-    contact: pending ? null : { href: contactHref(state.locale, state.topic, state.mode), label: en ? 'Open the contact form' : 'Ouvrir le formulaire de contact' },
+    contact: pending ? null : { href, label: en ? 'Open the form without this summary' : 'Ouvrir le formulaire sans ce résumé' },
+    handoff: pending ? null : {
+      href,
+      label: en ? 'Use this summary in the form' : 'Reprendre ce résumé dans le formulaire',
+      message,
+    },
     matched: true,
   });
 }
@@ -430,6 +437,7 @@ function pack(state, extra) {
     links: extra.links || [],
     summary: extra.summary || null,
     contact: extra.contact || null,
+    handoff: extra.handoff || null,
     matched: extra.matched !== false,
     blocked: extra.blocked || null,
     disclosure: chrome(state.locale).disclosure,

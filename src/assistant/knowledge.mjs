@@ -3,7 +3,7 @@
  * Facts are copied from the published pages only.
  * Version the text here. Do not add unpublished work, prices, or legal-notice-only data.
  */
-export const KNOWLEDGE_VERSION = '2026-10-22';
+export const KNOWLEDGE_VERSION = '2026-10-23';
 
 export const PUBLIC_EMAIL = 'contact@coconsult.fr';
 
@@ -22,6 +22,7 @@ const PATHS = {
     modes: '/modes-intervention/',
     cases: '/realisations/',
     about: '/a-propos/',
+    innovation: '/innovation/',
     contact: '/contact/',
   },
   en: {
@@ -38,6 +39,7 @@ const PATHS = {
     modes: '/en/engagement/',
     cases: '/en/case-studies/',
     about: '/en/about/',
+    innovation: '/en/innovation/',
     contact: '/en/contact/',
   },
 };
@@ -49,10 +51,21 @@ export const entries = [
     label: { fr: 'Coconsult', en: 'Coconsult' },
     keywords: ['qui etes-vous', 'qui etes vous', 'who are you', 'a propos', 'about coconsult', 'paris', 'depuis 2018', 'since 2018'],
     text: {
-      fr: 'Coconsult est une société d’ingénierie française, à Paris, fondée en 2018. Elle conçoit, développe et modernise des systèmes métier, de l’intégration à la production. L’adresse publique est contact@coconsult.fr.',
-      en: 'Coconsult is a French engineering company in Paris, founded in 2018. It designs, builds and modernises business systems, from integration through production. The public address is contact@coconsult.fr.',
+      fr: 'Coconsult est une société d’ingénierie française, à Paris, fondée en 2018. Elle conçoit, développe et modernise des systèmes métier, de l’intégration à la production. Elle est agréée crédit d’impôt innovation pour 2026 à 2030, décision n° 28910108. Le détail et les limites sont sur la page Innovation. L’adresse publique est contact@coconsult.fr.',
+      en: 'Coconsult is a French engineering company in Paris, founded in 2018. It designs, builds and modernises business systems, from integration through production. It holds a French innovation tax credit agreement for 2026 to 2030, decision no. 28910108. The detail and the limits are on the Innovation page. The public address is contact@coconsult.fr.',
     },
-    links: ['about', 'services'],
+    links: ['about', 'innovation', 'services'],
+  },
+  {
+    id: 'innovation',
+    group: 'company',
+    label: { fr: 'Innovation et CII', en: 'Innovation and CII' },
+    keywords: ['innovation', 'cii', '28910108', 'agrement', 'credit d impot', 'credit dimpot', 'tax credit', 'drieets'],
+    text: {
+      fr: 'COCONSULT, la société française qui édite ce site, est agréée crédit d’impôt innovation pour 2026 à 2030. La décision du 4 février 2026 de la DRIEETS Île-de-France porte le numéro 28910108. Cet agrément ne décide pas, à lui seul, qu’un projet est éligible, et il n’ouvre pas automatiquement un crédit d’impôt. Une maintenance, une régie ou une évolution courante ne deviennent pas éligibles parce que l’agrément existe. Coconsult Nearshore n’est pas titulaire de cette décision.',
+      en: 'COCONSULT, the French company that publishes this site, holds a French innovation tax credit agreement for 2026 to 2030. The 4 February 2026 decision by DRIEETS Île-de-France has number 28910108. The agreement does not, by itself, decide that a project is eligible, and it does not automatically create a tax credit. Maintenance, staff augmentation or an ordinary change do not become eligible because the agreement exists. Coconsult Nearshore is not the holder of this decision.',
+    },
+    links: ['innovation', 'software', 'about'],
   },
   {
     id: 'nearshore',
@@ -60,8 +73,8 @@ export const entries = [
     label: { fr: 'Nearshore à Sfax', en: 'Nearshore in Sfax' },
     keywords: ['nearshore', 'sfax', 'tunisie', 'tunisia', 'coconsult nearshore'],
     text: {
-      fr: 'Lorsque des compétences sont mobilisées à Sfax, c’est avec Coconsult Nearshore, une société tunisienne juridiquement indépendante. Aucun lien de capital n’est affirmé. Le devis nomme la société qui contracte avec le client.',
-      en: 'When skills are mobilised in Sfax, that is with Coconsult Nearshore, a legally independent Tunisian company. No capital link is asserted. The proposal names the company that contracts with the client.',
+      fr: 'Lorsque des compétences sont mobilisées à Sfax, c’est avec Coconsult Nearshore, une société tunisienne juridiquement indépendante. Aucun lien de capital n’est affirmé. Le devis nomme la société qui contracte avec le client. Coconsult Nearshore n’est pas titulaire de l’agrément crédit d’impôt innovation.',
+      en: 'When skills are mobilised in Sfax, that is with Coconsult Nearshore, a legally independent Tunisian company. No capital link is asserted. The proposal names the company that contracts with the client. Coconsult Nearshore is not the holder of the innovation tax credit agreement.',
     },
     links: ['modes', 'teams', 'about'],
   },
@@ -69,10 +82,10 @@ export const entries = [
     id: 'ai',
     group: 'expertise',
     label: { fr: 'IA et data', en: 'AI and data' },
-    keywords: ['intelligence artificielle', ' ia ', 'l ia', 'enterprise ai', 'modele', 'modeles', 'llm', 'data'],
+    keywords: ['intelligence artificielle', ' ia ', 'l ia', 'enterprise ai', 'modele', 'modeles', 'llm', 'data', 'agent', 'agents', 'agent ia'],
     text: {
-      fr: 'Coconsult intègre des outils d’IA existants dans des applications : permissions, traçabilité et cas d’usage cadrés. Le point de départ est un processus déjà connu, pas un catalogue de modèles.',
-      en: 'Coconsult integrates existing AI tools into applications: permissions, traceability and a framed use case. The starting point is a process you already know, not a catalogue of models.',
+      fr: 'Coconsult intègre des outils d’IA existants, y compris des agents, dans des applications : permissions, traçabilité et cas d’usage cadrés. Le point de départ est un processus déjà connu, pas un catalogue de modèles.',
+      en: 'Coconsult integrates existing AI tools, including agents, into applications: permissions, traceability and a framed use case. The starting point is a process you already know, not a catalogue of models.',
     },
     links: ['ai'],
   },
@@ -82,8 +95,8 @@ export const entries = [
     label: { fr: 'Développement logiciel', en: 'Software engineering' },
     keywords: ['developpement', 'developpement logiciel', 'application', 'applications', 'api', 'backend', 'mobile', 'software'],
     text: {
-      fr: 'Coconsult conçoit et fait évoluer des logiciels métier : applications web et mobiles, API, backends et intégration.',
-      en: 'Coconsult designs and evolves business software: web and mobile applications, APIs, backends and integration.',
+      fr: 'Coconsult conçoit et fait évoluer des logiciels métier sur mesure : applications web et mobiles, API, backends et intégration.',
+      en: 'Coconsult designs and evolves custom business software: web and mobile applications, APIs, backends and integration.',
     },
     links: ['software'],
   },
@@ -113,7 +126,7 @@ export const entries = [
     id: 'cyber',
     group: 'expertise',
     label: { fr: 'Cybersécurité', en: 'Cybersecurity' },
-    keywords: ['cyber', 'cybersecurite', 'cybersecurity', 'securite applicative', 'acces', 'access'],
+    keywords: ['cyber', 'cybersecurite', 'cybersecurity', 'securite applicative', 'acces', 'access', 'certification'],
     text: {
       fr: 'La cybersécurité publiée porte sur les applications, les accès et les systèmes exposés, dans le périmètre du projet. Aucune certification n’est affichée sur le site.',
       en: 'The published cybersecurity work covers applications, access and exposed systems, within the project scope. The site does not display a certification.',
@@ -284,6 +297,7 @@ function linkLabel(locale, key) {
       teams: 'Équipes dédiées',
       modes: 'Modes d’intervention',
       cases: 'Réalisations',
+      innovation: 'Innovation',
       solutions: 'Solutions',
       contact: 'Contact',
     },
@@ -300,6 +314,7 @@ function linkLabel(locale, key) {
       teams: 'Dedicated teams',
       modes: 'Engagement',
       cases: 'Case studies',
+      innovation: 'Innovation',
       solutions: 'Solutions',
       contact: 'Contact',
     },
@@ -337,7 +352,7 @@ export function chrome(locale) {
       sendLabel: 'Send',
       contactLabel: 'Contact form',
       disclosure:
-        'This guide uses the public pages of the site. No external AI model is called. The conversation stays in this page and is not stored.',
+        'This guide uses the public pages of the site. No external AI model is called. The conversation is not stored. If you ask, the confirmed summary is copied into the form and then deleted.',
     };
   }
   return {
@@ -348,8 +363,8 @@ export function chrome(locale) {
     inputLabel: 'Votre question',
     sendLabel: 'Envoyer',
     contactLabel: 'Formulaire de contact',
-    disclosure:
-      'Ce guide s’appuie sur les pages publiques du site. Aucun modèle d’IA externe n’est appelé. La conversation reste dans cette page et n’est pas enregistrée.',
+      disclosure:
+      'Ce guide s’appuie sur les pages publiques du site. Aucun modèle d’IA externe n’est appelé. La conversation n’est pas enregistrée. Si vous le demandez, le résumé validé est recopié dans le formulaire puis effacé.',
   };
 }
 

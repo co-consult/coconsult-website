@@ -189,12 +189,36 @@ const contact = pathFor(locale, 'contact');
 
   .cc-assistant-log a { color: #8ef3ff; }
 
-  .cc-assistant-contact {
+  .cc-assistant-contact,
+  .cc-assistant-handoff {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
     margin-top: 4px;
     font-weight: 600;
+  }
+
+  .cc-assistant-handoff {
+    margin-right: 8px;
+    padding: 0 12px;
+    border: 1px solid rgba(142, 243, 255, 0.45);
+    border-radius: 999px;
+    background: transparent;
+    color: #8ef3ff;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .cc-assistant-launcher:focus-visible,
+  .cc-assistant-head button:focus-visible,
+  .cc-assistant-choice:focus-visible,
+  .cc-assistant-handoff:focus-visible,
+  .cc-assistant-panel form button:focus-visible,
+  .cc-assistant-panel a:focus-visible,
+  .cc-assistant-panel textarea:focus-visible {
+    outline: 2px solid #8ef3ff;
+    outline-offset: 2px;
   }
 
   .cc-assistant-choices {
@@ -252,7 +276,7 @@ const contact = pathFor(locale, 'contact');
       left: 12px;
       width: auto;
       bottom: 68px;
-      max-height: min(240px, calc(100dvh - var(--header) - 120px));
+      max-height: min(78dvh, 640px);
     }
 
     .cc-assistant-launcher { right: 12px; }

@@ -511,6 +511,35 @@
     });
   }
 
+  const GUIDE_CACHE = 'cc-guide-handoff';
+  const GUIDE_PATH = '/cc-guide-handoff';
+  const GUIDE_TTL_MS = 120000;
+
+  async function consumeGuideSummary() {
+    if (!('caches' in window)) return '';
+    const cache = await caches.open(GUIDE_CACHE);
+    const hit = await cache.match(GUIDE_PATH);
+    await caches.delete(GUIDE_CACHE);
+    if (!hit) return '';
+    let data;
+    try {
+      data = JSON.parse(await hit.text());
+    } catch {
+      return '';
+    }
+    if (!data || typeof data.exp !== 'number' || data.exp < Date.now()) return '';
+    if (typeof data.message !== 'string') return '';
+    const text = data.message
+      .replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]+/g, ' ')
+      .replace(/[ \t]+\n/g, '\n')
+      .trim()
+      .slice(0, 1500);
+    if (!text) return '';
+    if (/[\w.+-]+@[\w.-]+\.[a-z]{2,}/i.test(text) || /\+?\d[\d\s().-]{8,}\d/.test(text)) return '';
+    if (Date.now() - (data.exp - GUIDE_TTL_MS) > GUIDE_TTL_MS) return '';
+    return text;
+  }
+
   const type = params.get('type') || '';
   const need = params.get('need') || '';
   if (typeToInquiry[type]) {
@@ -526,13 +555,35 @@
   const wantsCophariaDemo =
     topic === 'copharia' || (type === 'demo' && product === 'copharia');
 
-  if (wantsCophariaDemo) {
-    enterDemoMode();
-  } else {
+  function applyGuideSummary(guideSummary) {
+    if (!(message instanceof HTMLTextAreaElement) || message.value.trim() || !guideSummary) return false;
+    message.value = guideSummary;
+    return true;
+  }
+
+  async function openFirstStep() {
+    let guideSummary = '';
+    try {
+      guideSummary = await consumeGuideSummary();
+    } catch {
+      guideSummary = '';
+    }
+    if (wantsCophariaDemo) {
+      applyGuideSummary(guideSummary);
+      enterDemoMode();
+      return;
+    }
     if (select instanceof HTMLSelectElement) select.addEventListener('change', refreshMail);
     refreshMail();
+    if (applyGuideSummary(guideSummary) && fieldValue(message).length >= 20) {
+      state.reached = 2;
+      show(2, true);
+      return;
+    }
     show(1);
   }
+
+  openFirstStep();
 
   if (select instanceof HTMLSelectElement) select.addEventListener('change', refreshMail);
   refreshMail();
