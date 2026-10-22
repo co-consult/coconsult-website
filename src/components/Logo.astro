@@ -2,7 +2,7 @@
 interface Props {
   height?: number;
 }
-const { height = 48 } = Astro.props;
+const { height = 64 } = Astro.props;
 const width = Math.round(height * (635 / 438));
 ---
 <img src="/assets/brand/coconsult-logo.png" alt="Coconsult" width={width} height={height} />

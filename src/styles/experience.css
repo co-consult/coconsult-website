@@ -18,7 +18,7 @@
   --sans: "Instrument Sans", "Segoe UI", sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, monospace;
   --max: 1180px;
-  --header: 76px;
+  --header: 88px;
   color: var(--ink);
   background: var(--night);
 }
@@ -1250,6 +1250,7 @@ textarea { min-height: 140px; resize: vertical; }
 .mobile-core strong { font-family: var(--display); font-weight: 400; font-size: 20px; }
 
 @media (max-width: 700px) {
+  --header: 76px;
   .mode-row, .choice-grid, .checks { grid-template-columns: 1fr; }
   .site-header { padding: 12px 16px; }
   .logo-plate img { height: 34px; }
