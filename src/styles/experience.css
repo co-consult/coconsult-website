@@ -3,12 +3,12 @@
 @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 @keyframes travel { from { offset-distance: 0%; } to { offset-distance: 100%; } }
 .experience {
-  --night: #07111c;
+  --night: var(--surface-night);
   --night-2: #0d1b2c;
   --ink: #f3f7fb;
-  --muted: #c5d2e0;
-  --cyan: #8ef3ff;
-  --cyan-strong: #d8fbff;
+  --muted: var(--text-muted-on-night);
+  --cyan: var(--accent-tech);
+  --cyan-strong: var(--accent-tech-strong);
   --line: rgba(214, 236, 244, 0.16);
   --paper: #f4f7f8;
   --paper-2: #e7eef2;
@@ -198,8 +198,17 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
 .orbit { fill: none; stroke: rgba(142, 243, 255, 0.16); }
 .core-ring { fill: #10283a; stroke: var(--cyan); stroke-width: 1.5; }
 .core-ring.inner { fill: none; stroke: rgba(216, 251, 255, 0.7); }
-.endpoint { fill: #07111c; stroke: var(--cyan); stroke-width: 1.4; }
+.endpoint { fill: var(--surface-night); stroke: var(--cyan); stroke-width: 1.4; }
 .particle { fill: var(--cyan); }
+.lane[data-lane="software"] { stroke: var(--brand-blue-signal); }
+.endpoint[data-lane="software"] { stroke: var(--brand-blue-signal); }
+.particle[data-lane="software"] { fill: var(--brand-blue-signal); }
+.lane[data-lane="cloud"] { stroke: color-mix(in srgb, var(--brand-green) 82%, white); }
+.endpoint[data-lane="cloud"] { stroke: var(--brand-green); }
+.particle[data-lane="cloud"] { fill: var(--brand-green); }
+.lane[data-lane="quality"] { stroke: color-mix(in srgb, var(--brand-orange) 80%, white); }
+.endpoint[data-lane="quality"] { stroke: var(--brand-orange); }
+.particle[data-lane="quality"] { fill: var(--brand-orange); }
 .field { opacity: 0.45; }
 .system[data-focus="all"] .lane,
 .system[data-focus="all"] .endpoint { opacity: 0.95; }
@@ -213,7 +222,7 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
 .system[data-focus="ai"] .endpoint[data-lane="ai"],
 .system[data-focus="software"] .endpoint[data-lane="software"],
 .system[data-focus="cloud"] .endpoint[data-lane="cloud"],
-.system[data-focus="quality"] .endpoint[data-lane="quality"] { opacity: 1; stroke: var(--cyan-strong); }
+.system[data-focus="quality"] .endpoint[data-lane="quality"] { opacity: 1; }
 .system[data-focus="ai"] .particle[data-lane="ai"],
 .system[data-focus="software"] .particle[data-lane="software"],
 .system[data-focus="cloud"] .particle[data-lane="cloud"],
@@ -247,10 +256,15 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
 }
 .orbit-stage .node-software { max-width: 11.25rem; white-space: normal; }
 .node:hover { border-color: var(--cyan); }
+.node[data-lane="ai"] { --lane: var(--accent-tech); }
+.node[data-lane="software"] { --lane: var(--brand-blue-signal); }
+.node[data-lane="cloud"] { --lane: var(--brand-green); }
+.node[data-lane="quality"] { --lane: var(--brand-orange); }
+.node[data-lane] { box-shadow: inset 3px 0 0 var(--lane); }
 .node[aria-pressed="true"] {
   border-color: var(--cyan);
   background: #143246;
-  box-shadow: 0 0 0 1px var(--cyan) inset;
+  box-shadow: 0 0 0 1px var(--cyan) inset, inset 3px 0 0 var(--lane, var(--cyan));
 }
 .node-ai { left: 56%; top: 26.6%; transform: translate(-50%, calc(-100% - 34px)); }
 .node-software { left: 37.8%; top: 41.9%; transform: translate(calc(-100% - 36px), -50%); }
@@ -288,7 +302,7 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
 }
 .paper { background: var(--paper); color: var(--paper-ink); }
 .paper .section-head p, .paper .muted { color: var(--paper-muted); }
-.paper .eyebrow { color: #0b6f86; }
+.paper .eyebrow { color: var(--brand-teal); }
 
 .stage {
   max-width: var(--max);
@@ -751,7 +765,7 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
 .case h3 { font-size: clamp(1.45rem, 4.6vw, 2rem); margin: 0; max-width: 100%; overflow-wrap: anywhere; }
 .case p { margin: 0; color: var(--paper-muted); }
 .case .more[hidden] { display: none; }
-.case .eyebrow { color: #0b6f86; }
+.case .eyebrow { color: var(--brand-teal); }
 
 .mode-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
 .mode { border-top: 1px solid rgba(18, 32, 51, 0.2); padding-top: 16px; }
