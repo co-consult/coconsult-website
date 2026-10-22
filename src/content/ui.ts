@@ -26,6 +26,8 @@ export const ui: Record<
     navLabel: string;
     footerNavLabel: string;
     headerCta: string;
+    linkedin: string;
+    linkedinAria: string;
     explore: string;
     modeWord: string;
     copyAddress: string;
@@ -69,6 +71,8 @@ export const ui: Record<
     navLabel: 'Navigation principale',
     footerNavLabel: 'Pied de page',
     headerCta: 'Contact',
+    linkedin: 'LinkedIn',
+    linkedinAria: 'Coconsult sur LinkedIn, nouvel onglet',
     explore: 'Explorer nos expertises',
     modeWord: 'Mode d’intervention',
     copyAddress: 'Copier l’adresse',
@@ -110,6 +114,8 @@ export const ui: Record<
     navLabel: 'Main navigation',
     footerNavLabel: 'Footer',
     headerCta: 'Contact',
+    linkedin: 'LinkedIn',
+    linkedinAria: 'Coconsult on LinkedIn, new tab',
     explore: 'Explore our expertise',
     modeWord: 'Engagement',
     copyAddress: 'Copy the address',

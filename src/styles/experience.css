@@ -303,6 +303,13 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
 .paper { background: var(--paper); color: var(--paper-ink); }
 .paper .section-head p, .paper .muted { color: var(--paper-muted); }
 .paper .eyebrow { color: var(--brand-teal); }
+.paper .cii-line {
+  margin: 22px 0 0;
+  max-width: 68ch;
+  color: var(--paper-muted);
+  font-size: 14px;
+}
+.paper .cii-line a { color: var(--brand-teal); }
 
 .stage {
   max-width: var(--max);

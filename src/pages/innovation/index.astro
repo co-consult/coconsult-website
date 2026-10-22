@@ -1,0 +1,7 @@
+---
+import Page from '@/layouts/Page.astro';
+import { getPage } from '@/content';
+
+const page = getPage('fr', 'innovation');
+---
+<Page locale="fr" page={page} />
