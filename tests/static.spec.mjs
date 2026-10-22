@@ -21,6 +21,7 @@ const pages = [
   ['/solutions/', 'fr', '/en/solutions/'],
   ['/realisations/', 'fr', '/en/case-studies/'],
   ['/a-propos/', 'fr', '/en/about/'],
+  ['/innovation/', 'fr', '/en/innovation/'],
   ['/partenariats/', 'fr', '/en/partnerships/'],
   ['/contact/', 'fr', '/en/contact/'],
   ['/mentions-legales/', 'fr', '/en/legal-notice/'],
@@ -39,9 +40,10 @@ const forbidden = [
   'lorem ipsum',
   'iso 9001',
   'iso9001',
-  'crédit d\'impôt',
-  'credit d\'impot',
-  'agrément cii',
+  'tous les projets sont éligibles',
+  'every project is eligible',
+  'crédit d’impôt garanti',
+  'tax credit is guaranteed',
   'bred',
   'wero',
   'société générale',
@@ -383,6 +385,21 @@ const organization = homeNodes.find((node) => node['@type'] === 'Organization');
 assert.equal(organization.areaServed, 'FR');
 assert.equal(JSON.stringify(homeNodes).includes('"US"'), false);
 assert.equal(JSON.stringify(homeNodes).includes('hasCredential'), false);
+assert.match(JSON.stringify(homeNodes), /https:\/\/www\.linkedin\.com\/company\/coconsult-it\//);
+assert.equal(/facebook\.com/i.test(home + homeEn), false);
+assert.match(home, /rel="noopener noreferrer"/);
+assert.match(home, /href="https:\/\/www\.linkedin\.com\/company\/coconsult-it\/"/);
+assert.match(home, /href="\/innovation\/"/);
+assert.match(read('/innovation/'), /28910108/);
+assert.match(read('/innovation/'), /DRIEETS/);
+assert.match(read('/innovation/'), /ne décide pas/);
+assert.match(read('/en/innovation/'), /does not, by itself/);
+assert.equal(/iso 9001/i.test(read('/innovation/') + read('/en/innovation/') + read('/a-propos/') + read('/en/about/')), false);
+const permit = jsonLd(read('/innovation/')).find((node) => node['@type'] === 'GovernmentPermit');
+assert.equal(permit.identifier, '28910108');
+assert.equal(permit.issuedBy.name, 'DRIEETS Île-de-France');
+assert.equal(permit.validFrom, undefined);
+assert.equal(jsonLd(home).some((node) => node['@type'] === 'GovernmentPermit'), false);
 const softwareNodes = jsonLd(read('/services/developpement/'));
 assert.equal(softwareNodes.some((node) => node['@type'] === 'Service' && node.areaServed === 'FR'), true);
 const qaNodes = jsonLd(read('/services/qa-testing/'));

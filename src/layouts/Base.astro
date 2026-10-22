@@ -7,7 +7,7 @@ import { ui } from '@/content/ui';
 import type { Locale, RouteKey } from '@/content/types';
 import { company } from '@/data/company';
 import { absoluteUrl, pathFor, routes } from '@/data/routes';
-import { breadcrumbLd, crumbsFor, faqLd, jsonScript, organizationLd, serviceLd, webPageLd } from '@/lib/seo';
+import { breadcrumbLd, ciiPermitLd, crumbsFor, faqLd, jsonScript, organizationLd, serviceLd, webPageLd } from '@/lib/seo';
 
 interface Props {
   locale: Locale;
@@ -35,6 +35,7 @@ const graph: object[] = routeKey === 'home'
     ? []
     : [webPageLd(locale, routeKey, title, description), breadcrumbLd(ldCrumbs)];
 if (routeKey !== 'notFound' && serviceName) graph.push(serviceLd(locale, routeKey, serviceName, description));
+if (routeKey === 'innovation') graph.push(ciiPermitLd(locale));
 if (faqs.length > 0) graph.push(faqLd(faqs));
 ---
 <!doctype html>

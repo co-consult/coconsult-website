@@ -42,6 +42,25 @@ export function organizationLd() {
       addressLocality: 'Paris',
       addressCountry: 'FR',
     },
+    ...(company.legal.linkedin ? { sameAs: [company.legal.linkedin] } : {}),
+  };
+}
+
+export function ciiPermitLd(locale: Locale) {
+  const years = company.cii.years;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'GovernmentPermit',
+    name: locale === 'fr' ? 'Agrément Crédit d’impôt innovation' : 'French innovation tax credit agreement (CII)',
+    identifier: company.cii.number,
+    description:
+      locale === 'fr'
+        ? `Années ${years}. Décision de la ${company.cii.authority} du 4 février 2026. L’agrément ne décide pas de l’éligibilité d’un projet.`
+        : `Years ${years}. Decision of ${company.cii.authority} on 4 February 2026. The agreement does not decide whether a project is eligible.`,
+    issuedBy: {
+      '@type': 'GovernmentOrganization',
+      name: company.cii.authority,
+    },
   };
 }
 

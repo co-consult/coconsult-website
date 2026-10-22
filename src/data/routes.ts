@@ -127,6 +127,14 @@ export const routes: Record<RouteKey, RouteDef> = {
     footer: 'company',
     label: { fr: 'À propos', en: 'About' },
   },
+  innovation: {
+    key: 'innovation',
+    fr: '/innovation/',
+    en: '/en/innovation/',
+    parent: 'about',
+    footer: 'company',
+    label: { fr: 'Innovation', en: 'Innovation' },
+  },
   partnerships: {
     key: 'partnerships',
     fr: '/partenariats/',
@@ -174,6 +182,7 @@ export const routeOrder: RouteKey[] = [
   'solutions',
   'cases',
   'about',
+  'innovation',
   'partnerships',
   'contact',
   'legal',

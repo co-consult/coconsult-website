@@ -27,6 +27,19 @@ export const company = {
     /** Distinct company, different directors. No capital link is asserted. */
     sameLegalEntity: false,
     editsThisSite: false,
+    /**
+     * A 2023 InterCert Advancy post announces an ISO 9001:2015 ceremony in Sfax.
+     * Certificate number, scope, validity and the exact legal name are missing.
+     * Do not attribute it to COCONSULT SAS and do not publish it.
+     */
+    iso9001Public: false,
+  },
+  cii: {
+    number: '28910108',
+    years: '2026, 2027, 2028, 2029, 2030',
+    authority: 'DRIEETS Île-de-France',
+    decision: '2026-02-04',
+    vat: 'FR90838913838',
   },
   legal: {
     legalForm: 'SAS',
@@ -49,7 +62,10 @@ export const company = {
       contractConfirmed: false,
     },
     dpo: null as string | null,
-    linkedin: null as string | null,
+    /** Confirmed company page: homepage coconsult.fr, email contact@coconsult.fr. */
+    linkedin: 'https://www.linkedin.com/company/coconsult-it/',
+    /** No official page confirmed. Stay null until a URL is validated. */
+    facebook: null as string | null,
     retention: null as string | null,
     /**
      * Prospecting mail only. Commercial staff in Sfax use the same prospecting
@@ -107,6 +123,19 @@ export function publicationReview(): PublicationReview {
         'Le contrat du VPS n’est pas dans le dépôt. Confirmer sur ce document que l’hébergeur contractant est OVH SAS.',
     });
   }
+  if (!company.nearshore.iso9001Public) {
+    documents.push({
+      id: 'nearshoreIso9001',
+      detail:
+        'ISO 9001:2015 n’est pas affiché. Un billet InterCert Advancy de 2023, à Sfax, annonce une cérémonie pour « COCONSULT » sans numéro de certificat, périmètre, validité ni raison sociale. Ne pas l’attribuer à COCONSULT SAS et ne pas publier le logo ISO.',
+    });
+  }
+  if (!legal.facebook) {
+    documents.push({
+      id: 'facebookUrl',
+      detail: 'Aucune URL Facebook officielle n’est confirmée. Ne pas publier de lien Facebook.',
+    });
+  }
 
   if (legal.tunisiaEmailAccess !== 'prospecting' || legal.prospectFiles !== 'shared' || legal.crm !== 'shared') {
     gdpr.push({
@@ -157,6 +186,8 @@ export function publicationReview(): PublicationReview {
       'Coconsult Nearshore, à Sfax, est une société juridiquement distincte. Elle n’édite pas ce site. Aucun lien capitalistique n’est affirmé.',
       'Des commerciaux habilités de Coconsult Nearshore accèdent aux mêmes e-mails de prospection, fichiers de prospects et suivi commercial. Pas à toutes les boîtes. La Tunisie est hors EEE. Les garanties de ce partage ne sont pas signées.',
       'Aucun contrat client européen n’est ensuite confié en développement à Coconsult Nearshore. Pas de transfert de données de ces clients vers des développeurs en Tunisie.',
+      'Agrément CII n° 28910108, décision DRIEETS Île-de-France du 4 février 2026, années 2026 à 2030, titulaire COCONSULT, TVA FR90838913838. Il ne rend pas un projet éligible.',
+      'LinkedIn officiel : https://www.linkedin.com/company/coconsult-it/',
     ],
     documents,
     gdpr,

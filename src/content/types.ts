@@ -16,6 +16,7 @@ export type RouteKey =
   | 'solutions'
   | 'cases'
   | 'about'
+  | 'innovation'
   | 'partnerships'
   | 'contact'
   | 'legal'
