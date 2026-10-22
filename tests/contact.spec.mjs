@@ -394,8 +394,11 @@ assert.deepEqual(await health.json(), { ok: true });
 
 const nginx = readFileSync(new URL('../nginx.conf', import.meta.url), 'utf8');
 const compose = readFileSync(new URL('../compose.yaml', import.meta.url), 'utf8');
-assert.equal(nginx.includes('api/contact'), false);
-assert.equal(nginx.includes('coconsult-contact'), false);
+assert.equal(nginx.includes('location = /api/contact'), true);
+assert.equal(nginx.includes('proxy_pass http://coconsult-contact:3602'), true);
+assert.equal(nginx.includes('set_real_ip_from 172.19.0.0/16'), true);
+assert.equal(/set_real_ip_from\s+172\.16\.0\.0\/12/.test(nginx), false);
+assert.equal(nginx.includes('proxy_set_header X-Forwarded-For ""'), true);
 assert.equal(compose.includes('coconsult-contact'), false);
 assert.equal(compose.includes('3601:8080'), true);
 assert.equal(compose.includes('"8080:8080"'), false);

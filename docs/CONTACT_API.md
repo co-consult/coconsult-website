@@ -1,6 +1,6 @@
 # Envoi du formulaire de contact
 
-Le site statique servi par Nginx n’envoie rien tant que le service Contact n’est pas démarré, que Nginx ne le proxifie pas, et que `CONTACT_SEND_ENABLED` n’est pas exactement `true`. Cette PR prépare le système. Elle ne l’active pas.
+Le site proxifie `GET|POST /api/contact` vers `coconsult-contact` (voir `nginx.conf` et `docs/CONTACT_NGINX_INTEGRATION.md`). Aucun envoi Brevo n’a lieu tant que `CONTACT_SEND_ENABLED` n’est pas exactement `true`.
 
 La page Contact reste utilisable sans ce service : préparation du message, copie, Gmail, Outlook, application de messagerie. « Message envoyé » n’est jamais affiché après une simple préparation mailto.
 
