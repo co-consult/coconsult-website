@@ -80,6 +80,9 @@ for (const [urlPath, lang, alternate] of pages) {
   assert.match(html, /hreflang="en"/);
   assert.match(html, /hreflang="x-default"/);
   assert.match(html, /src="\/assets\/brand\/coconsult-logo\.png"/);
+  assert.match(html, /property="og:image" content="https:\/\/coconsult\.fr\/assets\/brand\/og-coconsult\.png"/);
+  assert.doesNotMatch(html, />[^<]*\*\*/);
+  assert.doesNotMatch(html, />[^<]*##/);
   assert.match(html, /alt="Coconsult"/);
   assert.match(html, /contact@coconsult\.fr/);
   assert.match(html, new RegExp(`href="${alternate}"`));
@@ -238,6 +241,9 @@ assert.doesNotMatch(nginx, /return 30\d https?:\/\//);
 assert.match(fs.readFileSync(path.join(root, '.gitignore'), 'utf8'), /compose\.proxy\.yaml/);
 assert.equal(fs.existsSync(path.join(root, 'compose.proxy.yaml')), false);
 assert.ok(fs.statSync(path.join(dist, 'assets', 'brand', 'coconsult-logo.png')).size > 1000);
+assert.ok(fs.statSync(path.join(dist, 'assets', 'brand', 'og-coconsult.png')).size > 1000);
+assert.ok(fs.statSync(path.join(dist, 'favicon-32.png')).size > 100);
+assert.ok(fs.statSync(path.join(dist, 'apple-touch-icon.png')).size > 100);
 
 const legalFr = read('/mentions-legales/');
 const legalEn = read('/en/legal-notice/');

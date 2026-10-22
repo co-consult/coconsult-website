@@ -1,20 +1,39 @@
 @import './fonts.css';
 
 :root {
-  --bg: #07111c;
-  --bg-deep: #050d16;
-  --ink: #122033;
-  --paper: #f4f7f8;
-  --paper-2: #e7eef2;
+  /* Night, paper and the luminous cyan stay the interface. Brand hues are
+     medians sampled from public/assets/brand/coconsult-logo.png. */
+  --surface-night: #07111c;
+  --surface-night-deep: #050d16;
+  --surface-paper: #f4f7f8;
+  --surface-paper-2: #e7eef2;
+  --text-on-paper: #122033;
+  --text-muted-on-paper: #3c5164;
+  --text-muted-on-night: #c5d2e0;
+  --line-on-paper: #d5e1eb;
+  --line-on-night: rgba(214, 236, 244, 0.16);
+  --accent-tech: #8ef3ff;
+  --accent-tech-strong: #d8fbff;
+  --accent-tech-deep: #0b6f86;
+  --brand-teal: #026d7b;
+  --brand-green: #008d6a;
+  --brand-orange: #ff701b;
+  --brand-blue: #005088;
+  --brand-blue-signal: color-mix(in srgb, var(--brand-blue) 72%, white);
+  --bg: var(--surface-night);
+  --bg-deep: var(--surface-night-deep);
+  --ink: var(--text-on-paper);
+  --paper: var(--surface-paper);
+  --paper-2: var(--surface-paper-2);
   --white: #ffffff;
-  --muted: #3c5164;
-  --muted-dark: #c5d2e0;
-  --line: #d5e1eb;
-  --line-dark: rgba(214, 236, 244, 0.16);
-  --teal: #8ef3ff;
-  --teal-deep: #0b6f86;
-  --cyan: #8ef3ff;
-  --header: 76px;
+  --muted: var(--text-muted-on-paper);
+  --muted-dark: var(--text-muted-on-night);
+  --line: var(--line-on-paper);
+  --line-dark: var(--line-on-night);
+  --teal: var(--accent-tech);
+  --teal-deep: var(--accent-tech-deep);
+  --cyan: var(--accent-tech);
+  --header: 88px;
   --max: 1180px;
   --shadow: none;
   --display: "Instrument Serif", "Times New Roman", serif;
@@ -106,15 +125,13 @@ p { line-height: 1.7; }
   align-items: center;
   background: #ffffff;
   border-radius: 12px;
-  padding: 5px 8px;
+  padding: 6px 10px;
   line-height: 0;
   flex: 0 0 auto;
 }
 
-.brand img {
-  height: 48px;
-  width: auto;
-}
+.site-header .brand img { height: 64px; width: auto; }
+.site-footer .brand img { height: 56px; width: auto; }
 
 .desktop-nav {
   display: flex;
@@ -593,7 +610,9 @@ h1 {
   .hero-buttons, .cta-actions { flex-direction: column; align-items: stretch; }
   .floating-node { font-size: 11px; max-width: 46%; }
   .center-node strong { font-size: 15px; }
-  .brand img { height: 40px; }
+  :root { --header: 76px; }
+  .site-header .brand img { height: 52px; }
+  .site-footer .brand img { height: 48px; }
   h1 { letter-spacing: -0.03em; }
 }
 
