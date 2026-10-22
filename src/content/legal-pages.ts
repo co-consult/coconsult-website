@@ -173,7 +173,7 @@ export function privacyPage(locale: Locale): PageContent {
           title: 'Durée',
           paragraphs: [
             'Les messages sont conservés le temps de traiter la demande et l’échange qui en découle, puis supprimés lorsqu’ils ne sont plus nécessaires à cette finalité.',
-            'Pour une demande commerciale qui n’aboutit pas à un contrat, la durée proposée est de 12 mois après le dernier échange, puis la suppression. Cette proposition reste soumise à une validation interne et à la mise en œuvre effective de la suppression. Elle ne s’applique pas aux dossiers contractuels, qui suivent les obligations particulières de ces dossiers. Une obligation légale de conservation plus longue primerait le cas échéant.',
+            'Pour une demande commerciale qui n’aboutit pas à un contrat, la durée prévue est de 12 mois après le dernier échange, puis la suppression. Elle deviendra une règle effective après une décision formalisée de COCONSULT SAS et après que la suppression aura été organisée dans la messagerie. Cette organisation n’est pas réalisée. Elle ne s’applique pas aux dossiers contractuels, qui suivent les obligations particulières de ces dossiers. Une obligation légale de conservation plus longue primerait le cas échéant.',
             'Les journaux transactionnels de l’acheminement du formulaire chez Brevo ont une durée cible de 6 mois. Ce n’est pas un réglage déjà configuré : cette durée ne sera publiée comme règle en vigueur que lorsque le paramètre correspondant aura été effectivement mis en place.',
           ],
         },
@@ -259,7 +259,7 @@ export function privacyPage(locale: Locale): PageContent {
         title: 'Retention',
         paragraphs: [
           'Messages are kept while the request and the exchange that follows are handled, then deleted when they are no longer needed for that purpose.',
-          'For a commercial enquiry that does not lead to a contract, the proposed period is 12 months after the last exchange, followed by deletion. This proposal still depends on internal validation and on deletion actually being carried out. It does not apply to contractual files, which follow the particular duties that apply to those files. A longer statutory retention duty would prevail where it applies.',
+          'For a commercial enquiry that does not lead to a contract, the intended period is 12 months after the last exchange, followed by deletion. It becomes an effective rule only after a formal decision by COCONSULT SAS and after deletion has been organised in the mailbox. That organisation is not in place. It does not apply to contractual files, which follow the particular duties that apply to those files. A longer statutory retention duty would prevail where it applies.',
           'Transactional logs of the form’s delivery at Brevo have a target period of 6 months. That is not a setting already in place: this period will be published as a rule in force only once the corresponding setting has actually been configured.',
         ],
       },

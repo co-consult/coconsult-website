@@ -405,6 +405,11 @@ assert.equal(compose.includes('3601:8080'), true);
 assert.equal(compose.includes('"8080:8080"'), false);
 
 const activation = readFileSync(new URL('../docs/CONTACT_ACTIVATION.md', import.meta.url), 'utf8');
+assert.match(activation, /contact@coconsult\.fr` est aussi utilisée par CSSForever/);
+assert.match(activation, /effet rétroactif/);
+assert.match(activation, /Cette organisation n’est pas réalisée/);
+assert.match(activation, /n’est pas configurée/);
+assert.match(activation, /Ne pas modifier CSSForever, Brevo, le VPS ni les variables d’environnement/);
 const rollback = activation.slice(activation.indexOf('## Rollback'));
 assert.equal(rollback.includes('-f compose.yaml -f compose.proxy.yaml -f compose.contact.yaml stop coconsult-contact'), true);
 assert.equal(rollback.includes('-f compose.yaml -f compose.proxy.yaml -f compose.contact.yaml rm -f coconsult-contact'), true);

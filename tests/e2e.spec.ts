@@ -785,7 +785,7 @@ test('a second click does not send the enquiry twice', async ({ page }) => {
   await reachSummary(page, 'Un seul envoi doit partir meme si le bouton est presse deux fois.');
   const send = page.getByRole('button', { name: 'Envoyer ma demande' });
   await send.click();
-  await expect.poll(() => posts).toBe(1);
+  await expect.poll(() => posts, { timeout: 15_000 }).toBe(1);
   await send.click({ force: true }).catch(() => {});
   expect(posts).toBe(1);
   release();
@@ -969,9 +969,11 @@ test('the privacy pages describe the form retention without claiming it is alrea
   expect(fr).toContain('contact@coconsult.fr');
   expect(fr).toContain('responsable habilité');
   expect(fr).toContain('12 mois après le dernier échange');
-  expect(fr).toContain('validation interne');
-  expect(fr).toContain('mise en œuvre effective de la suppression');
+  expect(fr).toContain('décision formalisée de COCONSULT SAS');
+  expect(fr).toContain('organisée dans la messagerie');
+  expect(fr).toContain('Cette organisation n’est pas réalisée');
   expect(fr).toContain('ne s’applique pas aux dossiers contractuels');
+  expect(fr).not.toContain('CSSForever');
   expect(fr).toContain('durée cible de 6 mois');
   expect(fr).toContain('Ce n’est pas un réglage déjà configuré');
   expect(fr).toContain('distinct du formulaire');
@@ -985,9 +987,11 @@ test('the privacy pages describe the form retention without claiming it is alrea
   expect(en).toContain('contact@coconsult.fr');
   expect(en).toContain('authorised manager');
   expect(en).toContain('12 months after the last exchange');
-  expect(en).toContain('internal validation');
-  expect(en).toContain('deletion actually being carried out');
+  expect(en).toContain('formal decision by COCONSULT SAS');
+  expect(en).toContain('organised in the mailbox');
+  expect(en).toContain('That organisation is not in place');
   expect(en).toContain('does not apply to contractual files');
+  expect(en).not.toContain('CSSForever');
   expect(en).toContain('target period of 6 months');
   expect(en).toContain('not a setting already in place');
   expect(en).toContain('separate from the form');

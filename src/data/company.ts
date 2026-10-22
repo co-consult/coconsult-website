@@ -145,7 +145,7 @@ export function publicationReview(): PublicationReview {
     gdpr.push({
       id: 'retentionPractice',
       detail:
-        'La politique propose 12 mois après le dernier échange pour une demande commerciale sans contrat. La validation interne et la suppression effective ne sont pas faites : cette durée n’est pas une pratique confirmée, et elle ne couvre pas les dossiers contractuels. La durée cible de 6 mois des journaux transactionnels Brevo n’est pas un réglage configuré. Ne pas la présenter comme une règle déjà en vigueur. Cette proposition ne lève pas le NO-GO global.',
+        'La durée de 12 mois après le dernier échange, pour une demande commerciale sans contrat, ne devient une règle effective qu’après une décision formalisée de COCONSULT SAS et après organisation de la suppression dans la messagerie. Cette organisation n’est pas réalisée. Elle ne couvre pas les dossiers contractuels. La durée cible de 6 mois des journaux transactionnels Brevo n’est pas configurée. contact@coconsult.fr est aussi utilisée par CSSForever : aucune règle de suppression ne doit être activée sans contrôle de son périmètre et de son effet rétroactif. Cette précision ne lève pas le NO-GO global.',
     });
   }
 
