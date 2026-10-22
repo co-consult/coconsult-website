@@ -425,7 +425,7 @@ export const pages: Record<RouteKey, PageContent> = {
       'COPHARIA is a business ERP for pharmacy, still in development. A demonstration request names that solution.',
     blocks: [
       { type: 'work', source: 'solutions', title: 'In development', intro: 'COPHARIA is shown with its real status: a solution in development.' },
-      { type: 'cta', title: 'Request a COPHARIA demonstration.', text: 'Share your context. We will come back to arrange a conversation.', primary: 'demo' },
+      { type: 'cta', title: 'Request a COPHARIA demonstration.', text: 'Share your context. We will come back to arrange a conversation.', primary: 'demo', product: 'copharia' },
     ],
   },
   cases: {
@@ -522,13 +522,13 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   contact: {
     key: 'contact',
-    metaTitle: 'Contact Coconsult',
+    metaTitle: "Let's talk about your next system | Coconsult",
     description:
-      'Describe your project to Coconsult. contact@coconsult.fr is on the page. The request type can be preselected from elsewhere on the site.',
+      'Describe the system to build: a project, a team, artificial intelligence or a demonstration. contact@coconsult.fr is on the page.',
     eyebrow: 'CONTACT',
-    h1: 'Describe what you need.',
-    intro:
-      'Name the type of need and write to us. The address is on this page, and you can also open your mail app.',
+    h1: "Let's talk about your next system.",
+    h1Accent: 'A project, a team, AI, or a demonstration.',
+    intro: 'The site prepares the message. It does not send it.',
     blocks: [
       {
         type: 'inquiries',

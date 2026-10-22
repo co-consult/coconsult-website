@@ -72,7 +72,7 @@ export type Block =
   | { type: 'diagram'; title: string; caption: string; steps: TitledText[] }
   | { type: 'work'; source: 'cases' | 'solutions'; title: string; intro?: string }
   | { type: 'inquiries'; title: string; intro?: string; ids: InquiryId[] }
-  | { type: 'cta'; title: string; text: string; primary: InquiryId; secondary?: InquiryId };
+  | { type: 'cta'; title: string; text: string; primary: InquiryId; secondary?: InquiryId; product?: string };
 
 export interface HeroVisual {
   facts: string[];

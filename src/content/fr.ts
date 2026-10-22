@@ -474,7 +474,7 @@ export const pages: Record<RouteKey, PageContent> = {
       'COPHARIA est un ERP métier pour la pharmacie, encore en développement. Une démonstration se demande en nommant cette solution.',
     blocks: [
       { type: 'work', source: 'solutions', title: 'En développement', intro: 'COPHARIA est présentée avec son statut réel : une solution en développement.' },
-      { type: 'cta', title: 'Demander une démonstration de COPHARIA.', text: 'Indiquez votre contexte. Nous revenons vers vous pour convenir d’un échange.', primary: 'demo' },
+      { type: 'cta', title: 'Demander une démonstration de COPHARIA.', text: 'Indiquez votre contexte. Nous revenons vers vous pour convenir d’un échange.', primary: 'demo', product: 'copharia' },
     ],
   },
   cases: {
@@ -571,13 +571,13 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   contact: {
     key: 'contact',
-    metaTitle: 'Contacter Coconsult',
+    metaTitle: 'Parlons de votre prochain système | Coconsult',
     description:
-      'Décrivez votre projet à Coconsult. L’adresse contact@coconsult.fr est visible. Le type de besoin peut être prérempli depuis les pages du site.',
+      'Décrivez le système à construire : projet, équipe, intelligence artificielle ou démonstration. L’adresse contact@coconsult.fr est sur la page.',
     eyebrow: 'CONTACT',
-    h1: 'Décrivez votre besoin.',
-    intro:
-      'Indiquez le type de besoin et écrivez-nous. L’adresse est sur cette page ; vous pouvez aussi ouvrir votre messagerie.',
+    h1: 'Parlons de votre prochain système.',
+    h1Accent: 'Projet, équipe, IA ou démonstration.',
+    intro: 'Le site prépare le message. Il ne l’envoie pas.',
     blocks: [
       {
         type: 'inquiries',

@@ -124,23 +124,49 @@ for (const subject of [
 
 const home = read('/');
 const homeEn = read('/en/');
-assert.match(home, /De l’intelligence artificielle aux applications métier\./);
+assert.match(home, /L(?:'|&#39;)intelligence au cœur de vos systèmes\./);
+assert.match(home, /L(?:'|&#39;)ingénierie pour les concrétiser\./);
 assert.match(home, /Intelligence artificielle et data/);
-assert.match(home, /Quel est votre défi/);
+assert.match(home, /Voir le geste, pas le catalogue\./);
 assert.match(home, /href="\/services\/"/);
 assert.match(home, /href="\/contact\/\?type=project"/);
 assert.match(home, /href="\/contact\/\?type=ai"/);
 assert.match(home, /href="\/contact\/\?type=team"/);
-assert.match(homeEn, /From artificial intelligence to business applications\./);
+assert.match(homeEn, /Intelligence at the core of your systems\./);
+assert.match(homeEn, /Engineering to make them real\./);
 assert.match(homeEn, /Artificial intelligence and data/);
-assert.match(homeEn, /What is the challenge/);
+assert.match(homeEn, /The system, layer by layer\./);
 assert.match(homeEn, /href="\/en\/contact\/\?type=project"/);
 assert.match(homeEn, /href="\/en\/contact\/\?type=ai"/);
 assert.equal(home.includes('Paiements et API'), false);
 assert.equal(home.includes('nom à venir'), false);
 assert.match(read('/solutions/'), /type=demo&amp;product=copharia|type=demo&product=copharia/);
+assert.match(read('/'), /\/assets\/copharia\/dashboard\.webp/);
+assert.match(read('/'), /\/assets\/copharia\/quality\.webp/);
+assert.match(read('/'), /\/assets\/copharia\/stocks\.webp/);
+assert.match(read('/'), /\/assets\/copharia\/stock-detail\.webp/);
+assert.match(read('/'), /data-view="lab"/);
+assert.match(read('/en/'), /\/assets\/copharia\/dashboard\.webp/);
+assert.doesNotMatch(read('/'), /data-view="lab"[^>]*stocks\.webp/);
+assert.match(read('/'), /Demander une démonstration de COPHARIA/);
+assert.match(read('/'), /href="\/contact\/\?type=demo&amp;product=copharia"/);
+assert.match(read('/en/'), /Request a COPHARIA demonstration/);
+assert.match(read('/en/'), /href="\/en\/contact\/\?type=demo&amp;product=copharia"/);
+assert.match(read('/en/solutions/'), /href="\/en\/contact\/\?type=demo&amp;product=copharia"/);
 assert.equal(read('/solutions/').includes('Cogeex'), false);
 assert.equal(read('/solutions/').includes('nom à venir'), false);
+for (const [urlPath, , alternate] of pages) {
+  for (const file of [urlPath, alternate]) {
+    const html = read(file);
+    assert.equal(html.includes('Capture à fournir'), false, file);
+    assert.equal(html.includes('Capture still needed'), false, file);
+    assert.equal(html.includes('transmettre les captures'), false, file);
+    assert.equal(html.includes('authorized captures'), false, file);
+  }
+}
+const desktopNav = read('/').match(/<nav class="desktop-nav"[\s\S]*?<\/nav>/);
+assert.ok(desktopNav);
+assert.equal(desktopNav[0].includes('>Contact<'), false);
 const contactPage = read('/contact/');
 assert.match(contactPage, /contact@coconsult\.fr/);
 assert.match(contactPage, /data-copy-email/);

@@ -1,7 +1,8 @@
 ---
-import Base from '@/layouts/Base.astro';
+import ContactWizard from '@/components/contact/ContactWizard.astro';
+import HomeExperience from '@/components/home/HomeExperience.astro';
 import Blocks from '@/components/Blocks.astro';
-import Hero from '@/components/Hero.astro';
+import Base from '@/layouts/Base.astro';
 import { ui } from '@/content/ui';
 import type { Locale, PageContent } from '@/content/types';
 import { crumbsFor } from '@/lib/seo';
@@ -9,10 +10,13 @@ import { crumbsFor } from '@/lib/seo';
 interface Props { locale: Locale; page: PageContent; }
 const { locale, page } = Astro.props;
 const crumbs = crumbsFor(locale, page.key, ui[locale].home);
+const blocks = page.key === 'contact' ? page.blocks.filter((block) => block.type !== 'inquiries' && block.type !== 'note') : page.blocks;
 ---
 <Base locale={locale} title={page.metaTitle} description={page.description} routeKey={page.key}>
   {page.key === 'home' ? (
-    <Hero locale={locale} page={page} />
+    <HomeExperience locale={locale} />
+  ) : page.key === 'contact' ? (
+    <ContactWizard locale={locale} page={page} />
   ) : (
     <header class="page-hero">
       <div class="container">
@@ -33,5 +37,5 @@ const crumbs = crumbsFor(locale, page.key, ui[locale].home);
       </div>
     </header>
   )}
-  <Blocks locale={locale} blocks={page.blocks} />
+  {page.key !== 'home' && <Blocks locale={locale} blocks={blocks} />}
 </Base>

@@ -1,0 +1,225 @@
+---
+import { ui } from '@/content/ui';
+import type { Locale, PageContent } from '@/content/types';
+import { company } from '@/data/company';
+import { contactIntentOrder, getInquiry, plainMailto } from '@/data/inquiries';
+import { crumbsFor } from '@/lib/seo';
+
+interface Props { locale: Locale; page: PageContent }
+const { locale, page } = Astro.props;
+const t = ui[locale];
+const crumbs = crumbsFor(locale, 'contact', t.home);
+const inquiryBlock = page.blocks.find((block) => block.type === 'inquiries');
+const note = page.blocks.find((block) => block.type === 'note');
+const ids = inquiryBlock && inquiryBlock.type === 'inquiries' ? inquiryBlock.ids : contactIntentOrder;
+const fr = locale === 'fr';
+const copy = fr
+  ? {
+      steps: ['Besoin', 'Projet', 'Coordonnées', 'Récapitulatif'],
+      choices: [
+        ['ai', 'ai', 'Intelligence artificielle', 'Un modèle sur un processus connu.'],
+        ['software', 'project', 'Développement logiciel', 'Application, API ou système existant.'],
+        ['team', 'team', 'Équipe dédiée / nearshore', 'Renfort, squad ou compétences à Sfax.'],
+        ['cloud', 'project', 'Cloud / infrastructure', 'Livraison, environnements, exploitation.'],
+        ['quality', 'qaDiscuss', 'QA / cybersécurité', 'Campagnes de test ou durcissement des accès.'],
+        ['other', 'other', 'Autre demande', 'COPHARIA, partenariat ou autre sujet.'],
+      ],
+      next: 'Continuer',
+      back: 'Retour',
+      msg: 'Message',
+      name: 'Nom',
+      email: 'E-mail professionnel',
+      company: 'Entreprise, facultative',
+      prepare: 'Préparer le message',
+      needErr: 'Choisissez un besoin.',
+      msgErr: 'Décrivez le projet en quelques lignes.',
+      nameErr: 'Indiquez un nom.',
+      mailErr: 'Indiquez un e-mail professionnel valide.',
+      sumNeed: 'Besoin',
+      sumMsg: 'Projet',
+      sumWho: 'Coordonnées',
+      edit: 'Modifier',
+      outcome: "Aucun envoi n'a été effectué. Le message est prêt : il part seulement si vous l'envoyez vous-même.",
+      gmail: 'Ouvrir dans Gmail',
+      outlook: 'Ouvrir dans Outlook',
+      app: 'Utiliser mon application de messagerie',
+      copyFull: 'Copier le message complet',
+      copiedFull: 'Message copié : destinataire, objet et contenu.',
+      copyFail: 'La copie automatique a échoué. Le message complet est affiché pour être repris à la main.',
+      to: 'À',
+      subject: 'Objet',
+      flag: 'Sujet présélectionné : COPHARIA',
+      prefill: 'Je souhaite une démonstration de COPHARIA. ',
+      hints: {
+        ai: ['Brancher un modèle sur un processus existant', "Cadrer les droits d'accès avant un pilote"],
+        software: ['Faire évoluer une application déjà en production', 'Relier deux systèmes par une API'],
+        team: ['Renforcer une équipe pour un palier de delivery', 'Constituer une squad avec Sfax'],
+        cloud: ['Rendre une mise en production reproductible', 'Clarifier les environnements'],
+        quality: ['Lancer un pilote de tests', "Revoir les accès d'une application"],
+        other: ['Demander une démonstration de COPHARIA', 'Proposer un partenariat'],
+      },
+    }
+  : {
+      steps: ['Need', 'Project', 'Details', 'Summary'],
+      choices: [
+        ['ai', 'ai', 'Artificial intelligence', 'A model on a process you already run.'],
+        ['software', 'project', 'Software development', 'An application, an API or a system you run.'],
+        ['team', 'team', 'Dedicated team / nearshore', 'Extra people, a squad, or skills in Sfax.'],
+        ['cloud', 'project', 'Cloud / infrastructure', 'Delivery, environments, operations.'],
+        ['quality', 'qaDiscuss', 'QA / cybersecurity', 'Test campaigns or tighter access.'],
+        ['other', 'other', 'Another request', 'COPHARIA, a partnership, or another subject.'],
+      ],
+      next: 'Continue',
+      back: 'Back',
+      msg: 'Message',
+      name: 'Name',
+      email: 'Work email',
+      company: 'Company, optional',
+      prepare: 'Prepare the message',
+      needErr: 'Choose a need.',
+      msgErr: 'Describe the project in a few lines.',
+      nameErr: 'Enter a name.',
+      mailErr: 'Enter a valid work email.',
+      sumNeed: 'Need',
+      sumMsg: 'Project',
+      sumWho: 'Details',
+      edit: 'Edit',
+      outcome: 'Nothing has been sent. The message is ready: it leaves only if you send it yourself.',
+      gmail: 'Open in Gmail',
+      outlook: 'Open in Outlook',
+      app: 'Use my mail application',
+      copyFull: 'Copy the full message',
+      copiedFull: 'Copied: recipient, subject and body.',
+      copyFail: 'Automatic copy failed. The full message is shown so it can be copied by hand.',
+      to: 'To',
+      subject: 'Subject',
+      flag: 'Preselected subject: COPHARIA',
+      prefill: 'I would like a demonstration of COPHARIA. ',
+      hints: {
+        ai: ['Connect a model to a process we already run', 'Scope access rights before a pilot'],
+        software: ['Evolve an application already in production', 'Connect two systems with an API'],
+        team: ['Add engineers for a delivery stretch', 'Build a squad with Sfax'],
+        cloud: ['Make a release reproducible', 'Clarify the environments'],
+        quality: ['Start a testing pilot', "Review an application's access"],
+        other: ['Request a COPHARIA demonstration', 'Propose a partnership'],
+      },
+    };
+---
+<div
+  class="experience"
+  data-contact-panel
+  data-email={company.email}
+  data-copied={t.copied}
+  data-copy-failed={t.copyFailed}
+  data-need-err={copy.needErr}
+  data-msg-err={copy.msgErr}
+  data-name-err={copy.nameErr}
+  data-mail-err={copy.mailErr}
+  data-copied-full={copy.copiedFull}
+  data-copy-fail={copy.copyFail}
+  data-to-label={copy.to}
+  data-subject-label={copy.subject}
+  data-copharia-flag={copy.flag}
+  data-copharia-prefill={copy.prefill}
+>
+  <div class="contact-shell">
+    <div class="contact-intro">
+      {crumbs.length > 0 && (
+        <nav aria-label={t.breadcrumb}>
+          <ol class="crumbs">
+            {crumbs.map((crumb) => (
+              <li>
+                {crumb.href ? <a href={crumb.href}>{crumb.label}</a> : <span aria-current="page">{crumb.label}</span>}
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
+      <p class="eyebrow">Coconsult</p>
+      <h1>
+        <span>{page.h1}</span>
+        {page.h1Accent && <span class="accent">{page.h1Accent}</span>}
+      </h1>
+      <p class="prepare-note">{page.intro}</p>
+      <p class="topic-flag" id="topic-flag" hidden></p>
+      <div class="steps">
+        {copy.steps.map((label, index) => (
+          <button type="button" data-goto={index + 1} aria-current={index === 0 ? 'step' : undefined}>{label}</button>
+        ))}
+      </div>
+      <p class="mail-fallback"><a href={plainMailto()}>{fr ? `Écrire à ${company.email}` : `Write to ${company.email}`}</a></p>
+      <div class="cta-row">
+        <button class="btn ghost" type="button" data-copy-email>{t.copyAddress}</button>
+      </div>
+      <p data-copy-status aria-live="polite"></p>
+    </div>
+    <div class="contact-stage">
+      <section class="panel" data-step="1">
+        <div class="choice-grid" id="choices">
+          {copy.choices.map(([need, inquiry, title, text]) => (
+            <button class="choice" type="button" data-need={need} data-inquiry={inquiry} aria-pressed="false">
+              <b>{title}</b><span>{text}</span>
+            </button>
+          ))}
+        </div>
+        <p class="error" id="err-1" role="alert"></p>
+        <button class="btn primary" type="button" data-next="2">{copy.next}</button>
+      </section>
+      <section class="panel" data-step="2" hidden>
+        <div class="hints" id="hints"></div>
+        <label class="field"><span>{copy.msg}</span><textarea id="message" name="message" maxlength="4000"></textarea></label>
+        <p class="error" id="err-2" role="alert"></p>
+        <div class="cta-row">
+          <button class="btn ghost" type="button" data-next="1">{copy.back}</button>
+          <button class="btn primary" type="button" data-next="3">{copy.next}</button>
+        </div>
+      </section>
+      <section class="panel" data-step="3" hidden>
+        <label class="field"><span>{copy.name}</span><input id="name" name="name" autocomplete="name" maxlength="120" /></label>
+        <label class="field"><span>{copy.email}</span><input id="email" name="email" type="email" autocomplete="email" maxlength="160" /></label>
+        <label class="field"><span>{copy.company}</span><input id="company" name="company" autocomplete="organization" maxlength="160" /></label>
+        <p class="error" id="err-3" role="alert"></p>
+        <div class="cta-row">
+          <button class="btn ghost" type="button" data-next="2">{copy.back}</button>
+          <button class="btn primary" type="button" data-next="4">{copy.next}</button>
+        </div>
+      </section>
+      <section class="panel" data-step="4" hidden>
+        <dl class="summary">
+          <div><dt>{copy.sumNeed}</dt><dd id="sum-need"></dd><button class="edit" type="button" data-next="1">{copy.edit}</button></div>
+          <div><dt>{copy.sumMsg}</dt><dd id="sum-msg"></dd><button class="edit" type="button" data-next="2">{copy.edit}</button></div>
+          <div><dt>{copy.sumWho}</dt><dd id="sum-who"></dd><button class="edit" type="button" data-next="3">{copy.edit}</button></div>
+        </dl>
+        <p class="error" id="err-4" role="alert"></p>
+        <button class="btn primary" type="button" id="prepare">{copy.prepare}</button>
+        <div class="outcome" id="outcome" hidden>
+          <p>{copy.outcome}</p>
+          <p class="mail-preview" id="mail-preview"></p>
+          <div class="cta-row mail-actions">
+            <a class="btn primary" id="open-gmail" href={`https://mail.google.com/mail/?view=cm&fs=1&to=${company.email}`} target="_blank" rel="noopener noreferrer">{copy.gmail}</a>
+            <a class="btn ghost" id="open-outlook" href={`https://outlook.office.com/mail/deeplink/compose?to=${company.email}`} target="_blank" rel="noopener noreferrer">{copy.outlook}</a>
+            <a class="btn ghost" id="open-mail" data-open-mail href={plainMailto()}>{copy.app}</a>
+            <button class="btn ghost" type="button" id="copy-mail">{copy.copyFull}</button>
+          </div>
+          <p id="copy-status" role="status"></p>
+          <pre id="copy-fallback" hidden></pre>
+        </div>
+      </section>
+      <select data-contact-type name="type" hidden>
+        {ids.map((id) => {
+          const inquiry = getInquiry(locale, id);
+          return <option value={id} data-subject={inquiry.subject}>{inquiry.subject}</option>;
+        })}
+        <option value="other" data-subject={fr ? 'Autre demande - Coconsult' : 'Another request - Coconsult'}>{fr ? 'Autre demande - Coconsult' : 'Another request - Coconsult'}</option>
+      </select>
+      <form class="contact-form" data-contact-form hidden action="/api/contact" method="post">
+        <input type="hidden" name="type" data-hidden-type value="project" />
+        <input type="hidden" name="product" data-hidden-product value="" />
+        <p><a href={locale === 'fr' ? '/confidentialite/' : '/en/privacy-policy/'}>{t.privacyNote}</a></p>
+      </form>
+    </div>
+  </div>
+  {note && note.type === 'note' && <p class="contact-note">{note.text}</p>}
+  <script type="application/json" id="contact-hints" set:html={JSON.stringify(copy.hints)}></script>
+  <script is:inline src="/assets/contact.js" defer></script>
+</div>

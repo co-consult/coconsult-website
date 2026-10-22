@@ -23,13 +23,13 @@ const contactHref = contactPath(locale, 'project');
       <Logo />
     </a>
     <nav class="desktop-nav" aria-label={t.navLabel}>
-      {primaryNav.map((key) => (
+      {primaryNav.filter((key) => key !== 'contact').map((key) => (
         <a href={pathFor(locale, key)} aria-current={routeKey === key ? 'page' : undefined}>{routes[key].label[locale]}</a>
       ))}
     </nav>
     <div class="header-actions">
       <a class="lang" href={other} lang={otherLocale} hreflang={otherLocale} aria-label={t.langAria}>{t.langCode}</a>
-      <a class="header-contact" href={contactHref}>{t.headerCta}</a>
+      <a class="header-contact" href={contactHref} aria-current={routeKey === 'contact' ? 'page' : undefined}>{t.headerCta}</a>
       <button
         class="menu-toggle"
         type="button"

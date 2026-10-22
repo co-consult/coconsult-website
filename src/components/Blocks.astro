@@ -1,4 +1,6 @@
 ---
+import CophariaFeature from '@/components/visuals/CophariaFeature.astro';
+import WorkCase from '@/components/visuals/WorkCase.astro';
 import { ui } from '@/content/ui';
 import type { Block, Locale } from '@/content/types';
 import { contactPath, getInquiry, plainMailto } from '@/data/inquiries';
@@ -143,6 +145,8 @@ const tones = ['band', 'band-alt', 'band', 'band-alt'];
             </div>
             <div class="work-grid">
               {visibleWork(block.source === 'cases' ? 'case' : 'solution').map((item) => {
+                if (item.id === 'iaps' || item.id === 'cssforever') return <WorkCase locale={locale} id={item.id} />;
+                if (item.id === 'copharia') return <CophariaFeature locale={locale} />;
                 const cta = item.cta[locale];
                 return (
                   <article class="work-card">
@@ -213,7 +217,7 @@ const tones = ['band', 'band-alt', 'band', 'band-alt'];
             <h2>{block.title}</h2>
             <p>{block.text}</p>
             <div class="cta-actions">
-              <a class="btn primary" href={contactPath(locale, block.primary)}>{getInquiry(locale, block.primary).label}</a>
+              <a class="btn primary" href={contactPath(locale, block.primary, block.product)}>{block.product === 'copharia' ? (locale === 'fr' ? 'Demander une démonstration de COPHARIA' : 'Request a COPHARIA demonstration') : getInquiry(locale, block.primary).label}</a>
               {block.secondary && <a class="btn secondary" href={contactPath(locale, block.secondary)}>{block.secondary === 'team' ? (locale === 'fr' ? 'Constituer une équipe' : 'Build your team') : getInquiry(locale, block.secondary).label}</a>}
             </div>
           </div>

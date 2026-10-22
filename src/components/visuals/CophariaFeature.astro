@@ -1,0 +1,78 @@
+---
+import type { Locale } from '@/content/types';
+import { contactPath } from '@/data/inquiries';
+import { workItems } from '@/data/work';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const item = workItems.find((entry) => entry.id === 'copharia');
+const fr = locale === 'fr';
+const copy = fr
+  ? {
+      note: 'Vues de COPHARIA, avec des données anonymisées ou illustratives.',
+      lab: "Cette vue n'est pas encore publiée.",
+      list: 'Liste',
+      views: [
+        ['command', 'Centre de commande', '/assets/copharia/dashboard.webp', '1877', '892', 'Centre de commande COPHARIA, vue anonymisée'],
+        ['quality', 'Gestion qualité', '/assets/copharia/quality.webp', '1544', '699', 'Gestion qualité COPHARIA, données masquées'],
+        ['stocks', 'Logistique & Stocks', '/assets/copharia/stocks.webp', '1588', '567', 'Logistique et stocks COPHARIA, données masquées'],
+      ],
+      detail: ['stock-detail', "Vue détaillée d'un article", '/assets/copharia/stock-detail.webp', '1621', '893', "Détail d'un article COPHARIA, informations masquées"],
+      labLabel: 'Laboratoire',
+    }
+  : {
+      note: 'COPHARIA views, with anonymized or illustrative data.',
+      lab: 'This view is not published yet.',
+      list: 'List',
+      views: [
+        ['command', 'Command center', '/assets/copharia/dashboard.webp', '1877', '892', 'COPHARIA command center, anonymized view'],
+        ['quality', 'Quality management', '/assets/copharia/quality.webp', '1544', '699', 'COPHARIA quality management, masked data'],
+        ['stocks', 'Logistics & stock', '/assets/copharia/stocks.webp', '1588', '567', 'COPHARIA logistics and stock, masked data'],
+      ],
+      detail: ['stock-detail', 'Article detail', '/assets/copharia/stock-detail.webp', '1621', '893', 'COPHARIA article detail, masked information'],
+      labLabel: 'Laboratory',
+    };
+const [first] = copy.views;
+const cta = fr ? 'Demander une démonstration de COPHARIA' : 'Request a COPHARIA demonstration';
+---
+<div class="experience work-host copharia-host">
+  <div class="feature product-gallery" data-copharia-gallery>
+    <div class="gallery-head">
+      <div class="feature-copy">
+        <span class="badge">{item?.status[locale]}</span>
+        <h2>COPHARIA</h2>
+        <p>{item?.summary[locale]}</p>
+        <p class="gallery-note">{copy.note}</p>
+        <div class="gallery-tabs">
+          {copy.views.map(([view, label, src, width, height, alt]) => (
+            <button type="button" data-view={view} data-src={src} data-alt={alt} data-label={label} data-w={width} data-h={height} aria-pressed={view === 'command' ? 'true' : 'false'}>{label}</button>
+          ))}
+          <button type="button" data-view="lab" data-label={copy.labLabel} aria-pressed="false">{copy.labLabel}</button>
+        </div>
+        <div class="gallery-sub" data-stock-switch hidden>
+          <button type="button" data-shot="stocks" data-src={copy.views[2][2]} data-alt={copy.views[2][5]} data-label={copy.views[2][1]} data-w={copy.views[2][3]} data-h={copy.views[2][4]} aria-pressed="true">{copy.list}</button>
+          <button type="button" data-shot="stock-detail" data-src={copy.detail[2]} data-alt={copy.detail[5]} data-label={copy.detail[1]} data-w={copy.detail[3]} data-h={copy.detail[4]} aria-pressed="false">{copy.detail[1]}</button>
+        </div>
+      </div>
+      <a class="btn primary" href={contactPath(locale, 'demo', 'copharia')}>{cta}</a>
+    </div>
+    <div class="screen-frame">
+      <div class="screen-bar">
+        <span></span><span></span><span></span>
+        <em data-screen-label>{first[1]}</em>
+      </div>
+      <img
+        data-screen
+        src={first[2]}
+        alt={first[5]}
+        width={first[3]}
+        height={first[4]}
+        loading="lazy"
+        decoding="async"
+      />
+      <p class="lab-note" data-lab-note hidden>{copy.lab}</p>
+    </div>
+  </div>
+</div>
