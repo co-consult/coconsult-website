@@ -1,8 +1,8 @@
 # Activation du formulaire Contact
 
-Document d’exploitation. Cette PR ne réalise aucune de ces étapes. Ne pas merger cette checklist avec un déploiement.
+Document d’exploitation pour **l’envoi réel** (Brevo). Le raccordement Nginx `/api/contact` avec `CONTACT_SEND_ENABLED=false` est décrit dans `docs/CONTACT_NGINX_INTEGRATION.md`. Cette checklist ne doit pas être confondue avec un déploiement d’intégration.
 
-Le fichier privé `compose.proxy.yaml` n’est pas dans Git et ne doit pas être modifié par cette PR. Le port public 8080 reste celui de Jenkins. Le site continue d’être publié uniquement en `127.0.0.1:3601`.
+Le fichier privé `compose.proxy.yaml` n’est pas dans Git. Le port public 8080 reste celui de Jenkins. Le site continue d’être publié uniquement en `127.0.0.1:3601`.
 
 ## Pourquoi le service n’est pas dans compose.yaml
 
@@ -25,15 +25,15 @@ Ajouter le Contact à ce fichier l’aurait démarré au prochain déploiement. 
 
 1. Le navigateur parle à Nginx Proxy Manager. Un `X-Forwarded-For` envoyé par le navigateur n’est pas une preuve.
 2. NPM doit écraser `X-Real-IP` avec l’adresse TCP du visiteur. Cette valeur est la seule adresse client acceptée ensuite.
-3. `coconsult-web` voit comme pair l’adresse de NPM, pas celle du visiteur. Le snippet `deploy/nginx.contact.conf` doit activer `set_real_ip_from` sur le réseau de NPM, puis transmettre `$remote_addr` au Contact dans `X-Real-IP`, et vider `X-Forwarded-For`.
+3. `coconsult-web` voit comme pair l’adresse de NPM, pas celle du visiteur. `nginx.conf` active `set_real_ip_from 172.19.0.0/16` (réseau `proxy-network` du VPS, NPM en `172.19.0.4`), transmet `$remote_addr` au Contact dans `X-Real-IP`, et vide `X-Forwarded-For`. Ne pas élargir à `172.16.0.0/12`.
 4. Le Contact ne fait confiance à `X-Real-IP` que si le pair TCP est dans `CONTACT_TRUST_CIDRS` (`10.230.22.0/24`, le réseau privé où seul `coconsult-web` est raccordé) ou dans `CONTACT_TRUST_PROXY`.
 5. Si ce pair approuvé n’envoie pas une adresse unique valide, la requête est refusée. L’adresse du proxy n’est pas utilisée comme quota partagé par tous les visiteurs.
 
-Le CIDR réel de NPM sur le VPS doit être relevé avant d’activer `set_real_ip_from`. Ne pas le deviner dans cette PR.
+Si le CIDR de `proxy-network` change sur le VPS, mettre à jour ensemble `nginx.conf` et `deploy/nginx.contact.conf`.
 
 ## Sous-réseau `10.230.22.0/24`
 
-`172.30.22.0/24` n’est pas retenu. Sans pool d’adresses personnalisé, Docker pose `docker0` en `172.17.0.0/16`, puis attribue les réseaux suivants en `172.18.0.0/16`, `172.19.0.0/16`, et ainsi de suite jusqu’à `172.31.0.0/16`. Un `/24` fixe dans `172.30.0.0/16` entre donc en conflit dès qu’un réseau occupe déjà ce bloc, ou quand le démon l’atteint. Ce préfixe est aussi couvert par l’exemple `172.16.0.0/12` commenté dans `deploy/nginx.contact.conf`.
+`172.30.22.0/24` n’est pas retenu. Sans pool d’adresses personnalisé, Docker pose `docker0` en `172.17.0.0/16`, puis attribue les réseaux suivants en `172.18.0.0/16`, `172.19.0.0/16`, et ainsi de suite jusqu’à `172.31.0.0/16`. Un `/24` fixe dans `172.30.0.0/16` entre donc en conflit dès qu’un réseau occupe déjà ce bloc, ou quand le démon l’atteint. Ce préfixe est aussi couvert par `172.16.0.0/12`, plage trop large pour `set_real_ip_from`.
 
 Sur la machine où ce choix a été vérifié, les réseaux Docker allaient de `172.17.0.0/16` à `172.22.0.0/16`, et la route hôte visible était `172.24.16.0/20`. Aucun ne recoupe `10.230.22.0/24`. Le VPS n’a pas été consulté : un autre hôte peut déjà utiliser ce `/24`.
 
@@ -57,8 +57,7 @@ Si `10.230.22.0/24` est déjà pris, choisir un autre `/24` libre et le reporter
 - [ ] Créer `contact.env` à partir de `contact.env.example`, hors Git. Y placer `BREVO_API_KEY`, `CONTACT_FROM`, `CONTACT_TO`.
 - [ ] Dans `compose.contact.yaml`, passer `CONTACT_SEND_ENABLED` de `false` à `true`. Tant que cette ligne reste `false`, même une clé présente ne déclenche aucun envoi.
 - [ ] Vérifier que `10.230.22.0/24` ne chevauche aucun réseau Docker ni aucune route de l’hôte. Sinon, déplacer le sous-réseau comme indiqué ci-dessus.
-- [ ] Relever le CIDR de NPM et l’écrire dans `deploy/nginx.contact.conf` à la place de l’exemple.
-- [ ] Insérer ce snippet dans la configuration Nginx du conteneur web. `nginx.conf` versionné ne contient pas cette route.
+- [ ] Confirmer que `set_real_ip_from` dans `nginx.conf` correspond toujours au CIDR de `proxy-network` sur le VPS (aujourd’hui `172.19.0.0/16`).
 - [ ] Déployer avec les trois fichiers, sans toucher au port 8080 de l’hôte :
 
 ```bash
@@ -74,8 +73,7 @@ docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml -f compose.con
 
 Le service a été créé avec les trois fichiers ensemble. `compose.contact.yaml` seul n’est pas un projet valide : il ne fait que compléter `compose.yaml` et `compose.proxy.yaml`. Les commandes de retour arrière utilisent donc la même composition.
 
-1. Retirer le bloc `location = /api/contact` de la configuration Nginx du conteneur.
-2. Arrêter et retirer seulement `coconsult-contact`, puis reconstruire le site sans le relancer :
+1. Arrêter et retirer seulement `coconsult-contact`, puis reconstruire le site sans le relancer (voir aussi `docs/CONTACT_NGINX_INTEGRATION.md` si la route Nginx doit disparaître) :
 
 ```bash
 docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml -f compose.contact.yaml stop coconsult-contact

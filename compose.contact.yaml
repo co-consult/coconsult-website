@@ -1,5 +1,6 @@
-# Optional overlay. Do not include this file in the production command
-# until docs/CONTACT_ACTIVATION.md has been accepted.
+# Overlay used with compose.yaml + compose.proxy.yaml for the Nginx → Contact path
+# (docs/CONTACT_NGINX_INTEGRATION.md). CONTACT_SEND_ENABLED stays false until
+# docs/CONTACT_ACTIVATION.md is accepted for real Brevo delivery.
 # No host port is published. Jenkins keeps public 8080.
 # coconsult-web stays on 127.0.0.1:3601 via compose.yaml.
 #
