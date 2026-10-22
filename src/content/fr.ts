@@ -336,20 +336,32 @@ export const pages: Record<RouteKey, PageContent> = {
     key: 'payments',
     metaTitle: 'Ingénierie des paiements et API transactionnelles | Coconsult',
     description:
-      'Intégration de prestataires de paiement, parcours transactionnels, idempotence, reprises et observabilité.',
+      'Systèmes de paiement, API transactionnelles, idempotence, reprises, paiements instantanés, tests et DevOps en environnement financier.',
     eyebrow: 'PAIEMENTS',
     h1: 'Fiabiliser les parcours de paiement et les API qui les portent.',
     intro:
-      'Coconsult conçoit et intègre des parcours transactionnels dans des applications existantes : appels à un prestataire, statuts, reprises et supervision.',
+      'Concevoir et intégrer des parcours transactionnels dans des applications existantes : appels à un prestataire, statuts, reprises et supervision, avec une expérience acquise en environnements bancaires et financiers.',
     blocks: [
       {
         type: 'columns',
-        title: 'Problèmes traités',
+        title: 'Ce que nous traitons',
         items: [
-          { title: 'Double débit ou double appel', text: 'Clés d’idempotence et règles de rejeu lorsque le client ou le réseau répète une demande.' },
+          { title: 'Systèmes de paiement', text: 'Parcours de paiement branchés sur des backends déjà en production, sans réécrire tout l’existant.' },
+          { title: 'API transactionnelles', text: 'Contrats d’API, références uniques, lecture de statut et enchaînement des étapes métier.' },
+          { title: 'Fiabilité, reprise et idempotence', text: 'Timeouts ambigus, rejeux et clés d’idempotence lorsque le client ou le réseau répète une demande.' },
+          { title: 'Transactions et paiements instantanés', text: 'Contraintes de latence et de confirmation dans des flux où le statut doit rester cohérent.' },
+          { title: 'Tests en environnement financier', text: 'Cas nominaux et dégradés : double appel, refus, attente, reprise après interruption.' },
+          { title: 'DevOps bancaire', text: 'Livraison et observabilité adaptées à des environnements où la mise en production est contrôlée.' },
+        ],
+      },
+      {
+        type: 'columns',
+        title: 'Problèmes clients fréquents',
+        items: [
+          { title: 'Double débit ou double appel', text: 'Clés d’idempotence et règles de rejeu lorsque la même demande revient.' },
           { title: 'Timeouts ambigus', text: 'Un délai dépassé n’est pas un échec certain. Le parcours doit pouvoir interroger un statut et reprendre proprement.' },
-          { title: 'Écarts de caisse', text: 'Le rapprochement se définit avec vos fichiers et vos API, selon le contexte réel des opérations.' },
-          { title: 'Backends à moderniser', text: 'Services Java et contrats d’API rendus plus explicites, sans réécrire l’ensemble du système si ce n’est pas utile.' },
+          { title: 'Écarts d’exploitation', text: 'Le rapprochement se définit avec vos fichiers et vos API, selon le contexte réel des opérations.' },
+          { title: 'Backends à moderniser', text: 'Services et contrats d’API rendus plus explicites, sans réécriture totale si ce n’est pas utile.' },
         ],
       },
       {
@@ -462,6 +474,17 @@ export const pages: Record<RouteKey, PageContent> = {
       },
       { type: 'cta', title: 'Un diagnostic cadré, avant toute intégration.', text: 'Décrivez le processus, les données en jeu et l’outil que vous envisagez. Nous dirons si un pilote est raisonnable.', primary: 'ai' },
     ],
+  },
+  sectors: {
+    key: 'sectors',
+    metaTitle: 'Secteurs d’expérience | Coconsult',
+    description:
+      'Environnements métier où l’ingénierie Coconsult a déjà été exercée : finance et paiements, mobilité, retail, médias, télécoms, sport, systèmes métier, et santé pharmaceutique en domaine émergent.',
+    eyebrow: 'SECTEURS',
+    h1: 'Notre ingénierie au service de vos métiers.',
+    intro:
+      'Finance, mobilité, retail, médias, télécoms, sport, systèmes métier et santé : des contextes où nos consultants ont déjà accompagné des projets d’ingénierie logicielle, de DevOps et de QA.',
+    blocks: [],
   },
   solutions: {
     key: 'solutions',

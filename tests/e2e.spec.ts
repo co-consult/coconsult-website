@@ -14,6 +14,7 @@ const paths = [
   '/services/cloud-devops/',
   '/services/cybersecurite/',
   '/modes-intervention/',
+  '/secteurs/',
   '/solutions/',
   '/realisations/',
   '/a-propos/',
@@ -31,6 +32,7 @@ const paths = [
   '/en/services/cloud-devops/',
   '/en/services/cybersecurity/',
   '/en/engagement/',
+  '/en/industries/',
   '/en/solutions/',
   '/en/case-studies/',
   '/en/about/',
@@ -459,8 +461,99 @@ test('v3.1 screenshots for spacing, solutions, gallery and COPHARIA demo', async
   await page.screenshot({ path: `${dir}/05-copharia-demo-contact.png`, fullPage: true });
 });
 
+test('sectors page, homepage strip and payments keep FR/EN navigation without client names', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('#secteurs')).toBeVisible();
+  await expect(page.locator('#secteurs h2')).toContainText('Notre ingénierie au service de vos métiers');
+  await expect(page.locator('#expertises')).toBeVisible();
+  await expect(page.locator('.desktop-nav').getByRole('link', { name: 'Secteurs' })).toHaveAttribute('href', '/secteurs/');
+  await expect(page.locator('#secteurs a.sector-tile').first()).toHaveAttribute('href', /\/secteurs\/#/);
+  await page.locator('#secteurs').getByRole('link', { name: 'Explorer les secteurs' }).click();
+  await expect(page).toHaveURL(/\/secteurs\/$/);
+  await expect(page.locator('h1')).toContainText('Notre ingénierie au service de vos métiers');
+  await expect(page.locator('[data-sector]')).toHaveCount(8);
+  await expect(page.locator('#pharma')).toContainText('Domaine émergent');
+  await expect(page.locator('body')).not.toContainText(/Société Générale|BPCE|Wero|LVMH|Renault|IAPS|CSSForever/i);
+  await expect(page.locator('body')).not.toContainText(/sans remplacer|spécialités historiques|ne nomme pas|priorité commerciale|ne prétend pas/i);
+
+  await page.locator('a.lang').click();
+  await expect(page).toHaveURL(/\/en\/industries\/$/);
+  await expect(page.locator('h1')).toContainText('Our engineering in the service of your industries');
+  await expect(page.locator('.desktop-nav').getByRole('link', { name: 'Industries' })).toHaveAttribute('href', '/en/industries/');
+  await expect(page.locator('body')).not.toContainText(/without replacing|historic specialties|does not name|commercial priority|does not claim/i);
+
+  await page.goto('/services/paiements/');
+  await expect(page).toHaveURL(/\/services\/paiements\/$/);
+  await expect(page.locator('h1')).toContainText('Fiabiliser les parcours de paiement');
+  await expect(page.locator('body')).toContainText('API transactionnelles');
+  await expect(page.locator('body')).toContainText('idempotence');
+  await expect(page.locator('body')).not.toContainText(/Wero|Société Générale|BRED|priorité commerciale|ne prétend pas/i);
+  await page.locator('a.lang').click();
+  await expect(page).toHaveURL(/\/en\/services\/payments\/$/);
+  await expect(page.locator('body')).toContainText('Transactional APIs');
+  await expect(page.locator('body')).not.toContainText(/commercial priority|does not claim|Wero/i);
+});
+
+test('sectors page paper section layout and cards are not self-links', async ({ page }) => {
+  for (const viewport of [
+    { width: 1440, height: 900 },
+    { width: 390, height: 844 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto('/secteurs/');
+    const entry = page.locator('[data-sectors-entry]');
+    await expect(entry.locator('.section-copy .lede-soft')).toBeVisible();
+    const copyBox = await entry.locator('.section-copy').boundingBox();
+    const textBox = await entry.locator('.section-copy .lede-soft').boundingBox();
+    expect(copyBox, `copy ${viewport.width}`).not.toBeNull();
+    expect(textBox, `text ${viewport.width}`).not.toBeNull();
+    expect(textBox!.width, `text width ${viewport.width}`).toBeGreaterThan(viewport.width >= 1440 ? 420 : 260);
+    expect(Math.abs(textBox!.x - copyBox!.x), `text aligned ${viewport.width}`).toBeLessThan(8);
+
+    const gridHead = page.locator('.sectors-grid-head');
+    const matrix = page.locator('[data-sector-matrix]');
+    const headBox = await gridHead.boundingBox();
+    const matrixBox = await matrix.boundingBox();
+    expect(headBox).not.toBeNull();
+    expect(matrixBox).not.toBeNull();
+    expect(matrixBox!.y - (headBox!.y + headBox!.height)).toBeGreaterThanOrEqual(20);
+
+    await expect(page.locator('[data-sector-matrix] a.sector-tile')).toHaveCount(0);
+    await expect(page.locator('[data-sector-matrix] article.sector-tile')).toHaveCount(8);
+    for (const tile of await page.locator('[data-sector-matrix] article.sector-tile').all()) {
+      const href = await tile.getAttribute('href');
+      expect(href).toBeNull();
+    }
+  }
+
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/en/industries/');
+  await expect(page.locator('[data-sector-matrix] a.sector-tile')).toHaveCount(0);
+  await expect(page.locator('[data-sectors-entry] .section-copy .lede-soft')).toBeVisible();
+});
+
+test('v3.2 screenshots for sectors desktop and mobile', async ({ page }) => {
+  const dir = 'docs/v3.2-screenshots';
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/');
+  await page.locator('#secteurs').screenshot({ path: `${dir}/01-home-sectors-1440.png` });
+  await page.goto('/secteurs/');
+  await page.screenshot({ path: `${dir}/02-secteurs-1440.png`, fullPage: true });
+  await page.locator('[data-sectors-entry]').screenshot({ path: `${dir}/06-secteurs-entry-1440.png` });
+  await page.goto('/en/industries/');
+  await page.screenshot({ path: `${dir}/07-industries-1440.png`, fullPage: true });
+  await page.goto('/services/paiements/');
+  await page.screenshot({ path: `${dir}/03-paiements-1440.png`, fullPage: true });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/secteurs/');
+  await page.screenshot({ path: `${dir}/04-secteurs-390.png`, fullPage: true });
+  await page.locator('[data-sectors-entry]').screenshot({ path: `${dir}/08-secteurs-entry-390.png` });
+  await page.goto('/');
+  await page.locator('#secteurs').screenshot({ path: `${dir}/05-home-sectors-390.png` });
+});
+
 test('home and QA pages meet WCAG AA checks we can automate', async ({ page }) => {
-  for (const urlPath of ['/', '/en/', '/contact/', '/en/contact/', '/solutions/', '/services/qa-testing/', '/en/services/qa-testing/']) {
+  for (const urlPath of ['/', '/en/', '/contact/', '/en/contact/', '/solutions/', '/secteurs/', '/en/industries/', '/services/paiements/', '/services/qa-testing/', '/en/services/qa-testing/']) {
     await page.goto(urlPath);
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])

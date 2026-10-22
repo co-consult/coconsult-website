@@ -1,5 +1,6 @@
 ---
 import CophariaFeature from '@/components/visuals/CophariaFeature.astro';
+import SectorMatrix from '@/components/visuals/SectorMatrix.astro';
 import WorkCase from '@/components/visuals/WorkCase.astro';
 import type { Locale } from '@/content/types';
 import { contactPath } from '@/data/inquiries';
@@ -42,7 +43,9 @@ const copy = fr
         ['Équipe dédiée', 'Une squad suivie dans la durée, cadrée depuis la France.'],
         ['Nearshore', 'Avec Coconsult Nearshore, société tunisienne juridiquement indépendante, à Sfax.'],
       ],
-      domains: ['Finance', 'Industrie', 'Santé', 'E-commerce', 'Plateformes'],
+      sectorKicker: 'Secteurs',
+      sectorTitle: 'Notre ingénierie au service de vos métiers.',
+      sectorIntro: 'Des environnements où nos consultants ont déjà accompagné des systèmes exigeants.',
       end: 'Décrivez le défi. On part de là.',
     }
   : {
@@ -76,7 +79,9 @@ const copy = fr
         ['Dedicated team', 'A squad over time, scoped from France.'],
         ['Nearshore', 'With Coconsult Nearshore, a legally independent Tunisian company in Sfax.'],
       ],
-      domains: ['Finance', 'Industry', 'Health', 'E-commerce', 'Platforms'],
+      sectorKicker: 'Industries',
+      sectorTitle: 'Our engineering in the service of your industries.',
+      sectorIntro: 'Environments where our consultants have already supported demanding systems.',
       end: 'Describe the challenge. We start there.',
     };
 const skills = fr
@@ -362,6 +367,17 @@ const demo = fr
     </p>
   </section>
 
+  <section class="section" id="secteurs">
+    <div class="section-head">
+      <p class="eyebrow">{copy.sectorKicker}</p>
+      <div class="section-copy">
+        <h2>{copy.sectorTitle}</h2>
+        <p class="lede-soft">{copy.sectorIntro}</p>
+      </div>
+    </div>
+    <SectorMatrix locale={locale} variant="home" />
+  </section>
+
   <section class="section paper" id="realisations">
     <div class="section-head">
       <p class="eyebrow">{copy.workKicker}</p>
@@ -382,9 +398,6 @@ const demo = fr
       {copy.modes.map(([title, text]) => (
         <article class="mode"><strong>{title}</strong><p>{text}</p></article>
       ))}
-    </div>
-    <div class="domain-row">
-      {copy.domains.map((domain) => <span>{domain}</span>)}
     </div>
   </section>
 

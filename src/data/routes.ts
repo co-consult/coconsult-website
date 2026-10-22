@@ -95,6 +95,14 @@ export const routes: Record<RouteKey, RouteDef> = {
     footer: 'company',
     label: { fr: 'Nos offres', en: 'Engagement' },
   },
+  sectors: {
+    key: 'sectors',
+    fr: '/secteurs/',
+    en: '/en/industries/',
+    nav: true,
+    footer: 'company',
+    label: { fr: 'Secteurs', en: 'Industries' },
+  },
   solutions: {
     key: 'solutions',
     fr: '/solutions/',
@@ -162,6 +170,7 @@ export const routeOrder: RouteKey[] = [
   'cloud',
   'cyber',
   'modes',
+  'sectors',
   'solutions',
   'cases',
   'about',
@@ -171,7 +180,7 @@ export const routeOrder: RouteKey[] = [
   'privacy',
 ];
 
-export const primaryNav: RouteKey[] = ['services', 'modes', 'cases', 'solutions', 'about', 'contact'];
+export const primaryNav: RouteKey[] = ['services', 'modes', 'cases', 'sectors', 'solutions', 'about', 'contact'];
 export const serviceNav: RouteKey[] = ['ai', 'software', 'qa', 'cloud', 'cyber', 'automation'];
 
 export function pathFor(locale: Locale, key: RouteKey): string {

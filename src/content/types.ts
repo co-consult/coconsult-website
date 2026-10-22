@@ -12,6 +12,7 @@ export type RouteKey =
   | 'cloud'
   | 'cyber'
   | 'modes'
+  | 'sectors'
   | 'solutions'
   | 'cases'
   | 'about'
