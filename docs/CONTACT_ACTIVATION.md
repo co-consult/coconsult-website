@@ -50,14 +50,18 @@ docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml -f compose.con
 
 ## Rollback
 
-1. Retirer le bloc `location = /api/contact` de la configuration Nginx du conteneur et reconstruire `coconsult-web`.
-2. Redéployer sans l’overlay :
+Le service a été créé avec les trois fichiers ensemble. `compose.contact.yaml` seul n’est pas un projet valide : il ne fait que compléter `compose.yaml` et `compose.proxy.yaml`. Les commandes de retour arrière utilisent donc la même composition.
+
+1. Retirer le bloc `location = /api/contact` de la configuration Nginx du conteneur.
+2. Arrêter et retirer seulement `coconsult-contact`, puis reconstruire le site sans le relancer :
 
 ```bash
-docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml up -d --build
-docker compose -p coconsult -f compose.contact.yaml stop
-docker compose -p coconsult -f compose.contact.yaml rm -f
+docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml -f compose.contact.yaml stop coconsult-contact
+docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml -f compose.contact.yaml rm -f coconsult-contact
+docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml -f compose.contact.yaml up -d --build --no-deps coconsult-web
 ```
+
+La dernière commande reconstruit `coconsult-web` avec les trois fichiers, donc avec le réseau interne, mais `--no-deps` ne recrée pas `coconsult-contact`.
 
 3. Le site revient à la préparation mailto. Aucune demande nouvelle n’est reçue par le serveur.
 4. Retirer `BREVO_API_KEY` du fichier d’environnement. Ne pas la committer.
