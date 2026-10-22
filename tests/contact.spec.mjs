@@ -434,9 +434,21 @@ if (dockerAvailable()) {
   const config = execFileSync('docker', ['compose', '-p', 'coconsult-rollback-check', ...files, 'config'], { encoding: 'utf8' });
   assert.equal(config.includes('coconsult-web'), true);
   assert.equal(config.includes('coconsult-contact'), true);
+  assert.equal(config.includes('coconsult-egress'), true);
   assert.equal(config.includes('host_ip: 127.0.0.1'), true);
   assert.equal(config.includes('published: "3601"'), true);
   assert.equal(config.includes('target: 8080'), true);
+  assert.equal(config.includes('172.30.22.0/24'), false);
+  const configJson = JSON.parse(execFileSync('docker', ['compose', '-p', 'coconsult-rollback-check', ...files, 'config', '--format', 'json'], { encoding: 'utf8' }));
+  assert.deepEqual(Object.keys(configJson.services['coconsult-web'].networks).sort(), ['coconsult-contact', 'default', 'proxy-network']);
+  assert.deepEqual(Object.keys(configJson.services['coconsult-contact'].networks).sort(), ['coconsult-contact', 'coconsult-egress']);
+  assert.equal(configJson.networks['coconsult-contact'].internal, true);
+  assert.notEqual(configJson.networks['coconsult-egress'].internal, true);
+  assert.equal(configJson.networks['coconsult-contact'].ipam.config[0].subnet, '10.230.22.0/24');
+  assert.equal(configJson.services['coconsult-contact'].networks['coconsult-contact'].ipv4_address, '10.230.22.10');
+  assert.equal(configJson.services['coconsult-contact'].ports, undefined);
+  assert.equal(configJson.services['coconsult-contact'].environment.CONTACT_BIND, '10.230.22.10');
+  assert.equal(String(configJson.services['coconsult-contact'].environment.CONTACT_SEND_ENABLED), 'false');
   let overlayAlone = 0;
   try {
     execFileSync('docker', ['compose', '-f', 'compose.contact.yaml', 'config'], { stdio: 'ignore' });

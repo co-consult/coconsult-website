@@ -45,8 +45,8 @@ Uniquement dans l’environnement du processus Node. Jamais dans le JavaScript d
 - `CONTACT_SEND_ENABLED` : défaut `false`. Toute autre valeur laisse le formulaire en préparation.
 - `CONTACT_ORIGINS` : origines autorisées, séparées par des virgules. Vide en local : l’origine de la requête doit être la sienne.
 - `CONTACT_TRUST_PROXY` : adresses exactes des pairs autorisés à présenter `X-Real-IP`.
-- `CONTACT_TRUST_CIDRS` : réseaux de ces pairs, par exemple `172.30.22.0/24`.
-- `CONTACT_BIND` : défaut `127.0.0.1`. Dans le conteneur privé seulement, `0.0.0.0`.
+- `CONTACT_TRUST_CIDRS` : réseaux de ces pairs. L’overlay fixe `10.230.22.0/24`, le réseau privé partagé avec `coconsult-web`.
+- `CONTACT_BIND` : défaut `127.0.0.1` hors Docker. L’overlay fixe `10.230.22.10`, l’adresse du réseau privé. Ne pas le remettre à `0.0.0.0` : l’interface de sortie vers Brevo ne doit pas écouter.
 - `CONTACT_PORT` : défaut `3602`.
 - `CONTACT_MIN_AGE_MS` : défaut `2000`.
 

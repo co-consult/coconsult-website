@@ -50,14 +50,14 @@ const viewports = [
   { width: 1440, height: 900 },
 ];
 
-test('localized pages respond and expose one heading', async ({ page }) => {
-  for (const urlPath of paths) {
+for (const urlPath of paths) {
+  test(`localized page ${urlPath} responds and exposes one heading`, async ({ page }) => {
     const response = await page.goto(urlPath);
     expect(response?.status(), urlPath).toBe(200);
     await expect(page.locator('h1')).toHaveCount(1);
     await expect(page.locator('img[alt="Coconsult"]')).toHaveCount(2);
-  }
-});
+  });
+}
 
 test('language switch keeps the equivalent page', async ({ page }) => {
   await page.goto('/services/qa-testing/');
