@@ -4,9 +4,9 @@ import { legalPage, privacyPage } from '@/content/legal-pages';
 export const pages: Record<RouteKey, PageContent> = {
   home: {
     key: 'home',
-    metaTitle: 'Coconsult — Ingénierie logicielle, intelligence artificielle et équipes tech',
+    metaTitle: 'Développement logiciel, IA et cloud | Coconsult',
     description:
-      'Coconsult conçoit, développe et modernise des solutions numériques : logiciel, IA et data, qualité, cloud et DevOps, avec des équipes adaptées au projet.',
+      'Applications web et mobiles, intégration d’IA et cloud : Coconsult conçoit et fait évoluer vos logiciels métier, jusqu’à la mise en production.',
     eyebrow: 'INGÉNIERIE LOGICIELLE · IA · ÉQUIPES TECH',
     h1: 'De l’intelligence artificielle aux applications métier.',
     h1Accent: 'Nous construisons vos solutions numériques.',
@@ -176,7 +176,7 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   services: {
     key: 'services',
-    metaTitle: 'Expertises | Coconsult',
+    metaTitle: 'Développement, IA, cloud et qualité | Coconsult',
     description:
       'Intelligence artificielle, développement, qualité, cloud, cybersécurité et intégration, pour concevoir et faire tenir vos systèmes.',
     eyebrow: 'EXPERTISES',
@@ -210,9 +210,9 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   dedicated: {
     key: 'dedicated',
-    metaTitle: 'Équipes d’ingénierie dédiées | Coconsult',
+    metaTitle: 'Équipes Java, Angular et full-stack | Coconsult',
     description:
-      'Constitution d’équipes Java, Angular, full-stack et DevOps entre la France et Sfax. Cadrage, sélection, entretien et pilotage.',
+      'Équipes dédiées Java, Angular, full-stack et DevOps, coordonnées depuis la France, avec Coconsult Nearshore à Sfax, société distincte.',
     eyebrow: 'ÉQUIPES DÉDIÉES',
     h1: 'Constituer une équipe d’ingénierie adaptée au besoin réel.',
     intro:
@@ -252,6 +252,24 @@ export const pages: Record<RouteKey, PageContent> = {
       {
         type: 'note',
         text: 'Le devis, le contrat et la facture identifient la société qui contracte avec le client. Les ingénieurs situés à Sfax ne sont pas, du seul fait de cette collaboration, salariés de COCONSULT SAS.',
+      },
+      {
+        type: 'prose',
+        title: 'Java, Angular et nearshore',
+        paragraphs: [
+          'Java et Spring sont des profils que nous pouvons chercher. Angular n’est proposé que lorsque le produit existant s’appuie déjà dessus. Un profil qui n’est pas disponible n’est pas annoncé comme prêt à démarrer.',
+          'Le renfort à Sfax passe par Coconsult Nearshore, société tunisienne juridiquement indépendante. Ce n’est pas un établissement de COCONSULT SAS. Le contrat nomme la société qui s’engage.',
+        ],
+      },
+      {
+        type: 'cards',
+        title: 'Selon le besoin',
+        items: [
+          { title: 'Modes d’intervention', text: 'Régie, équipe dédiée, nearshore ou forfait, selon le périmètre.', hrefKey: 'modes' },
+          { title: 'Développement logiciel', text: 'Applications web, mobiles, API et intégration, portées par l’équipe.', hrefKey: 'software' },
+          { title: 'Cloud et DevOps', text: 'Livraison, environnements et exploitation, lorsque le besoin est là.', hrefKey: 'cloud' },
+          { title: 'Innovation et CII', text: 'Un prototype se cadre à part. L’agrément ne porte pas sur toute régie.', hrefKey: 'innovation' },
+        ],
       },
       { type: 'cta', title: 'Décrivez l’équipe dont vous avez besoin.', text: 'Stack, séniorité, durée envisagée et mode de travail : ces éléments suffisent pour un premier échange.', primary: 'team', secondary: 'project' },
     ],
@@ -435,9 +453,9 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   ai: {
     key: 'ai',
-    metaTitle: 'Intégration d’IA pour systèmes d’entreprise | Coconsult',
+    metaTitle: 'Intégration d’IA générative en entreprise | Coconsult',
     description:
-      'Coconsult intègre des outils d’IA existants dans vos applications : permissions, traçabilité et cas d’usage cadrés.',
+      'Agents, modèles et automatisation intelligente dans vos applications, avec droits d’accès et traçabilité cadrés avant le pilote.',
     eyebrow: 'INTELLIGENCE ARTIFICIELLE ET DATA',
     h1: 'Mettre l’IA au service d’un processus que vous connaissez.',
     intro:
@@ -470,6 +488,17 @@ export const pages: Record<RouteKey, PageContent> = {
         paragraphs: [
           'La confidentialité et le RGPD se traitent pour le projet concerné, selon les bases légales applicables. Brancher un modèle ne rend pas, à lui seul, un traitement conforme.',
           'L’intégration s’appuie sur des services d’IA que vous êtes autorisé à utiliser. Coconsult ne commercialise pas un assistant conversationnel propriétaire clé en main.',
+          'Un agent n’est retenu que lorsque le processus, les données qu’il peut voir et la décision qui reste humaine sont déjà décrits. Sinon, le sujet n’est pas prêt pour un pilote.',
+        ],
+      },
+      {
+        type: 'cards',
+        title: 'Selon le besoin',
+        items: [
+          { title: 'Développement logiciel', text: 'Faire évoluer l’application qui accueillera le cas d’usage.', hrefKey: 'software' },
+          { title: 'Processus métier', text: 'Relier le flux aux outils et aux dossiers déjà en place.', hrefKey: 'automation' },
+          { title: 'Équipe dédiée', text: 'Renforcer l’équipe qui portera le pilote, puis l’intégration.', hrefKey: 'dedicated' },
+          { title: 'Innovation et CII', text: 'Un prototype nouveau se cadre à part. L’agrément ne rend pas le pilote éligible.', hrefKey: 'innovation' },
         ],
       },
       { type: 'cta', title: 'Un diagnostic cadré, avant toute intégration.', text: 'Décrivez le processus, les données en jeu et l’outil que vous envisagez. Nous dirons si un pilote est raisonnable.', primary: 'ai' },
@@ -571,11 +600,76 @@ export const pages: Record<RouteKey, PageContent> = {
         items: [
           'Fondation en 2018',
           'Éditeur du site : COCONSULT SAS, Paris',
+          'Agrément CII n° 28910108, années 2026 à 2030, DRIEETS Île-de-France',
           'Collaboration avec Coconsult Nearshore, Sfax',
           'Contact : contact@coconsult.fr',
         ],
       },
+      {
+        type: 'prose',
+        title: 'Agrément crédit d’impôt innovation',
+        paragraphs: [
+          'Une décision du 4 février 2026 de la DRIEETS Île-de-France accorde à COCONSULT, TVA FR90838913838, l’agrément n° 28910108 pour les années 2026, 2027, 2028, 2029 et 2030.',
+          'Cet agrément reconnaît une capacité à réaliser des travaux d’innovation. Il ne décide pas qu’une mission est éligible, et il n’ouvre pas automatiquement un crédit d’impôt au client. Coconsult Nearshore, à Sfax, n’est pas titulaire de cette décision.',
+        ],
+      },
+      {
+        type: 'cards',
+        title: 'Selon le besoin',
+        items: [
+          { title: 'Innovation et CII', text: 'Le cadre de l’agrément, et ce qu’il ne garantit pas.', hrefKey: 'innovation' },
+          { title: 'Développement logiciel', text: 'Applications web, mobiles, API et logiciels métier.', hrefKey: 'software' },
+          { title: 'Équipes dédiées', text: 'Java, Angular, full-stack ou DevOps, avec une société distincte à Sfax.', hrefKey: 'dedicated' },
+        ],
+      },
       { type: 'cta', title: 'Rencontrer l’équipe sur un sujet concret.', text: 'Un message suffit pour proposer un créneau. Le contexte du projet compte plus qu’une présentation générale.', primary: 'project', secondary: 'partnership' },
+    ],
+  },
+  innovation: {
+    key: 'innovation',
+    metaTitle: 'Agrément CII et innovation logicielle | Coconsult',
+    description:
+      'Décision DRIEETS Île-de-France du 4 février 2026 : agrément n° 28910108 pour 2026-2030. Il ne rend pas un projet éligible au crédit d’impôt.',
+    eyebrow: 'INNOVATION',
+    h1: 'Accompagner un projet d’innovation logicielle.',
+    intro:
+      'COCONSULT conçoit et fait évoluer des logiciels. Une décision du 4 février 2026 de la DRIEETS Île-de-France lui accorde un agrément Crédit d’impôt innovation, n° 28910108, pour les années 2026 à 2030. Cet agrément ne décide pas, à lui seul, qu’un projet ouvre droit à un crédit d’impôt.',
+    blocks: [
+      {
+        type: 'columns',
+        title: 'Ce que la décision indique',
+        items: [
+          { title: 'Titulaire', text: 'COCONSULT, TVA FR90838913838, la société française qui édite ce site. Pas Coconsult Nearshore.' },
+          { title: 'Décision', text: 'Numéro 28910108, autorité DRIEETS Île-de-France, date du 4 février 2026.' },
+          { title: 'Années', text: '2026, 2027, 2028, 2029 et 2030.' },
+        ],
+      },
+      {
+        type: 'prose',
+        title: 'À quoi sert un agrément',
+        paragraphs: [
+          'Il reconnaît que le prestataire a les moyens de participer à des travaux d’innovation pour le compte d’un donneur d’ordre. Le client reste responsable de vérifier que l’opération, elle, entre dans l’assiette du crédit d’impôt innovation.',
+          'Coconsult ne promet pas un crédit d’impôt. Une maintenance, une régie ou une évolution courante ne deviennent pas éligibles parce que l’agrément existe.',
+        ],
+      },
+      {
+        type: 'prose',
+        title: 'Comment un sujet d’innovation se cadre',
+        paragraphs: [
+          'On part d’un produit, d’un prototype ou d’une installation pilote à concevoir. Le périmètre, les livrables et la société qui contracte sont écrits avant le démarrage.',
+          'Le développement logiciel, l’équipe et le mode d’intervention se choisissent ensuite. Le nearshore, lorsqu’il est retenu, passe par Coconsult Nearshore, société tunisienne juridiquement distincte, à Sfax.',
+        ],
+      },
+      {
+        type: 'cards',
+        title: 'Selon le besoin',
+        items: [
+          { title: 'Développement logiciel', text: 'Applications web et mobiles, API et logiciels métier, jusqu’à la mise en production.', hrefKey: 'software' },
+          { title: 'Intelligence artificielle', text: 'Intégration d’IA générative, d’agents et de modèles, avec un cas d’usage cadré.', hrefKey: 'ai' },
+          { title: 'Modes d’intervention', text: 'Régie, équipe dédiée, nearshore ou forfait, une fois le périmètre compris.', hrefKey: 'modes' },
+        ],
+      },
+      { type: 'cta', title: 'Décrire le prototype ou le produit à concevoir.', text: 'Le contexte suffit pour dire si un cadrage d’innovation a du sens. L’éligibilité fiscale se confirme à part.', primary: 'project' },
     ],
   },
   partnerships: {
@@ -631,9 +725,9 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   software: {
     key: 'software',
-    metaTitle: 'Développement logiciel | Coconsult',
+    metaTitle: 'Développement logiciel sur mesure | Coconsult',
     description:
-      'Applications web et mobiles, API, backends et intégration. Coconsult conçoit et fait évoluer des logiciels métier.',
+      'Applications web et mobiles, API et logiciels métier, conçus pour le système en place et suivis jusqu’à la mise en production.',
     eyebrow: 'DÉVELOPPEMENT LOGICIEL',
     h1: 'Concevoir et faire évoluer vos applications.',
     intro:
@@ -655,6 +749,25 @@ export const pages: Record<RouteKey, PageContent> = {
           'Faire évoluer une application web déjà en production',
           'Relier un mobile ou un portail au backend existant',
           'Stabiliser des API entre deux systèmes qui ne se parlent pas',
+        ],
+      },
+      {
+        type: 'prose',
+        title: 'Applications web, mobiles et logiciels métier',
+        paragraphs: [
+          'Sur mesure veut dire partir du système déjà en place : règles, données et utilisateurs. Une application web ou mobile s’y relie, plutôt que de remplacer l’existant par principe.',
+          'La livraison comprend une version exploitable, des environnements identifiés et un interlocuteur pendant la mise en route.',
+          'Si le donneur d’ordre étudie un crédit d’impôt innovation, le cadre de l’agrément CII est décrit à part. Il ne s’applique pas à toute mission de développement.',
+        ],
+      },
+      {
+        type: 'cards',
+        title: 'Selon le besoin',
+        items: [
+          { title: 'Intelligence artificielle', text: 'Brancher génération, modèles ou agents sur une application déjà en place.', hrefKey: 'ai' },
+          { title: 'Cloud et DevOps', text: 'Mettre en production et tenir l’exploitation de ce qui est livré.', hrefKey: 'cloud' },
+          { title: 'Équipe dédiée', text: 'Constituer une squad Java, Angular ou full-stack pour la durée du projet.', hrefKey: 'dedicated' },
+          { title: 'Innovation et CII', text: 'Lire le cadre de l’agrément avant d’appeler une mission un projet d’innovation.', hrefKey: 'innovation' },
         ],
       },
       { type: 'cta', title: 'Décrivez le logiciel à construire ou à moderniser.', text: 'Stack, utilisateurs et contrainte de délai suffisent pour un premier échange.', primary: 'project' },
@@ -689,12 +802,30 @@ export const pages: Record<RouteKey, PageContent> = {
           'Rendre un incident visible avant que les utilisateurs ne le signalent',
         ],
       },
+      {
+        type: 'prose',
+        title: 'Tenir une plateforme déjà en service',
+        paragraphs: [
+          'Le travail part de l’hébergement et de la chaîne de livraison existants. L’objectif est une version reproductible, des environnements lisibles et une alerte avant que l’utilisateur ne découvre l’incident.',
+          'Cloud et DevOps ne sont pas, à eux seuls, un projet d’innovation. Quand le sujet est un prototype, le cadre de l’agrément CII se lit à part.',
+        ],
+      },
+      {
+        type: 'cards',
+        title: 'Selon le besoin',
+        items: [
+          { title: 'Développement logiciel', text: 'Faire évoluer l’application que la plateforme doit livrer.', hrefKey: 'software' },
+          { title: 'Cybersécurité', text: 'Réduire la surface des accès et des services exposés.', hrefKey: 'cyber' },
+          { title: 'Équipe dédiée', text: 'Ajouter un profil cloud ou DevOps au dispositif existant.', hrefKey: 'dedicated' },
+          { title: 'Innovation et CII', text: 'Distinguer une exploitation courante d’un prototype qui se cadre à part.', hrefKey: 'innovation' },
+        ],
+      },
       { type: 'cta', title: 'Parler de la plateforme que vous exploitez.', text: 'Hébergement actuel, fréquence de livraison et point de douleur suffisent pour commencer.', primary: 'project' },
     ],
   },
   modes: {
     key: 'modes',
-    metaTitle: 'Modes d’intervention | Coconsult',
+    metaTitle: 'Régie, équipe dédiée et nearshore | Coconsult',
     description:
       'Régie, équipes dédiées, développement nearshore, forfait et conseil, selon le périmètre et le rythme du projet.',
     eyebrow: 'MODES D’INTERVENTION',
@@ -718,6 +849,24 @@ export const pages: Record<RouteKey, PageContent> = {
         paragraphs: [
           'Coconsult accompagne ses clients depuis la France et collabore avec Coconsult Nearshore, une société tunisienne juridiquement indépendante basée à Sfax, pour mobiliser des compétences d’ingénierie et constituer des équipes dédiées.',
           'Le devis, le contrat et la facture identifient la société qui contracte avec le client.',
+        ],
+      },
+      {
+        type: 'prose',
+        title: 'Nearshore en Tunisie',
+        paragraphs: [
+          'Coconsult Nearshore, à Sfax, mobilise des compétences d’ingénierie pour des clients accompagnés depuis la France. Les deux sociétés ont des dirigeants différents. Aucun lien capitalistique n’est affirmé.',
+          'Un prototype ou une installation pilote se cadre avant d’être appelé innovation. L’agrément CII de COCONSULT couvre 2026 à 2030. Il ne rend pas la mission éligible.',
+        ],
+      },
+      {
+        type: 'cards',
+        title: 'Selon le besoin',
+        items: [
+          { title: 'Équipes dédiées', text: 'Java, Angular, full-stack ou DevOps, suivis dans la durée.', hrefKey: 'dedicated' },
+          { title: 'Développement logiciel', text: 'Applications web, mobiles, API et intégration.', hrefKey: 'software' },
+          { title: 'Intelligence artificielle', text: 'Intégration d’IA générative, d’agents et de modèles dans vos outils.', hrefKey: 'ai' },
+          { title: 'Innovation et CII', text: 'Le numéro d’agrément, les années couvertes, et ce qui reste à vérifier côté client.', hrefKey: 'innovation' },
         ],
       },
       { type: 'cta', title: 'Décrire l’équipe ou le cadre qui vous manque.', text: 'Nous proposons le mode d’intervention après avoir compris le périmètre.', primary: 'team', secondary: 'project' },

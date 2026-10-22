@@ -401,6 +401,13 @@ const demo = fr
         <article class="mode"><strong>{title}</strong><p>{text}</p></article>
       ))}
     </div>
+    <p class="cii-line">
+      {fr
+        ? 'COCONSULT est agréée crédit d’impôt innovation pour 2026-2030.'
+        : 'COCONSULT holds a French innovation tax credit agreement for 2026-2030.'}
+      {' '}
+      <a href={pathFor(locale, 'innovation')}>{fr ? 'Voir le cadre' : 'See the scope'}</a>
+    </p>
   </section>
 
   <section class="section">

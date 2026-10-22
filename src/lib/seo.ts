@@ -33,13 +33,33 @@ export function organizationLd() {
     logo: absoluteUrl('/assets/brand/coconsult-logo.png'),
     email: company.email,
     foundingDate: String(company.founded),
-    areaServed: ['FR', 'TN', 'US'],
+    // Clients are served from France. Nearshore delivery in Tunisia is a separate company, not an establishment of this publisher.
+    areaServed: 'FR',
     address: {
       '@type': 'PostalAddress',
       streetAddress: '10 rue de Penthièvre',
       postalCode: '75008',
       addressLocality: 'Paris',
       addressCountry: 'FR',
+    },
+    ...(company.legal.linkedin ? { sameAs: [company.legal.linkedin] } : {}),
+  };
+}
+
+export function ciiPermitLd(locale: Locale) {
+  const years = company.cii.years;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'GovernmentPermit',
+    name: locale === 'fr' ? 'Agrément Crédit d’impôt innovation' : 'French innovation tax credit agreement (CII)',
+    identifier: company.cii.number,
+    description:
+      locale === 'fr'
+        ? `Années ${years}. Décision de la ${company.cii.authority} du 4 février 2026. L’agrément ne décide pas de l’éligibilité d’un projet.`
+        : `Years ${years}. Decision of ${company.cii.authority} on 4 February 2026. The agreement does not decide whether a project is eligible.`,
+    issuedBy: {
+      '@type': 'GovernmentOrganization',
+      name: company.cii.authority,
     },
   };
 }
@@ -54,6 +74,38 @@ export function webPageLd(locale: Locale, key: RouteKey, title: string, descript
     url: absoluteUrl(path),
     inLanguage: locale,
     isPartOf: { '@type': 'WebSite', name: company.name, url: company.siteUrl + '/' },
+  };
+}
+
+export function serviceLd(locale: Locale, key: RouteKey, name: string, description: string) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name,
+    description,
+    serviceType: name,
+    url: absoluteUrl(pathFor(locale, key)),
+    areaServed: 'FR',
+    provider: {
+      '@type': 'Organization',
+      name: company.name,
+      url: company.siteUrl + '/',
+    },
+  };
+}
+
+export function faqLd(items: { q: string; a: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.a,
+      },
+    })),
   };
 }
 

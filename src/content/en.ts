@@ -4,9 +4,9 @@ import { legalPage, privacyPage } from '@/content/legal-pages';
 export const pages: Record<RouteKey, PageContent> = {
   home: {
     key: 'home',
-    metaTitle: 'Coconsult — Software engineering, artificial intelligence and tech teams',
+    metaTitle: 'Software development, AI and cloud | Coconsult',
     description:
-      'Coconsult designs, builds and modernises digital products: software, AI and data, quality, cloud and DevOps, with teams shaped around the project.',
+      'Web and mobile applications, AI integration and cloud: Coconsult designs and evolves business software through to production.',
     eyebrow: 'SOFTWARE ENGINEERING · AI · TECH TEAMS',
     h1: 'From artificial intelligence to business applications.',
     h1Accent: 'We build your digital systems.',
@@ -130,7 +130,7 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   services: {
     key: 'services',
-    metaTitle: 'Expertise | Coconsult',
+    metaTitle: 'Software, AI, cloud and quality | Coconsult',
     description:
       'Artificial intelligence, software, quality, cloud, cybersecurity and integration, to design systems and keep them running.',
     eyebrow: 'EXPERTISE',
@@ -164,9 +164,9 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   dedicated: {
     key: 'dedicated',
-    metaTitle: 'Dedicated software engineering teams | Coconsult',
+    metaTitle: 'Java, Angular and full-stack teams | Coconsult',
     description:
-      'Java, Angular, full-stack and DevOps teams staffed between France and Sfax. Discovery, selection, client interviews and delivery management.',
+      'Dedicated Java, Angular, full-stack and DevOps teams, coordinated from France, with Coconsult Nearshore in Sfax, a separate company.',
     eyebrow: 'DEDICATED TEAMS',
     h1: 'Build an engineering team around the work you actually have.',
     intro:
@@ -204,6 +204,24 @@ export const pages: Record<RouteKey, PageContent> = {
         ],
       },
       { type: 'note', text: 'The quotation, the contract and the invoice name the company that contracts with the client. Engineers based in Sfax are not employees of COCONSULT SAS merely because of this collaboration.' },
+      {
+        type: 'prose',
+        title: 'Java, Angular and nearshore',
+        paragraphs: [
+          'Java and Spring are profiles we can look for. Angular is proposed only when the existing product already uses it. A profile that is not available is not presented as ready to start.',
+          'Reinforcement in Sfax goes through Coconsult Nearshore, a legally independent Tunisian company. It is not an establishment of COCONSULT SAS. The contract names the company that commits.',
+        ],
+      },
+      {
+        type: 'cards',
+        title: 'Depending on the need',
+        items: [
+          { title: 'Ways of working', text: 'Staff augmentation, a dedicated team, nearshore or a fixed scope, once the work is clear.', hrefKey: 'modes' },
+          { title: 'Software development', text: 'Web and mobile applications, APIs and integration, carried by the team.', hrefKey: 'software' },
+          { title: 'Cloud and DevOps', text: 'Delivery, environments and operations, when the project needs them.', hrefKey: 'cloud' },
+          { title: 'Innovation and CII', text: 'A prototype is scoped separately. The agreement does not cover every staff assignment.', hrefKey: 'innovation' },
+        ],
+      },
       { type: 'cta', title: 'Tell us about the team you need.', text: 'Stack, seniority, expected duration and working mode are enough for a first conversation.', primary: 'team', secondary: 'project' },
     ],
   },
@@ -386,9 +404,9 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   ai: {
     key: 'ai',
-    metaTitle: 'Secure enterprise AI integration | Coconsult',
+    metaTitle: 'Enterprise generative AI integration | Coconsult',
     description:
-      'Coconsult integrates AI tools you already use: permissions, traceability and a bounded use case.',
+      'Agents, models and intelligent automation inside your applications, with access rights and traceability scoped before a pilot.',
     eyebrow: 'ARTIFICIAL INTELLIGENCE AND DATA',
     h1: 'Put AI to work on a process you already understand.',
     intro:
@@ -421,6 +439,17 @@ export const pages: Record<RouteKey, PageContent> = {
         paragraphs: [
           'Confidentiality and privacy law are handled for the project in question, under the legal bases that apply. Connecting a model does not, by itself, make a processing activity compliant.',
           'Integration uses AI services you are entitled to use. Coconsult does not sell a proprietary conversational assistant as a finished product.',
+          'An agent is accepted only when the process, the data it may see and the decision that stays with a person are already described. Otherwise the subject is not ready for a pilot.',
+        ],
+      },
+      {
+        type: 'cards',
+        title: 'Depending on the need',
+        items: [
+          { title: 'Software development', text: 'Evolve the application that will host the use case.', hrefKey: 'software' },
+          { title: 'Business processes', text: 'Connect the flow to the tools and case files already in place.', hrefKey: 'automation' },
+          { title: 'Dedicated team', text: 'Reinforce the team that will run the pilot, then the integration.', hrefKey: 'dedicated' },
+          { title: 'Innovation and CII', text: 'A new prototype is scoped separately. The agreement does not make the pilot eligible.', hrefKey: 'innovation' },
         ],
       },
       { type: 'cta', title: 'A bounded diagnostic, before any integration.', text: 'Describe the process, the data involved and the tool you have in mind. We will say whether a pilot is reasonable.', primary: 'ai' },
@@ -522,11 +551,76 @@ export const pages: Record<RouteKey, PageContent> = {
         items: [
           'Founded in 2018',
           'Site publisher: COCONSULT SAS, Paris',
+          'CII agreement no. 28910108, years 2026 to 2030, DRIEETS Île-de-France',
           'Collaboration with Coconsult Nearshore, Sfax',
           'Contact: contact@coconsult.fr',
         ],
       },
+      {
+        type: 'prose',
+        title: 'Innovation tax credit agreement',
+        paragraphs: [
+          'A decision of 4 February 2026 by DRIEETS Île-de-France grants COCONSULT, VAT FR90838913838, agreement no. 28910108 for 2026, 2027, 2028, 2029 and 2030.',
+          'The agreement recognises a capacity to carry out innovation work. It does not decide that an assignment is eligible, and it does not automatically create a tax credit for the client. Coconsult Nearshore, in Sfax, is not the holder of this decision.',
+        ],
+      },
+      {
+        type: 'cards',
+        title: 'Depending on the need',
+        items: [
+          { title: 'Innovation and CII', text: 'The scope of the agreement, and what it does not promise.', hrefKey: 'innovation' },
+          { title: 'Software development', text: 'Web and mobile applications, APIs and business software.', hrefKey: 'software' },
+          { title: 'Dedicated teams', text: 'Java, Angular, full-stack or DevOps, with a separate company in Sfax.', hrefKey: 'dedicated' },
+        ],
+      },
       { type: 'cta', title: 'Meet the team on a concrete subject.', text: 'A message is enough to propose a time. The project context matters more than a general presentation.', primary: 'project', secondary: 'partnership' },
+    ],
+  },
+  innovation: {
+    key: 'innovation',
+    metaTitle: 'CII agreement and software innovation | Coconsult',
+    description:
+      'DRIEETS Île-de-France decision of 4 February 2026: agreement no. 28910108 for 2026-2030. It does not make a project eligible for the tax credit.',
+    eyebrow: 'INNOVATION',
+    h1: 'Support a software innovation project.',
+    intro:
+      'COCONSULT designs and evolves software. A decision of 4 February 2026 by DRIEETS Île-de-France grants it a French innovation tax credit agreement, no. 28910108, for 2026 to 2030. The agreement does not, by itself, mean a project qualifies for a tax credit.',
+    blocks: [
+      {
+        type: 'columns',
+        title: 'What the decision says',
+        items: [
+          { title: 'Holder', text: 'COCONSULT, VAT FR90838913838, the French company that publishes this site. Not Coconsult Nearshore.' },
+          { title: 'Decision', text: 'Number 28910108, authority DRIEETS Île-de-France, dated 4 February 2026.' },
+          { title: 'Years', text: '2026, 2027, 2028, 2029 and 2030.' },
+        ],
+      },
+      {
+        type: 'prose',
+        title: 'What the agreement is for',
+        paragraphs: [
+          'It recognises that the provider can take part in innovation work for a client. The client still has to check that the operation itself belongs in the innovation tax credit base.',
+          'Coconsult does not promise a tax credit. Maintenance, staff augmentation or an ordinary change do not become eligible because the agreement exists.',
+        ],
+      },
+      {
+        type: 'prose',
+        title: 'How an innovation subject is scoped',
+        paragraphs: [
+          'The work starts from a product, a prototype or a pilot installation to design. Scope, deliverables and the contracting company are written down before the start.',
+          'Software development, the team and the way of working are chosen afterwards. Nearshore, when it is used, goes through Coconsult Nearshore, a legally separate Tunisian company in Sfax.',
+        ],
+      },
+      {
+        type: 'cards',
+        title: 'Depending on the need',
+        items: [
+          { title: 'Software development', text: 'Web and mobile applications, APIs and business software, through to production.', hrefKey: 'software' },
+          { title: 'Artificial intelligence', text: 'Generative AI, agents and models, with a bounded use case.', hrefKey: 'ai' },
+          { title: 'Ways of working', text: 'Staff augmentation, a dedicated team, nearshore or a fixed scope, once the work is clear.', hrefKey: 'modes' },
+        ],
+      },
+      { type: 'cta', title: 'Describe the prototype or the product to design.', text: 'The context is enough to say whether an innovation scoping is useful. Tax eligibility is confirmed separately.', primary: 'project' },
     ],
   },
   partnerships: {
@@ -582,9 +676,9 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   software: {
     key: 'software',
-    metaTitle: 'Software development | Coconsult',
+    metaTitle: 'Custom software development | Coconsult',
     description:
-      'Web and mobile applications, APIs, backends and integration. Coconsult designs and evolves business software.',
+      'Web and mobile applications, APIs and business software, designed around the system you run and followed through to production.',
     eyebrow: 'SOFTWARE DEVELOPMENT',
     h1: 'Design and evolve your applications.',
     intro:
@@ -606,6 +700,25 @@ export const pages: Record<RouteKey, PageContent> = {
           'Evolve a web application already in production',
           'Connect a mobile app or a portal to the backend you run',
           'Steady the APIs between two systems that do not talk',
+        ],
+      },
+      {
+        type: 'prose',
+        title: 'Web, mobile and business software',
+        paragraphs: [
+          'Custom means starting from the system already in place: rules, data and users. A web or mobile application connects to it, rather than replacing it on principle.',
+          'Delivery includes a release your team can operate, identified environments and a counterpart during the first weeks.',
+          'If a client is looking at the French innovation tax credit, the CII agreement is described separately. It does not apply to every development assignment.',
+        ],
+      },
+      {
+        type: 'cards',
+        title: 'Depending on the need',
+        items: [
+          { title: 'Artificial intelligence', text: 'Connect generation, models or agents to an application already in place.', hrefKey: 'ai' },
+          { title: 'Cloud and DevOps', text: 'Release what is built, then keep it running.', hrefKey: 'cloud' },
+          { title: 'Dedicated team', text: 'Staff a Java, Angular or full-stack squad for the life of the project.', hrefKey: 'dedicated' },
+          { title: 'Innovation and CII', text: 'Read the agreement before calling an assignment an innovation project.', hrefKey: 'innovation' },
         ],
       },
       { type: 'cta', title: 'Describe the software to build or to modernise.', text: 'Stack, users and timing are enough for a first conversation.', primary: 'project' },
@@ -640,12 +753,30 @@ export const pages: Record<RouteKey, PageContent> = {
           'Surface an incident before users report it',
         ],
       },
+      {
+        type: 'prose',
+        title: 'Keep a platform that is already running',
+        paragraphs: [
+          'The work starts from the hosting and the delivery pipeline you already have. The aim is a release that can be reproduced, environments that can be read, and an alert before a user finds the incident.',
+          'Cloud and DevOps are not, by themselves, an innovation project. When the subject is a prototype, the CII agreement is read separately.',
+        ],
+      },
+      {
+        type: 'cards',
+        title: 'Depending on the need',
+        items: [
+          { title: 'Software development', text: 'Evolve the application the platform has to release.', hrefKey: 'software' },
+          { title: 'Cybersecurity', text: 'Reduce the surface of the access and the services you expose.', hrefKey: 'cyber' },
+          { title: 'Dedicated team', text: 'Add a cloud or DevOps profile to the team you already have.', hrefKey: 'dedicated' },
+          { title: 'Innovation and CII', text: 'Separate day-to-day operations from a prototype that is scoped on its own.', hrefKey: 'innovation' },
+        ],
+      },
       { type: 'cta', title: 'Talk about the platform you run.', text: 'Current hosting, release cadence and the pain point are enough to start.', primary: 'project' },
     ],
   },
   modes: {
     key: 'modes',
-    metaTitle: 'Ways of working | Coconsult',
+    metaTitle: 'Dedicated teams and nearshore delivery | Coconsult',
     description:
       'Staff augmentation, dedicated teams, nearshore development, fixed scope and advisory, according to the scope and pace of the project.',
     eyebrow: 'WAYS OF WORKING',
@@ -669,6 +800,24 @@ export const pages: Record<RouteKey, PageContent> = {
         paragraphs: [
           'Coconsult supports its clients from France and works with Coconsult Nearshore, a legally independent Tunisian company based in Sfax, to bring in engineering skills and build dedicated teams.',
           'The quotation, the contract and the invoice name the company that contracts with the client.',
+        ],
+      },
+      {
+        type: 'prose',
+        title: 'Nearshore in Tunisia',
+        paragraphs: [
+          'Coconsult Nearshore, in Sfax, brings engineering skills for clients supported from France. The two companies have different directors. No capital link is asserted.',
+          'A prototype or a pilot installation is scoped before it is called innovation. COCONSULT’s CII agreement covers 2026 to 2030. It does not make the assignment eligible.',
+        ],
+      },
+      {
+        type: 'cards',
+        title: 'Depending on the need',
+        items: [
+          { title: 'Dedicated teams', text: 'Java, Angular, full-stack or DevOps, followed over time.', hrefKey: 'dedicated' },
+          { title: 'Software development', text: 'Web and mobile applications, APIs and integration.', hrefKey: 'software' },
+          { title: 'Artificial intelligence', text: 'Generative AI, agents and models integrated into the tools you run.', hrefKey: 'ai' },
+          { title: 'Innovation and CII', text: 'The agreement number, the years covered, and what the client still has to check.', hrefKey: 'innovation' },
         ],
       },
       { type: 'cta', title: 'Describe the team or the setup you need.', text: 'We propose the engagement model after the scope is clear.', primary: 'team', secondary: 'project' },

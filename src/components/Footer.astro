@@ -19,6 +19,11 @@ const legal = routeOrder.filter((key) => routes[key].footer === 'legal');
       <p>{company.signature[locale]}</p>
       <p>{t.footerPlaces}</p>
       <p><span>{t.emailLabel} </span><a href={`mailto:${company.email}`}>{company.email}</a></p>
+      {company.legal.linkedin && (
+        <p>
+          <a href={company.legal.linkedin} rel="noopener noreferrer" target="_blank" aria-label={t.linkedinAria}>{t.linkedin}</a>
+        </p>
+      )}
     </div>
     <nav aria-label={t.servicesGroup}>
       <h2>{t.servicesGroup}</h2>

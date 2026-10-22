@@ -21,6 +21,7 @@ const pages = [
   ['/solutions/', 'fr', '/en/solutions/'],
   ['/realisations/', 'fr', '/en/case-studies/'],
   ['/a-propos/', 'fr', '/en/about/'],
+  ['/innovation/', 'fr', '/en/innovation/'],
   ['/partenariats/', 'fr', '/en/partnerships/'],
   ['/contact/', 'fr', '/en/contact/'],
   ['/mentions-legales/', 'fr', '/en/legal-notice/'],
@@ -38,6 +39,11 @@ const hrefsOf = (html) => [...html.matchAll(/href="([^"]*)"/g)].map((match) => m
 const forbidden = [
   'lorem ipsum',
   'iso 9001',
+  'iso9001',
+  'tous les projets sont éligibles',
+  'every project is eligible',
+  'crédit d’impôt garanti',
+  'tax credit is guaranteed',
   'bred',
   'wero',
   'société générale',
@@ -317,6 +323,99 @@ assert.equal(/restent en France|stay in France|exclusively inside/i.test(privacy
 assert.equal(/google workspace/i.test(privacyFr + privacyEn), false);
 assert.equal(/aucun transfert/i.test(privacyFr), false);
 assert.equal(/cette checklist ne constitue pas un contrat/i.test(privacyFr + privacyEn), false);
+
+const decode = (value) =>
+  value
+    .replaceAll('&amp;', '&')
+    .replaceAll('&#39;', "'")
+    .replaceAll('&quot;', '"')
+    .replaceAll('&lt;', '<')
+    .replaceAll('&gt;', '>');
+const metaOf = (html, name) => {
+  const match = html.match(new RegExp(`<meta name="${name}" content="([^"]*)"`));
+  assert.ok(match, name);
+  return decode(match[1]);
+};
+const titleOf = (html) => {
+  const match = html.match(/<title>([^<]*)<\/title>/);
+  assert.ok(match);
+  return decode(match[1]);
+};
+const readAudited = (urlPath) => {
+  if (urlPath === '/404.html') return fs.readFileSync(path.join(dist, '404.html'), 'utf8');
+  if (urlPath === '/en/404/') {
+    const nested = path.join(dist, 'en', '404', 'index.html');
+    const flat = path.join(dist, 'en', '404.html');
+    return fs.readFileSync(fs.existsSync(nested) ? nested : flat, 'utf8');
+  }
+  return read(urlPath);
+};
+const jsonLd = (html) =>
+  [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].flatMap((match) => {
+    const data = JSON.parse(match[1]);
+    return Array.isArray(data) ? data : [data];
+  });
+const titles = new Map();
+const descriptions = new Map();
+const audited = [
+  ...pages.flatMap(([urlPath, , alternate]) => [urlPath, alternate]),
+  '/404.html',
+  '/en/404/',
+];
+for (const urlPath of audited) {
+  const html = readAudited(urlPath);
+  const title = titleOf(html);
+  const description = metaOf(html, 'description');
+  assert.ok(title.length >= 15 && title.length <= 70, `${urlPath} title length ${title.length}: ${title}`);
+  assert.ok(description.length >= 40 && description.length <= 220, `${urlPath} description length ${description.length}`);
+  assert.equal(titles.has(title), false, `duplicate title ${title}`);
+  assert.equal(descriptions.has(description), false, `duplicate description on ${urlPath}`);
+  titles.set(title, urlPath);
+  descriptions.set(description, urlPath);
+  assert.equal((html.match(/<h1[\s>]/g) || []).length, 1, urlPath);
+  const nodes = jsonLd(html);
+  for (const node of nodes) assert.equal(typeof node['@type'], 'string', urlPath);
+  if (urlPath.endsWith('404.html') || urlPath.endsWith('/404/')) {
+    assert.match(html, /name="robots" content="noindex"/);
+    assert.equal(nodes.length, 0, urlPath);
+  }
+}
+const homeNodes = jsonLd(home);
+const organization = homeNodes.find((node) => node['@type'] === 'Organization');
+assert.equal(organization.areaServed, 'FR');
+assert.equal(JSON.stringify(homeNodes).includes('"US"'), false);
+assert.equal(JSON.stringify(homeNodes).includes('hasCredential'), false);
+assert.match(JSON.stringify(homeNodes), /https:\/\/www\.linkedin\.com\/company\/coconsult-it\//);
+assert.equal(/facebook\.com/i.test(home + homeEn), false);
+assert.match(home, /rel="noopener noreferrer"/);
+assert.match(home, /href="https:\/\/www\.linkedin\.com\/company\/coconsult-it\/"/);
+assert.match(home, /href="\/innovation\/"/);
+assert.match(read('/innovation/'), /28910108/);
+assert.match(read('/innovation/'), /DRIEETS/);
+assert.match(read('/innovation/'), /ne décide pas/);
+assert.match(read('/en/innovation/'), /does not, by itself/);
+assert.equal(/iso 9001/i.test(read('/innovation/') + read('/en/innovation/') + read('/a-propos/') + read('/en/about/')), false);
+const permit = jsonLd(read('/innovation/')).find((node) => node['@type'] === 'GovernmentPermit');
+assert.equal(permit.identifier, '28910108');
+assert.equal(permit.issuedBy.name, 'DRIEETS Île-de-France');
+assert.equal(permit.validFrom, undefined);
+assert.equal(jsonLd(home).some((node) => node['@type'] === 'GovernmentPermit'), false);
+const softwareNodes = jsonLd(read('/services/developpement/'));
+assert.equal(softwareNodes.some((node) => node['@type'] === 'Service' && node.areaServed === 'FR'), true);
+const qaNodes = jsonLd(read('/services/qa-testing/'));
+const faq = qaNodes.find((node) => node['@type'] === 'FAQPage');
+assert.equal(faq.mainEntity.length, 5);
+assert.match(sitemap, /hreflang="fr"/);
+assert.match(sitemap, /hreflang="en"/);
+assert.match(sitemap, /hreflang="x-default"/);
+assert.match(read('/services/developpement/'), /href="\/services\/ia-entreprise\/"/);
+assert.match(read('/services/developpement/'), /href="\/services\/cloud-devops\/"/);
+assert.match(read('/services/developpement/'), /href="\/services\/equipes-dediees\/"/);
+assert.match(read('/services/ia-entreprise/'), /href="\/services\/developpement\/"/);
+assert.match(read('/modes-intervention/'), /href="\/services\/ia-entreprise\/"/);
+assert.match(read('/en/services/software-engineering/'), /href="\/en\/services\/enterprise-ai\/"/);
+assert.match(read('/en/engagement/'), /href="\/en\/services\/dedicated-teams\/"/);
+
 for (const file of fs.readdirSync(dist, { recursive: true })) {
   const full = path.join(dist, String(file));
   if (!fs.statSync(full).isFile()) continue;
