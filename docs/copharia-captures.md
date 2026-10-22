@@ -1,20 +1,12 @@
 # Captures COPHARIA
 
-Ces indications ne figurent pas sur le site public.
+Le site public affiche quatre vues anonymisées :
 
-COPHARIA reste en développement. Sans capture autorisée, la page montre trois capacités : Tableau de bord, Qualité, Laboratoire. Aucune interface n’est dessinée à leur place.
+- `public/assets/copharia/dashboard.webp` — centre de commande
+- `public/assets/copharia/quality.webp` — gestion qualité
+- `public/assets/copharia/stocks.webp` — logistique et stocks
+- `public/assets/copharia/stock-detail.webp` — détail d'un article, proposé depuis la vue stocks
 
-Pour afficher les captures autorisées du tableau de bord, de la qualité et du laboratoire, les transmettre puis les passer à `CophariaFeature` :
+Le laboratoire n'a pas de capture. Ne pas lui attribuer une image stocks.
 
-```astro
-<CophariaFeature
-  locale={locale}
-  images={{
-    dashboard: '/assets/copharia/dashboard.jpg',
-    quality: '/assets/copharia/quality.jpg',
-    lab: '/assets/copharia/lab.jpg',
-  }}
-/>
-```
-
-Les trois emplacements sont indépendants. Une image absente laisse seulement le nom de la capacité.
+Les fichiers d'origine non anonymisés ne vont ni dans `public/`, ni dans `docs/`, ni dans les artefacts de test.

@@ -325,6 +325,53 @@ test('public pages do not mention missing captures', async ({ page }) => {
   }
 });
 
+test('the COPHARIA gallery changes view and keeps the laboratory without a capture', async ({ page }) => {
+  await page.goto('/');
+  const gallery = page.locator('[data-copharia-gallery]');
+  const img = gallery.locator('[data-screen]');
+  await expect(img).toHaveAttribute('src', /dashboard\.webp/);
+  await expect(gallery.locator('.badge')).toHaveText('Solution en développement');
+  await gallery.getByRole('button', { name: 'Gestion qualité' }).click();
+  await expect(img).toHaveAttribute('src', /quality\.webp/);
+  await expect(img).toBeVisible();
+  await gallery.getByRole('button', { name: 'Logistique & Stocks' }).click();
+  await expect(img).toHaveAttribute('src', /stocks\.webp/);
+  await expect(gallery.locator('[data-stock-switch]')).toBeVisible();
+  await gallery.getByRole('button', { name: "Vue détaillée d'un article" }).click();
+  await expect(img).toHaveAttribute('src', /stock-detail\.webp/);
+  await expect(img).toBeVisible();
+  await gallery.getByRole('button', { name: 'Laboratoire' }).click();
+  await expect(img).toBeHidden();
+  await expect(gallery.locator('[data-lab-note]')).toBeVisible();
+  await expect(gallery.locator('img:visible')).toHaveCount(0);
+  await gallery.getByRole('button', { name: 'Centre de commande' }).focus();
+  await page.keyboard.press('ArrowRight');
+  await expect(img).toHaveAttribute('src', /quality\.webp/);
+  await expect(gallery.getByRole('link', { name: 'Demander une démonstration de COPHARIA' })).toHaveAttribute('href', '/contact/?type=demo&product=copharia');
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/solutions/');
+  const mobile = page.locator('[data-copharia-gallery]');
+  await expect(mobile.locator('[data-screen]')).toBeVisible();
+  const width = await mobile.locator('[data-screen]').evaluate((element) => element.getBoundingClientRect().width);
+  expect(width).toBeGreaterThan(280);
+  expect(width).toBeLessThanOrEqual(390);
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
+  await mobile.getByRole('button', { name: 'Laboratoire' }).click();
+  await expect(mobile.locator('[data-screen]')).toBeHidden();
+
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/en/solutions/');
+  const english = page.locator('[data-copharia-gallery]');
+  await english.getByRole('button', { name: 'Logistics & stock' }).click();
+  await english.getByRole('button', { name: 'Article detail' }).click();
+  await expect(english.locator('[data-screen]')).toHaveAttribute('src', /stock-detail\.webp/);
+  await english.getByRole('button', { name: 'Laboratory' }).click();
+  await expect(english.locator('[data-screen]')).toBeHidden();
+  await expect(english.locator('[data-lab-note]')).toContainText('not published yet');
+});
+
 test('home and QA pages meet WCAG AA checks we can automate', async ({ page }) => {
   for (const urlPath of ['/', '/en/', '/contact/', '/en/contact/', '/solutions/', '/services/qa-testing/', '/en/services/qa-testing/']) {
     await page.goto(urlPath);

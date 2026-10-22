@@ -232,4 +232,87 @@
       button.textContent = open ? button.dataset.less || '' : button.dataset.more || '';
     });
   });
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('[data-copharia-gallery]').forEach((gallery) => {
+    if (!(gallery instanceof HTMLElement)) return;
+    const img = gallery.querySelector('[data-screen]');
+    const note = gallery.querySelector('[data-lab-note]');
+    const label = gallery.querySelector('[data-screen-label]');
+    const sub = gallery.querySelector('[data-stock-switch]');
+    const views = [...gallery.querySelectorAll('[data-view]')];
+    const shots = [...gallery.querySelectorAll('[data-shot]')];
+
+    function paintImage(source) {
+      if (!(img instanceof HTMLImageElement) || !(source instanceof HTMLElement)) return;
+      const src = source.dataset.src || '';
+      if (note instanceof HTMLElement) note.hidden = true;
+      img.hidden = false;
+      if (label) label.textContent = source.dataset.label || '';
+      if (img.getAttribute('src') === src) {
+        img.style.opacity = '1';
+        return;
+      }
+      const apply = () => {
+        img.src = src;
+        img.alt = source.dataset.alt || '';
+        if (source.dataset.w) img.width = Number(source.dataset.w);
+        if (source.dataset.h) img.height = Number(source.dataset.h);
+      };
+      if (reduceMotion) {
+        img.style.opacity = '1';
+        apply();
+        return;
+      }
+      img.style.opacity = '0';
+      img.addEventListener('load', () => {
+        img.style.opacity = '1';
+      }, { once: true });
+      apply();
+    }
+
+    views.forEach((button) => {
+      button.addEventListener('click', () => {
+        if (!(button instanceof HTMLElement)) return;
+        views.forEach((item) => item.setAttribute('aria-pressed', item === button ? 'true' : 'false'));
+        if (button.dataset.view === 'lab') {
+          if (sub instanceof HTMLElement) sub.hidden = true;
+          if (img instanceof HTMLImageElement) img.hidden = true;
+          if (note instanceof HTMLElement) note.hidden = false;
+          if (label) label.textContent = button.dataset.label || '';
+          return;
+        }
+        if (sub instanceof HTMLElement) sub.hidden = button.dataset.view !== 'stocks';
+        if (button.dataset.view === 'stocks') {
+          const list = shots.find((item) => item instanceof HTMLElement && item.dataset.shot === 'stocks');
+          shots.forEach((item) => item.setAttribute('aria-pressed', item === list ? 'true' : 'false'));
+          paintImage(list);
+          return;
+        }
+        paintImage(button);
+      });
+    });
+
+    shots.forEach((button) => {
+      button.addEventListener('click', () => {
+        if (!(button instanceof HTMLElement)) return;
+        shots.forEach((item) => item.setAttribute('aria-pressed', item === button ? 'true' : 'false'));
+        paintImage(button);
+      });
+    });
+
+    gallery.querySelector('.gallery-tabs')?.addEventListener('keydown', (event) => {
+      if (!(event instanceof KeyboardEvent)) return;
+      if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+      const index = views.indexOf(document.activeElement);
+      if (index < 0) return;
+      event.preventDefault();
+      const step = event.key === 'ArrowRight' ? 1 : -1;
+      const next = views[(index + step + views.length) % views.length];
+      if (next instanceof HTMLElement) {
+        next.focus();
+        next.click();
+      }
+    });
+  });
 })();
