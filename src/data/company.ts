@@ -145,7 +145,7 @@ export function publicationReview(): PublicationReview {
     gdpr.push({
       id: 'retentionPractice',
       detail:
-        'Le critère publié est la durée du traitement de la demande, puis la suppression. Confirmer qu’il correspond à la pratique effective. Ne pas publier de durée chiffrée tant qu’elle n’est pas fixée.',
+        'La politique propose 12 mois après le dernier échange pour une demande commerciale sans contrat. La validation interne et la suppression effective ne sont pas faites : cette durée n’est pas une pratique confirmée, et elle ne couvre pas les dossiers contractuels. La durée cible de 6 mois des journaux transactionnels Brevo n’est pas un réglage configuré. Ne pas la présenter comme une règle déjà en vigueur. Cette proposition ne lève pas le NO-GO global.',
     });
   }
 
