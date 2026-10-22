@@ -30,6 +30,7 @@ export function organizationLd() {
     '@type': 'Organization',
     name: company.name,
     url: company.siteUrl + '/',
+    logo: absoluteUrl('/assets/brand/coconsult-logo.png'),
     email: company.email,
     foundingDate: String(company.founded),
     areaServed: ['FR', 'TN', 'US'],
