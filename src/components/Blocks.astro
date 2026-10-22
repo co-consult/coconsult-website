@@ -1,11 +1,12 @@
 ---
 import CophariaFeature from '@/components/visuals/CophariaFeature.astro';
+import PlatformTeaser from '@/components/visuals/PlatformTeaser.astro';
 import WorkCase from '@/components/visuals/WorkCase.astro';
 import { ui } from '@/content/ui';
 import type { Block, Locale } from '@/content/types';
 import { contactPath, getInquiry, plainMailto } from '@/data/inquiries';
 import { pathFor } from '@/data/routes';
-import { visibleWork } from '@/data/work';
+import { visibleWork, workItems } from '@/data/work';
 import { company } from '@/data/company';
 
 interface Props { locale: Locale; blocks: Block[]; }
@@ -143,35 +144,49 @@ const tones = ['band', 'band-alt', 'band', 'band-alt'];
               <h2>{block.title}</h2>
               {block.intro && <p>{block.intro}</p>}
             </div>
-            <div class="work-grid">
-              {visibleWork(block.source === 'cases' ? 'case' : 'solution').map((item) => {
-                if (item.id === 'iaps' || item.id === 'cssforever') return <WorkCase locale={locale} id={item.id} />;
-                if (item.id === 'copharia') return <CophariaFeature locale={locale} />;
-                const cta = item.cta[locale];
-                return (
-                  <article class="work-card">
-                    <p class="badge">{item.status[locale]}</p>
-                    <h3>{item.title[locale]}</h3>
-                    <p class="meta-line">{t.sector} · {item.sector[locale]}</p>
-                    {item.story ? (
-                      <dl class="story">
-                        <div><dt>{t.storyContext}</dt><dd>{item.story[locale].context}</dd></div>
-                        <div><dt>{t.storyStake}</dt><dd>{item.story[locale].stake}</dd></div>
-                        <div><dt>{t.storyWork}</dt><dd>{item.story[locale].intervention}</dd></div>
-                        <div><dt>{t.storyResult}</dt><dd>{item.story[locale].result}</dd></div>
-                      </dl>
-                    ) : (
-                      <p>{item.summary[locale]}</p>
-                    )}
-                    <p class="meta-line">{t.benefits}</p>
-                    <ul>
-                      {item.benefits[locale].map((benefit) => <li>{benefit}</li>)}
-                    </ul>
-                    <a class="btn ghost" href={item.group === 'solution' ? contactPath(locale, 'demo', item.id) : contactPath(locale, 'project')}>{cta.label}</a>
-                  </article>
-                );
-              })}
-            </div>
+            {block.source === 'platforms' ? (
+              <div class="work-grid platforms-grid">
+                {workItems
+                  .filter((item) => item.visible && item.group === 'case')
+                  .sort((a, b) => a.order - b.order)
+                  .map((item) => {
+                    if (item.id === 'iaps' || item.id === 'cssforever') {
+                      return <PlatformTeaser locale={locale} id={item.id} />;
+                    }
+                    return null;
+                  })}
+              </div>
+            ) : (
+              <div class="work-grid">
+                {visibleWork(block.source === 'cases' ? 'case' : 'solution').map((item) => {
+                  if (item.id === 'iaps' || item.id === 'cssforever') return <WorkCase locale={locale} id={item.id} />;
+                  if (item.id === 'copharia') return <CophariaFeature locale={locale} />;
+                  const cta = item.cta[locale];
+                  return (
+                    <article class="work-card">
+                      <p class="badge">{item.status[locale]}</p>
+                      <h3>{item.title[locale]}</h3>
+                      <p class="meta-line">{t.sector} · {item.sector[locale]}</p>
+                      {item.story ? (
+                        <dl class="story">
+                          <div><dt>{t.storyContext}</dt><dd>{item.story[locale].context}</dd></div>
+                          <div><dt>{t.storyStake}</dt><dd>{item.story[locale].stake}</dd></div>
+                          <div><dt>{t.storyWork}</dt><dd>{item.story[locale].intervention}</dd></div>
+                          <div><dt>{t.storyResult}</dt><dd>{item.story[locale].result}</dd></div>
+                        </dl>
+                      ) : (
+                        <p>{item.summary[locale]}</p>
+                      )}
+                      <p class="meta-line">{t.benefits}</p>
+                      <ul>
+                        {item.benefits[locale].map((benefit) => <li>{benefit}</li>)}
+                      </ul>
+                      <a class="btn ghost" href={item.group === 'solution' ? contactPath(locale, 'demo', item.id) : contactPath(locale, 'project')}>{cta.label}</a>
+                    </article>
+                  );
+                })}
+              </div>
+            )}
           </>
         )}
         {block.type === 'inquiries' && (

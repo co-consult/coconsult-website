@@ -309,7 +309,30 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
 .skill span { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--cyan); }
 .viz { padding: 28px; display: flex; flex-direction: column; gap: 18px; }
 .viz-panel[hidden] { display: none; }
-.viz h3 { font-family: var(--display); font-size: 2.2rem; font-weight: 400; margin: 0; line-height: 1; }
+.viz-panel {
+  display: flex;
+  flex-direction: column;
+}
+.viz h3 { font-family: var(--display); font-size: 2.2rem; font-weight: 400; margin: 0 0 18px; line-height: 1; }
+/* Keep 20–24px between interactive schemas and their actions / results */
+.viz-panel > .pipeline + .result-line,
+.viz-panel > .arch + .result-line,
+.viz-panel > .pipe + .btn,
+.viz-panel > .checks + .cta-row,
+.viz-panel > .bridge + .btn,
+.viz-panel > .matrix + .demo-note {
+  margin-top: 22px;
+}
+.viz-panel > .cta-row {
+  margin-top: 22px;
+}
+.viz-panel > .btn + .result-line,
+.viz-panel > .btn + .demo-note,
+.viz-panel > .cta-row + .result-line,
+.viz-panel > .cta-row + .demo-note,
+.viz-panel > .result-line + .demo-note {
+  margin-top: 16px;
+}
 .pipeline {
   display: grid;
   grid-template-columns: 1.15fr 22px 0.9fr 22px 0.9fr 22px 1fr;
@@ -442,6 +465,12 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
   margin: 0 auto;
 }
 .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.platforms-grid .case-teaser .case-copy .badge { margin: 0 0 8px; }
+.platforms-grid .case-teaser .case-copy p:not(.eyebrow):not(.badge) {
+  color: rgba(18, 32, 51, 0.78);
+  max-width: 42ch;
+}
+.platforms-grid .case-teaser .btn { margin-top: 8px; align-self: flex-start; }
 .case {
   background: white;
   color: var(--paper-ink);
