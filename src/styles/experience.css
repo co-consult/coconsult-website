@@ -266,13 +266,26 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
 .section { padding: 88px 28px; }
 .section-head {
   display: grid;
-  grid-template-columns: 180px 1fr;
+  grid-template-columns: 180px minmax(0, 1fr);
   gap: 24px;
   max-width: var(--max);
   margin: 0 auto 36px;
+  align-items: start;
 }
 .section h2 { font-size: clamp(2.6rem, 4vw, 4.2rem); max-width: 14ch; }
+.section-head .section-copy h2 { max-width: 18ch; }
 .section-head p { margin: 8px 0 0; max-width: 42ch; color: var(--muted); }
+.section-head .section-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.section-head .section-copy > :first-child { margin-top: 0; }
+.section-head .section-copy .lede-soft {
+  margin: 0;
+  max-width: min(62ch, 100%);
+}
 .paper { background: var(--paper); color: var(--paper-ink); }
 .paper .section-head p, .paper .muted { color: var(--paper-muted); }
 .paper .eyebrow { color: #0b6f86; }
@@ -679,6 +692,7 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
   margin: 12px 0 0;
   color: var(--muted);
   font-size: 1.02rem;
+  line-height: 1.55;
 }
 .paper .lede-soft { color: var(--paper-muted); }
 .sectors-note {
@@ -687,6 +701,8 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
   color: var(--muted);
   font-size: 0.98rem;
 }
+.sectors-grid-head { margin-bottom: 28px; }
+.sectors-page .sector-matrix-page { margin-top: 8px; }
 .sector-matrix { max-width: var(--max); margin: 0 auto; }
 .sector-grid {
   display: grid;
@@ -774,6 +790,16 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
 .sector-matrix-home .sector-tile { min-height: 118px; }
 .sector-matrix-page .sector-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 .sector-matrix-page .sector-tile { min-height: 220px; padding: 22px 20px; }
+.sector-matrix-page article.sector-tile { cursor: default; }
+.sector-matrix-page article.sector-tile:hover,
+.sector-matrix-page article.sector-tile:focus-visible {
+  transform: none;
+  border-color: var(--line);
+}
+.sector-matrix-page article.sector-tile.emerging:hover,
+.sector-matrix-page article.sector-tile.emerging:focus-visible {
+  border-color: rgba(142, 243, 255, 0.45);
+}
 .sector-more {
   display: flex;
   flex-wrap: wrap;
@@ -782,7 +808,7 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
   max-width: var(--max);
 }
 .sectors-page .page-hero { padding-bottom: 12px; }
-.container-narrow { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+.sectors-page [data-sectors-entry] .section-head { margin-bottom: 28px; }
 
 @media (max-width: 1024px) {
   .sector-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }

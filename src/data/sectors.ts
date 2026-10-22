@@ -156,8 +156,8 @@ export const sectors: SectorItem[] = [
       en: 'Healthcare and pharmaceuticals',
     },
     summary: {
-      fr: 'Domaine émergent pour Coconsult, porté notamment par COPHARIA, ERP pharmaceutique en développement.',
-      en: 'An emerging domain for Coconsult, notably through COPHARIA, a pharmaceutical ERP in development.',
+      fr: 'Un domaine en construction, porté notamment par COPHARIA, ERP pharmaceutique en développement.',
+      en: 'A domain being built out, notably through COPHARIA, a pharmaceutical ERP in development.',
     },
     angles: {
       fr: ['Développement logiciel', 'Produit'],

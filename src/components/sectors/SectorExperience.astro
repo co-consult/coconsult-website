@@ -12,8 +12,12 @@ const t = ui[locale];
 const crumbs = crumbsFor(locale, 'sectors', t.home);
 const fr = locale === 'fr';
 const note = fr
-  ? 'Ces secteurs décrivent des environnements où des consultants Coconsult ont acquis de l’expérience — principalement en développement logiciel, DevOps et QA. Ce ne sont pas des spécialités historiques toutes équivalentes, et la page ne nomme pas les entreprises.'
-  : 'These industries describe environments where Coconsult consultants have built experience — mainly in software engineering, DevOps and QA. They are not all historic specialties of equal weight, and this page does not name companies.';
+  ? 'Des contextes exigeants où l’ingénierie s’exerce surtout en développement logiciel, DevOps et QA — pour fiabiliser, livrer et faire tenir des systèmes métier.'
+  : 'Demanding contexts where engineering is practised mainly in software development, DevOps and QA — to harden, deliver and keep business systems running.';
+const entryTitle = fr ? 'La technique reste le point d’entrée.' : 'Technical expertise stays the entry point.';
+const entryText = fr
+  ? 'IA & Data, développement, QA, Cloud & DevOps, cybersécurité et intégration : ces expertises s’appliquent à vos parcours métier. Les secteurs ci-dessus montrent où elles ont déjà été mises à l’épreuve.'
+  : 'AI & Data, software, QA, Cloud & DevOps, cybersecurity and integration: these expertises apply to your business journeys. The industries above show where they have already been put to work.';
 ---
 <div class="experience sectors-page">
   <header class="page-hero sectors-hero">
@@ -37,22 +41,22 @@ const note = fr
   </header>
 
   <section class="section" aria-labelledby="sectors-grid-title">
-    <div class="section-head container-narrow">
+    <div class="section-head sectors-grid-head">
       <p class="eyebrow">{fr ? 'Cartographie' : 'Map'}</p>
-      <h2 id="sectors-grid-title">{fr ? 'Huit environnements métier.' : 'Eight business environments.'}</h2>
+      <div class="section-copy">
+        <h2 id="sectors-grid-title">{fr ? 'Huit environnements métier.' : 'Eight business environments.'}</h2>
+      </div>
     </div>
     <SectorMatrix locale={locale} variant="page" />
   </section>
 
-  <section class="section paper">
+  <section class="section paper" data-sectors-entry>
     <div class="section-head">
       <p class="eyebrow">{fr ? 'Expertises' : 'Expertise'}</p>
-      <h2>{fr ? 'La technique reste le point d’entrée.' : 'Technical expertise stays the entry point.'}</h2>
-      <p class="lede-soft">
-        {fr
-          ? 'IA & Data, développement, QA, Cloud & DevOps, cybersécurité et intégration : les six expertises techniques ne sont pas remplacées. Les secteurs indiquent où cette ingénierie a déjà été exercée.'
-          : 'AI & Data, software, QA, Cloud & DevOps, cybersecurity and integration: the six technical expertises are not replaced. Industries show where that engineering has already been practised.'}
-      </p>
+      <div class="section-copy">
+        <h2>{entryTitle}</h2>
+        <p class="lede-soft">{entryText}</p>
+      </div>
     </div>
     <p class="sector-more">
       <a class="btn ghost" href={pathFor(locale, 'services')}>{fr ? 'Voir les expertises' : 'See the expertise'}</a>

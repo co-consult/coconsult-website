@@ -5,7 +5,7 @@ import { orderedSectors } from '@/data/sectors';
 
 interface Props {
   locale: Locale;
-  /** home = compact tiles + CTA; page = full grid with summaries */
+  /** home = compact linked tiles + CTA; page = static cards with detail */
   variant?: 'home' | 'page';
 }
 const { locale, variant = 'home' } = Astro.props;
@@ -16,27 +16,43 @@ const isHome = variant === 'home';
 ---
 <div class:list={['sector-matrix', { 'sector-matrix-home': isHome, 'sector-matrix-page': !isHome }]} data-sector-matrix>
   <div class="sector-grid" role="list">
-    {items.map((item) => (
-      <a
-        class:list={['sector-tile', { emerging: item.maturity === 'emerging' }]}
-        id={!isHome ? item.id : undefined}
-        href={`${sectorsHref}#${item.id}`}
-        role="listitem"
-        data-sector={item.id}
-      >
-        <span class="sector-mark">{item.mark[locale]}</span>
-        <strong>{item.title[locale]}</strong>
-        {!isHome && <p>{item.summary[locale]}</p>}
-        {!isHome && (
-          <ul class="sector-angles">
-            {item.angles[locale].map((angle) => <li>{angle}</li>)}
-          </ul>
-        )}
-        {item.maturity === 'emerging' && (
-          <span class="sector-badge">{fr ? 'Domaine émergent' : 'Emerging domain'}</span>
-        )}
-      </a>
-    ))}
+    {items.map((item) => {
+      const inner = (
+        <>
+          <span class="sector-mark">{item.mark[locale]}</span>
+          <strong>{item.title[locale]}</strong>
+          {!isHome && <p>{item.summary[locale]}</p>}
+          {!isHome && (
+            <ul class="sector-angles">
+              {item.angles[locale].map((angle) => <li>{angle}</li>)}
+            </ul>
+          )}
+          {item.maturity === 'emerging' && (
+            <span class="sector-badge">{fr ? 'Domaine émergent' : 'Emerging domain'}</span>
+          )}
+        </>
+      );
+
+      return isHome ? (
+        <a
+          class:list={['sector-tile', { emerging: item.maturity === 'emerging' }]}
+          href={`${sectorsHref}#${item.id}`}
+          role="listitem"
+          data-sector={item.id}
+        >
+          {inner}
+        </a>
+      ) : (
+        <article
+          class:list={['sector-tile', { emerging: item.maturity === 'emerging' }]}
+          id={item.id}
+          role="listitem"
+          data-sector={item.id}
+        >
+          {inner}
+        </article>
+      );
+    })}
   </div>
   {isHome && (
     <p class="sector-more">

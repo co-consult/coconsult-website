@@ -340,11 +340,11 @@ export const pages: Record<RouteKey, PageContent> = {
     eyebrow: 'PAIEMENTS',
     h1: 'Fiabiliser les parcours de paiement et les API qui les portent.',
     intro:
-      'Priorité commerciale de Coconsult : concevoir et intégrer des parcours transactionnels dans des applications existantes — appels à un prestataire, statuts, reprises et supervision — avec une expérience acquise en environnements bancaires et financiers.',
+      'Concevoir et intégrer des parcours transactionnels dans des applications existantes : appels à un prestataire, statuts, reprises et supervision, avec une expérience acquise en environnements bancaires et financiers.',
     blocks: [
       {
         type: 'columns',
-        title: 'Expériences techniques pertinentes',
+        title: 'Ce que nous traitons',
         items: [
           { title: 'Systèmes de paiement', text: 'Parcours de paiement branchés sur des backends déjà en production, sans réécrire tout l’existant.' },
           { title: 'API transactionnelles', text: 'Contrats d’API, références uniques, lecture de statut et enchaînement des étapes métier.' },
@@ -356,7 +356,7 @@ export const pages: Record<RouteKey, PageContent> = {
       },
       {
         type: 'columns',
-        title: 'Problèmes traités au quotidien',
+        title: 'Problèmes clients fréquents',
         items: [
           { title: 'Double débit ou double appel', text: 'Clés d’idempotence et règles de rejeu lorsque la même demande revient.' },
           { title: 'Timeouts ambigus', text: 'Un délai dépassé n’est pas un échec certain. Le parcours doit pouvoir interroger un statut et reprendre proprement.' },
@@ -373,13 +373,6 @@ export const pages: Record<RouteKey, PageContent> = {
           { title: 'Contrôle', text: 'Montant, référence unique, délai maximal et règle si la même demande revient.' },
           { title: 'Prestataire', text: 'Appel d’API, puis lecture du statut : accepté, refusé, en attente ou inconnu.' },
           { title: 'Exploitation', text: 'Journal, alerte et rapprochement avec vos opérations, selon les données que vous pouvez légitimement conserver.' },
-        ],
-      },
-      {
-        type: 'prose',
-        title: 'Ce que cette page ne prétend pas',
-        paragraphs: [
-          'Coconsult n’est pas présentée ici comme propriétaire, partenaire officiel ou concepteur d’un schéma de paiement instantané nommé. Les missions se discutent à partir de votre parcours et de vos contraintes, sans référence nominative non autorisée.',
         ],
       },
       {
@@ -490,7 +483,7 @@ export const pages: Record<RouteKey, PageContent> = {
     eyebrow: 'SECTEURS',
     h1: 'Notre ingénierie au service de vos métiers.',
     intro:
-      'Les six expertises techniques restent le cœur de Coconsult. Les secteurs ci-dessous indiquent les environnements où des consultants ont acquis de l’expérience — sans les présenter tous comme des spécialités historiques équivalentes.',
+      'Finance, mobilité, retail, médias, télécoms, sport, systèmes métier et santé : des contextes où nos consultants ont déjà accompagné des projets d’ingénierie logicielle, de DevOps et de QA.',
     blocks: [],
   },
   solutions: {

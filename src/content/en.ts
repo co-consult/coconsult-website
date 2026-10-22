@@ -291,11 +291,11 @@ export const pages: Record<RouteKey, PageContent> = {
     eyebrow: 'PAYMENTS',
     h1: 'Make payment flows and the APIs behind them dependable.',
     intro:
-      'A commercial priority for Coconsult: design and integrate transaction journeys into existing applications — provider calls, statuses, retries and supervision — with experience gained in banking and financial environments.',
+      'Design and integrate transaction journeys into existing applications: provider calls, statuses, retries and supervision, with experience gained in banking and financial environments.',
     blocks: [
       {
         type: 'columns',
-        title: 'Relevant technical experience',
+        title: 'What we work on',
         items: [
           { title: 'Payment systems', text: 'Payment journeys wired into backends already in production, without rewriting the whole estate.' },
           { title: 'Transactional APIs', text: 'API contracts, unique references, status reads and sequenced business steps.' },
@@ -307,7 +307,7 @@ export const pages: Record<RouteKey, PageContent> = {
       },
       {
         type: 'columns',
-        title: 'Day-to-day problems we work on',
+        title: 'Frequent client problems',
         items: [
           { title: 'Duplicate charges or duplicate calls', text: 'Idempotency keys and replay rules when the same request returns.' },
           { title: 'Ambiguous timeouts', text: 'A timeout is not automatically a failure. The flow has to read a status and continue cleanly.' },
@@ -324,13 +324,6 @@ export const pages: Record<RouteKey, PageContent> = {
           { title: 'Control', text: 'Amount, unique reference, maximum wait and the rule if the same request returns.' },
           { title: 'Provider', text: 'An API call, then a status: accepted, declined, pending or unknown.' },
           { title: 'Operations', text: 'Logs, alerts and reconciliation with your operations, using only data you can legitimately keep.' },
-        ],
-      },
-      {
-        type: 'prose',
-        title: 'What this page does not claim',
-        paragraphs: [
-          'Coconsult is not presented here as the owner, official partner or designer of a named instant-payment scheme. Engagements start from your journey and constraints, without unauthorised named references.',
         ],
       },
       {
@@ -441,7 +434,7 @@ export const pages: Record<RouteKey, PageContent> = {
     eyebrow: 'INDUSTRIES',
     h1: 'Our engineering in the service of your industries.',
     intro:
-      'The six technical expertises remain Coconsult’s core. The industries below show environments where consultants have built experience — without presenting them all as historic specialties of equal weight.',
+      'Finance, mobility, retail, media, telecom, sports, business systems and healthcare: contexts where our consultants have already supported software engineering, DevOps and QA projects.',
     blocks: [],
   },
   solutions: {
