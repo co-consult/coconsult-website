@@ -67,7 +67,7 @@
   };
   const hints = hintNode ? JSON.parse(hintNode.textContent || '{}') : {};
   const state = { need: '', inquiry: 'project', topic: '', reached: 1, mode: 'generic' };
-  const sendState = { available: false, token: '', readyAt: 0, sending: false };
+  const sendState = { available: false, token: '', readyAt: 0, sending: false, done: false };
 
   function apiType() {
     if (isDemoMode() || (state.inquiry === 'demo' && productToken() === 'copharia')) return 'demo';
@@ -352,11 +352,25 @@
     });
   }
 
+  function showOutcome(mode, fallbackText) {
+    const title = panel.querySelector('[data-outcome-title]');
+    const body = panel.querySelector('[data-outcome-body]');
+    const fallback = panel.querySelector('[data-outcome-fallback]');
+    const success = mode === 'success';
+    if (title instanceof HTMLElement) title.hidden = !success;
+    if (body instanceof HTMLElement) body.hidden = !success;
+    if (fallback instanceof HTMLElement) {
+      fallback.hidden = success;
+      if (!success && typeof fallbackText === 'string') fallback.textContent = fallbackText;
+    }
+    setMailActionsVisible(!success);
+    if (outcome) outcome.hidden = false;
+    if (outcomeText instanceof HTMLElement) outcomeText.focus();
+  }
+
   function showMailFallback(text) {
     applyMailLinks();
-    setMailActionsVisible(true);
-    if (outcomeText) outcomeText.textContent = text || panel.dataset.sendError || '';
-    if (outcome) outcome.hidden = false;
+    showOutcome('fallback', text || panel.dataset.sendError || '');
     if (copyFullStatus) copyFullStatus.textContent = '';
     if (copyFallback) copyFallback.hidden = true;
   }
@@ -376,7 +390,7 @@
   }
 
   async function submitSend() {
-    if (sendState.sending) return;
+    if (sendState.sending || sendState.done) return;
     const error = document.getElementById('err-4');
     if (isDemoMode()) {
       if (!validate(3)) {
@@ -416,14 +430,13 @@
       });
       const data = await response.json().catch(() => ({}));
       if (response.ok && data.accepted === true) {
-        const title = panel.dataset.sentTitle || '';
-        const body = panel.dataset.sentBody || '';
-        if (outcomeText) outcomeText.textContent = body ? `${title}\n\n${body}` : title;
-        setMailActionsVisible(false);
-        if (outcome) outcome.hidden = false;
-        if (outcomeText instanceof HTMLElement) outcomeText.focus();
+        sendState.done = true;
+        showOutcome('success');
         if (sendStatus) sendStatus.textContent = '';
-        if (prepare instanceof HTMLButtonElement) prepare.hidden = true;
+        if (prepare instanceof HTMLButtonElement) {
+          prepare.hidden = true;
+          prepare.disabled = true;
+        }
         return;
       }
       const uncertain = response.status === 504 || data.error === 'uncertain';

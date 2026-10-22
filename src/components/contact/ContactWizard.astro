@@ -242,7 +242,11 @@ const copy = fr
         <p id="send-status" role="status"></p>
         <button class="btn primary" type="button" id="prepare">{copy.prepare}</button>
         <div class="outcome" id="outcome" hidden>
-          <p id="outcome-text" tabindex="-1">{copy.outcome}</p>
+          <div id="outcome-text" tabindex="-1">
+            <p class="outcome-title" data-outcome-title hidden>{copy.sentTitle}</p>
+            <p class="outcome-body" data-outcome-body hidden>{copy.sentBody}</p>
+            <p class="outcome-fallback" data-outcome-fallback>{copy.outcome}</p>
+          </div>
           <p class="mail-preview" id="mail-preview"></p>
           <div class="cta-row mail-actions">
             <a class="btn primary" id="open-gmail" href={`https://mail.google.com/mail/?view=cm&fs=1&to=${company.email}`} target="_blank" rel="noopener noreferrer">{copy.gmail}</a>
@@ -275,5 +279,5 @@ const copy = fr
   </div>
   {note && note.type === 'note' && <p class="contact-note">{note.text}</p>}
   <script type="application/json" id="contact-hints" set:html={JSON.stringify(copy.hints)}></script>
-  <script is:inline src="/assets/contact.js" defer></script>
+  <script is:inline src="/assets/contact.js?v=20261022" defer></script>
 </div>

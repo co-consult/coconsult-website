@@ -174,6 +174,20 @@ for (const viewport of viewports) {
   });
 }
 
+function contrastRatio(foreground: string, background: string) {
+  const parse = (value: string) => {
+    const match = value.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+    return match ? [Number(match[1]), Number(match[2]), Number(match[3])] : [0, 0, 0];
+  };
+  const channel = (value: number) => {
+    const scaled = value / 255;
+    return scaled <= 0.03928 ? scaled / 12.92 : ((scaled + 0.055) / 1.055) ** 2.4;
+  };
+  const lum = (rgb: number[]) => 0.2126 * channel(rgb[0]) + 0.7152 * channel(rgb[1]) + 0.0722 * channel(rgb[2]);
+  const [a, b] = [lum(parse(foreground)), lum(parse(background))];
+  return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+}
+
 async function reachSummary(page: Page, message?: string) {
   await page.locator('[data-step="1"] [data-next]').click();
   if (message) await page.locator('#message').fill(message);
@@ -596,9 +610,11 @@ test('v3.3 simulated send covers generic and COPHARIA requests in French and Eng
   await reachSummary(page, 'Nous voulons moderniser une application deja en production.');
   await expect(page.getByRole('button', { name: 'Envoyer ma demande' })).toBeVisible();
   await page.getByRole('button', { name: 'Envoyer ma demande' }).click();
-  await expect(page.locator('#outcome-text')).toContainText('Merci pour votre message !');
-  await expect(page.locator('#outcome-text')).toContainText('transmise à notre service de messagerie');
-  await expect(page.locator('#outcome-text')).not.toContainText('Aucun envoi');
+  await expect(page.locator('[data-outcome-title]')).toBeVisible();
+  await expect(page.locator('[data-outcome-title]')).toHaveText('Merci pour votre message !');
+  await expect(page.locator('[data-outcome-body]')).toBeVisible();
+  await expect(page.locator('[data-outcome-body]')).toContainText('transmise à notre service de messagerie');
+  await expect(page.locator('[data-outcome-fallback]')).toBeHidden();
   await expect(page.locator('#open-gmail')).toBeHidden();
   expect(posts.at(-1)?.url).not.toContain('brevo');
   expect(posts.at(-1)?.body).toContain('"type":"project"');
@@ -611,7 +627,8 @@ test('v3.3 simulated send covers generic and COPHARIA requests in French and Eng
   await reachDemoSummary(page);
   await expect(page.getByRole('button', { name: 'Envoyer ma demande' })).toBeVisible();
   await page.getByRole('button', { name: 'Envoyer ma demande' }).click();
-  await expect(page.locator('#outcome-text')).toContainText('Merci pour votre message !');
+  await expect(page.locator('[data-outcome-title]')).toBeVisible();
+  await expect(page.locator('[data-outcome-title]')).toHaveText('Merci pour votre message !');
   expect(posts.at(-1)?.body).toContain('"type":"demo"');
   expect(posts.at(-1)?.body).toContain('"product":"copharia"');
 
@@ -620,8 +637,10 @@ test('v3.3 simulated send covers generic and COPHARIA requests in French and Eng
   await reachSummary(page, 'We want to connect a model to a process we already run.');
   await expect(page.getByRole('button', { name: 'Send my request' })).toBeVisible();
   await page.getByRole('button', { name: 'Send my request' }).click();
-  await expect(page.locator('#outcome-text')).toContainText('Thank you for your message!');
-  await expect(page.locator('#outcome-text')).toContainText('submitted to our email service');
+  await expect(page.locator('[data-outcome-title]')).toBeVisible();
+  await expect(page.locator('[data-outcome-title]')).toHaveText('Thank you for your message!');
+  await expect(page.locator('[data-outcome-body]')).toBeVisible();
+  await expect(page.locator('[data-outcome-body]')).toContainText('submitted to our email service');
   expect(posts.at(-1)?.body).toContain('"locale":"en"');
   expect(posts.at(-1)?.body).toContain('"type":"ai"');
 
@@ -631,7 +650,8 @@ test('v3.3 simulated send covers generic and COPHARIA requests in French and Eng
   await reachDemoSummary(page, '');
   await expect(page.getByRole('button', { name: 'Send my request' })).toBeVisible();
   await page.getByRole('button', { name: 'Send my request' }).click();
-  await expect(page.locator('#outcome-text')).toContainText('Thank you for your message!');
+  await expect(page.locator('[data-outcome-title]')).toBeVisible();
+  await expect(page.locator('[data-outcome-title]')).toHaveText('Thank you for your message!');
   expect(posts.at(-1)?.body).toContain('"product":"copharia"');
 });
 
@@ -658,7 +678,9 @@ test('v3.3 a failed send keeps the message and restores the mail fallback', asyn
   await reachSummary(page, text);
   await expect(page.getByRole('button', { name: 'Envoyer ma demande' })).toBeVisible();
   await page.getByRole('button', { name: 'Envoyer ma demande' }).click();
-  await expect(page.locator('#outcome-text')).toContainText('Vos informations sont conservées');
+  await expect(page.locator('[data-outcome-fallback]')).toBeVisible();
+  await expect(page.locator('[data-outcome-fallback]')).toContainText('Vos informations sont conservées');
+  await expect(page.locator('[data-outcome-title]')).toBeHidden();
   await expect(page.locator('#err-4')).toHaveText('');
   await expect(page.locator('#message')).toHaveValue(text);
   await expect(page.locator('#open-gmail')).toBeVisible();
@@ -688,8 +710,9 @@ test('v3.3 an uncertain Brevo timeout says the request may already exist', async
   await page.goto('/contact/?type=project');
   await reachSummary(page, 'Nous voulons signaler un envoi dont le resultat est incertain.');
   await page.getByRole('button', { name: 'Envoyer ma demande' }).click();
-  await expect(page.locator('#outcome-text')).toContainText('peut-être été reçue');
-  await expect(page.locator('#outcome-text')).toContainText('pourrait créer un doublon');
+  await expect(page.locator('[data-outcome-fallback]')).toContainText('peut-être été reçue');
+  await expect(page.locator('[data-outcome-fallback]')).toContainText('pourrait créer un doublon');
+  await expect(page.locator('[data-outcome-title]')).toBeHidden();
   await expect(page.locator('#err-4')).toHaveText('');
   await expect(page.locator('#message')).toHaveValue(/incertain/);
 });
@@ -729,7 +752,7 @@ test('confirmation stays hidden until the service accepts the enquiry', async ({
   await page.goto('/contact/?type=project');
   await reachSummary(page, 'Cette reponse ok ne doit pas afficher de remerciement.');
   await page.getByRole('button', { name: 'Envoyer ma demande' }).click();
-  await expect(page.locator('#outcome-text')).not.toContainText('Merci pour votre message');
+  await expect(page.locator('[data-outcome-title]')).toBeHidden();
   await expect(page.locator('#open-gmail')).toBeVisible();
   await expect(page.locator('#message')).toHaveValue(/remerciement/);
   expect(posts).toBe(1);
@@ -766,8 +789,121 @@ test('a second click does not send the enquiry twice', async ({ page }) => {
   await send.click({ force: true }).catch(() => {});
   expect(posts).toBe(1);
   release();
-  await expect(page.locator('#outcome-text')).toContainText('Merci pour votre message !');
+  await expect(page.locator('[data-outcome-title]')).toBeVisible();
+  await expect(page.locator('[data-outcome-title]')).toHaveText('Merci pour votre message !');
   expect(posts).toBe(1);
+});
+
+test('QA campaign dots stay clear of the labels', async ({ page }) => {
+  test.setTimeout(90000);
+  const cases = [
+    ['/', ['Parcours nominal', 'API commande', 'Non-régression', "Cas d'erreur"]],
+    ['/en/', ['Happy path', 'Order API', 'Regression', 'Error case']],
+  ] as const;
+  for (const [path, labels] of cases) {
+    for (const width of [1440, 1024, 768, 375, 320]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(path);
+      await page.locator('#tab-qa').click();
+      const checks = page.locator('#checks .check');
+      await expect(checks).toHaveCount(4);
+      const measured = await checks.evaluateAll((nodes) => nodes.map((node) => {
+        const box = node.getBoundingClientRect();
+        const dot = getComputedStyle(node, '::before');
+        const padding = parseFloat(getComputedStyle(node).paddingLeft);
+        const left = parseFloat(dot.left);
+        const dotWidth = parseFloat(dot.width);
+        const top = parseFloat(dot.top);
+        const dotHeight = parseFloat(dot.height);
+        const parts = dot.transform.startsWith('matrix(')
+          ? dot.transform.slice(7, -1).split(',').map((part) => parseFloat(part))
+          : [];
+        const shift = parts[5] || 0;
+        return {
+          gap: padding - (left + dotWidth),
+          centerDelta: Math.abs(top + dotHeight / 2 + shift - box.height / 2),
+          text: (node.textContent || '').trim(),
+        };
+      }));
+      expect(measured.map((item) => item.text)).toEqual([...labels]);
+      for (const item of measured) {
+        expect(item.gap, `${path} ${width} ${item.text}`).toBeGreaterThanOrEqual(12);
+        expect(item.centerDelta, `${path} ${width} ${item.text}`).toBeLessThanOrEqual(2);
+      }
+      const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+      expect(overflow, `${path} ${width}`).toBeLessThanOrEqual(1);
+    }
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.locator('#run-qa').click();
+    const colors = await page.locator('#checks .check').evaluateAll((nodes) => nodes.map((node) => ({
+      ok: node.classList.contains('is-ok'),
+      fail: node.classList.contains('is-fail'),
+      color: getComputedStyle(node, '::before').backgroundColor,
+    })));
+    expect(colors.filter((item) => item.ok).length).toBe(3);
+    expect(colors.find((item) => item.fail)?.color).toBe('rgb(255, 177, 90)');
+    expect(colors.find((item) => item.ok)?.color).toBe('rgb(142, 240, 194)');
+  }
+});
+
+test('the accepted confirmation is visible in French and English', async ({ page }) => {
+  await page.route('**/api/contact', async (route) => {
+    if (route.request().method() === 'GET') {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ ok: true, available: true, token: 'f'.repeat(32) }),
+      });
+      return;
+    }
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ ok: true, accepted: true }),
+    });
+  });
+  for (const [path, title, body] of [
+    ['/contact/?type=project', 'Merci pour votre message !', 'transmise à notre service de messagerie'],
+    ['/en/contact/?type=project', 'Thank you for your message!', 'submitted to our email service'],
+  ] as const) {
+    await page.setViewportSize({ width: path.startsWith('/en') ? 390 : 1440, height: 900 });
+    await page.goto(path);
+    await reachSummary(page, path.startsWith('/en')
+      ? 'We want to evolve an application that is already running.'
+      : 'Nous voulons moderniser une application deja en production.');
+    await page.getByRole('button', { name: path.startsWith('/en') ? 'Send my request' : 'Envoyer ma demande' }).click();
+    const heading = page.locator('[data-outcome-title]');
+    const copy = page.locator('[data-outcome-body]');
+    await expect(heading).toBeVisible();
+    await expect(heading).toHaveText(title);
+    await expect(copy).toBeVisible();
+    await expect(copy).toContainText(body);
+    await expect(page.locator('[data-outcome-fallback]')).toBeHidden();
+    await expect(page.getByRole('button', { name: path.startsWith('/en') ? 'Send my request' : 'Envoyer ma demande' })).toBeHidden();
+    const paint = await heading.evaluate((node) => {
+      const color = getComputedStyle(node).color;
+      const opacity = getComputedStyle(node).opacity;
+      const display = getComputedStyle(node).display;
+      let host: Element | null = node;
+      let background = 'rgba(0, 0, 0, 0)';
+      while (host) {
+        const value = getComputedStyle(host).backgroundColor;
+        if (value && value !== 'rgba(0, 0, 0, 0)') {
+          background = value;
+          break;
+        }
+        host = host.parentElement;
+      }
+      const box = document.getElementById('outcome-text')?.getBoundingClientRect();
+      const frame = document.getElementById('outcome')?.getBoundingClientRect();
+      return { color, background, opacity, display, height: box?.height || 0, frame: frame?.height || 0 };
+    });
+    expect(paint.display).not.toBe('none');
+    expect(paint.opacity).toBe('1');
+    expect(paint.height).toBeGreaterThan(10);
+    expect(paint.frame - paint.height).toBeLessThanOrEqual(40);
+    expect(contrastRatio(paint.color, paint.background)).toBeGreaterThanOrEqual(4.5);
+  }
 });
 
 test('the rights matrix and the two project cards line up in French and English', async ({ page }) => {
