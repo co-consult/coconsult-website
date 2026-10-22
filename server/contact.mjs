@@ -36,31 +36,6 @@ const SUBJECTS = {
   },
 };
 
-const CONSUMER_DOMAINS = new Set([
-  'gmail.com',
-  'googlemail.com',
-  'yahoo.com',
-  'yahoo.fr',
-  'hotmail.com',
-  'hotmail.fr',
-  'outlook.com',
-  'outlook.fr',
-  'live.com',
-  'live.fr',
-  'icloud.com',
-  'me.com',
-  'proton.me',
-  'protonmail.com',
-  'gmx.com',
-  'gmx.fr',
-  'aol.com',
-  'free.fr',
-  'orange.fr',
-  'wanadoo.fr',
-  'laposte.net',
-  'sfr.fr',
-]);
-
 const WINDOW_MS = 10 * 60 * 1000;
 const MAX_POSTS = 5;
 const MAX_ISSUES = 10;
@@ -96,10 +71,7 @@ function textField(value, max, { required = false, message = false } = {}) {
 }
 
 function emailOk(value) {
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return false;
-  const domain = value.slice(value.lastIndexOf('@') + 1).toLowerCase();
-  if (CONSUMER_DOMAINS.has(domain)) return false;
-  return true;
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
 function canonicalType(value) {

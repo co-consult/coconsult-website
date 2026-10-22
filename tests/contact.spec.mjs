@@ -1,5 +1,8 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { execFileSync, spawnSync } from 'node:child_process';
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { handleContact, handleHealth, resetContactLimits, resolveClientIp, sendReady } from '../server/contact.mjs';
 
 function post(body, headers = {}) {
@@ -149,6 +152,14 @@ resetContactLimits();
 const demoEmpty = await send({ ...valid, type: 'demo', product: 'copharia', message: '' }, 'demo-empty', 50_000);
 assert.equal(demoEmpty.status, 200);
 
+resetContactLimits();
+for (const email of ['ada@gmail.com', 'ada@outlook.com', 'ada@orange.fr']) {
+  calls.length = 0;
+  const accepted = await send({ ...valid, email }, `public-${email}`, 55_000);
+  assert.equal(accepted.status, 200, email);
+  assert.equal(JSON.parse(calls[0].init.body).replyTo.email, email);
+}
+
 const rejected = [];
 async function expectInvalid(body, ip) {
   resetContactLimits();
@@ -161,8 +172,8 @@ async function expectInvalid(body, ip) {
 }
 await expectInvalid({ ...valid, name: 'A' }, 'short-name');
 await expectInvalid({ ...valid, name: 12 }, 'name-type');
-await expectInvalid({ ...valid, email: 'ada@gmail.com' }, 'gmail');
 await expectInvalid({ ...valid, email: 'not-an-email' }, 'email');
+await expectInvalid({ ...valid, email: `${'a'.repeat(151)}@gmail.com` }, 'email-length');
 await expectInvalid({ ...valid, email: ['ada@analytical.example'] }, 'email-type');
 await expectInvalid({ ...valid, company: { name: 'Analytical' } }, 'company-type');
 await expectInvalid({ ...valid, type: 'newsletter' }, 'unknown-type');
@@ -388,5 +399,85 @@ assert.equal(nginx.includes('coconsult-contact'), false);
 assert.equal(compose.includes('coconsult-contact'), false);
 assert.equal(compose.includes('3601:8080'), true);
 assert.equal(compose.includes('"8080:8080"'), false);
+
+const activation = readFileSync(new URL('../docs/CONTACT_ACTIVATION.md', import.meta.url), 'utf8');
+const rollback = activation.slice(activation.indexOf('## Rollback'));
+assert.equal(rollback.includes('-f compose.yaml -f compose.proxy.yaml -f compose.contact.yaml stop coconsult-contact'), true);
+assert.equal(rollback.includes('-f compose.yaml -f compose.proxy.yaml -f compose.contact.yaml rm -f coconsult-contact'), true);
+assert.equal(rollback.includes('-f compose.yaml -f compose.proxy.yaml -f compose.contact.yaml up -d --build --no-deps coconsult-web'), true);
+assert.equal(rollback.includes('docker compose -p coconsult -f compose.contact.yaml stop'), false);
+assert.equal(rollback.includes('docker compose -p coconsult -f compose.contact.yaml rm -f'), false);
+
+function dockerAvailable() {
+  try {
+    execFileSync('docker', ['info'], { stdio: 'ignore' });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+if (dockerAvailable()) {
+  const proxyDir = mkdtempSync(join(tmpdir(), 'coconsult-proxy-'));
+  const proxyFile = join(proxyDir, 'compose.proxy.yaml');
+  writeFileSync(proxyFile, [
+    'services:',
+    '  coconsult-web:',
+    '    networks:',
+    '      - proxy-network',
+    'networks:',
+    '  proxy-network:',
+    '    external: true',
+    '',
+  ].join('\n'));
+  const files = ['-f', 'compose.yaml', '-f', proxyFile, '-f', 'compose.contact.yaml'];
+  const config = execFileSync('docker', ['compose', '-p', 'coconsult-rollback-check', ...files, 'config'], { encoding: 'utf8' });
+  assert.equal(config.includes('coconsult-web'), true);
+  assert.equal(config.includes('coconsult-contact'), true);
+  assert.equal(config.includes('coconsult-egress'), true);
+  assert.equal(config.includes('host_ip: 127.0.0.1'), true);
+  assert.equal(config.includes('published: "3601"'), true);
+  assert.equal(config.includes('target: 8080'), true);
+  assert.equal(config.includes('172.30.22.0/24'), false);
+  const configJson = JSON.parse(execFileSync('docker', ['compose', '-p', 'coconsult-rollback-check', ...files, 'config', '--format', 'json'], { encoding: 'utf8' }));
+  assert.deepEqual(Object.keys(configJson.services['coconsult-web'].networks).sort(), ['coconsult-contact', 'default', 'proxy-network']);
+  assert.deepEqual(Object.keys(configJson.services['coconsult-contact'].networks).sort(), ['coconsult-contact', 'coconsult-egress']);
+  assert.equal(configJson.networks['coconsult-contact'].internal, true);
+  assert.notEqual(configJson.networks['coconsult-egress'].internal, true);
+  assert.equal(configJson.networks['coconsult-contact'].ipam.config[0].subnet, '10.230.22.0/24');
+  assert.equal(configJson.services['coconsult-contact'].networks['coconsult-contact'].ipv4_address, '10.230.22.10');
+  assert.equal(configJson.services['coconsult-contact'].ports, undefined);
+  assert.equal(configJson.services['coconsult-contact'].environment.CONTACT_BIND, '10.230.22.10');
+  assert.equal(String(configJson.services['coconsult-contact'].environment.CONTACT_SEND_ENABLED), 'false');
+  let overlayAlone = 0;
+  try {
+    execFileSync('docker', ['compose', '-f', 'compose.contact.yaml', 'config'], { stdio: 'ignore' });
+  } catch {
+    overlayAlone = 1;
+  }
+  assert.equal(overlayAlone, 1);
+  let createdNetwork = false;
+  try {
+    execFileSync('docker', ['network', 'inspect', 'proxy-network'], { stdio: 'ignore' });
+  } catch {
+    execFileSync('docker', ['network', 'create', 'proxy-network'], { stdio: 'ignore' });
+    createdNetwork = true;
+  }
+  try {
+    const base = ['compose', '-p', 'coconsult-rollback-check', ...files];
+    execFileSync('docker', [...base, 'stop', 'coconsult-contact'], { stdio: 'ignore' });
+    execFileSync('docker', [...base, 'rm', '-f', 'coconsult-contact'], { stdio: 'ignore' });
+    const dry = spawnSync('docker', [...base, 'up', '--dry-run', '--no-deps', 'coconsult-web'], { encoding: 'utf8' });
+    assert.equal(dry.status, 0);
+    const output = `${dry.stdout}\n${dry.stderr}`;
+    assert.equal(output.includes('Container coconsult-web'), true);
+    assert.equal(output.includes('Container coconsult-contact'), false);
+  } finally {
+    if (createdNetwork) execFileSync('docker', ['network', 'rm', 'proxy-network'], { stdio: 'ignore' });
+    rmSync(proxyDir, { recursive: true, force: true });
+  }
+} else {
+  console.log('SKIP compose rollback config: docker is not available');
+}
 
 console.log('Contact API checks passed');

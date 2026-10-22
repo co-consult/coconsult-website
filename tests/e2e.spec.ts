@@ -50,14 +50,14 @@ const viewports = [
   { width: 1440, height: 900 },
 ];
 
-test('localized pages respond and expose one heading', async ({ page }) => {
-  for (const urlPath of paths) {
+for (const urlPath of paths) {
+  test(`localized page ${urlPath} responds and exposes one heading`, async ({ page }) => {
     const response = await page.goto(urlPath);
     expect(response?.status(), urlPath).toBe(200);
     await expect(page.locator('h1')).toHaveCount(1);
     await expect(page.locator('img[alt="Coconsult"]')).toHaveCount(2);
-  }
-});
+  });
+}
 
 test('language switch keeps the equivalent page', async ({ page }) => {
   await page.goto('/services/qa-testing/');
@@ -664,6 +664,30 @@ test('v3.3 a failed send keeps the message and restores the mail fallback', asyn
   expect(posts).toBe(1);
   await page.getByRole('button', { name: 'Envoyer ma demande' }).click();
   await expect.poll(() => posts).toBe(2);
+});
+
+test('v3.3 an uncertain Brevo timeout says the request may already exist', async ({ page }) => {
+  await page.route('**/api/contact', async (route) => {
+    if (route.request().method() === 'GET') {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ ok: true, available: true, token: 'c'.repeat(32) }),
+      });
+      return;
+    }
+    await route.fulfill({
+      status: 504,
+      contentType: 'application/json',
+      body: JSON.stringify({ ok: false, error: 'uncertain' }),
+    });
+  });
+  await page.goto('/contact/?type=project');
+  await reachSummary(page, 'Nous voulons signaler un envoi dont le resultat est incertain.');
+  await page.getByRole('button', { name: 'Envoyer ma demande' }).click();
+  await expect(page.locator('#err-4')).toContainText('peut-être été reçue');
+  await expect(page.locator('#err-4')).toContainText('pourrait créer un doublon');
+  await expect(page.locator('#message')).toHaveValue(/incertain/);
 });
 
 test('v3.3 screenshots for contact desktop and mobile', async ({ page }) => {

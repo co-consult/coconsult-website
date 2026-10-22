@@ -2,6 +2,13 @@
 # until docs/CONTACT_ACTIVATION.md has been accepted.
 # No host port is published. Jenkins keeps public 8080.
 # coconsult-web stays on 127.0.0.1:3601 via compose.yaml.
+#
+# Two networks, and only those:
+# - coconsult-contact is internal. coconsult-web is the only other member.
+#   The process binds 10.230.22.10, so this is the only interface that accepts HTTP.
+# - coconsult-egress is the HTTPS path to api.brevo.com. It is not internal,
+#   it publishes no host port, and it is not proxy-network. No other service joins it.
+#   enable_icc is off, so a container placed here by mistake cannot talk to Contact.
 services:
   coconsult-contact:
     build:
@@ -21,10 +28,10 @@ services:
     tmpfs:
       - /tmp:rw,noexec,nosuid,size=16m
     environment:
-      CONTACT_BIND: 0.0.0.0
+      CONTACT_BIND: 10.230.22.10
       CONTACT_PORT: "3602"
       CONTACT_SEND_ENABLED: "false"
-      CONTACT_TRUST_CIDRS: 172.30.22.0/24
+      CONTACT_TRUST_CIDRS: 10.230.22.0/24
       CONTACT_ORIGINS: https://coconsult.fr,https://www.coconsult.fr
     env_file:
       - path: ./contact.env
@@ -32,9 +39,11 @@ services:
     expose:
       - "3602"
     networks:
-      - coconsult-contact
+      coconsult-contact:
+        ipv4_address: 10.230.22.10
+      coconsult-egress: {}
     healthcheck:
-      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3602/healthz').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      test: ["CMD", "node", "-e", "fetch('http://10.230.22.10:3602/healthz').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
       interval: 30s
       timeout: 5s
       retries: 3
@@ -50,4 +59,8 @@ networks:
     internal: true
     ipam:
       config:
-        - subnet: 172.30.22.0/24
+        - subnet: 10.230.22.0/24
+  coconsult-egress:
+    internal: false
+    driver_opts:
+      com.docker.network.bridge.enable_icc: "false"
