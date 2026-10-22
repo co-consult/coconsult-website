@@ -19,7 +19,7 @@ assert.match(
 assert.match(dockerfile, /USER\s+65534:65534/);
 assert.equal(composeContact.includes('user: "65534:65534"'), true);
 assert.equal(composeContact.includes('ports:'), false);
-assert.equal(composeContact.includes('CONTACT_SEND_ENABLED: "false"'), true);
+assert.equal(/CONTACT_SEND_ENABLED\s*:/.test(composeContact), false);
 assert.equal(composeContact.includes('10.230.22.10'), true);
 
 const ignoreLines = new Set(

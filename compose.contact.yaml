@@ -1,6 +1,9 @@
 # Overlay used with compose.yaml + compose.proxy.yaml for the Nginx → Contact path
-# (docs/CONTACT_NGINX_INTEGRATION.md). CONTACT_SEND_ENABLED stays false until
-# docs/CONTACT_ACTIVATION.md is accepted for real Brevo delivery.
+# (docs/CONTACT_NGINX_INTEGRATION.md).
+# CONTACT_SEND_ENABLED is not set here. Docker Compose `environment` overrides
+# `env_file`, so a value in this file would ignore contact.env on the VPS.
+# The switch lives only in contact.env, outside Git. Absent or anything other
+# than the exact string true keeps sending off (CI, tests, rollback).
 # No host port is published. Jenkins keeps public 8080.
 # coconsult-web stays on 127.0.0.1:3601 via compose.yaml.
 #
@@ -31,7 +34,6 @@ services:
     environment:
       CONTACT_BIND: 10.230.22.10
       CONTACT_PORT: "3602"
-      CONTACT_SEND_ENABLED: "false"
       CONTACT_TRUST_CIDRS: 10.230.22.0/24
       CONTACT_ORIGINS: https://coconsult.fr,https://www.coconsult.fr
     env_file:

@@ -1,8 +1,8 @@
 # Projet de notice — formulaire de contact
 
-Ce texte n’est pas publié. Il ne remplace pas `/confidentialite/` ni `/en/privacy-policy/`. Les pages en ligne décrivent le site actuel : pas de formulaire, le message part par le logiciel de messagerie du visiteur. Les modifier maintenant rendrait la notice fausse tant que l’envoi n’est pas activé.
+Les pages `/confidentialite/` et `/en/privacy-policy/` décrivent maintenant le formulaire lorsqu’il transmet une demande, et nomment Brevo comme prestataire d’acheminement. Ce projet reste un aide-mémoire. Il ne remplace pas ces pages et ne conclut pas à la conformité RGPD.
 
-Ce projet ne conclut pas à la conformité RGPD. Les tests techniques ne valident ni la base juridique, ni le contrat Brevo, ni la durée de conservation.
+Les tests techniques ne valident ni la base juridique, ni le contrat Brevo, ni la durée de conservation. Les points encore ouverts sont : la confirmation par un conseil de la base juridique publiée, une durée de conservation chiffrée (aucune n’est publiée), le contrat de sous-traitance Brevo et le lieu de traitement, le prestataire qui héberge la boîte `contact@coconsult.fr`, et les garanties du transfert de prospection vers Sfax.
 
 Le NO-GO actuel sur la prospection partagée entre la France et la Tunisie reste entier. Les demandes reçues par ce formulaire ne sont pas transférées à Coconsult Nearshore par défaut. Aucun accès depuis la Tunisie et aucune synchronisation avec un CRM partagé ne sont prévus sans validation spécifique.
 

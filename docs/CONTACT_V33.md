@@ -1,3 +1,5 @@
+> État antérieur. L’interrupteur actuel est `CONTACT_SEND_ENABLED` dans `contact.env`, hors Git. Voir `docs/CONTACT_ACTIVATION.md`.
+
 # Diagnostic de la version présente sur main avant cette PR
 
 Le formulaire V3.2 prépare un mailto. `server/contact.mjs` existe, mais Nginx ne le proxifie pas et le conteneur web est seul dans `compose.yaml`. La politique de confidentialité dit que le site ne reçoit pas le message. Cette phrase est exacte aujourd’hui.

@@ -452,7 +452,7 @@ if (dockerAvailable()) {
   assert.equal(configJson.services['coconsult-contact'].networks['coconsult-contact'].ipv4_address, '10.230.22.10');
   assert.equal(configJson.services['coconsult-contact'].ports, undefined);
   assert.equal(configJson.services['coconsult-contact'].environment.CONTACT_BIND, '10.230.22.10');
-  assert.equal(String(configJson.services['coconsult-contact'].environment.CONTACT_SEND_ENABLED), 'false');
+  assert.notEqual(String(configJson.services['coconsult-contact'].environment.CONTACT_SEND_ENABLED || ''), 'true');
   let overlayAlone = 0;
   try {
     execFileSync('docker', ['compose', '-f', 'compose.contact.yaml', 'config'], { stdio: 'ignore' });

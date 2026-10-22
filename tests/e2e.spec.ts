@@ -373,7 +373,7 @@ test('the contact page stays usable on a phone', async ({ page }) => {
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(1);
   await expect(page.locator('h1')).toContainText('Parlons de votre prochain système.');
-  await expect(page.locator('.prepare-note')).toContainText("ne l’envoie pas");
+  await expect(page.locator('.prepare-note')).toContainText('une fois la demande acceptée');
   await page.locator('[data-need="team"]').click();
   await page.locator('[data-step="1"] [data-next]').click();
   await expect(page.locator('#message')).toBeVisible();
@@ -596,7 +596,8 @@ test('v3.3 simulated send covers generic and COPHARIA requests in French and Eng
   await reachSummary(page, 'Nous voulons moderniser une application deja en production.');
   await expect(page.getByRole('button', { name: 'Envoyer ma demande' })).toBeVisible();
   await page.getByRole('button', { name: 'Envoyer ma demande' }).click();
-  await expect(page.locator('#outcome-text')).toContainText('acceptée pour transmission');
+  await expect(page.locator('#outcome-text')).toContainText('Merci pour votre message !');
+  await expect(page.locator('#outcome-text')).toContainText('transmise à notre service de messagerie');
   await expect(page.locator('#outcome-text')).not.toContainText('Aucun envoi');
   await expect(page.locator('#open-gmail')).toBeHidden();
   expect(posts.at(-1)?.url).not.toContain('brevo');
@@ -610,7 +611,7 @@ test('v3.3 simulated send covers generic and COPHARIA requests in French and Eng
   await reachDemoSummary(page);
   await expect(page.getByRole('button', { name: 'Envoyer ma demande' })).toBeVisible();
   await page.getByRole('button', { name: 'Envoyer ma demande' }).click();
-  await expect(page.locator('#outcome-text')).toContainText('acceptée pour transmission');
+  await expect(page.locator('#outcome-text')).toContainText('Merci pour votre message !');
   expect(posts.at(-1)?.body).toContain('"type":"demo"');
   expect(posts.at(-1)?.body).toContain('"product":"copharia"');
 
@@ -619,7 +620,8 @@ test('v3.3 simulated send covers generic and COPHARIA requests in French and Eng
   await reachSummary(page, 'We want to connect a model to a process we already run.');
   await expect(page.getByRole('button', { name: 'Send my request' })).toBeVisible();
   await page.getByRole('button', { name: 'Send my request' }).click();
-  await expect(page.locator('#outcome-text')).toContainText('accepted for transmission');
+  await expect(page.locator('#outcome-text')).toContainText('Thank you for your message!');
+  await expect(page.locator('#outcome-text')).toContainText('submitted to our email service');
   expect(posts.at(-1)?.body).toContain('"locale":"en"');
   expect(posts.at(-1)?.body).toContain('"type":"ai"');
 
@@ -629,7 +631,7 @@ test('v3.3 simulated send covers generic and COPHARIA requests in French and Eng
   await reachDemoSummary(page, '');
   await expect(page.getByRole('button', { name: 'Send my request' })).toBeVisible();
   await page.getByRole('button', { name: 'Send my request' }).click();
-  await expect(page.locator('#outcome-text')).toContainText('accepted for transmission');
+  await expect(page.locator('#outcome-text')).toContainText('Thank you for your message!');
   expect(posts.at(-1)?.body).toContain('"product":"copharia"');
 });
 
@@ -656,7 +658,8 @@ test('v3.3 a failed send keeps the message and restores the mail fallback', asyn
   await reachSummary(page, text);
   await expect(page.getByRole('button', { name: 'Envoyer ma demande' })).toBeVisible();
   await page.getByRole('button', { name: 'Envoyer ma demande' }).click();
-  await expect(page.locator('#err-4')).toContainText('Vos informations sont conservées');
+  await expect(page.locator('#outcome-text')).toContainText('Vos informations sont conservées');
+  await expect(page.locator('#err-4')).toHaveText('');
   await expect(page.locator('#message')).toHaveValue(text);
   await expect(page.locator('#open-gmail')).toBeVisible();
   await expect(page.locator('#open-gmail')).toHaveAttribute('href', /TOKEN-KEEP/);
@@ -685,8 +688,9 @@ test('v3.3 an uncertain Brevo timeout says the request may already exist', async
   await page.goto('/contact/?type=project');
   await reachSummary(page, 'Nous voulons signaler un envoi dont le resultat est incertain.');
   await page.getByRole('button', { name: 'Envoyer ma demande' }).click();
-  await expect(page.locator('#err-4')).toContainText('peut-être été reçue');
-  await expect(page.locator('#err-4')).toContainText('pourrait créer un doublon');
+  await expect(page.locator('#outcome-text')).toContainText('peut-être été reçue');
+  await expect(page.locator('#outcome-text')).toContainText('pourrait créer un doublon');
+  await expect(page.locator('#err-4')).toHaveText('');
   await expect(page.locator('#message')).toHaveValue(/incertain/);
 });
 
@@ -702,6 +706,141 @@ test('v3.3 screenshots for contact desktop and mobile', async ({ page }) => {
   await page.screenshot({ path: `${dir}/03-contact-390.png`, fullPage: true });
   await page.goto('/en/contact/?type=demo&product=copharia');
   await page.screenshot({ path: `${dir}/04-copharia-en-390.png`, fullPage: true });
+});
+
+test('confirmation stays hidden until the service accepts the enquiry', async ({ page }) => {
+  let posts = 0;
+  await page.route('**/api/contact', async (route) => {
+    if (route.request().method() === 'GET') {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ ok: true, available: true, token: 'd'.repeat(32) }),
+      });
+      return;
+    }
+    posts += 1;
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ ok: true }),
+    });
+  });
+  await page.goto('/contact/?type=project');
+  await reachSummary(page, 'Cette reponse ok ne doit pas afficher de remerciement.');
+  await page.getByRole('button', { name: 'Envoyer ma demande' }).click();
+  await expect(page.locator('#outcome-text')).not.toContainText('Merci pour votre message');
+  await expect(page.locator('#open-gmail')).toBeVisible();
+  await expect(page.locator('#message')).toHaveValue(/remerciement/);
+  expect(posts).toBe(1);
+});
+
+test('a second click does not send the enquiry twice', async ({ page }) => {
+  let posts = 0;
+  let release: () => void = () => {};
+  const gate = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  await page.route('**/api/contact', async (route) => {
+    if (route.request().method() === 'GET') {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ ok: true, available: true, token: 'e'.repeat(32) }),
+      });
+      return;
+    }
+    posts += 1;
+    await gate;
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ ok: true, accepted: true }),
+    });
+  });
+  await page.goto('/contact/?type=project');
+  await reachSummary(page, 'Un seul envoi doit partir meme si le bouton est presse deux fois.');
+  const send = page.getByRole('button', { name: 'Envoyer ma demande' });
+  await send.click();
+  await expect.poll(() => posts).toBe(1);
+  await send.click({ force: true }).catch(() => {});
+  expect(posts).toBe(1);
+  release();
+  await expect(page.locator('#outcome-text')).toContainText('Merci pour votre message !');
+  expect(posts).toBe(1);
+});
+
+test('the rights matrix and the two project cards line up in French and English', async ({ page }) => {
+  test.setTimeout(120000);
+  for (const [path, view] of [['/', 'Visible'], ['/en/', 'Visible']] as const) {
+    for (const width of [1440, 1024, 768, 375, 320]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(path);
+      const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+      expect(overflow, `${path} ${width}`).toBeLessThanOrEqual(1);
+      await page.locator('#tab-cyber').click();
+      await expect(page.locator('#panel-cyber')).toBeVisible();
+      const roles = await page.locator('#roles .role').evaluateAll((nodes) => nodes.map((node) => node.getBoundingClientRect().toJSON()));
+      expect(roles[1].top).toBeGreaterThanOrEqual(roles[0].bottom - 1);
+      expect(roles[2].top).toBeGreaterThanOrEqual(roles[1].bottom - 1);
+      expect(roles[0].left).toBeLessThanOrEqual(roles[1].left + 1);
+      const cells = await page.locator('#matrix > div').evaluateAll((nodes) => nodes.map((node) => {
+        const box = node.getBoundingClientRect();
+        return { x: Math.round(box.x), y: Math.round(box.y), h: Math.round(box.height), t: (node.textContent || '').trim() };
+      }));
+      expect(cells).toHaveLength(8);
+      for (let index = 0; index < 4; index += 1) {
+        expect(Math.abs(cells[index].x - cells[index + 4].x)).toBeLessThanOrEqual(1);
+        expect(Math.abs(cells[index].h - cells[4].h)).toBeLessThanOrEqual(2);
+      }
+      expect(cells[5].t).toBe(view);
+      expect(cells[6].t).toBe(view);
+      expect(cells[5].t.endsWith(' ')).toBe(false);
+      const font = await page.locator('#matrix .cell').first().evaluate((node) => getComputedStyle(node).fontFamily.toLowerCase());
+      expect(font).not.toContain('mono');
+      expect(font).not.toContain('plex');
+      const matrixTop = cells[0].y;
+      expect(matrixTop - roles[2].bottom).toBeGreaterThanOrEqual(20);
+      expect(matrixTop - roles[2].bottom).toBeLessThanOrEqual(32);
+      const afterClick = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+      expect(afterClick, `${path} matrix ${width}`).toBeLessThanOrEqual(1);
+
+      if (width >= 1024) {
+        const arts = await page.locator('.work-grid .case-art').evaluateAll((nodes) => nodes.map((node) => Math.round(node.getBoundingClientRect().height)));
+        const cards = await page.locator('.work-grid .case').evaluateAll((nodes) => nodes.map((node) => Math.round(node.getBoundingClientRect().height)));
+        const actions = await page.locator('.work-grid .case-actions').evaluateAll((nodes) => nodes.map((node) => Math.round(node.getBoundingClientRect().bottom)));
+        expect(arts).toHaveLength(2);
+        expect(Math.abs(arts[0] - arts[1])).toBeLessThanOrEqual(1);
+        expect(arts[0]).toBeGreaterThanOrEqual(260);
+        expect(Math.abs(cards[0] - cards[1])).toBeLessThanOrEqual(1);
+        expect(Math.abs(actions[0] - actions[1])).toBeLessThanOrEqual(2);
+      } else {
+        const cards = await page.locator('.work-grid .case').evaluateAll((nodes) => nodes.map((node) => node.getBoundingClientRect().toJSON()));
+        expect(cards[1].top).toBeGreaterThanOrEqual(cards[0].bottom - 1);
+        const arts = await page.locator('.work-grid .case-art').evaluateAll((nodes) => nodes.map((node) => Math.round(node.getBoundingClientRect().height)));
+        expect(arts[0]).toBeGreaterThanOrEqual(220);
+        expect(arts[1]).toBeGreaterThanOrEqual(220);
+      }
+    }
+  }
+});
+
+test('the privacy pages describe the live form without inventing a retention period', async ({ page }) => {
+  await page.goto('/confidentialite/');
+  const fr = await page.locator('main').innerText();
+  expect(fr).toContain('COCONSULT SAS');
+  expect(fr).toContain('Brevo');
+  expect(fr).toContain('contact@coconsult.fr');
+  expect(fr).toContain('Aucune durée chiffrée');
+  expect(fr).not.toMatch(/\b\d+\s+ans\b/);
+  expect(fr).not.toContain("n’a pas de formulaire");
+  await page.goto('/en/privacy-policy/');
+  const en = await page.locator('main').innerText();
+  expect(en).toContain('COCONSULT SAS');
+  expect(en).toContain('Brevo');
+  expect(en).toContain('contact@coconsult.fr');
+  expect(en).toContain('No fixed period');
+  expect(en).not.toContain('The site has no form');
 });
 
 test('home and QA pages meet WCAG AA checks we can automate', async ({ page }) => {

@@ -125,11 +125,11 @@ export function privacyPage(locale: Locale): PageContent {
       key: 'privacy',
       metaTitle: 'Politique de confidentialité | Coconsult',
       description:
-        'COCONSULT SAS traite les demandes envoyées à contact@coconsult.fr. Des commerciaux à Sfax accèdent à la prospection. Pas de traceur publicitaire.',
+        'COCONSULT SAS traite les demandes du formulaire et les messages envoyés à contact@coconsult.fr. Des commerciaux à Sfax accèdent à la prospection. Pas de traceur publicitaire.',
       eyebrow: 'CONFIDENTIALITÉ',
       h1: 'Politique de confidentialité',
       intro:
-        'Cette page décrit le site vitrine tel qu’il fonctionne : des pages statiques et des liens qui ouvrent votre messagerie. Elle ne couvre pas un contrat de prestation.',
+        'Cette page décrit le site vitrine et le formulaire de contact. Elle ne couvre pas un contrat de prestation et ne conclut pas, à elle seule, à la conformité du traitement.',
       blocks: [
         {
           type: 'prose',
@@ -143,8 +143,10 @@ export function privacyPage(locale: Locale): PageContent {
           type: 'prose',
           title: 'Données concernées',
           paragraphs: [
-            'Le site n’a pas de formulaire, de compte ni de paiement en ligne. Il ne reçoit pas le contenu du message : votre logiciel de messagerie l’envoie à contact@coconsult.fr.',
-            'Coconsult reçoit alors ce que vous choisissez d’écrire : votre identité, vos coordonnées et le contenu libre du message.',
+            'Le site n’a pas de compte ni de paiement en ligne. Le formulaire recueille le nom, l’e-mail professionnel, l’entreprise si elle est indiquée, la catégorie de la demande, le produit lorsqu’il s’agit de COPHARIA, et le message. Ce message est facultatif pour une démonstration de COPHARIA et obligatoire pour les autres demandes.',
+            'Lorsque l’envoi depuis le site est disponible, la demande est transmise à contact@coconsult.fr seulement après acceptation du service. Brevo, prestataire d’envoi transactionnel, achemine ce message. L’adresse IP sert au contrôle anti-abus, en mémoire, le temps de ce contrôle. Elle n’est pas inscrite dans le message envoyé à Brevo.',
+            'Si l’envoi n’est pas disponible, le site prépare le message et votre logiciel de messagerie l’envoie. Dans ce cas, le site ne reçoit pas le contenu.',
+            'Coconsult reçoit alors ce que vous choisissez d’écrire : votre identité, vos coordonnées et le contenu du message.',
             'La consultation des pages peut produire des journaux techniques d’accès (adresse IP, date, adresse demandée), tenus par le serveur et l’hébergeur pour la sécurité et le diagnostic.',
           ],
         },
@@ -152,18 +154,18 @@ export function privacyPage(locale: Locale): PageContent {
           type: 'prose',
           title: 'Finalités et base légale',
           paragraphs: [
-            'Les messages servent à répondre à une demande et à l’échange précontractuel ou commercial qui suit : projet, équipe, tests, paiement, automatisation, démonstration ou partenariat.',
-            'Quand vous écrivez pour obtenir une réponse à un projet, le traitement repose sur les mesures précontractuelles prises à votre demande. Le suivi de cette demande professionnelle repose sur l’intérêt légitime de Coconsult à y répondre. Le consentement n’est pas exigé pour cet échange.',
-            'La qualification des demandes, la prospection professionnelle et le suivi des opportunités reposent sur l’intérêt légitime, avec un droit d’opposition. Cette page ne fixe ni l’origine des fichiers ni une durée chiffrée.',
+            'Le formulaire sert à recevoir une demande commerciale et à y répondre : projet logiciel, intelligence artificielle, équipe, qualité, cybersécurité, cloud, paiements, automatisation, partenariat, autre demande ou démonstration de COPHARIA.',
+            'Quand vous écrivez pour obtenir une réponse, le traitement repose sur les mesures précontractuelles prises à votre demande. Le suivi de cette demande professionnelle repose sur l’intérêt légitime de Coconsult à y répondre. Le consentement marketing n’est pas recueilli, et le formulaire n’inscrit personne à une liste de prospection.',
+            'La qualification des demandes, la prospection professionnelle et le suivi des opportunités reposent sur l’intérêt légitime, avec un droit d’opposition. Cette page ne fixe ni l’origine des fichiers ni une durée chiffrée. Elle ne tient pas lieu de validation du contrat Brevo ni des garanties du transfert de prospection vers Sfax.',
           ],
         },
         {
           type: 'prose',
           title: 'Destinataires',
           paragraphs: [
-            'Les messages reçus sur contact@coconsult.fr sont lus par les personnes habilitées de COCONSULT SAS. Les e-mails de prospection, les fichiers de prospects ou l’outil de suivi commercial sont aussi accessibles à des commerciaux habilités de Coconsult Nearshore, à Sfax.',
-            'Ces échanges transitent par le prestataire de messagerie du domaine. Les pages du site sont servies par l’hébergeur.',
-            'Le nom du prestataire de messagerie n’est pas publié tant qu’il n’est pas confirmé.',
+            'Les messages reçus sur contact@coconsult.fr sont lus par les personnes habilitées de COCONSULT SAS. Les demandes transmises par le formulaire leur sont adressées par Brevo. Coconsult Nearshore n’est pas destinataire de ces envois de formulaire.',
+            'Les e-mails de prospection, les fichiers de prospects ou l’outil de suivi commercial sont aussi accessibles à des commerciaux habilités de Coconsult Nearshore, à Sfax. Cet accès est distinct du formulaire.',
+            'Les pages du site sont servies par l’hébergeur. Le prestataire qui héberge la boîte contact@coconsult.fr n’est pas confirmé, et son nom n’est donc pas publié. Le lieu de traitement de Brevo et le contrat qui l’encadre restent à confirmer sur pièces : les nommer ici décrit l’acheminement utilisé, sans conclure que ce contrat est au dossier.',
           ],
         },
         {
@@ -179,6 +181,7 @@ export function privacyPage(locale: Locale): PageContent {
           title: 'Hors de l’Espace économique européen',
           paragraphs: [
             'L’hébergement du site est situé en France. L’éditeur est COCONSULT SAS. Coconsult Nearshore est une société tunisienne juridiquement indépendante, basée à Sfax, avec des dirigeants différents. Elle n’édite pas ce site et n’est pas un service interne de la SAS française.',
+            'Les envois du formulaire ne sont pas, par ce canal, transférés à Coconsult Nearshore. Le lieu de traitement de Brevo n’est pas affirmé sur cette page.',
             'Des commerciaux habilités de Coconsult Nearshore accèdent aux mêmes e-mails de prospection professionnelle, aux mêmes fichiers de prospects ou au même outil de suivi commercial que Coconsult en France. Cet accès ne couvre pas toutes les boîtes de messagerie. Il sert à qualifier les demandes, à prospecter et à suivre les opportunités.',
             'Aucun contrat n’est en cours par lequel un développement commandé par un client européen serait confié à Coconsult Nearshore. Cette page ne décrit pas de transfert de données de ces clients vers des développeurs en Tunisie. Le développement nearshore reste une offre commerciale.',
             'La Tunisie est hors de l’Espace économique européen. Les garanties de ce transfert seront celles des contrats réellement signés. Aucune clause contractuelle type n’est indiquée ici : aucun contrat de transfert n’est formalisé. Une information sur ce site ne rend pas le transfert licite.',
@@ -207,11 +210,11 @@ export function privacyPage(locale: Locale): PageContent {
     key: 'privacy',
     metaTitle: 'Privacy policy | Coconsult',
     description:
-      'COCONSULT SAS handles email sent to contact@coconsult.fr. Sales staff in Sfax can access prospecting records. No advertising tracker.',
+      'COCONSULT SAS handles the contact form and email sent to contact@coconsult.fr. Sales staff in Sfax can access prospecting records. No advertising tracker.',
     eyebrow: 'PRIVACY',
     h1: 'Privacy policy',
     intro:
-      'This page describes the corporate site as it works: static pages and links that open your mail software. It does not cover a delivery contract.',
+      'This page describes the corporate site and the contact form. It does not cover a delivery contract, and it does not by itself establish that the processing is compliant.',
     blocks: [
       {
         type: 'prose',
@@ -225,8 +228,10 @@ export function privacyPage(locale: Locale): PageContent {
         type: 'prose',
         title: 'Data concerned',
         paragraphs: [
-          'The site has no form, no account and no online payment. It does not receive the message: your mail software sends it to contact@coconsult.fr.',
-          'Coconsult then receives what you choose to write: your identity, your contact details and the free text of the message.',
+          'The site has no account and no online payment. The form collects your name, work email, company if you give one, the request category, the product when it is COPHARIA, and the message. The message is optional for a COPHARIA demonstration and required for other requests.',
+          'When sending from the site is available, the enquiry is passed to contact@coconsult.fr only after the service accepts it. Brevo, the transactional sending provider, delivers that message. The IP address is used for the abuse control, in memory, for the duration of that control. It is not written into the message sent to Brevo.',
+          'When sending is not available, the site prepares the message and your mail software sends it. In that case the site does not receive the content.',
+          'Coconsult then receives what you choose to write: your identity, your contact details and the text of the message.',
           'Viewing pages may produce technical access logs (IP address, time, requested URL), kept by the server and the host for security and diagnostics.',
         ],
       },
@@ -234,18 +239,18 @@ export function privacyPage(locale: Locale): PageContent {
         type: 'prose',
         title: 'Purposes and legal basis',
         paragraphs: [
-          'Messages are used to answer a request and the pre-contractual or commercial exchange that follows: a project, a team, testing, payments, automation, a demo or a partnership.',
-          'When you write to obtain a reply about a project, processing is based on pre-contractual steps taken at your request. Following up that professional enquiry is based on Coconsult’s legitimate interest in answering it. Consent is not required for this exchange.',
-          'Qualifying enquiries, professional prospecting and following opportunities are based on legitimate interest, with a right to object. This page does not set the origin of prospect files or a fixed retention period.',
+          'The form is used to receive a commercial enquiry and to answer it: a software project, artificial intelligence, a team, quality, cybersecurity, cloud, payments, automation, a partnership, another request, or a COPHARIA demonstration.',
+          'When you write in order to receive a reply, processing is based on pre-contractual steps taken at your request. Following up that professional enquiry is based on Coconsult’s legitimate interest in answering it. Marketing consent is not collected, and the form does not add anyone to a prospecting list.',
+          'Qualifying enquiries, professional prospecting and following opportunities are based on legitimate interest, with a right to object. This page does not set the origin of prospect files or a fixed retention period. It does not stand in for a review of the Brevo contract or of the safeguards for the prospecting transfer to Sfax.',
         ],
       },
       {
         type: 'prose',
         title: 'Recipients',
         paragraphs: [
-          'Messages received at contact@coconsult.fr are read by authorised people at COCONSULT SAS. Prospecting email, prospect files or the sales-tracking tool are also accessible to authorised sales staff at Coconsult Nearshore, in Sfax.',
-          'Those exchanges pass through the domain’s email provider. The site pages are served by the host.',
-          'The email provider is not named until it has been confirmed.',
+          'Messages received at contact@coconsult.fr are read by authorised people at COCONSULT SAS. Enquiries submitted through the form are delivered to them by Brevo. Coconsult Nearshore does not receive these form submissions.',
+          'Prospecting email, prospect files or the sales-tracking tool are also accessible to authorised sales staff at Coconsult Nearshore, in Sfax. That access is separate from the form.',
+          'The site pages are served by the host. The provider that hosts the contact@coconsult.fr mailbox is not named until it has been confirmed. Brevo’s place of processing and the contract that governs it still have to be confirmed on file: naming Brevo here describes the delivery path in use, without concluding that the contract is on file.',
         ],
       },
       {
@@ -261,6 +266,7 @@ export function privacyPage(locale: Locale): PageContent {
         title: 'Outside the European Economic Area',
         paragraphs: [
           'The site is hosted in France. The publisher is COCONSULT SAS. Coconsult Nearshore is a legally independent Tunisian company based in Sfax, with different directors. It does not publish this site and it is not an internal department of the French company.',
+          'Form submissions are not transferred to Coconsult Nearshore through this channel. Brevo’s place of processing is not stated on this page.',
           'Authorised sales staff at Coconsult Nearshore can access the same professional prospecting email, the same prospect files or the same sales-tracking tool as Coconsult in France. This access does not cover every mailbox. It is used to qualify enquiries, to prospect and to follow commercial opportunities.',
           'No contract is in place under which development ordered by a European client is then entrusted to Coconsult Nearshore. This page does not describe a transfer of those clients’ data to developers in Tunisia. Nearshore development remains a commercial offer.',
           'Tunisia is outside the European Economic Area. The safeguards for this transfer will be those in the contracts that are actually signed. No standard contractual clauses are stated here: no transfer contract has been formalised. A notice on this website does not make the transfer lawful.',
