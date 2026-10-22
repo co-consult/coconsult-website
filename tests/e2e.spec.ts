@@ -1055,6 +1055,14 @@ test('the contact summary shows the privacy notice and no marketing checkbox', a
   expect(results.violations, JSON.stringify(results.violations, null, 2)).toEqual([]);
 });
 
+test('the default build does not ship the assistant', async ({ page }) => {
+  for (const urlPath of ['/', '/en/', '/contact/', '/en/contact/', '/realisations/', '/en/case-studies/']) {
+    await page.goto(urlPath);
+    await expect(page.locator('[data-assistant-open]')).toHaveCount(0);
+    await expect(page.locator('#cc-assistant-dialog')).toHaveCount(0);
+  }
+});
+
 test('home and QA pages meet WCAG AA checks we can automate', async ({ page }) => {
   for (const urlPath of ['/', '/en/', '/contact/', '/en/contact/', '/solutions/', '/secteurs/', '/en/industries/', '/services/paiements/', '/services/qa-testing/', '/en/services/qa-testing/']) {
     await page.goto(urlPath);

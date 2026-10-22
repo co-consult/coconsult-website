@@ -17,6 +17,8 @@ interface Props {
   noindex?: boolean;
 }
 const { locale, title, description, routeKey, noindex = false } = Astro.props;
+const assistantOn = import.meta.env.PUBLIC_ASSISTANT === 'true';
+const Assistant = assistantOn ? (await import('@/components/Assistant.astro')).default : null;
 const t = ui[locale];
 const path = routeKey === 'notFound' ? (locale === 'fr' ? '/404.html' : '/en/404/') : pathFor(locale, routeKey);
 const canonical = absoluteUrl(routeKey === 'notFound' ? pathFor(locale, 'home') : path);
@@ -71,6 +73,7 @@ const graph = routeKey === 'home'
       <slot />
     </main>
     <Footer locale={locale} />
+    {Assistant ? <Assistant locale={locale} lift={routeKey === 'contact'} /> : null}
     <script is:inline src="/assets/main.js" defer></script>
     <script is:inline src="/assets/home.js" defer></script>
   </body>

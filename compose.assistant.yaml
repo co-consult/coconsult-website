@@ -1,0 +1,58 @@
+# Overlay for the assistant only. It is not part of the site deploy.
+# Never run this file with -p coconsult: Compose would reconcile the site project
+# and can remove coconsult-web. Use the project name coconsult-assistant.
+# Do not add this file to the command in docs/DEPLOYMENT.md.
+# Do not attach Nginx Proxy Manager, coconsult-web, or the contact service.
+# The process binds 10.230.23.10. The egress network can reach an HTTPS model API
+# and publishes no host port. enable_icc is off.
+# The enable switches are not set here, for the same reason the contact send
+# switch is not set in its overlay: a value here would override assistant.env.
+services:
+  coconsult-assistant:
+    build:
+      context: .
+      dockerfile: assistant.Dockerfile
+    container_name: coconsult-assistant
+    restart: unless-stopped
+    read_only: true
+    user: "65534:65534"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 128m
+    cpus: 0.30
+    pids_limit: 64
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+    environment:
+      ASSISTANT_BIND: 10.230.23.10
+      ASSISTANT_PORT: "3603"
+      ASSISTANT_TRUST_CIDRS: 10.230.23.0/24
+      ASSISTANT_ORIGINS: https://coconsult.fr,https://www.coconsult.fr
+    env_file:
+      - path: ./assistant.env
+        required: false
+    expose:
+      - "3603"
+    networks:
+      coconsult-assistant:
+        ipv4_address: 10.230.23.10
+      coconsult-assistant-egress: {}
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://10.230.23.10:3603/healthz').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+networks:
+  coconsult-assistant:
+    internal: true
+    ipam:
+      config:
+        - subnet: 10.230.23.0/24
+  coconsult-assistant-egress:
+    internal: false
+    driver_opts:
+      com.docker.network.bridge.enable_icc: "false"
