@@ -1,6 +1,7 @@
 FROM node:22-alpine
 WORKDIR /app
-COPY server/contact.mjs /app/server/contact.mjs
+RUN mkdir -p /app/server && chown 65534:65534 /app/server && chmod 755 /app/server
+COPY --chown=65534:65534 --chmod=644 server/contact.mjs /app/server/contact.mjs
 USER 65534:65534
 ENV CONTACT_BIND=0.0.0.0
 ENV CONTACT_PORT=3602

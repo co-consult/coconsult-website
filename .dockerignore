@@ -11,3 +11,11 @@ compose.proxy.yaml
 _logo_crop_preview.png
 .env
 .env.*
+contact.env
+contact.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+secrets
