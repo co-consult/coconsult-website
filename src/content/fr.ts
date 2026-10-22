@@ -465,16 +465,34 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   solutions: {
     key: 'solutions',
-    metaTitle: 'Solutions Coconsult | COPHARIA',
+    metaTitle: 'Solutions et plateformes | Coconsult',
     description:
-      'COPHARIA, ERP métier pharmaceutique en cours de développement. Une démonstration se demande depuis la page Contact.',
+      'COPHARIA, ERP pharmaceutique en développement, et des plateformes livrées : opérations sportives, gestion documentaire. Demandez une démonstration depuis Contact.',
     eyebrow: 'SOLUTIONS',
     h1: 'Les solutions que Coconsult construit.',
     intro:
-      'COPHARIA est un ERP métier pour la pharmacie, encore en développement. Une démonstration se demande en nommant cette solution.',
+      'Une solution Coconsult en cours de développement, et des plateformes déjà livrées. Les deux ne se confondent pas : le produit et les réalisations restent distincts.',
     blocks: [
-      { type: 'work', source: 'solutions', title: 'En développement', intro: 'COPHARIA est présentée avec son statut réel : une solution en développement.' },
-      { type: 'cta', title: 'Demander une démonstration de COPHARIA.', text: 'Indiquez votre contexte. Nous revenons vers vous pour convenir d’un échange.', primary: 'demo', product: 'copharia' },
+      {
+        type: 'work',
+        source: 'solutions',
+        title: 'Solutions Coconsult',
+        intro: 'COPHARIA, ERP pharmaceutique en développement. Statut réel, vues anonymisées, démonstration sur demande.',
+      },
+      {
+        type: 'work',
+        source: 'platforms',
+        title: 'Plateformes et réalisations',
+        intro:
+          'Des systèmes construits et livrés. Ce ne sont pas des SaaS commercialisés par Coconsult : ce sont des preuves d’ingénierie, avec un lien court vers l’étude de cas.',
+      },
+      {
+        type: 'cta',
+        title: 'Demander une démonstration de COPHARIA.',
+        text: 'Indiquez votre contexte. Nous revenons vers vous pour convenir d’un échange.',
+        primary: 'demo',
+        product: 'copharia',
+      },
     ],
   },
   cases: {

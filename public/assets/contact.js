@@ -8,6 +8,9 @@
   const copyAddress = panel.querySelector('[data-copy-email]');
   const copyStatus = panel.querySelector('[data-copy-status]');
   const message = document.getElementById('message');
+  const messageField = panel.querySelector('[data-message-field]');
+  const messageLabel = panel.querySelector('[data-message-label]');
+  const messageSlot = panel.querySelector('[data-demo-message-slot]');
   const nameField = document.getElementById('name');
   const emailField = document.getElementById('email');
   const companyField = document.getElementById('company');
@@ -22,6 +25,11 @@
   const gmail = document.getElementById('open-gmail');
   const outlook = document.getElementById('open-outlook');
   const hintNode = document.getElementById('contact-hints');
+  const headingMain = panel.querySelector('[data-heading-main]');
+  const headingAccent = panel.querySelector('[data-heading-accent]');
+  const introEl = panel.querySelector('[data-contact-intro]');
+  const stepsGeneric = panel.querySelector('[data-steps-generic]');
+  const stepsDemo = panel.querySelector('[data-steps-demo]');
   const params = new URLSearchParams(window.location.search);
   const allowedProducts = new Set(['copharia']);
   const typeToInquiry = {
@@ -55,13 +63,17 @@
     other: 'other',
   };
   const hints = hintNode ? JSON.parse(hintNode.textContent || '{}') : {};
-  const state = { need: '', inquiry: 'project', topic: '', reached: 1 };
+  const state = { need: '', inquiry: 'project', topic: '', reached: 1, mode: 'generic' };
 
   function productToken() {
     const product = (params.get('product') || '').toLowerCase();
     if (allowedProducts.has(product)) return product;
     if ((params.get('topic') || '').toLowerCase() === 'copharia' || state.topic === 'copharia') return 'copharia';
     return '';
+  }
+
+  function isDemoMode() {
+    return state.mode === 'demo' && state.topic === 'copharia';
   }
 
   function selectedSubject() {
@@ -114,12 +126,18 @@
 
   function paintSummary() {
     const needButton = document.querySelector(`[data-need="${state.need}"] b`);
-    const needLabel = needButton ? needButton.textContent || '' : '';
+    const needLabel = isDemoMode()
+      ? (panel.dataset.demoNeedLabel || 'COPHARIA')
+      : (needButton ? needButton.textContent || '' : '');
     const sumNeed = document.getElementById('sum-need');
     const sumMsg = document.getElementById('sum-msg');
     const sumWho = document.getElementById('sum-who');
-    if (sumNeed) sumNeed.textContent = state.topic === 'copharia' ? `${needLabel} · COPHARIA` : needLabel;
-    if (sumMsg) sumMsg.textContent = fieldValue(message);
+    if (sumNeed) {
+      sumNeed.textContent = !isDemoMode() && state.topic === 'copharia'
+        ? `${needLabel} · COPHARIA`
+        : needLabel;
+    }
+    if (sumMsg) sumMsg.textContent = fieldValue(message) || '—';
     const company = fieldValue(companyField);
     if (sumWho) sumWho.textContent = `${fieldValue(nameField)} · ${fieldValue(emailField)}${company ? ` · ${company}` : ''}`;
   }
@@ -176,14 +194,17 @@
     document.querySelectorAll('[data-step]').forEach((item) => {
       if (item instanceof HTMLElement) item.hidden = Number(item.dataset.step) !== step;
     });
-    document.querySelectorAll('[data-goto]').forEach((item) => {
+    const stepButtons = isDemoMode()
+      ? stepsDemo?.querySelectorAll('[data-goto]')
+      : stepsGeneric?.querySelectorAll('[data-goto]');
+    stepButtons?.forEach((item) => {
       if (!(item instanceof HTMLButtonElement)) return;
       const value = Number(item.dataset.goto);
       if (value === step) item.setAttribute('aria-current', 'step');
       else item.removeAttribute('aria-current');
       item.disabled = value > state.reached;
     });
-    if (step === 2) paintHints();
+    if (step === 2 && !isDemoMode()) paintHints();
     if (step === 4) paintSummary();
     if (!moveFocus) return;
     const current = document.querySelector(`[data-step="${step}"]`);
@@ -194,11 +215,11 @@
   function validate(step) {
     const error = document.getElementById(`err-${step}`);
     if (error) error.textContent = '';
-    if (step === 1 && !state.need) {
+    if (step === 1 && !isDemoMode() && !state.need) {
       if (error) error.textContent = panel.dataset.needErr || '';
       return false;
     }
-    if (step === 2 && fieldValue(message).length < 20) {
+    if (step === 2 && !isDemoMode() && fieldValue(message).length < 20) {
       if (error) error.textContent = panel.dataset.msgErr || '';
       return false;
     }
@@ -221,9 +242,46 @@
     show(step, true);
   }
 
+  function enterDemoMode() {
+    state.mode = 'demo';
+    state.topic = 'copharia';
+    state.need = 'other';
+    state.inquiry = 'demo';
+    state.reached = 3;
+    setNeed('other');
+    setInquiry('demo');
+    panel.dataset.mode = 'demo';
+    panel.dataset.product = 'copharia';
+
+    if (headingMain) headingMain.textContent = panel.dataset.demoTitle || headingMain.textContent;
+    if (headingAccent instanceof HTMLElement) headingAccent.hidden = true;
+    if (introEl) introEl.textContent = panel.dataset.demoIntro || '';
+    if (flag) {
+      flag.hidden = false;
+      flag.textContent = panel.dataset.cophariaFlag || '';
+    }
+    if (stepsGeneric instanceof HTMLElement) stepsGeneric.hidden = true;
+    if (stepsDemo instanceof HTMLElement) stepsDemo.hidden = false;
+    panel.querySelectorAll('[data-generic-only]').forEach((node) => {
+      if (node instanceof HTMLElement && !node.matches('[data-step]')) node.hidden = true;
+    });
+
+    if (messageField instanceof HTMLElement && messageSlot instanceof HTMLElement) {
+      messageSlot.appendChild(messageField);
+      if (messageLabel) messageLabel.textContent = panel.dataset.msgOptionalLabel || messageLabel.textContent;
+    }
+    if (message instanceof HTMLTextAreaElement && !message.value) {
+      message.value = panel.dataset.cophariaPrefill || '';
+    }
+
+    const hiddenProduct = panel.querySelector('[data-hidden-product]');
+    if (hiddenProduct instanceof HTMLInputElement) hiddenProduct.value = 'copharia';
+    show(3, false);
+  }
+
   document.querySelectorAll('[data-need]').forEach((button) => {
     button.addEventListener('click', () => {
-      if (!(button instanceof HTMLElement)) return;
+      if (!(button instanceof HTMLElement) || isDemoMode()) return;
       const need = button.dataset.need || '';
       const previous = `${state.need}|${state.inquiry}|${state.topic}`;
       setNeed(need);
@@ -242,6 +300,7 @@
   document.querySelectorAll('[data-next]').forEach((button) => {
     button.addEventListener('click', () => {
       if (!(button instanceof HTMLElement)) return;
+      if (isDemoMode() && button.hasAttribute('data-generic-only')) return;
       const target = Number(button.dataset.next);
       const fromNode = button.closest('[data-step]');
       const from = fromNode instanceof HTMLElement ? Number(fromNode.dataset.step) : 0;
@@ -253,14 +312,27 @@
     button.addEventListener('click', () => {
       if (!(button instanceof HTMLElement)) return;
       const target = Number(button.dataset.goto);
+      if (isDemoMode() && (target === 1 || target === 2)) return;
       if (target <= state.reached) show(target, true);
+    });
+  });
+
+  document.querySelectorAll('[data-edit-message]').forEach((button) => {
+    button.addEventListener('click', () => {
+      if (isDemoMode()) goto(3, 0);
+      else goto(2, 0);
     });
   });
 
   if (prepare) {
     prepare.addEventListener('click', () => {
       const error = document.getElementById('err-4');
-      if (!validate(1) || !validate(2) || !validate(3)) {
+      if (isDemoMode()) {
+        if (!validate(3)) {
+          if (error) error.textContent = panel.dataset.nameErr || '';
+          return;
+        }
+      } else if (!validate(1) || !validate(2) || !validate(3)) {
         if (error) error.textContent = panel.dataset.needErr || '';
         return;
       }
@@ -313,18 +385,17 @@
 
   const topic = (params.get('topic') || '').toLowerCase();
   const product = (params.get('product') || '').toLowerCase();
-  if (topic === 'copharia' || (type === 'demo' && product === 'copharia')) {
-    state.topic = 'copharia';
-    setNeed('other');
-    setInquiry('demo');
-    if (message instanceof HTMLTextAreaElement && !message.value) message.value = panel.dataset.cophariaPrefill || '';
-    if (flag) {
-      flag.hidden = false;
-      flag.textContent = panel.dataset.cophariaFlag || '';
-    }
+  const wantsCophariaDemo =
+    topic === 'copharia' || (type === 'demo' && product === 'copharia');
+
+  if (wantsCophariaDemo) {
+    enterDemoMode();
+  } else {
+    if (select instanceof HTMLSelectElement) select.addEventListener('change', refreshMail);
+    refreshMail();
+    show(1);
   }
 
   if (select instanceof HTMLSelectElement) select.addEventListener('change', refreshMail);
   refreshMail();
-  show(1);
 })();

@@ -1,0 +1,31 @@
+---
+import DocScene from '@/components/visuals/DocScene.astro';
+import SportScene from '@/components/visuals/SportScene.astro';
+import type { Locale } from '@/content/types';
+import { pathFor } from '@/data/routes';
+import { workItems, type WorkItem } from '@/data/work';
+
+interface Props { locale: Locale; id: 'iaps' | 'cssforever' }
+const { locale, id } = Astro.props;
+const item = workItems.find((entry) => entry.id === id) as WorkItem;
+const casesHref = pathFor(locale, 'cases');
+const fr = locale === 'fr';
+const eyebrow = fr
+  ? (id === 'iaps' ? 'Réalisation client' : 'Plateforme construite')
+  : (id === 'iaps' ? 'Client delivery' : 'Built platform');
+const caseLink = fr ? 'Voir l’étude de cas' : 'View the case study';
+---
+<div class="experience work-host platform-teaser">
+  <article class="case case-teaser">
+    <div class="case-art">
+      {id === 'iaps' ? <DocScene locale={locale} /> : <SportScene locale={locale} />}
+    </div>
+    <div class="case-copy">
+      <p class="eyebrow">{eyebrow}</p>
+      <p class="badge">{item.status[locale]}</p>
+      <h3>{item.title[locale]}</h3>
+      <p>{item.summary[locale]}</p>
+      <a class="btn ghost small" href={casesHref}>{caseLink}</a>
+    </div>
+  </article>
+</div>

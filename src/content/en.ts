@@ -416,16 +416,34 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   solutions: {
     key: 'solutions',
-    metaTitle: 'Coconsult solutions | COPHARIA',
+    metaTitle: 'Solutions and platforms | Coconsult',
     description:
-      'COPHARIA, a pharmaceutical business ERP in development. Request a demonstration from the contact page.',
+      'COPHARIA, a pharmaceutical ERP in development, and delivered platforms: sports operations, document workflows. Request a demonstration from Contact.',
     eyebrow: 'SOLUTIONS',
     h1: 'Products Coconsult is building.',
     intro:
-      'COPHARIA is a business ERP for pharmacy, still in development. A demonstration request names that solution.',
+      'One Coconsult solution still in development, and platforms already delivered. The two stay distinct: the product and the case studies are not the same thing.',
     blocks: [
-      { type: 'work', source: 'solutions', title: 'In development', intro: 'COPHARIA is shown with its real status: a solution in development.' },
-      { type: 'cta', title: 'Request a COPHARIA demonstration.', text: 'Share your context. We will come back to arrange a conversation.', primary: 'demo', product: 'copharia' },
+      {
+        type: 'work',
+        source: 'solutions',
+        title: 'Coconsult solutions',
+        intro: 'COPHARIA, a pharmaceutical ERP in development. Real status, anonymized views, demonstration on request.',
+      },
+      {
+        type: 'work',
+        source: 'platforms',
+        title: 'Platforms and deliveries',
+        intro:
+          'Systems that were built and handed over. These are not SaaS products sold by Coconsult: they are engineering proof, with a short link to the case study.',
+      },
+      {
+        type: 'cta',
+        title: 'Request a COPHARIA demonstration.',
+        text: 'Share your context. We will come back to arrange a conversation.',
+        primary: 'demo',
+        product: 'copharia',
+      },
     ],
   },
   cases: {

@@ -237,7 +237,6 @@
   document.querySelectorAll('[data-copharia-gallery]').forEach((gallery) => {
     if (!(gallery instanceof HTMLElement)) return;
     const img = gallery.querySelector('[data-screen]');
-    const note = gallery.querySelector('[data-lab-note]');
     const label = gallery.querySelector('[data-screen-label]');
     const sub = gallery.querySelector('[data-stock-switch]');
     const views = [...gallery.querySelectorAll('[data-view]')];
@@ -246,7 +245,6 @@
     function paintImage(source) {
       if (!(img instanceof HTMLImageElement) || !(source instanceof HTMLElement)) return;
       const src = source.dataset.src || '';
-      if (note instanceof HTMLElement) note.hidden = true;
       img.hidden = false;
       if (label) label.textContent = source.dataset.label || '';
       if (img.getAttribute('src') === src) {
@@ -275,13 +273,6 @@
       button.addEventListener('click', () => {
         if (!(button instanceof HTMLElement)) return;
         views.forEach((item) => item.setAttribute('aria-pressed', item === button ? 'true' : 'false'));
-        if (button.dataset.view === 'lab') {
-          if (sub instanceof HTMLElement) sub.hidden = true;
-          if (img instanceof HTMLImageElement) img.hidden = true;
-          if (note instanceof HTMLElement) note.hidden = false;
-          if (label) label.textContent = button.dataset.label || '';
-          return;
-        }
         if (sub instanceof HTMLElement) sub.hidden = button.dataset.view !== 'stocks';
         if (button.dataset.view === 'stocks') {
           const list = shots.find((item) => item instanceof HTMLElement && item.dataset.shot === 'stocks');

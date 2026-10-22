@@ -114,11 +114,43 @@ test('homepage and demo links preselect the contact request', async ({ page }) =
   await page.getByRole('link', { name: 'Parlons de votre projet' }).first().click();
   await expect(page).toHaveURL(/\/contact\/\?type=project$/);
   await expect(page.locator('[data-contact-type]')).toHaveValue('project');
+  await expect(page.locator('#choices')).toBeVisible();
   await page.goto('/contact/?type=demo&product=copharia');
+  await expect(page.locator('[data-contact-panel]')).toHaveAttribute('data-mode', 'demo');
   await expect(page.locator('[data-contact-type]')).toHaveValue('demo');
+  await expect(page.locator('#choices')).toBeHidden();
+  await expect(page.locator('h1')).toContainText('Demander une démonstration de COPHARIA');
   await expect(page.locator('[data-open-mail]')).toHaveAttribute('href', /subject=.*COPHARIA/);
   await page.goto('/contact/?type=demo&product=other');
+  await expect(page.locator('#choices')).toBeVisible();
   await expect(page.locator('[data-open-mail]')).not.toHaveAttribute('href', /OTHER/);
+});
+
+test('expertise demos keep space between schema and action at 390 and 1440', async ({ page }) => {
+  for (const viewport of [
+    { width: 390, height: 844 },
+    { width: 1440, height: 900 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+    await page.locator('.skill[data-skill="cloud"]').click();
+    await expect(page.locator('#panel-cloud')).toBeVisible();
+    const cloudGap = await gapBetween(page, '#pipe', '#run-pipe');
+    expect(cloudGap, `cloud ${viewport.width}`).toBeGreaterThanOrEqual(20);
+    expect(cloudGap, `cloud ${viewport.width}`).toBeLessThanOrEqual(28);
+
+    await page.locator('.skill[data-skill="integration"]').click();
+    await expect(page.locator('#panel-integration')).toBeVisible();
+    const hopGap = await gapBetween(page, '#bridge', '#advance-hop');
+    expect(hopGap, `integration ${viewport.width}`).toBeGreaterThanOrEqual(20);
+    expect(hopGap, `integration ${viewport.width}`).toBeLessThanOrEqual(28);
+
+    for (const skill of ['ai', 'software', 'qa', 'cyber', 'cloud', 'integration']) {
+      await page.locator(`.skill[data-skill="${skill}"]`).click();
+      await expect(page.locator(`#panel-${skill}`)).toBeVisible();
+      await page.keyboard.press('Tab');
+    }
+  }
 });
 
 test('logo sits on a light plate', async ({ page }) => {
@@ -147,6 +179,24 @@ async function reachSummary(page: Page, message?: string) {
   await page.locator('#name').fill('Ada Martin');
   await page.locator('#email').fill('ada@example.com');
   await page.locator('[data-step="3"] .btn.primary').click();
+}
+
+async function reachDemoSummary(page: Page, message?: string) {
+  await expect(page.locator('[data-contact-panel]')).toHaveAttribute('data-mode', 'demo');
+  await expect(page.locator('[data-step="1"]')).toBeHidden();
+  await expect(page.locator('#choices')).toBeHidden();
+  await page.locator('#name').fill('Ada Martin');
+  await page.locator('#email').fill('ada@example.com');
+  if (message) await page.locator('#message').fill(message);
+  await page.locator('[data-step="3"] .btn.primary').click();
+}
+
+async function gapBetween(page: Page, first: string, second: string) {
+  return page.locator(first).evaluate((top, bottomSelector) => {
+    const bottom = document.querySelector(bottomSelector);
+    if (!(top instanceof HTMLElement) || !(bottom instanceof HTMLElement)) return -1;
+    return Math.round(bottom.getBoundingClientRect().top - top.getBoundingClientRect().bottom);
+  }, second);
 }
 
 test('the contact wizard prepares a message and refreshes it after each change', async ({ page }) => {
@@ -193,59 +243,86 @@ test('the contact wizard prepares a message and refreshes it after each change',
   await expect(page.locator('#open-outlook')).toHaveAttribute('href', /Autre%20demande%20-%20Coconsult/);
 });
 
-test('COPHARIA stays selected across both calls to action and survives an edit', async ({ page }) => {
+test('COPHARIA demo skips the six choices and keeps context while editing', async ({ page }) => {
+  const posts: string[] = [];
+  page.on('request', (request) => {
+    if (request.method() !== 'GET' && request.method() !== 'HEAD') posts.push(`${request.method()} ${request.url()}`);
+  });
+
   await page.goto('/');
   const homeLink = page.getByRole('link', { name: 'Demander une démonstration de COPHARIA' });
   await expect(homeLink).toHaveAttribute('href', '/contact/?type=demo&product=copharia');
   await homeLink.click();
   await expect(page).toHaveURL(/\/contact\/\?type=demo&product=copharia$/);
-  await expect(page.locator('[data-need="other"]')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('[data-contact-panel]')).toHaveAttribute('data-mode', 'demo');
+  await expect(page.locator('#choices')).toBeHidden();
+  await expect(page.locator('h1')).toContainText('Demander une démonstration de COPHARIA');
   await expect(page.locator('#topic-flag')).toBeVisible();
   await expect(page.locator('[data-contact-type]')).toHaveValue('demo');
   await expect(page.locator('#message')).toHaveValue(/COPHARIA/);
-  await reachSummary(page);
+  await reachDemoSummary(page);
+  await expect(page.locator('#sum-need')).toContainText(/COPHARIA/i);
   await page.getByRole('button', { name: 'Préparer le message' }).click();
+  await expect(page.locator('#outcome')).toContainText("Aucun envoi n'a été effectué");
+  await expect(page.getByText('Votre demande a été envoyée.')).toHaveCount(0);
   await expect(page.locator('#open-gmail')).toHaveAttribute('href', /COPHARIA/);
   await expect(page.locator('#open-gmail')).toHaveAttribute('href', /D%C3%A9monstration|d%C3%A9monstration|Demande%20de%20d%C3%A9monstration/i);
+  await expect(page.locator('#open-outlook')).toHaveAttribute('href', /COPHARIA/);
+  await expect(page.locator('#open-mail')).toHaveAttribute('href', /subject=/);
   await expect(page.locator('#mail-preview')).not.toContainText('Partenariat');
 
   await page.getByRole('button', { name: 'Modifier' }).nth(1).click();
+  await expect(page.locator('[data-step="3"]')).toBeVisible();
   await page.locator('#message').fill('Je souhaite une demonstration de COPHARIA avec le jeton TOKEN-COPH.');
+  await page.locator('#name').fill('Ada Martin');
+  await expect(page.locator('[data-contact-panel]')).toHaveAttribute('data-mode', 'demo');
+  await expect(page.locator('#topic-flag')).toBeVisible();
   await expect(page.locator('#open-gmail')).not.toHaveAttribute('href', /body=/);
-  await page.locator('[data-step="2"] .btn.primary').click();
   await page.locator('[data-step="3"] .btn.primary').click();
   await page.getByRole('button', { name: 'Préparer le message' }).click();
   await expect(page.locator('#open-gmail')).toHaveAttribute('href', /TOKEN-COPH/);
   await expect(page.locator('#open-outlook')).toHaveAttribute('href', /TOKEN-COPH/);
   await expect(page.locator('#open-mail')).toHaveAttribute('href', /COPHARIA/);
+  await expect(page.locator('#sum-need')).toContainText(/COPHARIA/i);
+  await expect(page.locator('#copy-mail')).toBeVisible();
+  expect(posts.filter((entry) => /\/api\/contact|brevo/i.test(entry))).toEqual([]);
+});
 
-  await page.getByRole('button', { name: 'Modifier' }).first().click();
-  await page.locator('[data-need="software"]').click();
-  await expect(page.locator('#topic-flag')).toBeHidden();
-  await page.getByRole('button', { name: 'Récapitulatif' }).click();
-  await page.getByRole('button', { name: 'Préparer le message' }).click();
-  await expect(page.locator('#mail-preview')).toContainText('Parlons de votre projet - Coconsult');
-  await expect(page.locator('#open-gmail')).toHaveAttribute('href', /su=Parlons%20de%20votre%20projet%20-%20Coconsult/);
-  await expect(page.locator('#open-gmail')).not.toHaveAttribute('href', /su=[^&]*COPHARIA/);
-
+test('solutions page shows COPHARIA and anonymized platforms with case links', async ({ page }) => {
   await page.goto('/solutions/');
+  await expect(page.getByRole('heading', { name: 'Solutions Coconsult' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Plateformes et réalisations' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Application documentaire et workflows' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /Plateforme d.opérations sportives/ })).toBeVisible();
+  await expect(page.getByRole('link', { name: /Voir l.étude de cas/ }).first()).toHaveAttribute('href', '/realisations/');
+  await expect(page.locator('body')).not.toContainText('IAPS');
+  await expect(page.locator('body')).not.toContainText('CSSForever');
   const solutionLinks = page.getByRole('link', { name: 'Demander une démonstration de COPHARIA' });
   await expect(solutionLinks).toHaveCount(2);
-  await expect(solutionLinks.nth(0)).toHaveAttribute('href', '/contact/?type=demo&product=copharia');
   await expect(solutionLinks.nth(1)).toHaveAttribute('href', '/contact/?type=demo&product=copharia');
   await solutionLinks.nth(1).click();
-  await expect(page.locator('[data-contact-type]')).toHaveValue('demo');
-  await expect(page.locator('#topic-flag')).toContainText('COPHARIA');
+  await expect(page.locator('[data-mode="demo"]')).toBeVisible();
+  await expect(page.locator('#choices')).toBeHidden();
 
-  await page.goto('/en/');
-  await expect(page.getByRole('link', { name: 'Request a COPHARIA demonstration' })).toHaveAttribute('href', '/en/contact/?type=demo&product=copharia');
   await page.goto('/en/solutions/');
+  await expect(page.getByRole('heading', { name: 'Coconsult solutions' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Platforms and deliveries' })).toBeVisible();
   const englishLinks = page.getByRole('link', { name: 'Request a COPHARIA demonstration' });
   await expect(englishLinks).toHaveCount(2);
   await englishLinks.first().click();
   await expect(page).toHaveURL(/\/en\/contact\/\?type=demo&product=copharia$/);
-  await expect(page.locator('[data-contact-type]')).toHaveValue('demo');
-  await expect(page.locator('[data-need="other"]')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('h1')).toContainText('Request a COPHARIA demonstration');
+  await expect(page.locator('#choices')).toBeHidden();
+});
+
+test('generic contact still offers the six request choices', async ({ page }) => {
+  await page.goto('/contact/');
+  await expect(page.locator('#choices')).toBeVisible();
+  await expect(page.locator('[data-need]')).toHaveCount(6);
+  await expect(page.locator('[data-contact-panel]')).not.toHaveAttribute('data-mode', 'demo');
+  await page.goto('/en/contact/');
+  await expect(page.locator('#choices')).toBeVisible();
+  await expect(page.locator('[data-need]')).toHaveCount(6);
 });
 
 test('another request uses its own subject, and a partnership URL keeps partnership', async ({ page }) => {
@@ -325,12 +402,14 @@ test('public pages do not mention missing captures', async ({ page }) => {
   }
 });
 
-test('the COPHARIA gallery changes view and keeps the laboratory without a capture', async ({ page }) => {
+test('the COPHARIA gallery changes published views without a Laboratory tab', async ({ page }) => {
   await page.goto('/');
   const gallery = page.locator('[data-copharia-gallery]');
   const img = gallery.locator('[data-screen]');
   await expect(img).toHaveAttribute('src', /dashboard\.webp/);
   await expect(gallery.locator('.badge')).toHaveText('Solution en développement');
+  await expect(gallery.getByRole('button', { name: 'Laboratoire' })).toHaveCount(0);
+  await expect(gallery.locator('[data-lab-note]')).toHaveCount(0);
   await gallery.getByRole('button', { name: 'Gestion qualité' }).click();
   await expect(img).toHaveAttribute('src', /quality\.webp/);
   await expect(img).toBeVisible();
@@ -340,10 +419,6 @@ test('the COPHARIA gallery changes view and keeps the laboratory without a captu
   await gallery.getByRole('button', { name: "Vue détaillée d'un article" }).click();
   await expect(img).toHaveAttribute('src', /stock-detail\.webp/);
   await expect(img).toBeVisible();
-  await gallery.getByRole('button', { name: 'Laboratoire' }).click();
-  await expect(img).toBeHidden();
-  await expect(gallery.locator('[data-lab-note]')).toBeVisible();
-  await expect(gallery.locator('img:visible')).toHaveCount(0);
   await gallery.getByRole('button', { name: 'Centre de commande' }).focus();
   await page.keyboard.press('ArrowRight');
   await expect(img).toHaveAttribute('src', /quality\.webp/);
@@ -353,23 +428,35 @@ test('the COPHARIA gallery changes view and keeps the laboratory without a captu
   await page.goto('/solutions/');
   const mobile = page.locator('[data-copharia-gallery]');
   await expect(mobile.locator('[data-screen]')).toBeVisible();
+  await expect(mobile.getByRole('button', { name: 'Laboratoire' })).toHaveCount(0);
   const width = await mobile.locator('[data-screen]').evaluate((element) => element.getBoundingClientRect().width);
   expect(width).toBeGreaterThan(280);
   expect(width).toBeLessThanOrEqual(390);
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(1);
-  await mobile.getByRole('button', { name: 'Laboratoire' }).click();
-  await expect(mobile.locator('[data-screen]')).toBeHidden();
 
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/en/solutions/');
   const english = page.locator('[data-copharia-gallery]');
+  await expect(english.getByRole('button', { name: 'Laboratory' })).toHaveCount(0);
   await english.getByRole('button', { name: 'Logistics & stock' }).click();
   await english.getByRole('button', { name: 'Article detail' }).click();
   await expect(english.locator('[data-screen]')).toHaveAttribute('src', /stock-detail\.webp/);
-  await english.getByRole('button', { name: 'Laboratory' }).click();
-  await expect(english.locator('[data-screen]')).toBeHidden();
-  await expect(english.locator('[data-lab-note]')).toContainText('not published yet');
+});
+
+test('v3.1 screenshots for spacing, solutions, gallery and COPHARIA demo', async ({ page }) => {
+  const dir = 'docs/v3.1-screenshots';
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/');
+  await page.locator('.skill[data-skill="cloud"]').click();
+  await page.locator('#panel-cloud').screenshot({ path: `${dir}/01-demo-spacing-cloud.png` });
+  await page.locator('.skill[data-skill="integration"]').click();
+  await page.locator('#panel-integration').screenshot({ path: `${dir}/02-demo-spacing-integration.png` });
+  await page.goto('/solutions/');
+  await page.screenshot({ path: `${dir}/03-solutions-platforms.png`, fullPage: true });
+  await page.locator('[data-copharia-gallery]').screenshot({ path: `${dir}/04-copharia-gallery.png` });
+  await page.goto('/contact/?type=demo&product=copharia');
+  await page.screenshot({ path: `${dir}/05-copharia-demo-contact.png`, fullPage: true });
 });
 
 test('home and QA pages meet WCAG AA checks we can automate', async ({ page }) => {

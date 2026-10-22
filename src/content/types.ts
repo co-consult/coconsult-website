@@ -70,7 +70,7 @@ export type Block =
   | { type: 'faq'; title: string; items: { q: string; a: string }[] }
   | { type: 'note'; text: string }
   | { type: 'diagram'; title: string; caption: string; steps: TitledText[] }
-  | { type: 'work'; source: 'cases' | 'solutions'; title: string; intro?: string }
+  | { type: 'work'; source: 'cases' | 'solutions' | 'platforms'; title: string; intro?: string }
   | { type: 'inquiries'; title: string; intro?: string; ids: InquiryId[] }
   | { type: 'cta'; title: string; text: string; primary: InquiryId; secondary?: InquiryId; product?: string };
 
