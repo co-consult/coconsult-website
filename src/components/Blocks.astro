@@ -13,6 +13,13 @@ interface Props { locale: Locale; blocks: Block[]; }
 const { locale, blocks } = Astro.props;
 const t = ui[locale];
 const tones = ['band', 'band-alt', 'band', 'band-alt'];
+const laneFor = (key?: string) => {
+  if (key === 'ai') return 'ai';
+  if (key === 'software') return 'software';
+  if (key === 'cloud') return 'cloud';
+  if (key === 'qa' || key === 'cyber') return 'quality';
+  return undefined;
+};
 ---
 {blocks.map((block, index) => {
   const tone = block.type === 'cta' ? 'band-dark' : tones[index % tones.length];
@@ -27,7 +34,7 @@ const tones = ['band', 'band-alt', 'band', 'band-alt'];
             </div>
             <div class:list={['card-grid', { bento: block.layout === 'bento', five: block.layout !== 'bento' && block.items.length > 4 }]}>
               {block.items.map((item) => (
-                <article class="service-card">
+                <article class="service-card" data-lane={laneFor(item.hrefKey)}>
                   {item.kicker && <p class="kicker-no">{item.kicker}</p>}
                   <h3>{item.hrefKey ? <a href={pathFor(locale, item.hrefKey)}>{item.title}</a> : item.title}</h3>
                   <p>{item.text}</p>
