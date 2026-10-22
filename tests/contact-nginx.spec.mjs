@@ -123,6 +123,42 @@ try {
   const privateNet = contactNets.find((name) => name.endsWith('_coconsult-contact'));
   assert.equal(contactInfo.NetworkSettings.Networks[privateNet].IPAddress, '10.230.22.10');
 
+  let contactReady = false;
+  for (let attempt = 0; attempt < 60; attempt += 1) {
+    const health = spawnSync(
+      'docker',
+      [
+        'exec',
+        contactName,
+        'node',
+        '-e',
+        "fetch('http://10.230.22.10:3602/healthz').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+      ],
+      { encoding: 'utf8', timeout: 10000 },
+    );
+    if (health.status === 0) {
+      contactReady = true;
+      break;
+    }
+    await new Promise((resolve) => setTimeout(resolve, 500));
+  }
+  assert.equal(contactReady, true, 'contact process did not become healthy');
+
+  const resolveCheck = spawnSync(
+    'docker',
+    [
+      'exec',
+      webName,
+      'wget',
+      '-q',
+      '-O',
+      '-',
+      'http://coconsult-contact:3602/healthz',
+    ],
+    { encoding: 'utf8', timeout: 15000 },
+  );
+  assert.equal(resolveCheck.status, 0, `${resolveCheck.stdout}\n${resolveCheck.stderr}`);
+
   let body = '';
   let status = 0;
   for (let attempt = 0; attempt < 40; attempt += 1) {
@@ -135,8 +171,9 @@ try {
       body = await response.text();
       if (status === 200) break;
     } catch {
-      // wait for health
+      // wait for proxy path
     }
+    await new Promise((resolve) => setTimeout(resolve, 500));
   }
   assert.equal(status, 200, body);
   const payload = JSON.parse(body);
