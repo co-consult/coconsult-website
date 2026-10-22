@@ -20,7 +20,7 @@ Disponibilité du formulaire, sans secret et sans dire pourquoi l’envoi est fe
 Corps JSON. Champs :
 
 - `name` : chaîne, 2 à 120 caractères.
-- `email` : e-mail professionnel. Les messageries grand public connues sont refusées.
+- `email` : adresse valide, 160 caractères maximum. Gmail, Outlook, Orange et les autres domaines sont acceptés si la syntaxe est correcte.
 - `company` : chaîne facultative, 160 caractères maximum.
 - `type` : `project`, `ai`, `team`, `qa`, `cloud`, `payments`, `partnership`, `other`, `demo`. Les alias historiques `qaDiscuss`, `qaTeam`, `qa-team` et `automation` sont normalisés. Toute autre valeur est refusée.
 - `product` : vide, ou `copharia` seulement pour `type=demo`.
