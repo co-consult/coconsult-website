@@ -14,6 +14,8 @@ Ne pas modifier Nginx Proxy Manager ni le VPS depuis cette PR. Ne pas activer Br
 | 4 | Nginx → Contact | Pair sur `10.230.22.0/24` | `X-Real-IP=$remote_addr`, `X-Forwarded-For` vidé |
 | 5 | Node | `CONTACT_TRUST_CIDRS=10.230.22.0/24` | `X-Forwarded-For` jamais lu |
 
+La résolution de `coconsult-contact` passe par le DNS Docker (`resolver 127.0.0.11` + variable) : le site démarre même si Contact est arrêté (CI `compose.yaml` seul, rollback). Sans Contact, `/api/contact` répond 502 et le reste du site reste servi.
+
 ## Déploiement VPS (sans activer l’envoi)
 
 Le fichier privé `compose.proxy.yaml` reste hors Git. Jenkins conserve le port public 8080. Le site reste publié en `127.0.0.1:3601`.

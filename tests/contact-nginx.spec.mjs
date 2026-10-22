@@ -10,7 +10,9 @@ const overlay = readFileSync(new URL('../compose.contact.yaml', import.meta.url)
 const compose = readFileSync(new URL('../compose.yaml', import.meta.url), 'utf8');
 
 assert.match(nginx, /location\s+=\s+\/api\/contact\s*\{/);
-assert.match(nginx, /proxy_pass\s+http:\/\/coconsult-contact:3602;/);
+assert.match(nginx, /resolver\s+127\.0\.0\.11/);
+assert.match(nginx, /set\s+\$contact_upstream\s+coconsult-contact;/);
+assert.match(nginx, /proxy_pass\s+http:\/\/\$contact_upstream:3602;/);
 assert.match(nginx, /set_real_ip_from\s+172\.19\.0\.0\/16;/);
 assert.match(nginx, /real_ip_header\s+X-Real-IP;/);
 assert.match(nginx, /real_ip_recursive\s+off;/);
@@ -24,7 +26,7 @@ assert.equal(/set_real_ip_from\s+172\.16\./.test(nginx), false);
 assert.equal(nginx.includes('proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for'), false);
 
 assert.match(snippet, /set_real_ip_from\s+172\.19\.0\.0\/16;/);
-assert.match(snippet, /proxy_pass\s+http:\/\/coconsult-contact:3602;/);
+assert.match(snippet, /proxy_pass\s+http:\/\/\$contact_upstream:3602;/);
 assert.equal(/set_real_ip_from\s+172\.16\.0\.0\/12/.test(snippet), false);
 
 assert.equal(overlay.includes('CONTACT_SEND_ENABLED: "false"'), true);
