@@ -4,9 +4,9 @@ import { legalPage, privacyPage } from '@/content/legal-pages';
 export const pages: Record<RouteKey, PageContent> = {
   home: {
     key: 'home',
-    metaTitle: 'Coconsult — Software engineering, artificial intelligence and tech teams',
+    metaTitle: 'Software development, AI and cloud | Coconsult',
     description:
-      'Coconsult designs, builds and modernises digital products: software, AI and data, quality, cloud and DevOps, with teams shaped around the project.',
+      'Web and mobile applications, AI integration and cloud: Coconsult designs and evolves business software through to production.',
     eyebrow: 'SOFTWARE ENGINEERING · AI · TECH TEAMS',
     h1: 'From artificial intelligence to business applications.',
     h1Accent: 'We build your digital systems.',
@@ -130,7 +130,7 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   services: {
     key: 'services',
-    metaTitle: 'Expertise | Coconsult',
+    metaTitle: 'Software, AI, cloud and quality | Coconsult',
     description:
       'Artificial intelligence, software, quality, cloud, cybersecurity and integration, to design systems and keep them running.',
     eyebrow: 'EXPERTISE',
@@ -164,9 +164,9 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   dedicated: {
     key: 'dedicated',
-    metaTitle: 'Dedicated software engineering teams | Coconsult',
+    metaTitle: 'Java, Angular and full-stack teams | Coconsult',
     description:
-      'Java, Angular, full-stack and DevOps teams staffed between France and Sfax. Discovery, selection, client interviews and delivery management.',
+      'Dedicated Java, Angular, full-stack and DevOps teams, coordinated from France, with Coconsult Nearshore in Sfax, a separate company.',
     eyebrow: 'DEDICATED TEAMS',
     h1: 'Build an engineering team around the work you actually have.',
     intro:
@@ -204,6 +204,15 @@ export const pages: Record<RouteKey, PageContent> = {
         ],
       },
       { type: 'note', text: 'The quotation, the contract and the invoice name the company that contracts with the client. Engineers based in Sfax are not employees of COCONSULT SAS merely because of this collaboration.' },
+      {
+        type: 'cards',
+        title: 'Depending on the need',
+        items: [
+          { title: 'Ways of working', text: 'Staff augmentation, a dedicated team, nearshore or a fixed scope, once the work is clear.', hrefKey: 'modes' },
+          { title: 'Software development', text: 'Web and mobile applications, APIs and integration, carried by the team.', hrefKey: 'software' },
+          { title: 'Cloud and DevOps', text: 'Delivery, environments and operations, when the project needs them.', hrefKey: 'cloud' },
+        ],
+      },
       { type: 'cta', title: 'Tell us about the team you need.', text: 'Stack, seniority, expected duration and working mode are enough for a first conversation.', primary: 'team', secondary: 'project' },
     ],
   },
@@ -386,9 +395,9 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   ai: {
     key: 'ai',
-    metaTitle: 'Secure enterprise AI integration | Coconsult',
+    metaTitle: 'Enterprise generative AI integration | Coconsult',
     description:
-      'Coconsult integrates AI tools you already use: permissions, traceability and a bounded use case.',
+      'Agents, models and intelligent automation inside your applications, with access rights and traceability scoped before a pilot.',
     eyebrow: 'ARTIFICIAL INTELLIGENCE AND DATA',
     h1: 'Put AI to work on a process you already understand.',
     intro:
@@ -421,6 +430,15 @@ export const pages: Record<RouteKey, PageContent> = {
         paragraphs: [
           'Confidentiality and privacy law are handled for the project in question, under the legal bases that apply. Connecting a model does not, by itself, make a processing activity compliant.',
           'Integration uses AI services you are entitled to use. Coconsult does not sell a proprietary conversational assistant as a finished product.',
+        ],
+      },
+      {
+        type: 'cards',
+        title: 'Depending on the need',
+        items: [
+          { title: 'Software development', text: 'Evolve the application that will host the use case.', hrefKey: 'software' },
+          { title: 'Business processes', text: 'Connect the flow to the tools and case files already in place.', hrefKey: 'automation' },
+          { title: 'Dedicated team', text: 'Reinforce the team that will run the pilot, then the integration.', hrefKey: 'dedicated' },
         ],
       },
       { type: 'cta', title: 'A bounded diagnostic, before any integration.', text: 'Describe the process, the data involved and the tool you have in mind. We will say whether a pilot is reasonable.', primary: 'ai' },
@@ -582,9 +600,9 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   software: {
     key: 'software',
-    metaTitle: 'Software development | Coconsult',
+    metaTitle: 'Custom software development | Coconsult',
     description:
-      'Web and mobile applications, APIs, backends and integration. Coconsult designs and evolves business software.',
+      'Web and mobile applications, APIs and business software, designed around the system you run and followed through to production.',
     eyebrow: 'SOFTWARE DEVELOPMENT',
     h1: 'Design and evolve your applications.',
     intro:
@@ -606,6 +624,15 @@ export const pages: Record<RouteKey, PageContent> = {
           'Evolve a web application already in production',
           'Connect a mobile app or a portal to the backend you run',
           'Steady the APIs between two systems that do not talk',
+        ],
+      },
+      {
+        type: 'cards',
+        title: 'Depending on the need',
+        items: [
+          { title: 'Artificial intelligence', text: 'Connect generation, models or agents to an application already in place.', hrefKey: 'ai' },
+          { title: 'Cloud and DevOps', text: 'Release what is built, then keep it running.', hrefKey: 'cloud' },
+          { title: 'Dedicated team', text: 'Staff a Java, Angular or full-stack squad for the life of the project.', hrefKey: 'dedicated' },
         ],
       },
       { type: 'cta', title: 'Describe the software to build or to modernise.', text: 'Stack, users and timing are enough for a first conversation.', primary: 'project' },
@@ -640,12 +667,21 @@ export const pages: Record<RouteKey, PageContent> = {
           'Surface an incident before users report it',
         ],
       },
+      {
+        type: 'cards',
+        title: 'Depending on the need',
+        items: [
+          { title: 'Software development', text: 'Evolve the application the platform has to release.', hrefKey: 'software' },
+          { title: 'Cybersecurity', text: 'Reduce the surface of the access and the services you expose.', hrefKey: 'cyber' },
+          { title: 'Dedicated team', text: 'Add a cloud or DevOps profile to the team you already have.', hrefKey: 'dedicated' },
+        ],
+      },
       { type: 'cta', title: 'Talk about the platform you run.', text: 'Current hosting, release cadence and the pain point are enough to start.', primary: 'project' },
     ],
   },
   modes: {
     key: 'modes',
-    metaTitle: 'Ways of working | Coconsult',
+    metaTitle: 'Dedicated teams and nearshore delivery | Coconsult',
     description:
       'Staff augmentation, dedicated teams, nearshore development, fixed scope and advisory, according to the scope and pace of the project.',
     eyebrow: 'WAYS OF WORKING',
@@ -669,6 +705,15 @@ export const pages: Record<RouteKey, PageContent> = {
         paragraphs: [
           'Coconsult supports its clients from France and works with Coconsult Nearshore, a legally independent Tunisian company based in Sfax, to bring in engineering skills and build dedicated teams.',
           'The quotation, the contract and the invoice name the company that contracts with the client.',
+        ],
+      },
+      {
+        type: 'cards',
+        title: 'Depending on the need',
+        items: [
+          { title: 'Dedicated teams', text: 'Java, Angular, full-stack or DevOps, followed over time.', hrefKey: 'dedicated' },
+          { title: 'Software development', text: 'Web and mobile applications, APIs and integration.', hrefKey: 'software' },
+          { title: 'Artificial intelligence', text: 'Generative AI, agents and models integrated into the tools you run.', hrefKey: 'ai' },
         ],
       },
       { type: 'cta', title: 'Describe the team or the setup you need.', text: 'We propose the engagement model after the scope is clear.', primary: 'team', secondary: 'project' },

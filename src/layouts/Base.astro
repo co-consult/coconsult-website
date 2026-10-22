@@ -7,7 +7,7 @@ import { ui } from '@/content/ui';
 import type { Locale, RouteKey } from '@/content/types';
 import { company } from '@/data/company';
 import { absoluteUrl, pathFor, routes } from '@/data/routes';
-import { breadcrumbLd, crumbsFor, jsonScript, organizationLd, webPageLd } from '@/lib/seo';
+import { breadcrumbLd, crumbsFor, faqLd, jsonScript, organizationLd, serviceLd, webPageLd } from '@/lib/seo';
 
 interface Props {
   locale: Locale;
@@ -15,11 +15,13 @@ interface Props {
   description: string;
   routeKey: RouteKey | 'notFound';
   noindex?: boolean;
+  serviceName?: string;
+  faqs?: { q: string; a: string }[];
 }
-const { locale, title, description, routeKey, noindex = false } = Astro.props;
+const { locale, title, description, routeKey, noindex = false, serviceName, faqs = [] } = Astro.props;
 const t = ui[locale];
 const path = routeKey === 'notFound' ? (locale === 'fr' ? '/404.html' : '/en/404/') : pathFor(locale, routeKey);
-const canonical = absoluteUrl(routeKey === 'notFound' ? pathFor(locale, 'home') : path);
+const canonical = absoluteUrl(path);
 const frHref = absoluteUrl(routeKey === 'notFound' ? '/' : routes[routeKey].fr);
 const enHref = absoluteUrl(routeKey === 'notFound' ? '/en/' : routes[routeKey].en);
 const crumbs = routeKey === 'home' || routeKey === 'notFound' ? [] : crumbsFor(locale, routeKey, t.home);
@@ -27,11 +29,13 @@ const ldCrumbs = crumbs.map((item) => ({
   label: item.label,
   href: item.href ?? (routeKey === 'notFound' ? '/' : pathFor(locale, routeKey)),
 }));
-const graph = routeKey === 'home'
+const graph: object[] = routeKey === 'home'
   ? [organizationLd(), webPageLd(locale, 'home', title, description)]
   : routeKey === 'notFound'
     ? []
     : [webPageLd(locale, routeKey, title, description), breadcrumbLd(ldCrumbs)];
+if (routeKey !== 'notFound' && serviceName) graph.push(serviceLd(locale, routeKey, serviceName, description));
+if (faqs.length > 0) graph.push(faqLd(faqs));
 ---
 <!doctype html>
 <html lang={locale}>

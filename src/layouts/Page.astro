@@ -5,16 +5,21 @@ import SectorExperience from '@/components/sectors/SectorExperience.astro';
 import Blocks from '@/components/Blocks.astro';
 import Base from '@/layouts/Base.astro';
 import { ui } from '@/content/ui';
-import type { Locale, PageContent } from '@/content/types';
+import type { Locale, PageContent, RouteKey } from '@/content/types';
 import { crumbsFor } from '@/lib/seo';
+import { routes } from '@/data/routes';
 
 interface Props { locale: Locale; page: PageContent; }
 const { locale, page } = Astro.props;
 const crumbs = crumbsFor(locale, page.key, ui[locale].home);
 const blocks = page.key === 'contact' ? page.blocks.filter((block) => block.type !== 'inquiries' && block.type !== 'note') : page.blocks;
 const customShell = page.key === 'home' || page.key === 'contact' || page.key === 'sectors';
+const serviceKeys: RouteKey[] = ['services', 'dedicated', 'qa', 'payments', 'automation', 'ai', 'software', 'cloud', 'cyber', 'modes'];
+const serviceName = serviceKeys.includes(page.key) ? routes[page.key].label[locale] : undefined;
+const faqBlock = page.blocks.find((block) => block.type === 'faq');
+const faqs = faqBlock?.type === 'faq' ? faqBlock.items : [];
 ---
-<Base locale={locale} title={page.metaTitle} description={page.description} routeKey={page.key}>
+<Base locale={locale} title={page.metaTitle} description={page.description} routeKey={page.key} serviceName={serviceName} faqs={faqs}>
   {page.key === 'home' ? (
     <HomeExperience locale={locale} />
   ) : page.key === 'contact' ? (

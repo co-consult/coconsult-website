@@ -4,9 +4,9 @@ import { legalPage, privacyPage } from '@/content/legal-pages';
 export const pages: Record<RouteKey, PageContent> = {
   home: {
     key: 'home',
-    metaTitle: 'Coconsult — Ingénierie logicielle, intelligence artificielle et équipes tech',
+    metaTitle: 'Développement logiciel, IA et cloud | Coconsult',
     description:
-      'Coconsult conçoit, développe et modernise des solutions numériques : logiciel, IA et data, qualité, cloud et DevOps, avec des équipes adaptées au projet.',
+      'Applications web et mobiles, intégration d’IA et cloud : Coconsult conçoit et fait évoluer vos logiciels métier, jusqu’à la mise en production.',
     eyebrow: 'INGÉNIERIE LOGICIELLE · IA · ÉQUIPES TECH',
     h1: 'De l’intelligence artificielle aux applications métier.',
     h1Accent: 'Nous construisons vos solutions numériques.',
@@ -176,7 +176,7 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   services: {
     key: 'services',
-    metaTitle: 'Expertises | Coconsult',
+    metaTitle: 'Développement, IA, cloud et qualité | Coconsult',
     description:
       'Intelligence artificielle, développement, qualité, cloud, cybersécurité et intégration, pour concevoir et faire tenir vos systèmes.',
     eyebrow: 'EXPERTISES',
@@ -210,9 +210,9 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   dedicated: {
     key: 'dedicated',
-    metaTitle: 'Équipes d’ingénierie dédiées | Coconsult',
+    metaTitle: 'Équipes Java, Angular et full-stack | Coconsult',
     description:
-      'Constitution d’équipes Java, Angular, full-stack et DevOps entre la France et Sfax. Cadrage, sélection, entretien et pilotage.',
+      'Équipes dédiées Java, Angular, full-stack et DevOps, coordonnées depuis la France, avec Coconsult Nearshore à Sfax, société distincte.',
     eyebrow: 'ÉQUIPES DÉDIÉES',
     h1: 'Constituer une équipe d’ingénierie adaptée au besoin réel.',
     intro:
@@ -252,6 +252,15 @@ export const pages: Record<RouteKey, PageContent> = {
       {
         type: 'note',
         text: 'Le devis, le contrat et la facture identifient la société qui contracte avec le client. Les ingénieurs situés à Sfax ne sont pas, du seul fait de cette collaboration, salariés de COCONSULT SAS.',
+      },
+      {
+        type: 'cards',
+        title: 'Selon le besoin',
+        items: [
+          { title: 'Modes d’intervention', text: 'Régie, équipe dédiée, nearshore ou forfait, selon le périmètre.', hrefKey: 'modes' },
+          { title: 'Développement logiciel', text: 'Applications web, mobiles, API et intégration, portées par l’équipe.', hrefKey: 'software' },
+          { title: 'Cloud et DevOps', text: 'Livraison, environnements et exploitation, lorsque le besoin est là.', hrefKey: 'cloud' },
+        ],
       },
       { type: 'cta', title: 'Décrivez l’équipe dont vous avez besoin.', text: 'Stack, séniorité, durée envisagée et mode de travail : ces éléments suffisent pour un premier échange.', primary: 'team', secondary: 'project' },
     ],
@@ -435,9 +444,9 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   ai: {
     key: 'ai',
-    metaTitle: 'Intégration d’IA pour systèmes d’entreprise | Coconsult',
+    metaTitle: 'Intégration d’IA générative en entreprise | Coconsult',
     description:
-      'Coconsult intègre des outils d’IA existants dans vos applications : permissions, traçabilité et cas d’usage cadrés.',
+      'Agents, modèles et automatisation intelligente dans vos applications, avec droits d’accès et traçabilité cadrés avant le pilote.',
     eyebrow: 'INTELLIGENCE ARTIFICIELLE ET DATA',
     h1: 'Mettre l’IA au service d’un processus que vous connaissez.',
     intro:
@@ -470,6 +479,15 @@ export const pages: Record<RouteKey, PageContent> = {
         paragraphs: [
           'La confidentialité et le RGPD se traitent pour le projet concerné, selon les bases légales applicables. Brancher un modèle ne rend pas, à lui seul, un traitement conforme.',
           'L’intégration s’appuie sur des services d’IA que vous êtes autorisé à utiliser. Coconsult ne commercialise pas un assistant conversationnel propriétaire clé en main.',
+        ],
+      },
+      {
+        type: 'cards',
+        title: 'Selon le besoin',
+        items: [
+          { title: 'Développement logiciel', text: 'Faire évoluer l’application qui accueillera le cas d’usage.', hrefKey: 'software' },
+          { title: 'Processus métier', text: 'Relier le flux aux outils et aux dossiers déjà en place.', hrefKey: 'automation' },
+          { title: 'Équipe dédiée', text: 'Renforcer l’équipe qui portera le pilote, puis l’intégration.', hrefKey: 'dedicated' },
         ],
       },
       { type: 'cta', title: 'Un diagnostic cadré, avant toute intégration.', text: 'Décrivez le processus, les données en jeu et l’outil que vous envisagez. Nous dirons si un pilote est raisonnable.', primary: 'ai' },
@@ -631,9 +649,9 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   software: {
     key: 'software',
-    metaTitle: 'Développement logiciel | Coconsult',
+    metaTitle: 'Développement logiciel sur mesure | Coconsult',
     description:
-      'Applications web et mobiles, API, backends et intégration. Coconsult conçoit et fait évoluer des logiciels métier.',
+      'Applications web et mobiles, API et logiciels métier, conçus pour le système en place et suivis jusqu’à la mise en production.',
     eyebrow: 'DÉVELOPPEMENT LOGICIEL',
     h1: 'Concevoir et faire évoluer vos applications.',
     intro:
@@ -655,6 +673,15 @@ export const pages: Record<RouteKey, PageContent> = {
           'Faire évoluer une application web déjà en production',
           'Relier un mobile ou un portail au backend existant',
           'Stabiliser des API entre deux systèmes qui ne se parlent pas',
+        ],
+      },
+      {
+        type: 'cards',
+        title: 'Selon le besoin',
+        items: [
+          { title: 'Intelligence artificielle', text: 'Brancher génération, modèles ou agents sur une application déjà en place.', hrefKey: 'ai' },
+          { title: 'Cloud et DevOps', text: 'Mettre en production et tenir l’exploitation de ce qui est livré.', hrefKey: 'cloud' },
+          { title: 'Équipe dédiée', text: 'Constituer une squad Java, Angular ou full-stack pour la durée du projet.', hrefKey: 'dedicated' },
         ],
       },
       { type: 'cta', title: 'Décrivez le logiciel à construire ou à moderniser.', text: 'Stack, utilisateurs et contrainte de délai suffisent pour un premier échange.', primary: 'project' },
@@ -689,12 +716,21 @@ export const pages: Record<RouteKey, PageContent> = {
           'Rendre un incident visible avant que les utilisateurs ne le signalent',
         ],
       },
+      {
+        type: 'cards',
+        title: 'Selon le besoin',
+        items: [
+          { title: 'Développement logiciel', text: 'Faire évoluer l’application que la plateforme doit livrer.', hrefKey: 'software' },
+          { title: 'Cybersécurité', text: 'Réduire la surface des accès et des services exposés.', hrefKey: 'cyber' },
+          { title: 'Équipe dédiée', text: 'Ajouter un profil cloud ou DevOps au dispositif existant.', hrefKey: 'dedicated' },
+        ],
+      },
       { type: 'cta', title: 'Parler de la plateforme que vous exploitez.', text: 'Hébergement actuel, fréquence de livraison et point de douleur suffisent pour commencer.', primary: 'project' },
     ],
   },
   modes: {
     key: 'modes',
-    metaTitle: 'Modes d’intervention | Coconsult',
+    metaTitle: 'Régie, équipe dédiée et nearshore | Coconsult',
     description:
       'Régie, équipes dédiées, développement nearshore, forfait et conseil, selon le périmètre et le rythme du projet.',
     eyebrow: 'MODES D’INTERVENTION',
@@ -718,6 +754,15 @@ export const pages: Record<RouteKey, PageContent> = {
         paragraphs: [
           'Coconsult accompagne ses clients depuis la France et collabore avec Coconsult Nearshore, une société tunisienne juridiquement indépendante basée à Sfax, pour mobiliser des compétences d’ingénierie et constituer des équipes dédiées.',
           'Le devis, le contrat et la facture identifient la société qui contracte avec le client.',
+        ],
+      },
+      {
+        type: 'cards',
+        title: 'Selon le besoin',
+        items: [
+          { title: 'Équipes dédiées', text: 'Java, Angular, full-stack ou DevOps, suivis dans la durée.', hrefKey: 'dedicated' },
+          { title: 'Développement logiciel', text: 'Applications web, mobiles, API et intégration.', hrefKey: 'software' },
+          { title: 'Intelligence artificielle', text: 'Intégration d’IA générative, d’agents et de modèles dans vos outils.', hrefKey: 'ai' },
         ],
       },
       { type: 'cta', title: 'Décrire l’équipe ou le cadre qui vous manque.', text: 'Nous proposons le mode d’intervention après avoir compris le périmètre.', primary: 'team', secondary: 'project' },

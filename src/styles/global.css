@@ -132,7 +132,12 @@ p { line-height: 1.7; }
   flex: 0 0 auto;
 }
 
-.site-header .brand img { height: 64px; width: auto; }
+.site-header .brand {
+  padding: 4px 8px;
+  border-radius: 10px;
+}
+
+.site-header .brand img { height: 48px; width: auto; }
 .site-footer .brand img { height: 56px; width: auto; }
 
 .desktop-nav {
@@ -617,7 +622,7 @@ h1 {
   .floating-node { font-size: 11px; max-width: 46%; }
   .center-node strong { font-size: 15px; }
   :root { --header: 76px; }
-  .site-header .brand img { height: 52px; }
+  .site-header .brand img { height: 42px; }
   .site-footer .brand img { height: 48px; }
   h1 { letter-spacing: -0.03em; }
 }

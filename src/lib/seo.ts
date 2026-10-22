@@ -33,7 +33,8 @@ export function organizationLd() {
     logo: absoluteUrl('/assets/brand/coconsult-logo.png'),
     email: company.email,
     foundingDate: String(company.founded),
-    areaServed: ['FR', 'TN', 'US'],
+    // Clients are served from France. Nearshore delivery in Tunisia is a separate company, not an establishment of this publisher.
+    areaServed: 'FR',
     address: {
       '@type': 'PostalAddress',
       streetAddress: '10 rue de Penthièvre',
@@ -54,6 +55,38 @@ export function webPageLd(locale: Locale, key: RouteKey, title: string, descript
     url: absoluteUrl(path),
     inLanguage: locale,
     isPartOf: { '@type': 'WebSite', name: company.name, url: company.siteUrl + '/' },
+  };
+}
+
+export function serviceLd(locale: Locale, key: RouteKey, name: string, description: string) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name,
+    description,
+    serviceType: name,
+    url: absoluteUrl(pathFor(locale, key)),
+    areaServed: 'FR',
+    provider: {
+      '@type': 'Organization',
+      name: company.name,
+      url: company.siteUrl + '/',
+    },
+  };
+}
+
+export function faqLd(items: { q: string; a: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.a,
+      },
+    })),
   };
 }
 
