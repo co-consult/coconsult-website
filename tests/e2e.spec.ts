@@ -163,6 +163,24 @@ test('logo sits on a light plate', async ({ page }) => {
   expect(background).toBe('rgb(255, 255, 255)');
 });
 
+for (const viewport of [
+  { width: 320, height: 700 },
+  { width: 390, height: 844 },
+  { width: 768, height: 1000 },
+  { width: 1024, height: 800 },
+  { width: 1440, height: 900 },
+]) {
+  test(`header logo height at ${viewport.width}`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+    const header = await page.locator('.site-header .brand img').evaluate((element) => Math.round(element.getBoundingClientRect().height));
+    const footer = await page.locator('.site-footer .brand img').evaluate((element) => Math.round(element.getBoundingClientRect().height));
+    const mobile = viewport.width <= 700;
+    expect(header).toBe(mobile ? 42 : 48);
+    expect(footer).toBe(mobile ? 48 : 56);
+  });
+}
+
 for (const viewport of viewports) {
   test(`no horizontal overflow at ${viewport.width}`, async ({ page }) => {
     await page.setViewportSize(viewport);
