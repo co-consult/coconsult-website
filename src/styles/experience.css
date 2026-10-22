@@ -424,12 +424,13 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
   background: var(--cyan);
 }
 .step { position: relative; z-index: 1; }
-.check { position: relative; padding-left: 28px; }
+.check { position: relative; }
 .check::before {
   content: "";
   position: absolute;
-  left: 12px;
-  top: 26px;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -465,6 +466,11 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
 }
 .step.is-fail, .check.is-fail { border-color: #ffb15a; color: #ffe1bf; }
 .check.is-ok, .step.is-ok { border-color: #8ef0c2; }
+.check {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px 12px 36px;
+}
 .checks { grid-template-columns: 1fr 1fr; }
 .role-stack {
   display: flex;
@@ -1103,14 +1109,40 @@ textarea { min-height: 140px; resize: vertical; }
   color: var(--ink);
 }
 .error { color: #ffc2a8; min-height: 1.3em; font-size: 14px; }
-#outcome-text { white-space: pre-line; }
+#outcome-text { margin: 0; color: #f3f7fb; }
+.outcome-title {
+  display: block;
+  margin: 0 0 10px;
+  color: #f3f7fb;
+  font-family: var(--display);
+  font-size: 1.7rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+.outcome-body,
+.outcome-fallback {
+  display: block;
+  margin: 0;
+  color: #d8fbff;
+  font-size: 1rem;
+  line-height: 1.5;
+}
 .summary { display: grid; gap: 12px; margin-bottom: 18px; }
 .summary div { border-top: 1px solid var(--line); padding-top: 10px; }
 .summary dt { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); }
 .summary dd { margin: 4px 0 0; }
 .mail-fallback { margin-top: 18px; color: var(--muted); }
 .mail-fallback a { color: var(--ink); }
-.outcome { border: 1px solid var(--line); border-radius: 18px; padding: 16px; margin-top: 12px; }
+.outcome {
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 12px;
+  padding: 16px 18px;
+  border: 1px solid rgba(214, 236, 244, 0.28);
+  border-radius: 18px;
+  background: #102233;
+  color: #f3f7fb;
+}
 #prepare[aria-busy="true"] { opacity: 0.7; }
 .hp {
   position: absolute;
