@@ -569,7 +569,7 @@ export const pages: Record<RouteKey, PageContent> = {
     eyebrow: 'CONTACT',
     h1: "Let's talk about your next system.",
     h1Accent: 'A project, a team, AI, or a demonstration.',
-    intro: 'The site prepares the message. It does not send it.',
+    intro: 'Confirmation appears only after the enquiry is accepted. Otherwise the message is prepared in your mail software.',
     blocks: [
       {
         type: 'inquiries',

@@ -330,17 +330,19 @@ const demo = fr
         </div>
         <div class="viz-panel" id="panel-cyber" hidden>
           <h3>{demo.cyberH}</h3>
-          <div class="cta-row" id="roles">
+          <div class="role-stack" id="roles">
             {demo.roles.map(([id, label], index) => (
               <button class="role" type="button" data-role={id} aria-pressed={index === 0 ? 'true' : 'false'}>{label}</button>
             ))}
           </div>
-          <div class="matrix" id="matrix" data-view={demo.view} data-write={demo.write} data-none={demo.none}>
-            <div></div><div class="res">{demo.file}</div><div class="res">{demo.api}</div><div class="res">{demo.secret}</div>
-            <div class="res">{demo.access}</div>
-            <div class="res cell" data-cell="file">{demo.view}</div>
-            <div class="res cell" data-cell="api">{demo.view}</div>
-            <div class="res cell" data-cell="secret">{demo.none}</div>
+          <div class="matrix-scroll">
+            <div class="matrix" id="matrix" data-view={demo.view} data-write={demo.write} data-none={demo.none}>
+              <div></div><div class="res">{demo.file}</div><div class="res">{demo.api}</div><div class="res">{demo.secret}</div>
+              <div class="res">{demo.access}</div>
+              <div class="res cell" data-cell="file">{demo.view}</div>
+              <div class="res cell" data-cell="api">{demo.view}</div>
+              <div class="res cell" data-cell="secret">{demo.none}</div>
+            </div>
           </div>
           <p class="demo-note">{demo.cyberNote}</p>
         </div>

@@ -131,7 +131,7 @@ try {
   assert.equal(bindings == null || Object.keys(bindings).length === 0, true);
   const published = settings.NetworkSettings.Ports || {};
   assert.equal(Object.values(published).every((value) => value == null), true);
-  assert.equal((settings.Config.Env || []).includes('CONTACT_SEND_ENABLED=false'), true);
+  assert.equal((settings.Config.Env || []).some((item) => item === 'CONTACT_SEND_ENABLED=true'), false);
   assert.equal((settings.Config.Env || []).some((item) => item.startsWith('BREVO_API_KEY=')), false);
   const attached = settings.NetworkSettings.Networks;
   const names = Object.keys(attached);

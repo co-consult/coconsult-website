@@ -29,8 +29,10 @@ const eyebrow = locale === 'fr'
         {story && <p>{story.intervention}</p>}
         {story && <p>{story.result}</p>}
       </div>
-      <button class="btn ghost small" type="button" data-case aria-expanded="false" data-more={moreLabel} data-less={lessLabel}>{moreLabel}</button>
-      <a class="btn ghost small" href={contactPath(locale, 'project')}>{item.cta[locale].label}</a>
+      <div class="case-actions">
+        <button class="btn ghost small" type="button" data-case aria-expanded="false" data-more={moreLabel} data-less={lessLabel}>{moreLabel}</button>
+        <a class="btn ghost small" href={contactPath(locale, 'project')}>{item.cta[locale].label}</a>
+      </div>
     </div>
   </article>
 </div>

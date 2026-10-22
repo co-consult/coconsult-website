@@ -29,7 +29,7 @@ assert.match(snippet, /set_real_ip_from\s+172\.19\.0\.0\/16;/);
 assert.match(snippet, /proxy_pass\s+http:\/\/\$contact_upstream:3602;/);
 assert.equal(/set_real_ip_from\s+172\.16\.0\.0\/12/.test(snippet), false);
 
-assert.equal(overlay.includes('CONTACT_SEND_ENABLED: "false"'), true);
+assert.equal(/CONTACT_SEND_ENABLED\s*:/.test(overlay), false);
 assert.equal(overlay.includes('ports:'), false);
 assert.equal(overlay.includes('10.230.22.10'), true);
 assert.equal(overlay.includes('CONTACT_TRUST_CIDRS: 10.230.22.0/24'), true);
@@ -110,7 +110,7 @@ try {
   const webInfo = JSON.parse(execFileSync('docker', ['inspect', webName], { encoding: 'utf8' }))[0];
 
   assert.equal(contactInfo.HostConfig.PortBindings == null || Object.keys(contactInfo.HostConfig.PortBindings).length === 0, true);
-  assert.equal((contactInfo.Config.Env || []).includes('CONTACT_SEND_ENABLED=false'), true);
+  assert.equal((contactInfo.Config.Env || []).some((item) => item === 'CONTACT_SEND_ENABLED=true'), false);
   assert.equal((contactInfo.Config.Env || []).some((item) => item.startsWith('BREVO_API_KEY=')), false);
 
   const contactNets = Object.keys(contactInfo.NetworkSettings.Networks);

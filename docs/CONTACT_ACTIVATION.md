@@ -19,7 +19,7 @@ Ajouter le Contact à ce fichier l’aurait démarré au prochain déploiement. 
 - `coconsult-contact`, `internal: true`, sous-réseau `10.230.22.0/24`. `coconsult-web` est le seul autre membre. Le processus écoute `10.230.22.10:3602` sur cette interface. Nginx Proxy Manager et les autres applications du VPS ne rejoignent pas ce réseau.
 - `coconsult-egress`, qui n’est pas interne. Il sert uniquement à joindre `https://api.brevo.com`. Aucun port n’est publié sur l’hôte. Ce réseau n’est pas `proxy-network`. Aucun autre service n’y est raccordé, et la communication entre conteneurs y est coupée. L’interface de sortie n’a pas de port en écoute.
 
-`CONTACT_SEND_ENABLED` reste `false` dans cet overlay. La sortie HTTPS ne déclenche aucun envoi.
+`CONTACT_SEND_ENABLED` n’est pas dans `compose.contact.yaml`. Le bloc `environment` de Compose écrase `env_file`. Une valeur écrite dans l’overlay ignorerait `contact.env` au prochain déploiement. L’interrupteur est donc uniquement dans `contact.env`, hors Git. Sans cette variable, ou avec toute valeur autre que `true`, le processus n’envoie rien. La CI et les tests ne chargent pas `contact.env`.
 
 ## Chaîne d’adresse IP
 
@@ -53,9 +53,9 @@ Si `10.230.22.0/24` est déjà pris, choisir un autre `/24` libre et le reporter
 - [ ] Confirmer le contrat Brevo, la localisation du traitement et l’adresse expéditrice vérifiée.
 - [ ] Confirmer que `CONTACT_TO` est une boîte lue par des personnes habilitées de COCONSULT SAS, sans copie vers Coconsult Nearshore.
 - [ ] Faire valider la base juridique et la durée de conservation.
-- [ ] Publier le texte préparé dans `docs/legal/CONTACT-FORM-NOTICE-DRAFT.md` sur `/confidentialite/` et `/en/privacy-policy/`. Ne pas le publier avant : les pages actuelles disent encore, à raison, que le site ne reçoit pas le message.
-- [ ] Créer `contact.env` à partir de `contact.env.example`, hors Git. Y placer `BREVO_API_KEY`, `CONTACT_FROM`, `CONTACT_TO`.
-- [ ] Dans `compose.contact.yaml`, passer `CONTACT_SEND_ENABLED` de `false` à `true`. Tant que cette ligne reste `false`, même une clé présente ne déclenche aucun envoi.
+- [ ] Les pages `/confidentialite/` et `/en/privacy-policy/` décrivent le formulaire actif et nomment Brevo comme prestataire d’acheminement. Elles ne fixent pas de durée chiffrée et ne concluent pas que le contrat Brevo est au dossier.
+- [ ] Créer `contact.env` à partir de `contact.env.example`, hors Git, sans écraser un fichier de production déjà en place. Y placer `BREVO_API_KEY`, `CONTACT_FROM`, `CONTACT_TO` et, seulement pour la production, `CONTACT_SEND_ENABLED=true`.
+- [ ] Ne pas remettre `CONTACT_SEND_ENABLED` dans `compose.contact.yaml`. Cette clé y écraserait `contact.env`.
 - [ ] Vérifier que `10.230.22.0/24` ne chevauche aucun réseau Docker ni aucune route de l’hôte. Sinon, déplacer le sous-réseau comme indiqué ci-dessus.
 - [ ] Confirmer que `set_real_ip_from` dans `nginx.conf` correspond toujours au CIDR de `proxy-network` sur le VPS (aujourd’hui `172.19.0.0/16`).
 - [ ] Déployer avec les trois fichiers, sans toucher au port 8080 de l’hôte :
@@ -65,15 +65,44 @@ docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml -f compose.con
 ```
 
 - [ ] Vérifier `GET http://coconsult-contact:3602/healthz` depuis le réseau interne, pas depuis Internet.
-- [ ] Depuis le conteneur, sans clé, `GET https://api.brevo.com/v3/account` doit répondre 401. Ne pas appeler `POST /v3/smtp/email` pour ce contrôle, et ne pas passer `CONTACT_SEND_ENABLED` à `true` avant la décision d’envoi.
+- [ ] Depuis le conteneur, sans clé, `GET https://api.brevo.com/v3/account` doit répondre 401. Ne pas appeler `POST /v3/smtp/email` pour ce contrôle.
+- [ ] Avant de déployer une révision qui retire la clé du fichier Compose, vérifier que `contact.env` sur le VPS contient déjà `CONTACT_SEND_ENABLED=true`. Si le drapeau n’avait été posé que sur le conteneur en cours, l’écrire dans `contact.env` avant le `up`, sinon le recréation repart avec l’envoi coupé.
 - [ ] Envoyer une demande de test vers la boîte convenue, puis vérifier qu’aucune liste marketing Brevo n’a été alimentée.
 - [ ] Vérifier qu’un en-tête `X-Forwarded-For` forgé par le navigateur ne change pas le quota.
 
+## Déploiement de cette révision
+
+À lancer depuis le dépôt sur le VPS, après le contrôle de `contact.env` ci-dessus. Les trois fichiers restent ceux du projet `coconsult`. Ne pas utiliser `docker compose down` : il arrêterait aussi d’autres services si le projet était plus large, et il n’est pas nécessaire. Ne pas modifier les réseaux, Jenkins, ni Nginx Proxy Manager.
+
+```bash
+docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml -f compose.contact.yaml up -d --build
+```
+
+Vérifier le drapeau sans afficher la clé :
+
+```bash
+docker inspect coconsult-contact --format '{{range .Config.Env}}{{println .}}{{end}}' | grep '^CONTACT_SEND_ENABLED='
+```
+
+La valeur attendue en production est `CONTACT_SEND_ENABLED=true`. `GET /api/contact` répond alors `available: true` lorsqu’une clé et les adresses sont présentes. Un envoi réel n’est confirmé côté navigateur que si la réponse JSON contient `"accepted": true`.
+
 ## Rollback
 
-Le service a été créé avec les trois fichiers ensemble. `compose.contact.yaml` seul n’est pas un projet valide : il ne fait que compléter `compose.yaml` et `compose.proxy.yaml`. Les commandes de retour arrière utilisent donc la même composition.
+Deux retours sont possibles. Les deux restent dans le projet `coconsult` et utilisent les trois mêmes fichiers. `compose.contact.yaml` seul n’est pas un projet valide.
 
-1. Arrêter et retirer seulement `coconsult-contact`, puis reconstruire le site sans le relancer (voir aussi `docs/CONTACT_NGINX_INTEGRATION.md` si la route Nginx doit disparaître) :
+### Couper l’envoi, en laissant le site et la route
+
+Dans `contact.env` sur le VPS : `CONTACT_SEND_ENABLED=false`. Puis ne recréer que Contact :
+
+```bash
+docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml -f compose.contact.yaml up -d --no-deps --force-recreate coconsult-contact
+```
+
+Le site et Nginx Proxy Manager ne sont pas reconstruits. Le formulaire revient à la préparation dans la messagerie du visiteur. Retirer `BREVO_API_KEY` du même fichier si la clé doit aussi disparaître du processus. Ne pas la committer.
+
+### Retirer le processus Contact
+
+Arrêter et retirer seulement `coconsult-contact`, puis reconstruire le site sans le relancer (voir aussi `docs/CONTACT_NGINX_INTEGRATION.md` si la route Nginx doit disparaître) :
 
 ```bash
 docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml -f compose.contact.yaml stop coconsult-contact
@@ -83,8 +112,6 @@ docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml -f compose.con
 
 La dernière commande reconstruit `coconsult-web` avec les trois fichiers. Elle conserve le rattachement au réseau privé et à `proxy-network`, sans rattacher le site à `coconsult-egress`. `--no-deps` ne recrée pas `coconsult-contact` : plus aucun processus n’utilise la sortie HTTPS. Ne pas remplacer ces trois fichiers par `compose.contact.yaml` seul, et ne pas utiliser `docker compose down` : il arrêterait aussi le site.
 
-3. Le site revient à la préparation mailto. Aucune demande nouvelle n’est reçue par le serveur.
-4. Retirer `BREVO_API_KEY` du fichier d’environnement. Ne pas la committer.
-5. Ne pas republier les pages juridiques « formulaire actif » si l’envoi est de nouveau coupé : revenir au texte qui décrit la messagerie.
+Le site revient alors à la préparation dans la messagerie du visiteur. Retirer `BREVO_API_KEY` du fichier d’environnement. Ne pas la committer. Si l’envoi est de nouveau coupé, les pages juridiques ne doivent plus décrire un formulaire qui transmet la demande.
 
 Le conteneur Contact n’a pas de volume. L’arrêter ne supprime pas la base du site. Il ne partage pas le port 3601 ni le port 8080 de Jenkins.

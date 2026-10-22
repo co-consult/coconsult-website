@@ -113,14 +113,18 @@
       edit: { file: 'write', api: 'write', secret: 'none' },
       admin: { file: 'write', api: 'write', secret: 'write' },
     };
-    const labels = { view: matrix.dataset.view || '', write: matrix.dataset.write || '', none: matrix.dataset.none || '' };
+    const labels = {
+      view: (matrix.dataset.view || '').trim(),
+      write: (matrix.dataset.write || '').trim(),
+      none: (matrix.dataset.none || '').trim(),
+    };
     const paintRole = (role) => {
       const map = rights[role] || rights.read;
       matrix.querySelectorAll('[data-cell]').forEach((cell) => {
         if (!(cell instanceof HTMLElement)) return;
         const level = map[cell.dataset.cell] || 'none';
         cell.dataset.level = level;
-        cell.textContent = labels[level] || '';
+        cell.textContent = (labels[level] || '').replace(/\s+$/u, '');
       });
       document.querySelectorAll('[data-role]').forEach((button) => {
         button.setAttribute('aria-pressed', button.dataset.role === role ? 'true' : 'false');

@@ -42,7 +42,7 @@ Uniquement dans l’environnement du processus Node. Jamais dans le JavaScript d
 - `BREVO_API_KEY`
 - `CONTACT_FROM` : expéditeur vérifié chez Brevo.
 - `CONTACT_TO` : destinataire imposé par le serveur.
-- `CONTACT_SEND_ENABLED` : défaut `false`. Toute autre valeur laisse le formulaire en préparation.
+- `CONTACT_SEND_ENABLED` : absent du fichier Compose, pour ne pas écraser `contact.env`. Défaut du processus : pas d’envoi. Seule la chaîne exacte `true` active l’envoi. En production cette valeur est dans `contact.env`. La CI ne la définit pas.
 - `CONTACT_ORIGINS` : origines autorisées, séparées par des virgules. Vide en local : l’origine de la requête doit être la sienne.
 - `CONTACT_TRUST_PROXY` : adresses exactes des pairs autorisés à présenter `X-Real-IP`.
 - `CONTACT_TRUST_CIDRS` : réseaux de ces pairs. L’overlay fixe `10.230.22.0/24`, le réseau privé partagé avec `coconsult-web`.

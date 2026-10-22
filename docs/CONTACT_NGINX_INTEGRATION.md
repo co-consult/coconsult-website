@@ -1,6 +1,6 @@
-# Raccordement Nginx → Contact (envoi toujours désactivé)
+# Raccordement Nginx → Contact
 
-Prépare le chemin HTTP public `/api/contact` vers le processus `coconsult-contact` déjà déployé sur le VPS. `CONTACT_SEND_ENABLED` reste `false` : aucun POST Brevo, le parcours mailto reste le mode par défaut du formulaire.
+Prépare le chemin HTTP public `/api/contact` vers le processus `coconsult-contact`. Ce fichier ne décide pas de l’envoi. `CONTACT_SEND_ENABLED` est lu dans `contact.env`, hors Git. Sans la valeur exacte `true`, aucun POST Brevo n’a lieu et le formulaire prépare le message dans la messagerie du visiteur. Voir `docs/CONTACT_ACTIVATION.md`.
 
 Ne pas modifier Nginx Proxy Manager ni le VPS depuis cette PR. Ne pas activer Brevo.
 
@@ -38,7 +38,7 @@ docker inspect -f '{{json .NetworkSettings.Networks}}' coconsult-web
 # → default + proxy-network + coconsult-contact (pas coconsult-egress)
 ```
 
-`CONTACT_SEND_ENABLED` doit rester `false` dans `compose.contact.yaml`. `contact.env` reste privé, hors image.
+`CONTACT_SEND_ENABLED` ne figure pas dans `compose.contact.yaml` : ce bloc écraserait `contact.env`. `contact.env` reste privé, hors image et hors Git.
 
 ## Rollback (sans arrêter les autres applications)
 

@@ -416,7 +416,9 @@
       });
       const data = await response.json().catch(() => ({}));
       if (response.ok && data.accepted === true) {
-        if (outcomeText) outcomeText.textContent = panel.dataset.sentLabel || '';
+        const title = panel.dataset.sentTitle || '';
+        const body = panel.dataset.sentBody || '';
+        if (outcomeText) outcomeText.textContent = body ? `${title}\n\n${body}` : title;
         setMailActionsVisible(false);
         if (outcome) outcome.hidden = false;
         if (outcomeText instanceof HTMLElement) outcomeText.focus();
@@ -425,10 +427,10 @@
         return;
       }
       const uncertain = response.status === 504 || data.error === 'uncertain';
-      if (error) error.textContent = uncertain ? (panel.dataset.uncertainLabel || '') : (panel.dataset.sendError || '');
+      if (error) error.textContent = '';
       showMailFallback(uncertain ? panel.dataset.uncertainLabel : panel.dataset.sendError);
     } catch {
-      if (error) error.textContent = panel.dataset.sendError || '';
+      if (error) error.textContent = '';
       showMailFallback(panel.dataset.sendError);
     } finally {
       const succeeded = prepare instanceof HTMLButtonElement && prepare.hidden;

@@ -35,10 +35,11 @@ const copy = fr
       prepare: 'Préparer le message',
       send: 'Envoyer ma demande',
       sending: 'Envoi en cours',
-      sent: 'Votre demande a été acceptée pour transmission. Cela confirme la prise en charge par Coconsult, pas encore l’arrivée dans la boîte du destinataire.',
+      sentTitle: 'Merci pour votre message !',
+      sentBody: 'Votre demande a bien été transmise à notre service de messagerie. Notre équipe reviendra vers vous dans les meilleurs délais.',
       sendError: 'L’envoi n’a pas abouti. Vos informations sont conservées : vous pouvez réessayer, ou envoyer le message vous-même.',
       uncertain: 'Le résultat de l’envoi est incertain : la demande a peut-être été reçue. Un nouvel envoi pourrait créer un doublon. Aucun essai automatique n’a été fait.',
-      sendIntro: 'L’envoi est disponible. La confirmation indique que Coconsult a accepté la demande, pas que le message est déjà arrivé chez le destinataire.',
+      sendIntro: 'Vous pouvez transmettre la demande depuis cette page.',
       needErr: 'Choisissez un besoin.',
       msgErr: 'Décrivez le projet en quelques lignes.',
       nameErr: 'Indiquez un nom.',
@@ -59,7 +60,7 @@ const copy = fr
       flag: 'Sujet présélectionné : COPHARIA',
       prefill: 'Je souhaite une démonstration de COPHARIA. ',
       demoTitle: 'Demander une démonstration de COPHARIA',
-      demoIntro: 'Parcours court pour une démonstration de la solution en développement. Aucun envoi serveur : vous préparez le message, puis vous l’envoyez vous-même.',
+      demoIntro: 'Parcours court pour une démonstration de la solution en développement.',
       demoNeedLabel: 'Démonstration COPHARIA',
       hints: {
         ai: ['Brancher un modèle sur un processus existant', "Cadrer les droits d'accès avant un pilote"],
@@ -91,10 +92,11 @@ const copy = fr
       prepare: 'Prepare the message',
       send: 'Send my request',
       sending: 'Sending',
-      sent: 'Your request was accepted for transmission. That confirms Coconsult has taken it in, not that it has already arrived in the recipient’s mailbox.',
+      sentTitle: 'Thank you for your message!',
+      sentBody: 'Your enquiry has been submitted to our email service. Our team will get back to you as soon as possible.',
       sendError: 'The send did not succeed. Your details are still here: you can try again, or send the message yourself.',
       uncertain: 'The result of the send is uncertain: the request may already have been received. Sending again could create a duplicate. Nothing was retried automatically.',
-      sendIntro: 'Sending is available. Confirmation means Coconsult accepted the request, not that it has already reached the recipient.',
+      sendIntro: 'You can submit the enquiry from this page.',
       needErr: 'Choose a need.',
       msgErr: 'Describe the project in a few lines.',
       nameErr: 'Enter a name.',
@@ -115,7 +117,7 @@ const copy = fr
       flag: 'Preselected subject: COPHARIA',
       prefill: 'I would like a demonstration of COPHARIA. ',
       demoTitle: 'Request a COPHARIA demonstration',
-      demoIntro: 'A short path for a demonstration of the solution in development. No server send: you prepare the message, then you send it yourself.',
+      demoIntro: 'A short path for a demonstration of the solution in development.',
       demoNeedLabel: 'COPHARIA demonstration',
       hints: {
         ai: ['Connect a model to a process we already run', 'Scope access rights before a pilot'],
@@ -154,7 +156,8 @@ const copy = fr
   data-locale={locale}
   data-send-label={copy.send}
   data-sending-label={copy.sending}
-  data-sent-label={copy.sent}
+  data-sent-title={copy.sentTitle}
+  data-sent-body={copy.sentBody}
   data-send-error={copy.sendError}
   data-uncertain-label={copy.uncertain}
   data-send-intro={copy.sendIntro}
