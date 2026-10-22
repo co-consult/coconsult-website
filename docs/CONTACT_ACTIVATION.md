@@ -53,7 +53,8 @@ Si `10.230.22.0/24` est déjà pris, choisir un autre `/24` libre et le reporter
 - [ ] Confirmer le contrat Brevo, la localisation du traitement et l’adresse expéditrice vérifiée.
 - [ ] Confirmer que `CONTACT_TO` est une boîte lue par des personnes habilitées de COCONSULT SAS, sans copie vers Coconsult Nearshore.
 - [ ] Faire valider la base juridique et la durée de conservation.
-- [ ] Les pages `/confidentialite/` et `/en/privacy-policy/` décrivent le formulaire actif et nomment Brevo comme prestataire d’acheminement. Elles ne fixent pas de durée chiffrée et ne concluent pas que le contrat Brevo est au dossier.
+- [ ] Les pages `/confidentialite/` et `/en/privacy-policy/` décrivent le formulaire actif et nomment Brevo comme prestataire d’acheminement. Elles prévoient 12 mois après le dernier échange pour une demande sans contrat, comme règle future après décision formalisée de COCONSULT SAS et organisation de la suppression dans la messagerie. Cette organisation n’est pas réalisée. Elles indiquent une durée cible de 6 mois pour les journaux transactionnels Brevo, qui n’est pas un réglage déjà configuré. Elles ne concluent pas que le contrat Brevo est au dossier.
+- [ ] Ne pas activer de suppression sur `contact@coconsult.fr` avant le contrôle décrit à la section « Suppression dans la messagerie ».
 - [ ] Créer `contact.env` à partir de `contact.env.example`, hors Git, sans écraser un fichier de production déjà en place. Y placer `BREVO_API_KEY`, `CONTACT_FROM`, `CONTACT_TO` et, seulement pour la production, `CONTACT_SEND_ENABLED=true`.
 - [ ] Ne pas remettre `CONTACT_SEND_ENABLED` dans `compose.contact.yaml`. Cette clé y écraserait `contact.env`.
 - [ ] Vérifier que `10.230.22.0/24` ne chevauche aucun réseau Docker ni aucune route de l’hôte. Sinon, déplacer le sous-réseau comme indiqué ci-dessus.
@@ -69,6 +70,14 @@ docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml -f compose.con
 - [ ] Avant de déployer une révision qui retire la clé du fichier Compose, vérifier que `contact.env` sur le VPS contient déjà `CONTACT_SEND_ENABLED=true`. Si le drapeau n’avait été posé que sur le conteneur en cours, l’écrire dans `contact.env` avant le `up`, sinon le recréation repart avec l’envoi coupé.
 - [ ] Envoyer une demande de test vers la boîte convenue, puis vérifier qu’aucune liste marketing Brevo n’a été alimentée.
 - [ ] Vérifier qu’un en-tête `X-Forwarded-For` forgé par le navigateur ne change pas le quota.
+
+## Suppression dans la messagerie
+
+La durée de 12 mois après le dernier échange, pour une demande commerciale sans contrat, n’est pas une règle déjà en vigueur. Elle le devient seulement après une décision formalisée de COCONSULT SAS et après que la suppression a été organisée dans la messagerie. Cette organisation n’est pas réalisée.
+
+`contact@coconsult.fr` est aussi utilisée par CSSForever. Aucune règle de suppression ne doit être activée sans contrôle de son périmètre et de son effet rétroactif. Une règle posée sur la boîte pourrait effacer des messages qui ne viennent pas du formulaire, y compris des messages déjà présents.
+
+Ne pas modifier CSSForever, Brevo, le VPS ni les variables d’environnement pour mettre en place cette suppression. La durée cible de 6 mois des journaux transactionnels Brevo n’est pas configurée. Ne pas l’activer depuis cette checklist.
 
 ## Déploiement de cette révision
 

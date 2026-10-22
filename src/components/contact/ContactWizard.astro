@@ -234,12 +234,17 @@ const copy = fr
       </section>
       <section class="panel" data-step="4" hidden>
         <dl class="summary">
-          <div><dt>{copy.sumNeed}</dt><dd id="sum-need"></dd><button class="edit" type="button" data-next="1" data-generic-only>{copy.edit}</button></div>
-          <div data-sum-msg-row><dt>{copy.sumMsg}</dt><dd id="sum-msg"></dd><button class="edit" type="button" data-edit-message>{copy.edit}</button></div>
-          <div><dt>{copy.sumWho}</dt><dd id="sum-who"></dd><button class="edit" type="button" data-next="3">{copy.edit}</button></div>
+          <div><dt>{copy.sumNeed}</dt><dd><span id="sum-need"></span><button class="edit" type="button" data-next="1" data-generic-only>{copy.edit}</button></dd></div>
+          <div data-sum-msg-row><dt>{copy.sumMsg}</dt><dd><span id="sum-msg"></span><button class="edit" type="button" data-edit-message>{copy.edit}</button></dd></div>
+          <div><dt>{copy.sumWho}</dt><dd><span id="sum-who"></span><button class="edit" type="button" data-next="3">{copy.edit}</button></dd></div>
         </dl>
         <p class="error" id="err-4" role="alert"></p>
         <p id="send-status" role="status"></p>
+        <p class="privacy-notice" id="privacy-notice">
+          {fr
+            ? <>Les informations transmises sont utilisées par Coconsult pour traiter votre demande et vous répondre. Elles sont acheminées via Brevo. <a href="/confidentialite/">Consultez notre politique de confidentialité.</a></>
+            : <>Coconsult uses the information you provide to handle your enquiry and reply. Your message is delivered through Brevo. <a href="/en/privacy-policy/">Read our privacy policy.</a></>}
+        </p>
         <button class="btn primary" type="button" id="prepare">{copy.prepare}</button>
         <div class="outcome" id="outcome" hidden>
           <div id="outcome-text" tabindex="-1">

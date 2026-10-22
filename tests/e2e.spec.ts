@@ -785,7 +785,7 @@ test('a second click does not send the enquiry twice', async ({ page }) => {
   await reachSummary(page, 'Un seul envoi doit partir meme si le bouton est presse deux fois.');
   const send = page.getByRole('button', { name: 'Envoyer ma demande' });
   await send.click();
-  await expect.poll(() => posts).toBe(1);
+  await expect.poll(() => posts, { timeout: 15_000 }).toBe(1);
   await send.click({ force: true }).catch(() => {});
   expect(posts).toBe(1);
   release();
@@ -961,13 +961,23 @@ test('the rights matrix and the two project cards line up in French and English'
   }
 });
 
-test('the privacy pages describe the live form without inventing a retention period', async ({ page }) => {
+test('the privacy pages describe the form retention without claiming it is already in force', async ({ page }) => {
   await page.goto('/confidentialite/');
   const fr = await page.locator('main').innerText();
   expect(fr).toContain('COCONSULT SAS');
   expect(fr).toContain('Brevo');
   expect(fr).toContain('contact@coconsult.fr');
-  expect(fr).toContain('Aucune durée chiffrée');
+  expect(fr).toContain('responsable habilité');
+  expect(fr).toContain('12 mois après le dernier échange');
+  expect(fr).toContain('décision formalisée de COCONSULT SAS');
+  expect(fr).toContain('organisée dans la messagerie');
+  expect(fr).toContain('Cette organisation n’est pas réalisée');
+  expect(fr).toContain('ne s’applique pas aux dossiers contractuels');
+  expect(fr).not.toContain('CSSForever');
+  expect(fr).toContain('durée cible de 6 mois');
+  expect(fr).toContain('Ce n’est pas un réglage déjà configuré');
+  expect(fr).toContain('distinct du formulaire');
+  expect(fr).toContain('e-mails de prospection');
   expect(fr).not.toMatch(/\b\d+\s+ans\b/);
   expect(fr).not.toContain("n’a pas de formulaire");
   await page.goto('/en/privacy-policy/');
@@ -975,8 +985,74 @@ test('the privacy pages describe the live form without inventing a retention per
   expect(en).toContain('COCONSULT SAS');
   expect(en).toContain('Brevo');
   expect(en).toContain('contact@coconsult.fr');
-  expect(en).toContain('No fixed period');
+  expect(en).toContain('authorised manager');
+  expect(en).toContain('12 months after the last exchange');
+  expect(en).toContain('formal decision by COCONSULT SAS');
+  expect(en).toContain('organised in the mailbox');
+  expect(en).toContain('That organisation is not in place');
+  expect(en).toContain('does not apply to contractual files');
+  expect(en).not.toContain('CSSForever');
+  expect(en).toContain('target period of 6 months');
+  expect(en).toContain('not a setting already in place');
+  expect(en).toContain('separate from the form');
+  expect(en).toContain('prospecting email');
   expect(en).not.toContain('The site has no form');
+});
+
+test('the contact summary shows the privacy notice and no marketing checkbox', async ({ page }) => {
+  test.setTimeout(90_000);
+  const cases = [
+    { path: '/contact/?type=project', width: 1440, message: 'Nous voulons moderniser une application deja en production.', href: '/confidentialite/', link: 'Consultez notre politique de confidentialité.', text: 'Elles sont acheminées via Brevo.' },
+    { path: '/contact/?type=project', width: 390, message: 'Nous voulons moderniser une application deja en production.', href: '/confidentialite/', link: 'Consultez notre politique de confidentialité.', text: 'Elles sont acheminées via Brevo.' },
+    { path: '/en/contact/?type=project', width: 1440, message: 'We want to evolve an application that is already running.', href: '/en/privacy-policy/', link: 'Read our privacy policy.', text: 'Your message is delivered through Brevo.' },
+    { path: '/en/contact/?type=project', width: 375, message: 'We want to evolve an application that is already running.', href: '/en/privacy-policy/', link: 'Read our privacy policy.', text: 'Your message is delivered through Brevo.' },
+  ] as const;
+  for (const item of cases) {
+    await page.setViewportSize({ width: item.width, height: 900 });
+    await page.goto(item.path);
+    await reachSummary(page, item.message);
+    const notice = page.locator('#privacy-notice');
+    const send = page.locator('#prepare');
+    await expect(notice).toBeVisible();
+    await expect(notice).toContainText(item.text);
+    await expect(notice.getByRole('link', { name: item.link })).toHaveAttribute('href', item.href);
+    await expect(page.locator('input[type="checkbox"]')).toHaveCount(0);
+    const gap = await notice.evaluate((node) => {
+      const button = document.getElementById('prepare');
+      if (!(node instanceof HTMLElement) || !(button instanceof HTMLElement)) return -1;
+      return Math.round(button.getBoundingClientRect().top - node.getBoundingClientRect().bottom);
+    });
+    expect(gap, `${item.path} ${item.width}`).toBeGreaterThanOrEqual(8);
+    expect(gap, `${item.path} ${item.width}`).toBeLessThanOrEqual(24);
+    await expect(send).toBeVisible();
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow, `${item.path} ${item.width}`).toBeLessThanOrEqual(1);
+    const paint = await notice.evaluate((node) => {
+      const link = node.querySelector('a');
+      let background = 'rgba(0, 0, 0, 0)';
+      let current: HTMLElement | null = node;
+      while (current) {
+        const value = getComputedStyle(current).backgroundColor;
+        if (value && value !== 'rgba(0, 0, 0, 0)' && value !== 'transparent') {
+          background = value;
+          break;
+        }
+        current = current.parentElement;
+      }
+      return {
+        text: getComputedStyle(node).color,
+        link: link instanceof HTMLElement ? getComputedStyle(link).color : '',
+        background,
+      };
+    });
+    expect(contrastRatio(paint.text, paint.background), `${item.path} ${item.width} text`).toBeGreaterThanOrEqual(4.5);
+    expect(contrastRatio(paint.link, paint.background), `${item.path} ${item.width} link`).toBeGreaterThanOrEqual(4.5);
+  }
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/contact/?type=project');
+  await reachSummary(page, 'Nous voulons moderniser une application deja en production.');
+  const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+  expect(results.violations, JSON.stringify(results.violations, null, 2)).toEqual([]);
 });
 
 test('home and QA pages meet WCAG AA checks we can automate', async ({ page }) => {

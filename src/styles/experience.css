@@ -1130,9 +1130,21 @@ textarea { min-height: 140px; resize: vertical; }
 .summary { display: grid; gap: 12px; margin-bottom: 18px; }
 .summary div { border-top: 1px solid var(--line); padding-top: 10px; }
 .summary dt { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); }
-.summary dd { margin: 4px 0 0; }
+.summary dd { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin: 4px 0 0; }
 .mail-fallback { margin-top: 18px; color: var(--muted); }
 .mail-fallback a { color: var(--ink); }
+.privacy-notice {
+  max-width: 68ch;
+  margin: 4px 0 14px;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+.privacy-notice a {
+  color: var(--ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
 .outcome {
   width: fit-content;
   max-width: 100%;

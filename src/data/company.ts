@@ -145,7 +145,7 @@ export function publicationReview(): PublicationReview {
     gdpr.push({
       id: 'retentionPractice',
       detail:
-        'Le critère publié est la durée du traitement de la demande, puis la suppression. Confirmer qu’il correspond à la pratique effective. Ne pas publier de durée chiffrée tant qu’elle n’est pas fixée.',
+        'La durée de 12 mois après le dernier échange, pour une demande commerciale sans contrat, ne devient une règle effective qu’après une décision formalisée de COCONSULT SAS et après organisation de la suppression dans la messagerie. Cette organisation n’est pas réalisée. Elle ne couvre pas les dossiers contractuels. La durée cible de 6 mois des journaux transactionnels Brevo n’est pas configurée. contact@coconsult.fr est aussi utilisée par CSSForever : aucune règle de suppression ne doit être activée sans contrôle de son périmètre et de son effet rétroactif. Cette précision ne lève pas le NO-GO global.',
     });
   }
 
