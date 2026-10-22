@@ -18,6 +18,9 @@
   const hintsBox = document.getElementById('hints');
   const prepare = document.getElementById('prepare');
   const outcome = document.getElementById('outcome');
+  const outcomeText = document.getElementById('outcome-text');
+  const sendStatus = document.getElementById('send-status');
+  const honeypot = panel.querySelector('[data-honeypot]');
   const copyMail = document.getElementById('copy-mail');
   const copyFullStatus = document.getElementById('copy-status');
   const copyFallback = document.getElementById('copy-fallback');
@@ -58,12 +61,21 @@
     ai: 'ai',
     software: 'project',
     team: 'team',
-    cloud: 'project',
+    cloud: 'cloud',
     quality: 'qaDiscuss',
     other: 'other',
   };
   const hints = hintNode ? JSON.parse(hintNode.textContent || '{}') : {};
   const state = { need: '', inquiry: 'project', topic: '', reached: 1, mode: 'generic' };
+  const sendState = { available: false, token: '', readyAt: 0, sending: false };
+
+  function apiType() {
+    if (isDemoMode() || (state.inquiry === 'demo' && productToken() === 'copharia')) return 'demo';
+    if (state.need === 'cloud' || state.inquiry === 'cloud') return 'cloud';
+    if (state.inquiry === 'qaDiscuss' || state.inquiry === 'qaTeam' || state.inquiry === 'qa') return 'qa';
+    if (state.inquiry === 'automation' || state.inquiry === 'other') return 'other';
+    return state.inquiry || 'project';
+  }
 
   function productToken() {
     const product = (params.get('product') || '').toLowerCase();
@@ -93,6 +105,8 @@
   function setInquiry(id) {
     state.inquiry = id;
     if (select instanceof HTMLSelectElement) select.value = id;
+    const hiddenType = panel.querySelector('[data-hidden-type]');
+    if (hiddenType instanceof HTMLInputElement) hiddenType.value = apiType();
     refreshMail();
   }
 
@@ -186,7 +200,15 @@
   }
 
   function invalidatePrepared() {
-    if (!(prepare instanceof HTMLElement) || !prepare.hidden) return;
+    if (!(prepare instanceof HTMLElement)) return;
+    if (prepare.dataset.action === 'send' && !prepare.hidden) {
+      if (outcome instanceof HTMLElement && !outcome.hidden) outcome.hidden = true;
+      const error = document.getElementById('err-4');
+      if (error) error.textContent = '';
+      if (sendStatus) sendStatus.textContent = '';
+      return;
+    }
+    if (!prepare.hidden) return;
     retractMailLinks();
   }
 
@@ -324,8 +346,108 @@
     });
   });
 
+  function setMailActionsVisible(visible) {
+    outcome?.querySelectorAll('.mail-actions, #mail-preview, #copy-mail, #copy-status, #copy-fallback').forEach((node) => {
+      if (node instanceof HTMLElement) node.hidden = !visible;
+    });
+  }
+
+  function showMailFallback(text) {
+    applyMailLinks();
+    setMailActionsVisible(true);
+    if (outcomeText) outcomeText.textContent = text || panel.dataset.sendError || '';
+    if (outcome) outcome.hidden = false;
+    if (copyFullStatus) copyFullStatus.textContent = '';
+    if (copyFallback) copyFallback.hidden = true;
+  }
+
+  async function refreshToken() {
+    try {
+      const response = await fetch('/api/contact', { headers: { accept: 'application/json' } });
+      if (!response.ok) return;
+      const data = await response.json();
+      if (data?.available === true && typeof data.token === 'string') {
+        sendState.token = data.token;
+        sendState.readyAt = Date.now() + 2100;
+      }
+    } catch {
+      sendState.token = '';
+    }
+  }
+
+  async function submitSend() {
+    if (sendState.sending) return;
+    const error = document.getElementById('err-4');
+    if (isDemoMode()) {
+      if (!validate(3)) {
+        if (error) error.textContent = panel.dataset.nameErr || '';
+        return;
+      }
+    } else if (!validate(1) || !validate(2) || !validate(3)) {
+      if (error) error.textContent = panel.dataset.needErr || '';
+      return;
+    }
+    if (error) error.textContent = '';
+    sendState.sending = true;
+    if (prepare instanceof HTMLButtonElement) {
+      prepare.disabled = true;
+      prepare.setAttribute('aria-busy', 'true');
+    }
+    if (sendStatus) sendStatus.textContent = panel.dataset.sendingLabel || '';
+    const wait = sendState.readyAt - Date.now();
+    if (wait > 0) await new Promise((resolve) => setTimeout(resolve, wait));
+    const product = isDemoMode() ? 'copharia' : '';
+    const payload = {
+      name: fieldValue(nameField),
+      email: fieldValue(emailField),
+      company: fieldValue(companyField),
+      type: apiType(),
+      product,
+      message: fieldValue(message),
+      locale: panel.dataset.locale === 'en' ? 'en' : 'fr',
+      token: sendState.token,
+      website: honeypot instanceof HTMLInputElement ? honeypot.value : '',
+    };
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', accept: 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await response.json().catch(() => ({}));
+      if (response.ok && data.accepted === true) {
+        if (outcomeText) outcomeText.textContent = panel.dataset.sentLabel || '';
+        setMailActionsVisible(false);
+        if (outcome) outcome.hidden = false;
+        if (outcomeText instanceof HTMLElement) outcomeText.focus();
+        if (sendStatus) sendStatus.textContent = '';
+        if (prepare instanceof HTMLButtonElement) prepare.hidden = true;
+        return;
+      }
+      const uncertain = response.status === 504 || data.error === 'uncertain';
+      if (error) error.textContent = uncertain ? (panel.dataset.uncertainLabel || '') : (panel.dataset.sendError || '');
+      showMailFallback(uncertain ? panel.dataset.uncertainLabel : panel.dataset.sendError);
+    } catch {
+      if (error) error.textContent = panel.dataset.sendError || '';
+      showMailFallback(panel.dataset.sendError);
+    } finally {
+      const succeeded = prepare instanceof HTMLButtonElement && prepare.hidden;
+      sendState.sending = false;
+      if (prepare instanceof HTMLButtonElement && !prepare.hidden) {
+        prepare.disabled = false;
+        prepare.removeAttribute('aria-busy');
+      }
+      if (sendStatus && !succeeded) sendStatus.textContent = '';
+      if (!succeeded && sendState.available) await refreshToken();
+    }
+  }
+
   if (prepare) {
     prepare.addEventListener('click', () => {
+      if (prepare.dataset.action === 'send') {
+        submitSend();
+        return;
+      }
       const error = document.getElementById('err-4');
       if (isDemoMode()) {
         if (!validate(3)) {
@@ -338,6 +460,7 @@
       }
       if (error) error.textContent = '';
       applyMailLinks();
+      setMailActionsVisible(true);
       if (outcome) outcome.hidden = false;
       prepare.hidden = true;
       if (copyFullStatus) copyFullStatus.textContent = '';
@@ -398,4 +521,25 @@
 
   if (select instanceof HTMLSelectElement) select.addEventListener('change', refreshMail);
   refreshMail();
+
+  async function probeAvailability() {
+    try {
+      const response = await fetch('/api/contact', { headers: { accept: 'application/json' } });
+      if (!response.ok) return;
+      const data = await response.json();
+      if (data?.available !== true || typeof data.token !== 'string' || data.token.length < 16) return;
+      sendState.available = true;
+      sendState.token = data.token;
+      sendState.readyAt = Date.now() + 2100;
+      if (prepare instanceof HTMLButtonElement) {
+        prepare.dataset.action = 'send';
+        prepare.textContent = panel.dataset.sendLabel || prepare.textContent;
+      }
+      if (introEl && panel.dataset.sendIntro) introEl.textContent = panel.dataset.sendIntro;
+    } catch {
+      sendState.available = false;
+    }
+  }
+
+  probeAvailability();
 })();

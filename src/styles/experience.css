@@ -1038,6 +1038,18 @@ textarea { min-height: 140px; resize: vertical; }
 .mail-fallback { margin-top: 18px; color: var(--muted); }
 .mail-fallback a { color: var(--ink); }
 .outcome { border: 1px solid var(--line); border-radius: 18px; padding: 16px; margin-top: 12px; }
+#prepare[aria-busy="true"] { opacity: 0.7; }
+.hp {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 .mail-actions { align-items: stretch; }
 .mail-actions .btn { text-align: center; }
 .mail-preview { margin: 8px 0 0; color: var(--muted); font-size: 14px; overflow-wrap: anywhere; }

@@ -1,6 +1,8 @@
 # Public HTTP stays on Nginx Proxy Manager.
 # This service publishes 8080 only on the host loopback, port 3601.
 # The VPS override compose.proxy.yaml (not versioned) attaches proxy-network.
+# The contact sender is not part of this file. See compose.contact.yaml
+# and docs/CONTACT_ACTIVATION.md. Do not add it here until that checklist is accepted.
 # Deploy with:
 #   docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml up -d --build
 services:

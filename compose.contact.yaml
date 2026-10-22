@@ -1,0 +1,53 @@
+# Optional overlay. Do not include this file in the production command
+# until docs/CONTACT_ACTIVATION.md has been accepted.
+# No host port is published. Jenkins keeps public 8080.
+# coconsult-web stays on 127.0.0.1:3601 via compose.yaml.
+services:
+  coconsult-contact:
+    build:
+      context: .
+      dockerfile: contact.Dockerfile
+    container_name: coconsult-contact
+    restart: unless-stopped
+    read_only: true
+    user: "65534:65534"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 96m
+    cpus: 0.25
+    pids_limit: 64
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+    environment:
+      CONTACT_BIND: 0.0.0.0
+      CONTACT_PORT: "3602"
+      CONTACT_SEND_ENABLED: "false"
+      CONTACT_TRUST_CIDRS: 172.30.22.0/24
+      CONTACT_ORIGINS: https://coconsult.fr,https://www.coconsult.fr
+    env_file:
+      - path: ./contact.env
+        required: false
+    expose:
+      - "3602"
+    networks:
+      - coconsult-contact
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3602/healthz').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  coconsult-web:
+    networks:
+      - default
+      - coconsult-contact
+
+networks:
+  coconsult-contact:
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.30.22.0/24
