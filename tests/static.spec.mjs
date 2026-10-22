@@ -17,6 +17,7 @@ const pages = [
   ['/services/cloud-devops/', 'fr', '/en/services/cloud-devops/'],
   ['/services/cybersecurite/', 'fr', '/en/services/cybersecurity/'],
   ['/modes-intervention/', 'fr', '/en/engagement/'],
+  ['/secteurs/', 'fr', '/en/industries/'],
   ['/solutions/', 'fr', '/en/solutions/'],
   ['/realisations/', 'fr', '/en/case-studies/'],
   ['/a-propos/', 'fr', '/en/about/'],
@@ -41,12 +42,23 @@ const forbidden = [
   'wero',
   'société générale',
   'societe generale',
+  'bpce',
+  'amundi',
+  'accelex',
+  'renault',
+  'europcar',
+  'air france',
+  'lvmh',
+  'darty',
+  'axione',
   'ingenico',
   'payplug',
   'pci dss',
   'leader mondial',
   '100% garanti',
   'club sportif sfaxien',
+  'cssforever',
+  'iaps',
   'class="mark"',
   'brand-text',
   'href="#"',
@@ -140,6 +152,19 @@ assert.match(homeEn, /href="\/en\/contact\/\?type=project"/);
 assert.match(homeEn, /href="\/en\/contact\/\?type=ai"/);
 assert.equal(home.includes('Paiements et API'), false);
 assert.equal(home.includes('nom à venir'), false);
+assert.match(read('/secteurs/'), /Banque, finance et paiements/);
+assert.match(read('/secteurs/'), /Domaine émergent/);
+assert.match(read('/secteurs/'), /Santé et industrie pharmaceutique/);
+assert.match(read('/en/industries/'), /Emerging domain/);
+assert.match(read('/en/industries/'), /Banking, finance and payments/);
+assert.match(read('/'), /Notre ingénierie au service de vos métiers/);
+assert.match(read('/'), /href="\/secteurs\/#finance"/);
+assert.match(read('/en/'), /href="\/en\/industries\/#finance"/);
+assert.match(read('/services/paiements/'), /API transactionnelles/);
+assert.match(read('/services/paiements/'), /idempotence/i);
+assert.match(read('/services/paiements/'), /paiements instantanés/i);
+assert.match(read('/en/services/payments/'), /Transactional APIs/);
+assert.match(read('/en/services/payments/'), /instant payments/i);
 assert.match(read('/solutions/'), /type=demo&amp;product=copharia|type=demo&product=copharia/);
 assert.match(read('/'), /\/assets\/copharia\/dashboard\.webp/);
 assert.match(read('/'), /\/assets\/copharia\/quality\.webp/);

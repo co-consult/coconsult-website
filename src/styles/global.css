@@ -119,7 +119,7 @@ p { line-height: 1.7; }
 .desktop-nav {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   margin-left: auto;
   min-width: 0;
 }
@@ -127,7 +127,7 @@ p { line-height: 1.7; }
 .desktop-nav a {
   color: #d5e4f2;
   text-decoration: none;
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 650;
   white-space: nowrap;
 }

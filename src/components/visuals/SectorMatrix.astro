@@ -1,0 +1,46 @@
+---
+import type { Locale } from '@/content/types';
+import { pathFor } from '@/data/routes';
+import { orderedSectors } from '@/data/sectors';
+
+interface Props {
+  locale: Locale;
+  /** home = compact tiles + CTA; page = full grid with summaries */
+  variant?: 'home' | 'page';
+}
+const { locale, variant = 'home' } = Astro.props;
+const fr = locale === 'fr';
+const items = orderedSectors();
+const sectorsHref = pathFor(locale, 'sectors');
+const isHome = variant === 'home';
+---
+<div class:list={['sector-matrix', { 'sector-matrix-home': isHome, 'sector-matrix-page': !isHome }]} data-sector-matrix>
+  <div class="sector-grid" role="list">
+    {items.map((item) => (
+      <a
+        class:list={['sector-tile', { emerging: item.maturity === 'emerging' }]}
+        id={!isHome ? item.id : undefined}
+        href={`${sectorsHref}#${item.id}`}
+        role="listitem"
+        data-sector={item.id}
+      >
+        <span class="sector-mark">{item.mark[locale]}</span>
+        <strong>{item.title[locale]}</strong>
+        {!isHome && <p>{item.summary[locale]}</p>}
+        {!isHome && (
+          <ul class="sector-angles">
+            {item.angles[locale].map((angle) => <li>{angle}</li>)}
+          </ul>
+        )}
+        {item.maturity === 'emerging' && (
+          <span class="sector-badge">{fr ? 'Domaine émergent' : 'Emerging domain'}</span>
+        )}
+      </a>
+    ))}
+  </div>
+  {isHome && (
+    <p class="sector-more">
+      <a class="btn ghost" href={sectorsHref}>{fr ? 'Explorer les secteurs' : 'Explore the industries'}</a>
+    </p>
+  )}
+</div>

@@ -1,0 +1,62 @@
+---
+import SectorMatrix from '@/components/visuals/SectorMatrix.astro';
+import type { Locale, PageContent } from '@/content/types';
+import { contactPath } from '@/data/inquiries';
+import { pathFor } from '@/data/routes';
+import { crumbsFor } from '@/lib/seo';
+import { ui } from '@/content/ui';
+
+interface Props { locale: Locale; page: PageContent }
+const { locale, page } = Astro.props;
+const t = ui[locale];
+const crumbs = crumbsFor(locale, 'sectors', t.home);
+const fr = locale === 'fr';
+const note = fr
+  ? 'Ces secteurs décrivent des environnements où des consultants Coconsult ont acquis de l’expérience — principalement en développement logiciel, DevOps et QA. Ce ne sont pas des spécialités historiques toutes équivalentes, et la page ne nomme pas les entreprises.'
+  : 'These industries describe environments where Coconsult consultants have built experience — mainly in software engineering, DevOps and QA. They are not all historic specialties of equal weight, and this page does not name companies.';
+---
+<div class="experience sectors-page">
+  <header class="page-hero sectors-hero">
+    <div class="container">
+      {crumbs.length > 0 && (
+        <nav aria-label={t.breadcrumb}>
+          <ol class="crumbs">
+            {crumbs.map((crumb) => (
+              <li>
+                {crumb.href ? <a href={crumb.href}>{crumb.label}</a> : <span aria-current="page">{crumb.label}</span>}
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
+      <p class="eyebrow">{page.eyebrow}</p>
+      <h1>{page.h1}</h1>
+      <p class="lede">{page.intro}</p>
+      <p class="sectors-note">{note}</p>
+    </div>
+  </header>
+
+  <section class="section" aria-labelledby="sectors-grid-title">
+    <div class="section-head container-narrow">
+      <p class="eyebrow">{fr ? 'Cartographie' : 'Map'}</p>
+      <h2 id="sectors-grid-title">{fr ? 'Huit environnements métier.' : 'Eight business environments.'}</h2>
+    </div>
+    <SectorMatrix locale={locale} variant="page" />
+  </section>
+
+  <section class="section paper">
+    <div class="section-head">
+      <p class="eyebrow">{fr ? 'Expertises' : 'Expertise'}</p>
+      <h2>{fr ? 'La technique reste le point d’entrée.' : 'Technical expertise stays the entry point.'}</h2>
+      <p class="lede-soft">
+        {fr
+          ? 'IA & Data, développement, QA, Cloud & DevOps, cybersécurité et intégration : les six expertises techniques ne sont pas remplacées. Les secteurs indiquent où cette ingénierie a déjà été exercée.'
+          : 'AI & Data, software, QA, Cloud & DevOps, cybersecurity and integration: the six technical expertises are not replaced. Industries show where that engineering has already been practised.'}
+      </p>
+    </div>
+    <p class="sector-more">
+      <a class="btn ghost" href={pathFor(locale, 'services')}>{fr ? 'Voir les expertises' : 'See the expertise'}</a>
+      <a class="btn primary" href={contactPath(locale, 'project')}>{fr ? 'Parler d’un contexte métier' : 'Discuss a business context'}</a>
+    </p>
+  </section>
+</div>

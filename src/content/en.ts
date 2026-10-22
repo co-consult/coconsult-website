@@ -287,20 +287,32 @@ export const pages: Record<RouteKey, PageContent> = {
     key: 'payments',
     metaTitle: 'Payments and transaction API engineering | Coconsult',
     description:
-      'Payment-provider integration, transaction flows, idempotency, retries and observability.',
+      'Payment systems, transactional APIs, idempotency, retries, instant payments, testing and DevOps in financial environments.',
     eyebrow: 'PAYMENTS',
     h1: 'Make payment flows and the APIs behind them dependable.',
     intro:
-      'Coconsult designs and integrates transaction journeys into existing applications: provider calls, statuses, retries and supervision.',
+      'A commercial priority for Coconsult: design and integrate transaction journeys into existing applications — provider calls, statuses, retries and supervision — with experience gained in banking and financial environments.',
     blocks: [
       {
         type: 'columns',
-        title: 'Problems we work on',
+        title: 'Relevant technical experience',
         items: [
-          { title: 'Duplicate charges or duplicate calls', text: 'Idempotency keys and replay rules when the client or the network repeats a request.' },
-          { title: 'Ambiguous timeouts', text: 'A timeout is not automatically a failure. The flow has to be able to read a status and continue cleanly.' },
-          { title: 'Reconciliation gaps', text: 'Matching payments to operations is defined with your files and APIs, from the way the operation actually runs.' },
-          { title: 'Backends to modernise', text: 'Java services and API contracts made more explicit, without rewriting the whole estate when that is not useful.' },
+          { title: 'Payment systems', text: 'Payment journeys wired into backends already in production, without rewriting the whole estate.' },
+          { title: 'Transactional APIs', text: 'API contracts, unique references, status reads and sequenced business steps.' },
+          { title: 'Reliability, retries and idempotency', text: 'Ambiguous timeouts, replays and idempotency keys when the client or the network repeats a request.' },
+          { title: 'Transactions and instant payments', text: 'Latency and confirmation constraints in flows where status must stay consistent.' },
+          { title: 'Testing in financial environments', text: 'Happy paths and degraded paths: duplicate calls, declines, waits, recovery after interruption.' },
+          { title: 'Banking DevOps', text: 'Delivery and observability suited to environments where releases are controlled.' },
+        ],
+      },
+      {
+        type: 'columns',
+        title: 'Day-to-day problems we work on',
+        items: [
+          { title: 'Duplicate charges or duplicate calls', text: 'Idempotency keys and replay rules when the same request returns.' },
+          { title: 'Ambiguous timeouts', text: 'A timeout is not automatically a failure. The flow has to read a status and continue cleanly.' },
+          { title: 'Operations gaps', text: 'Matching payments to operations is defined with your files and APIs, from how the operation actually runs.' },
+          { title: 'Backends to modernise', text: 'Services and API contracts made more explicit, without a full rewrite when that is not useful.' },
         ],
       },
       {
@@ -312,6 +324,13 @@ export const pages: Record<RouteKey, PageContent> = {
           { title: 'Control', text: 'Amount, unique reference, maximum wait and the rule if the same request returns.' },
           { title: 'Provider', text: 'An API call, then a status: accepted, declined, pending or unknown.' },
           { title: 'Operations', text: 'Logs, alerts and reconciliation with your operations, using only data you can legitimately keep.' },
+        ],
+      },
+      {
+        type: 'prose',
+        title: 'What this page does not claim',
+        paragraphs: [
+          'Coconsult is not presented here as the owner, official partner or designer of a named instant-payment scheme. Engagements start from your journey and constraints, without unauthorised named references.',
         ],
       },
       {
@@ -413,6 +432,17 @@ export const pages: Record<RouteKey, PageContent> = {
       },
       { type: 'cta', title: 'A bounded diagnostic, before any integration.', text: 'Describe the process, the data involved and the tool you have in mind. We will say whether a pilot is reasonable.', primary: 'ai' },
     ],
+  },
+  sectors: {
+    key: 'sectors',
+    metaTitle: 'Industry experience | Coconsult',
+    description:
+      'Business environments where Coconsult engineering has already been practised: finance and payments, mobility, retail, media, telecom, sports, business systems, and healthcare pharmaceuticals as an emerging domain.',
+    eyebrow: 'INDUSTRIES',
+    h1: 'Our engineering in the service of your industries.',
+    intro:
+      'The six technical expertises remain Coconsult’s core. The industries below show environments where consultants have built experience — without presenting them all as historic specialties of equal weight.',
+    blocks: [],
   },
   solutions: {
     key: 'solutions',
