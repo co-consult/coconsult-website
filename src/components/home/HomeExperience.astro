@@ -401,13 +401,24 @@ const demo = fr
         <article class="mode"><strong>{title}</strong><p>{text}</p></article>
       ))}
     </div>
-    <p class="cii-line">
-      {fr
-        ? 'COCONSULT est agréée crédit d’impôt innovation pour 2026-2030.'
-        : 'COCONSULT holds a French innovation tax credit agreement for 2026-2030.'}
-      {' '}
-      <a href={pathFor(locale, 'innovation')}>{fr ? 'Voir le cadre' : 'See the scope'}</a>
-    </p>
+    <aside class="cii-panel" aria-labelledby="cii-title">
+      <p class="eyebrow">{fr ? 'INNOVATION & EXPERTISE RECONNUE' : 'INNOVATION & RECOGNISED EXPERTISE'}</p>
+      <div class="cii-panel-copy">
+        <h3 id="cii-title">{fr ? 'Un partenaire agréé pour vos projets d’innovation' : 'A recognised partner for your innovation projects'}</h3>
+        <p class="cii-lead">
+          {fr
+            ? 'COCONSULT bénéficie de l’agrément Crédit d’Impôt Innovation (CII) pour les années 2026 à 2030, délivré par la DRIEETS Île-de-France.'
+            : 'COCONSULT holds a French innovation tax credit agreement (CII) for 2026 to 2030, issued by DRIEETS Île-de-France.'}
+        </p>
+        <p class="cii-ref">{fr ? 'Agrément n° 28910108.' : 'Agreement no. 28910108.'}</p>
+        <p class="cii-note">
+          {fr
+            ? 'L’agrément ne garantit pas l’éligibilité fiscale d’un projet.'
+            : 'The agreement does not guarantee that a project is tax-eligible.'}
+        </p>
+      </div>
+      <a class="btn primary" href={pathFor(locale, 'innovation')}>{fr ? 'Découvrir notre accompagnement' : 'Discover our support'}</a>
+    </aside>
   </section>
 
   <section class="section">
