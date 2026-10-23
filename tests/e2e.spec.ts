@@ -1075,6 +1075,65 @@ test('the contact summary shows the privacy notice and no marketing checkbox', a
   expect(results.violations, JSON.stringify(results.violations, null, 2)).toEqual([]);
 });
 
+test('the home innovation panel states the CII agreement and links to its page', async ({ page }) => {
+  const cases = [
+    { path: '/', width: 1440, title: 'Un partenaire agréé pour vos projets d’innovation', href: '/innovation/', cta: 'Découvrir notre accompagnement', note: 'ne garantit pas l’éligibilité fiscale' },
+    { path: '/', width: 1024, title: 'Un partenaire agréé pour vos projets d’innovation', href: '/innovation/', cta: 'Découvrir notre accompagnement', note: 'ne garantit pas l’éligibilité fiscale' },
+    { path: '/', width: 390, title: 'Un partenaire agréé pour vos projets d’innovation', href: '/innovation/', cta: 'Découvrir notre accompagnement', note: 'ne garantit pas l’éligibilité fiscale' },
+    { path: '/', width: 320, title: 'Un partenaire agréé pour vos projets d’innovation', href: '/innovation/', cta: 'Découvrir notre accompagnement', note: 'ne garantit pas l’éligibilité fiscale' },
+    { path: '/en/', width: 1440, title: 'A recognised partner for your innovation projects', href: '/en/innovation/', cta: 'Discover our support', note: 'does not guarantee that a project is tax-eligible' },
+    { path: '/en/', width: 390, title: 'A recognised partner for your innovation projects', href: '/en/innovation/', cta: 'Discover our support', note: 'does not guarantee that a project is tax-eligible' },
+  ] as const;
+  for (const item of cases) {
+    await page.setViewportSize({ width: item.width, height: 900 });
+    await page.goto(item.path);
+    const panel = page.locator('.cii-panel');
+    await expect(panel.getByRole('heading', { level: 3, name: item.title })).toBeVisible();
+    await expect(panel).toContainText('28910108');
+    await expect(panel).toContainText('DRIEETS');
+    await expect(panel).toContainText(item.note);
+    await expect(panel).not.toContainText(/nearshore/i);
+    const cta = panel.getByRole('link', { name: item.cta });
+    await expect(cta).toHaveAttribute('href', item.href);
+    await cta.focus();
+    await page.keyboard.press('Shift+Tab');
+    await page.keyboard.press('Tab');
+    await expect(cta).toBeFocused();
+    const paint = await cta.evaluate((node) => getComputedStyle(node).outlineWidth);
+    expect(parseFloat(paint), `${item.path} ${item.width}`).toBeGreaterThanOrEqual(2);
+    const aligned = await page.evaluate(() => {
+      const row = document.querySelector('#modes .mode-row');
+      const card = document.querySelector('.cii-panel');
+      if (!(row instanceof HTMLElement) || !(card instanceof HTMLElement)) return 99;
+      return Math.abs(row.getBoundingClientRect().width - card.getBoundingClientRect().width);
+    });
+    expect(aligned, `${item.path} ${item.width}`).toBeLessThanOrEqual(1);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow, `${item.path} ${item.width}`).toBeLessThanOrEqual(1);
+    const contrast = await panel.evaluate((node) => {
+      const title = node.querySelector('h3');
+      const note = node.querySelector('.cii-note');
+      const read = (element: Element | null) => {
+        if (!(element instanceof HTMLElement)) return { text: '', background: '' };
+        let background = 'rgb(255, 255, 255)';
+        let current: HTMLElement | null = element;
+        while (current) {
+          const value = getComputedStyle(current).backgroundColor;
+          if (value && value !== 'rgba(0, 0, 0, 0)' && value !== 'transparent') {
+            background = value;
+            break;
+          }
+          current = current.parentElement;
+        }
+        return { text: getComputedStyle(element).color, background };
+      };
+      return { title: read(title), note: read(note) };
+    });
+    expect(contrastRatio(contrast.title.text, contrast.title.background), `${item.path} ${item.width} title`).toBeGreaterThanOrEqual(4.5);
+    expect(contrastRatio(contrast.note.text, contrast.note.background), `${item.path} ${item.width} note`).toBeGreaterThanOrEqual(4.5);
+  }
+});
+
 test('the default build does not ship the assistant', async ({ page }) => {
   for (const urlPath of ['/', '/en/', '/contact/', '/en/contact/', '/realisations/', '/en/case-studies/']) {
     await page.goto(urlPath);

@@ -303,13 +303,70 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
 .paper { background: var(--paper); color: var(--paper-ink); }
 .paper .section-head p, .paper .muted { color: var(--paper-muted); }
 .paper .eyebrow { color: var(--brand-teal); }
-.paper .cii-line {
-  margin: 22px 0 0;
-  max-width: 68ch;
+.cii-panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px 32px;
+  align-items: end;
+  max-width: var(--max);
+  margin: 36px auto 0;
+  padding: 28px 32px 26px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fff;
+  overflow: hidden;
+}
+.cii-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--brand-teal) 0, var(--brand-teal) calc(100% - 64px), var(--brand-orange-on-paper) calc(100% - 64px));
+}
+.cii-panel .eyebrow {
+  grid-column: 1 / -1;
+  margin: 0 0 8px;
+  color: var(--brand-teal);
+}
+.cii-panel h3 {
+  margin: 0;
+  max-width: 22ch;
+  color: var(--paper-ink);
+  font-size: clamp(1.75rem, 2.8vw, 2.35rem);
+  line-height: 1.12;
+}
+.cii-panel .cii-lead {
+  margin: 14px 0 0;
+  max-width: 62ch;
+  color: var(--paper-ink);
+  font-size: 17px;
+  line-height: 1.55;
+}
+.cii-panel .cii-ref {
+  margin: 14px 0 0;
+  color: var(--paper-ink);
+  font-size: 15px;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+}
+.cii-panel .cii-note {
+  margin: 8px 0 0;
+  max-width: 62ch;
   color: var(--paper-muted);
   font-size: 14px;
+  line-height: 1.45;
 }
-.paper .cii-line a { color: var(--brand-teal); }
+.cii-panel .btn {
+  align-self: end;
+  margin-bottom: 2px;
+}
+.cii-panel a:focus-visible {
+  outline: 3px solid var(--accent-tech-deep);
+  outline-offset: 3px;
+}
 
 .stage {
   max-width: var(--max);
@@ -1305,6 +1362,12 @@ textarea { min-height: 140px; resize: vertical; }
 @media (max-width: 700px) {
   --header: 76px;
   .mode-row, .choice-grid, .checks { grid-template-columns: 1fr; }
+  .cii-panel {
+    grid-template-columns: 1fr;
+    margin-top: 28px;
+    padding: 22px 18px 20px;
+  }
+  .cii-panel .btn { justify-self: start; width: 100%; }
   .site-header { padding: 12px 16px; }
   .logo-plate img { height: 34px; }
   .section { padding: 64px 16px; }
