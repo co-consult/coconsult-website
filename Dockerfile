@@ -3,6 +3,9 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
+# Public guide is omitted unless this build argument is exactly true.
+ARG PUBLIC_ASSISTANT=false
+ENV PUBLIC_ASSISTANT=$PUBLIC_ASSISTANT
 RUN npm run build
 
 FROM nginxinc/nginx-unprivileged:stable-alpine

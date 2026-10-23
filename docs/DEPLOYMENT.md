@@ -64,6 +64,10 @@ curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:3601/en/services/qa-te
 docker logs --tail 50 coconsult-web
 ```
 
+## Guide commercial
+
+La commande ci-dessus construit le site sans le guide. Pour l’ajouter ou le retirer, suivre `docs/ASSISTANT.md`, section « Activer et éteindre le guide ». Cela passe par `PUBLIC_ASSISTANT=true` au build, dans `compose.guide.yaml` ou en `--build-arg`. Ne pas ajouter `compose.assistant.yaml`. Ne pas changer `compose.proxy.yaml` ni le service de contact. Une reconstruction sans cet argument retire le guide.
+
 Puis, depuis l’extérieur, sans changer NPM :
 
 ```bash

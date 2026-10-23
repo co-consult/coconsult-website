@@ -77,10 +77,53 @@ jobs:
           conn.close()
           assert res.status == 200, res.status
           assert body.strip() == b'ok', body
+          conn = http.client.HTTPConnection('127.0.0.1', 3601, timeout=10)
+          conn.request('GET', '/')
+          res = conn.getresponse()
+          home = res.read().decode()
+          conn.close()
+          assert res.status == 200, res.status
+          assert 'data-assistant-open' not in home, 'default image must not ship the guide'
+          assert 'cc-assistant' not in home
           print('nginx redirect checks passed')
           PY
+      - name: Recipe image enables the guide only with the build argument
+        run: |
+          docker build -t coconsult-guide-ci --build-arg PUBLIC_ASSISTANT=true .
+          docker run -d --name coconsult-guide-ci \
+            --read-only \
+            --tmpfs /tmp:rw,noexec,nosuid,size=16m \
+            --tmpfs /var/cache/nginx:rw,noexec,nosuid,size=16m \
+            --tmpfs /var/run:rw,noexec,nosuid,size=2m \
+            -p 127.0.0.1:3611:8080 \
+            coconsult-guide-ci
+          ok=0
+          for i in 1 2 3 4 5 6 7 8 9 10; do
+            if curl -fsS http://127.0.0.1:3611/healthz; then
+              ok=1
+              break
+            fi
+            sleep 2
+          done
+          test "$ok" = 1
+          python3 - <<'PY'
+          import http.client
+          conn = http.client.HTTPConnection('127.0.0.1', 3611, timeout=10)
+          conn.request('GET', '/')
+          res = conn.getresponse()
+          body = res.read().decode()
+          conn.close()
+          assert res.status == 200, res.status
+          assert 'data-assistant-open' in body
+          assert 'cc-assistant-disclosure' in body
+          assert 'chat/completions' not in body
+          assert 'ASSISTANT_API_KEY' not in body
+          print('recipe image ships the guide without a model call')
+          PY
+          docker exec coconsult-guide-ci sh -c "! grep -R -q 'chat/completions' /usr/share/nginx/html"
       - name: Remove the coconsult-ci containers
         if: always()
         run: |
+          docker rm -f coconsult-guide-ci || true
           docker compose -p coconsult-ci -f compose.yaml stop
           docker compose -p coconsult-ci -f compose.yaml rm -f

@@ -5,6 +5,7 @@
 # and docs/CONTACT_ACTIVATION.md. Do not add it here until that checklist is accepted.
 # Deploy with:
 #   docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml up -d --build
+# The public guide stays out of this file. The enable steps are in the guide document.
 services:
   coconsult-web:
     build: .

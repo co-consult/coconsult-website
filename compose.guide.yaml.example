@@ -1,0 +1,11 @@
+# Copy to compose.guide.yaml on the server only after the guided widget is accepted.
+# Do not commit compose.guide.yaml. It is gitignored, like compose.proxy.yaml.
+# Add this file to the site command. Do not add compose.assistant.yaml.
+# Every later rebuild that should keep the guide must include this file again.
+# Without it, the image is built with the guide absent.
+services:
+  coconsult-web:
+    build:
+      context: .
+      args:
+        PUBLIC_ASSISTANT: "true"

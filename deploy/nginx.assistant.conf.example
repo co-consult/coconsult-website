@@ -1,0 +1,11 @@
+# This file is not copied into the site image and is not included by nginx.conf.
+# Do not paste it into Nginx Proxy Manager or into the site server block
+# until the privacy pages name the model provider and a person decides to publish the assistant.
+# The upstream is the assistant container, not the contact service and not Jenkins.
+#
+# location = /api/assistant {
+#     proxy_pass http://10.230.23.10:3603/api/assistant;
+#     proxy_set_header Host $host;
+#     proxy_set_header X-Real-IP $remote_addr;
+#     client_max_body_size 8k;
+# }
