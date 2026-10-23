@@ -157,12 +157,20 @@ test('expertise demos keep space between schema and action at 390 and 1440', asy
   }
 });
 
-test('logo sits on a light plate', async ({ page }) => {
+test('the header uses the night logo and the footer keeps the colour logo', async ({ page }) => {
   await page.goto('/');
-  const brand = page.locator('.site-header .brand');
-  await expect(brand.locator('img')).toBeVisible();
-  const background = await brand.evaluate((element) => getComputedStyle(element).backgroundColor);
-  expect(background).toBe('rgb(255, 255, 255)');
+  const header = page.locator('.site-header .brand');
+  const footer = page.locator('.site-footer .brand');
+  await expect(header.locator('img')).toHaveAttribute('src', '/assets/brand/coconsult-logo-header-mono.png');
+  await expect(footer.locator('img')).toHaveAttribute('src', '/assets/brand/coconsult-logo.png');
+  expect(await header.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgba(0, 0, 0, 0)');
+  expect(await footer.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(255, 255, 255)');
+  await header.focus();
+  await page.keyboard.press('Shift+Tab');
+  await page.keyboard.press('Tab');
+  await expect(header).toBeFocused();
+  const outline = await header.evaluate((element) => getComputedStyle(element).outlineWidth);
+  expect(parseFloat(outline)).toBeGreaterThanOrEqual(2);
 });
 
 for (const viewport of [
