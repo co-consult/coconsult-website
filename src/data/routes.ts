@@ -23,7 +23,7 @@ export const routes: Record<RouteKey, RouteDef> = {
     en: '/en/services/',
     nav: true,
     footer: 'services',
-    label: { fr: 'Expertises', en: 'Expertise' },
+    label: { fr: 'Nos offres', en: 'Our offers' },
   },
   dedicated: {
     key: 'dedicated',
@@ -93,7 +93,7 @@ export const routes: Record<RouteKey, RouteDef> = {
     en: '/en/engagement/',
     nav: true,
     footer: 'company',
-    label: { fr: 'Nos offres', en: 'Engagement' },
+    label: { fr: 'Collaboration', en: 'Collaboration' },
   },
   sectors: {
     key: 'sectors',

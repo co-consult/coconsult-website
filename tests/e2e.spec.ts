@@ -447,7 +447,7 @@ test('public pages do not mention missing captures', async ({ page }) => {
 });
 
 test('the COPHARIA gallery changes published views without a Laboratory tab', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/solutions/');
   const gallery = page.locator('[data-copharia-gallery]');
   const img = gallery.locator('[data-screen]');
   await expect(img).toHaveAttribute('src', /dashboard\.webp/);

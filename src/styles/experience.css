@@ -14,7 +14,7 @@
   --paper-2: #e7eef2;
   --paper-ink: #122033;
   --paper-muted: #3c5164;
-  --display: "Instrument Serif", "Times New Roman", serif;
+  --display: "Instrument Sans", "Segoe UI", sans-serif;
   --sans: "Instrument Sans", "Segoe UI", sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, monospace;
   --max: 1180px;
@@ -141,9 +141,9 @@ a { color: inherit; }
 }
 h1, h2, .display {
   font-family: var(--display);
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: -0.03em;
-  line-height: 0.96;
+  line-height: 1.08;
   margin: 0;
   overflow-wrap: break-word;
 }
@@ -151,7 +151,7 @@ h1 { font-size: clamp(3.3rem, 5.6vw, 5.5rem); }
 html[data-face="fraunces"] h1,
 html[data-face="fraunces"] h2,
 html[data-face="fraunces"] .display { font-weight: 600; letter-spacing: -0.035em; }
-h1 .accent, .display .accent { display: block; font-style: italic; color: var(--cyan); }
+h1 .accent, .display .accent { display: block; font-style: normal; color: var(--cyan); }
 .lede {
   max-width: 46ch;
   margin: 22px 0 0;
@@ -237,7 +237,7 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
   pointer-events: none;
   width: max-content;
 }
-.core-label strong { display: block; font-family: var(--display); font-size: clamp(14px, 3.1cqw, 20px); font-weight: 400; line-height: 1; }
+.core-label strong { display: block; font-family: var(--display); font-size: clamp(14px, 3.1cqw, 20px); font-weight: 600; line-height: 1.1; }
 .nodes { position: absolute; inset: 0; }
 .node {
   position: absolute;
@@ -349,7 +349,7 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
   margin: 14px 0 0;
   color: var(--paper-ink);
   font-size: 15px;
-  font-weight: 650;
+  font-weight: 600;
   letter-spacing: 0.01em;
 }
 .cii-panel .cii-note {
@@ -414,7 +414,7 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
   display: flex;
   flex-direction: column;
 }
-.viz h3 { font-family: var(--display); font-size: 2.2rem; font-weight: 400; margin: 0 0 18px; line-height: 1; }
+.viz h3 { font-family: var(--display); font-size: 2.2rem; font-weight: 600; margin: 0 0 18px; line-height: 1.1; }
 /* Keep 20–24px between interactive schemas and their actions / results */
 .viz-panel > .pipeline + .result-line,
 .viz-panel > .arch + .result-line,
@@ -780,7 +780,7 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
   border: 2px solid rgba(142, 243, 255, 0.45);
 }
 .flow-rail button span { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--cyan); }
-.flow-rail button b { display: block; font-family: var(--display); font-weight: 400; font-size: 1.05rem; overflow-wrap: anywhere; }
+.flow-rail button b { display: block; font-family: var(--display); font-weight: 600; font-size: 1.05rem; overflow-wrap: anywhere; }
 .flow-rail li:nth-child(1) button:not([aria-pressed="true"])::before { border-color: var(--accent-tech); }
 .flow-rail li:nth-child(2) button:not([aria-pressed="true"])::before { border-color: var(--brand-blue-signal); }
 .flow-rail li:nth-child(3) button:not([aria-pressed="true"])::before { border-color: var(--brand-green); }
@@ -842,7 +842,7 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
   z-index: 1;
 }
 .cap-index { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--cyan); }
-.cap-list button b { font-family: var(--display); font-weight: 400; font-size: 1.35rem; }
+.cap-list button b { font-family: var(--display); font-weight: 600; font-size: 1.35rem; }
 .cap-list button small { flex-basis: 100%; color: var(--muted); font-size: 13px; }
 .cap-list button[aria-pressed="true"] { background: #143246; }
 .cap-list button:nth-child(1):not([aria-pressed="true"])::before { border-color: var(--accent-tech); }
@@ -865,7 +865,7 @@ h1 .accent, .display .accent { display: block; font-style: italic; color: var(--
 .mode:nth-child(2) { border-top-color: var(--brand-blue); }
 .mode:nth-child(3) { border-top-color: var(--brand-green); }
 .mode:nth-child(4) { border-top-color: var(--brand-orange-on-paper); }
-.mode strong { display: block; font-family: var(--display); font-size: clamp(1.55rem, 4vw, 2rem); font-weight: 400; margin-bottom: 8px; overflow-wrap: anywhere; }
+.mode strong { display: block; font-family: var(--display); font-size: clamp(1.55rem, 4vw, 2rem); font-weight: 600; margin-bottom: 8px; overflow-wrap: anywhere; line-height: 1.15; }
 .mode p { margin: 0; color: var(--paper-muted); }
 .domain-row {
   display: flex;
@@ -1357,7 +1357,7 @@ textarea { min-height: 140px; resize: vertical; }
   flex-direction: column;
   background: radial-gradient(circle, rgba(142, 243, 255, 0.18), transparent 68%);
 }
-.mobile-core strong { font-family: var(--display); font-weight: 400; font-size: 20px; }
+.mobile-core strong { font-family: var(--display); font-weight: 600; font-size: 20px; }
 
 @media (max-width: 700px) {
   --header: 76px;
@@ -1403,4 +1403,51 @@ textarea { min-height: 140px; resize: vertical; }
   padding: 0 28px 0 44px;
   border-left: 3px solid var(--cyan);
   color: var(--muted);
+}
+.case-art .case-slot {
+  display: grid;
+  align-content: center;
+  width: 100%;
+  min-height: 260px;
+  padding: 28px;
+  background:
+    linear-gradient(rgba(142, 243, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(142, 243, 255, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.case-art .case-slot p {
+  margin: 0;
+  max-width: 28ch;
+  color: #f3f7fb;
+  font-family: "Instrument Sans", "Segoe UI", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.copharia-card {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 32px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+.copharia-card h2 {
+  margin: 8px 0 12px;
+  font-size: clamp(1.75rem, 3vw, 2.4rem);
+  line-height: 1.15;
+}
+.copharia-card p:not(.eyebrow) {
+  max-width: 62ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+.copharia-card .cta-row { margin-top: 22px; }
+@media (max-width: 700px) {
+  .copharia-card { padding: 22px 18px; }
+  .copharia-card .btn { width: 100%; }
+  .case-art .case-slot { min-height: 220px; padding: 22px 18px; }
 }
