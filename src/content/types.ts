@@ -49,6 +49,7 @@ export interface CardItem {
   title: string;
   text: string;
   hrefKey?: RouteKey;
+  link?: { label: string; hrefKey: RouteKey };
   inquiry?: InquiryId;
 }
 

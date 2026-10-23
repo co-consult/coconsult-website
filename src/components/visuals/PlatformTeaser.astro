@@ -1,6 +1,4 @@
 ---
-import DocScene from '@/components/visuals/DocScene.astro';
-import SportScene from '@/components/visuals/SportScene.astro';
 import type { Locale } from '@/content/types';
 import { pathFor } from '@/data/routes';
 import { workItems, type WorkItem } from '@/data/work';
@@ -14,11 +12,16 @@ const eyebrow = fr
   ? (id === 'iaps' ? 'Réalisation client' : 'Plateforme construite')
   : (id === 'iaps' ? 'Client delivery' : 'Built platform');
 const caseLink = fr ? 'Voir l’étude de cas' : 'View the case study';
+const slot = fr
+  ? 'Le logiciel livré n’est pas reproduit ici. Le résultat du projet est écrit à côté.'
+  : 'The delivered software is not reproduced here. The project result is written beside this space.';
 ---
 <div class="experience work-host platform-teaser">
   <article class="case case-teaser">
     <div class="case-art">
-      {id === 'iaps' ? <DocScene locale={locale} /> : <SportScene locale={locale} />}
+      <div class="case-slot">
+        <p>{slot}</p>
+      </div>
     </div>
     <div class="case-copy">
       <p class="eyebrow">{eyebrow}</p>

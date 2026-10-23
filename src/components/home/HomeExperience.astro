@@ -1,5 +1,4 @@
 ---
-import CophariaFeature from '@/components/visuals/CophariaFeature.astro';
 import SectorMatrix from '@/components/visuals/SectorMatrix.astro';
 import WorkCase from '@/components/visuals/WorkCase.astro';
 import type { Locale } from '@/content/types';
@@ -421,8 +420,20 @@ const demo = fr
     </aside>
   </section>
 
-  <section class="section">
-    <CophariaFeature locale={locale} />
+  <section class="section" id="copharia">
+    <article class="copharia-card">
+      <p class="eyebrow">{fr ? 'Produit en développement' : 'Product in development'}</p>
+      <h2>COPHARIA</h2>
+      <p>
+        {fr
+          ? 'ERP pharmaceutique. Les modules présentés sur la page Solutions sont encore en développement.'
+          : 'A pharmaceutical ERP. The modules shown on the Solutions page are still in development.'}
+      </p>
+      <div class="cta-row">
+        <a class="btn primary" href={pathFor(locale, 'solutions')}>{fr ? 'Voir la solution' : 'View the solution'}</a>
+        <a class="btn ghost" href={contactPath(locale, 'demo', 'copharia')}>{fr ? 'Demander une démonstration de COPHARIA' : 'Request a COPHARIA demonstration'}</a>
+      </div>
+    </article>
   </section>
 
   <section class="final">

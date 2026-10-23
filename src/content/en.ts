@@ -132,31 +132,33 @@ export const pages: Record<RouteKey, PageContent> = {
     key: 'services',
     metaTitle: 'Software, AI, cloud and quality | Coconsult',
     description:
-      'Artificial intelligence, software, quality, cloud, cybersecurity and integration, to design systems and keep them running.',
-    eyebrow: 'EXPERTISE',
-    h1: 'Coconsult’s technical expertise.',
+      'Software development, web and mobile applications, cloud, data and AI, quality, cybersecurity and IT teams.',
+    eyebrow: 'OUR OFFERS',
+    h1: 'Six solution families for your systems.',
     intro:
-      'When a system needs AI, has to evolve, must stay in production, or has to connect tools that do not talk, these six disciplines cover the technical work. How we collaborate is chosen afterwards, from the scope.',
+      'Each family opens a page that is already published. How we collaborate comes next, according to the scope.',
     blocks: [
       {
         type: 'cards',
-        title: 'Six disciplines',
+        title: 'What we build',
         items: [
-          { kicker: 'AI', title: 'Artificial intelligence and data', text: 'Generative AI, models, agents and intelligent automation, connected to your data and access rights.', hrefKey: 'ai' },
-          { kicker: 'Software', title: 'Software development', text: 'Web, mobile, APIs, backends and integration into systems already in production.', hrefKey: 'software' },
-          { kicker: 'Quality', title: 'QA and testing', text: 'Functional, API, regression and automated testing, with a pilot before the team grows.', hrefKey: 'qa' },
-          { kicker: 'Cloud', title: 'Cloud and DevOps', text: 'Platforms, CI/CD, containers and observability, so a release can be operated.', hrefKey: 'cloud' },
-          { kicker: 'Security', title: 'Cybersecurity', text: 'Hardening of applications, access and exposed systems, within the project scope.', hrefKey: 'cyber' },
-          { kicker: 'Process', title: 'Integration and processes', text: 'Connectors and workflows across ERP, documents and business tools.', hrefKey: 'automation' },
+          { kicker: 'Software', title: 'Software development and business systems', text: 'Business applications, APIs, backends and integration into systems already in production.', hrefKey: 'software', link: { label: 'Payments', hrefKey: 'payments' } },
+          { kicker: 'Applications', title: 'Web and mobile applications', text: 'Web and mobile interfaces, connected to the services and systems already in place.', hrefKey: 'software' },
+          { kicker: 'Cloud', title: 'Cloud, DevOps and infrastructure', text: 'Platforms, CI/CD, containers and observability, so a release can be operated.', hrefKey: 'cloud' },
+          { kicker: 'Data', title: 'Data, AI and automation', text: 'Generative AI, models, agents and automation, connected to your data and access rights.', hrefKey: 'ai', link: { label: 'Business processes', hrefKey: 'automation' } },
+          { kicker: 'Quality', title: 'Software quality and cybersecurity', text: 'Functional, API and regression testing, and hardening of applications, access and exposed systems, within the project scope. Coconsult does not offer a standing monitoring centre.', hrefKey: 'qa', link: { label: 'Cybersecurity', hrefKey: 'cyber' } },
+          { kicker: 'Teams', title: 'Teams and IT expertise', text: 'Dedicated teams coordinated from France. When skills are mobilised in Sfax, that is with Coconsult Nearshore, a legally independent Tunisian company.', hrefKey: 'dedicated' },
         ],
       },
       {
-        type: 'prose',
-        title: 'Who these services are for',
-        paragraphs: [
-          'CIOs, CTOs, engineering managers, heads of product, operations and quality. Companies with a system to evolve, stabilise, or open to new uses, including AI.',
-          'Engagement shape is chosen after a conversation: time and materials, a dedicated team, or a fixed-scope project. Availability, working language and hours of overlap are confirmed during discovery.',
-          'When skills are mobilised in Sfax, that is with Coconsult Nearshore, a legally independent Tunisian company. The quotation names the company that contracts with the client.',
+        type: 'columns',
+        title: 'Collaboration models suited to your projects',
+        intro: 'The quotation, the contract and the invoice name the company that contracts with the client.',
+        items: [
+          { title: 'Staff augmentation', text: 'One or more engineers, for a defined stretch.' },
+          { title: 'Fixed scope', text: 'A clear scope, estimated and then accepted.' },
+          { title: 'Dedicated team', text: 'A squad over time, scoped from France.' },
+          { title: 'Nearshore', text: 'With Coconsult Nearshore, a legally independent Tunisian company in Sfax.' },
         ],
       },
       { type: 'cta', title: 'Describing the need is enough to begin.', text: 'Put the subject in the message. We reply to arrange a first conversation.', primary: 'project', secondary: 'team' },
@@ -487,7 +489,7 @@ export const pages: Record<RouteKey, PageContent> = {
         source: 'platforms',
         title: 'Platforms and deliveries',
         intro:
-          'Systems that were built and handed over. These are not SaaS products sold by Coconsult: they are engineering proof, with a short link to the case study.',
+          'Systems that were built and handed over. These are not SaaS products sold by Coconsult. The context and the result are described in the case studies.',
       },
       {
         type: 'cta',
@@ -506,7 +508,7 @@ export const pages: Record<RouteKey, PageContent> = {
     eyebrow: 'CASE STUDIES',
     h1: 'Systems we have delivered.',
     intro:
-      'Two verified experiences. Clients are not named. The context, the stake and the result are those of the real project.',
+      'Two documented deliveries: software handed over with the source code transferred, and a sports platform used day to day. Clients are not named.',
     blocks: [
       { type: 'work', source: 'cases', title: 'Delivered projects' },
       {

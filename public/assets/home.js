@@ -227,8 +227,8 @@
 
   document.querySelectorAll('[data-case]').forEach((button) => {
     button.addEventListener('click', () => {
-      if (!(button instanceof HTMLButtonElement) || !button.parentElement) return;
-      const more = button.parentElement.querySelector('.more');
+      if (!(button instanceof HTMLButtonElement)) return;
+      const more = button.closest('article')?.querySelector('.more');
       if (!(more instanceof HTMLElement)) return;
       const open = more.hidden;
       more.hidden = !open;

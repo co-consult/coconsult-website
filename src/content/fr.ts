@@ -178,31 +178,33 @@ export const pages: Record<RouteKey, PageContent> = {
     key: 'services',
     metaTitle: 'Développement, IA, cloud et qualité | Coconsult',
     description:
-      'Intelligence artificielle, développement, qualité, cloud, cybersécurité et intégration, pour concevoir et faire tenir vos systèmes.',
-    eyebrow: 'EXPERTISES',
-    h1: 'Les expertises techniques de Coconsult.',
+      'Développement logiciel, applications web et mobiles, cloud, data et IA, qualité, cybersécurité et équipes IT.',
+    eyebrow: 'NOS OFFRES',
+    h1: 'Six familles de solutions pour vos systèmes.',
     intro:
-      'Quand un système doit intégrer l’IA, évoluer, tenir en production ou relier des outils qui ne se parlent pas, ces six expertises couvrent le travail technique. La façon de collaborer se choisit ensuite, selon le périmètre.',
+      'Chaque famille ouvre une page déjà publiée. Les modalités de collaboration viennent ensuite, selon le périmètre.',
     blocks: [
       {
         type: 'cards',
-        title: 'Six expertises',
+        title: 'Ce que nous construisons',
         items: [
-          { kicker: 'IA', title: 'Intelligence artificielle et data', text: 'IA générative, modèles, agents et automatisation intelligente, branchés sur vos données et vos droits d’accès.', hrefKey: 'ai' },
-          { kicker: 'Logiciel', title: 'Développement logiciel', text: 'Web, mobile, API, backends et intégration dans les systèmes déjà en production.', hrefKey: 'software' },
-          { kicker: 'Qualité', title: 'QA et testing', text: 'Tests fonctionnels, API, non-régression et automatisation, avec un pilote avant d’élargir l’équipe.', hrefKey: 'qa' },
-          { kicker: 'Cloud', title: 'Cloud et DevOps', text: 'Infrastructures, CI/CD, conteneurs et observabilité, pour tenir la mise en production.', hrefKey: 'cloud' },
-          { kicker: 'Sécurité', title: 'Cybersécurité', text: 'Durcissement des applications, des accès et des systèmes exposés, dans le périmètre du projet.', hrefKey: 'cyber' },
-          { kicker: 'Processus', title: 'Intégration et processus', text: 'Connecteurs et workflows entre ERP, documents et outils métier.', hrefKey: 'automation' },
+          { kicker: 'Logiciel', title: 'Développement logiciel et solutions métiers', text: 'Applications métier, API, backends et intégration dans les systèmes déjà en production.', hrefKey: 'software', link: { label: 'Paiements', hrefKey: 'payments' } },
+          { kicker: 'Applications', title: 'Applications web et mobiles', text: 'Interfaces web et mobiles, reliées aux services et aux systèmes déjà en place.', hrefKey: 'software' },
+          { kicker: 'Cloud', title: 'Cloud, DevOps et infrastructure', text: 'Infrastructures, CI/CD, conteneurs et observabilité, pour tenir la mise en production.', hrefKey: 'cloud' },
+          { kicker: 'Data', title: 'Data, IA et automatisation', text: 'IA générative, modèles, agents et automatisation, branchés sur vos données et vos droits d’accès.', hrefKey: 'ai', link: { label: 'Processus métier', hrefKey: 'automation' } },
+          { kicker: 'Qualité', title: 'Qualité logicielle et cybersécurité', text: 'Tests fonctionnels, API et non-régression, et durcissement des applications, des accès et des systèmes exposés, dans le périmètre du projet. Coconsult ne propose pas un centre de surveillance permanent.', hrefKey: 'qa', link: { label: 'Cybersécurité', hrefKey: 'cyber' } },
+          { kicker: 'Équipes', title: 'Équipes et expertise IT', text: 'Équipes dédiées coordonnées depuis la France. Lorsque des compétences sont mobilisées à Sfax, c’est avec Coconsult Nearshore, société tunisienne juridiquement indépendante.', hrefKey: 'dedicated' },
         ],
       },
       {
-        type: 'prose',
-        title: 'À qui s’adressent ces services',
-        paragraphs: [
-          'Directions des systèmes d’information, CTO, responsables d’ingénierie, responsables produit, opérations et qualité. Des entreprises qui ont un système à faire évoluer, fiabiliser ou ouvrir à de nouveaux usages, dont l’IA.',
-          'Les modalités se choisissent après échange : régie, équipe dédiée ou projet au forfait. Les disponibilités, la langue de travail et le chevauchement horaire se confirment au cadrage.',
-          'Lorsque des compétences sont mobilisées à Sfax, c’est avec Coconsult Nearshore, société tunisienne juridiquement indépendante. Le devis nomme la société qui contracte avec le client.',
+        type: 'columns',
+        title: 'Des modèles de collaboration adaptés à vos projets',
+        intro: 'Le devis, le contrat et la facture nomment la société qui contracte.',
+        items: [
+          { title: 'Régie', text: 'Un ou plusieurs ingénieurs, le temps d’un palier.' },
+          { title: 'Forfait', text: 'Un périmètre clair, estimé puis réceptionné.' },
+          { title: 'Équipe dédiée', text: 'Une squad suivie dans la durée, cadrée depuis la France.' },
+          { title: 'Nearshore', text: 'Avec Coconsult Nearshore, société tunisienne juridiquement indépendante, à Sfax.' },
         ],
       },
       { type: 'cta', title: 'Décrire le besoin suffit pour commencer.', text: 'Indiquez le sujet dans votre message. Nous revenons vers vous pour un premier échange.', primary: 'project', secondary: 'team' },
@@ -536,7 +538,7 @@ export const pages: Record<RouteKey, PageContent> = {
         source: 'platforms',
         title: 'Plateformes et réalisations',
         intro:
-          'Des systèmes construits et livrés. Ce ne sont pas des SaaS commercialisés par Coconsult : ce sont des preuves d’ingénierie, avec un lien court vers l’étude de cas.',
+          'Des systèmes construits et livrés. Ce ne sont pas des SaaS commercialisés par Coconsult. Le contexte et le résultat sont décrits dans les études de cas.',
       },
       {
         type: 'cta',
@@ -555,7 +557,7 @@ export const pages: Record<RouteKey, PageContent> = {
     eyebrow: 'RÉALISATIONS',
     h1: 'Des systèmes livrés, décrits avec précision.',
     intro:
-      'Deux expériences vérifiées. Les clients ne sont pas nommés. Le contexte, l’enjeu et le résultat sont ceux du projet réel.',
+      'Deux réalisations documentées : un logiciel livré avec cession du code source, et une plateforme sportive utilisée au quotidien. Les clients ne sont pas nommés.',
     blocks: [
       { type: 'work', source: 'cases', title: 'Projets livrés' },
       {
