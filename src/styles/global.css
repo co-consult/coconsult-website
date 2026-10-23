@@ -133,8 +133,9 @@ p { line-height: 1.7; }
 }
 
 .site-header .brand {
-  padding: 4px 8px;
-  border-radius: 10px;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
 }
 
 .site-header .brand img { height: 48px; width: auto; }

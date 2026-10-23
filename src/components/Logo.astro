@@ -1,8 +1,9 @@
 ---
 interface Props {
   height?: number;
+  src?: string;
 }
-const { height = 64 } = Astro.props;
+const { height = 64, src = '/assets/brand/coconsult-logo.png' } = Astro.props;
 const width = Math.round(height * (635 / 438));
 ---
-<img src="/assets/brand/coconsult-logo.png" alt="Coconsult" width={width} height={height} />
+<img src={src} alt="Coconsult" width={width} height={height} />

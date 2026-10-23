@@ -86,6 +86,7 @@ for (const [urlPath, lang, alternate] of pages) {
   assert.match(html, /hreflang="en"/);
   assert.match(html, /hreflang="x-default"/);
   assert.match(html, /src="\/assets\/brand\/coconsult-logo\.png"/);
+  assert.match(html, /src="\/assets\/brand\/coconsult-logo-header-mono\.png"/);
   assert.match(html, /property="og:image" content="https:\/\/coconsult\.fr\/assets\/brand\/og-coconsult\.png"/);
   assert.doesNotMatch(html, />[^<]*\*\*/);
   assert.doesNotMatch(html, />[^<]*##/);
@@ -247,6 +248,8 @@ assert.doesNotMatch(nginx, /return 30\d https?:\/\//);
 assert.match(fs.readFileSync(path.join(root, '.gitignore'), 'utf8'), /compose\.proxy\.yaml/);
 assert.equal(fs.existsSync(path.join(root, 'compose.proxy.yaml')), false);
 assert.ok(fs.statSync(path.join(dist, 'assets', 'brand', 'coconsult-logo.png')).size > 1000);
+const headerLogo = fs.statSync(path.join(dist, 'assets', 'brand', 'coconsult-logo-header-mono.png'));
+assert.ok(headerLogo.size > 1000 && headerLogo.size < 40000);
 assert.ok(fs.statSync(path.join(dist, 'assets', 'brand', 'og-coconsult.png')).size > 1000);
 assert.ok(fs.statSync(path.join(dist, 'favicon-32.png')).size > 100);
 assert.ok(fs.statSync(path.join(dist, 'apple-touch-icon.png')).size > 100);
