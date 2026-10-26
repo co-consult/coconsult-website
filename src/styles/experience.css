@@ -52,7 +52,7 @@ body {
   overflow-x: clip;
 }
 img { max-width: 100%; display: block; }
-button, input, textarea { font: inherit; color: inherit; }
+button, input, textarea, select { font: inherit; color: inherit; }
 a { color: inherit; }
 :focus-visible {
   outline: 2px solid var(--cyan);
@@ -209,7 +209,7 @@ h1 .accent, .display .accent { display: block; font-style: normal; color: var(--
 .lane[data-lane="quality"] { stroke: color-mix(in srgb, var(--brand-orange) 80%, white); }
 .endpoint[data-lane="quality"] { stroke: var(--brand-orange); }
 .particle[data-lane="quality"] { fill: var(--brand-orange); }
-.field { opacity: 0.45; }
+g.field { opacity: 0.45; }
 .system[data-focus="all"] .lane,
 .system[data-focus="all"] .endpoint { opacity: 0.95; }
 .system:not([data-focus="all"]) .lane,
@@ -1208,6 +1208,41 @@ input, textarea {
   padding: 14px;
   width: 100%;
 }
+.contact-stage .field { opacity: 1; }
+.contact-stage .field small {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #c5d2e0;
+}
+.contact-stage select {
+  appearance: none;
+  width: 100%;
+  height: 52px;
+  min-height: 52px;
+  margin: 0;
+  padding: 0 42px 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background-color: #0c1c2c;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' stroke='%238ef3ff' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 12px 8px;
+  color: #f3f7fb;
+  color-scheme: dark;
+  cursor: pointer;
+  line-height: 1.3;
+}
+.contact-stage select::-ms-expand { display: none; }
+.contact-stage select:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+.contact-stage select option {
+  background: #0c1c2c;
+  color: #f3f7fb;
+}
 textarea { min-height: 140px; resize: vertical; }
 .hints { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
 .hints button, .edit {
@@ -1404,6 +1439,114 @@ textarea { min-height: 140px; resize: vertical; }
   padding: 0 28px 0 44px;
   border-left: 3px solid var(--cyan);
   color: var(--muted);
+}
+.case-art.has-flow {
+  display: block;
+  height: auto;
+  overflow: visible;
+  container-type: inline-size;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(142, 243, 255, 0.1), transparent 46%),
+    #07111c;
+}
+.doc-flow {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  min-height: 260px;
+  margin: 0;
+  padding: 24px 20px 20px;
+}
+.doc-flow-kicker {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8ef3ff;
+}
+.doc-flow ol {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.doc-flow ol::before {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 2px;
+  background: linear-gradient(90deg, #8ef3ff, #6cb6ff 34%, #3dcaa0 67%, #ff8a4a);
+}
+.doc-flow li {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.doc-mark {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(142, 243, 255, 0.7);
+  border-radius: 14px;
+  background: #102233;
+  color: #8ef3ff;
+}
+.doc-flow li:nth-child(2) .doc-mark { color: #9ecbff; border-color: rgba(158, 203, 255, 0.8); }
+.doc-flow li:nth-child(3) .doc-mark { color: #7ddec0; border-color: rgba(125, 222, 192, 0.8); }
+.doc-flow li:nth-child(4) .doc-mark { color: #ffb07a; border-color: rgba(255, 176, 122, 0.85); }
+.doc-mark svg { display: block; }
+.doc-name {
+  color: #d8fbff;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  text-align: center;
+  text-transform: uppercase;
+}
+.doc-flow figcaption {
+  max-width: 38ch;
+  margin: 0;
+  color: #c5d2e0;
+  font-family: "Instrument Sans", "Segoe UI", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-transform: none;
+}
+@container (max-width: 440px) {
+  .doc-flow { padding: 20px 16px 16px; }
+  .doc-flow ol { grid-template-columns: 1fr; gap: 0; }
+  .doc-flow ol::before {
+    top: 32px;
+    right: auto;
+    bottom: 32px;
+    left: 21px;
+    width: 2px;
+    height: auto;
+    background: linear-gradient(180deg, #8ef3ff, #6cb6ff 34%, #3dcaa0 67%, #ff8a4a);
+  }
+  .doc-flow li {
+    grid-template-columns: 44px minmax(0, 1fr);
+    align-items: center;
+    justify-items: start;
+    padding: 10px 0;
+  }
+  .doc-name { text-align: left; }
 }
 .case-art .case-slot {
   display: grid;

@@ -1027,6 +1027,91 @@ test('the privacy pages describe the form retention without claiming it is alrea
   expect(en).not.toContain('The site has no form');
 });
 
+test('the source select matches the contact fields in French and English', async ({ page }) => {
+  test.setTimeout(90_000);
+  const cases = [
+    { path: '/contact/?type=project', message: 'Nous voulons moderniser une application deja en production.', widths: [320, 390, 1440] },
+    { path: '/en/contact/?type=project', message: 'We want to evolve an application that is already running.', widths: [320, 390, 1440] },
+  ] as const;
+  for (const item of cases) {
+    for (const width of item.widths) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(item.path);
+      await page.locator('[data-step="1"] [data-next]').click();
+      await page.locator('#message').fill(item.message);
+      await page.locator('[data-step="2"] .btn.primary').click();
+      const source = page.locator('#source');
+      await expect(source).toBeVisible();
+      await page.locator('#company').focus();
+      await page.keyboard.press('Tab');
+      await expect(source).toBeFocused();
+      const measured = await source.evaluate((element) => {
+        const style = getComputedStyle(element);
+        const box = element.getBoundingClientRect();
+        const parse = (value: string) => value.match(/\d+/g)?.map(Number) || [];
+        const channel = (value: number) => {
+          const scaled = value / 255;
+          return scaled <= 0.03928 ? scaled / 12.92 : ((scaled + 0.055) / 1.055) ** 2.4;
+        };
+        const lum = (rgb: number[]) => 0.2126 * channel(rgb[0]) + 0.7152 * channel(rgb[1]) + 0.0722 * channel(rgb[2]);
+        const color = parse(style.color);
+        const background = parse(style.backgroundColor);
+        const [a, b] = [lum(color), lum(background)];
+        return {
+          height: Math.round(box.height),
+          right: Math.round(box.right),
+          appearance: style.appearance,
+          radius: style.borderTopLeftRadius,
+          background: style.backgroundColor,
+          outlineWidth: parseFloat(style.outlineWidth),
+          contrast: (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05),
+          overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        };
+      });
+      expect(measured.height, `${item.path} ${width}`).toBeGreaterThanOrEqual(48);
+      expect(measured.height, `${item.path} ${width}`).toBeLessThanOrEqual(52);
+      expect(measured.appearance, `${item.path} ${width}`).toBe('none');
+      expect(measured.radius, `${item.path} ${width}`).toBe('14px');
+      expect(measured.background, `${item.path} ${width}`).toBe('rgb(12, 28, 44)');
+      expect(measured.outlineWidth, `${item.path} ${width}`).toBeGreaterThanOrEqual(2);
+      expect(measured.contrast, `${item.path} ${width}`).toBeGreaterThanOrEqual(4.5);
+      expect(measured.right, `${item.path} ${width}`).toBeLessThanOrEqual(width);
+      expect(measured.overflow, `${item.path} ${width}`).toBeLessThanOrEqual(1);
+    }
+  }
+});
+
+test('the document case is a conceptual illustration in French and English', async ({ page }) => {
+  test.setTimeout(90_000);
+  const cases = [
+    { path: '/realisations/', kicker: 'Illustration conceptuelle', caption: 'n’est pas reproduit ici', steps: ['Document', 'Vérification', 'Validation', 'Suivi'] },
+    { path: '/en/case-studies/', kicker: 'Conceptual illustration', caption: 'is not reproduced here', steps: ['Document', 'Verification', 'Validation', 'Follow-up'] },
+  ] as const;
+  for (const item of cases) {
+    for (const width of [320, 390, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(item.path);
+      const flow = page.locator('.doc-flow');
+      await expect(flow).toHaveCount(1);
+      await expect(flow).toContainText(item.kicker);
+      await expect(flow).toContainText(item.caption);
+      for (const step of item.steps) await expect(flow).toContainText(step);
+      await expect(flow.locator('img')).toHaveCount(0);
+      await expect(flow.locator('svg')).toHaveCount(4);
+      await expect(page.locator('.shot-gallery img')).toHaveCount(3);
+      const bounds = await flow.evaluate((element) => {
+        const box = element.getBoundingClientRect();
+        return {
+          right: Math.round(box.right),
+          overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        };
+      });
+      expect(bounds.right, `${item.path} ${width}`).toBeLessThanOrEqual(width);
+      expect(bounds.overflow, `${item.path} ${width}`).toBeLessThanOrEqual(1);
+    }
+  }
+});
+
 test('the contact summary shows the privacy notice and no marketing checkbox', async ({ page }) => {
   test.setTimeout(90_000);
   const cases = [

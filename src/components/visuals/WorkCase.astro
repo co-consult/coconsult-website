@@ -4,6 +4,7 @@ import { contactPath } from '@/data/inquiries';
 import { pathFor } from '@/data/routes';
 import { sportsShots } from '@/data/sports-shots';
 import { workItems, type WorkItem } from '@/data/work';
+import DocumentFlow from '@/components/visuals/DocumentFlow.astro';
 
 interface Props { locale: Locale; id: 'iaps' | 'cssforever' }
 const { locale, id } = Astro.props;
@@ -16,13 +17,10 @@ const moreLabel = fr ? 'Découvrir le projet' : 'Discover the project';
 const lessLabel = fr ? 'Replier' : 'Collapse';
 const screensLabel = fr ? 'Voir les trois écrans' : 'View the three screens';
 const featuresLabel = fr ? 'Fonctionnalités développées' : 'Features built';
-const slot = fr
-  ? 'Le logiciel livré n’est pas reproduit ici. Le résultat du projet est écrit à côté.'
-  : 'The delivered software is not reproduced here. The project result is written beside this space.';
 ---
 <div class:list={['experience', 'work-host', study && 'is-study']}>
   <article class="case" id={study ? 'sports-platform' : undefined}>
-    <div class:list={['case-art', shots.length > 0 && 'has-shots']}>
+    <div class:list={['case-art', shots.length > 0 && 'has-shots', shots.length === 0 && 'has-flow']}>
       {shots.length > 0 ? (
         <div class="shot-gallery">
           {shots.map((shot, index) => (
@@ -44,9 +42,7 @@ const slot = fr
           ))}
         </div>
       ) : (
-        <div class="case-slot">
-          <p>{slot}</p>
-        </div>
+        <DocumentFlow locale={locale} />
       )}
     </div>
     <div class="case-copy">
