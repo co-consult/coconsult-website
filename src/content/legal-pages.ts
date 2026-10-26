@@ -143,7 +143,7 @@ export function privacyPage(locale: Locale): PageContent {
           type: 'prose',
           title: 'Données concernées',
           paragraphs: [
-            'Le site n’a pas de compte ni de paiement en ligne. Le formulaire recueille le nom, l’e-mail professionnel, l’entreprise si elle est indiquée, la catégorie de la demande, le produit lorsqu’il s’agit de COPHARIA, et le message. Ce message est facultatif pour une démonstration de COPHARIA et obligatoire pour les autres demandes.',
+            'Le site n’a pas de compte ni de paiement en ligne. Le formulaire recueille le nom, l’e-mail professionnel, l’entreprise si elle est indiquée, la catégorie de la demande, le produit lorsqu’il s’agit de COPHARIA, et le message. Ce message est facultatif pour une démonstration de COPHARIA et obligatoire pour les autres demandes. Une question facultative demande comment vous avez connu Coconsult. Vous pouvez la laisser vide ou indiquer que vous préférez ne pas répondre. Le formulaire distingue cette réponse, déclarée par vous, du parcours qui l’a ouvert : formulaire direct ou guide commercial. Ce parcours est un indicateur technique du clic dans le guide. Il n’est pas déduit de l’en-tête Referer, de l’adresse IP ni de paramètres publicitaires. Le guide ne transmet pas l’historique de la conversation. Un résumé n’est recopié dans le message que si vous le demandez.',
             'Lorsque l’envoi depuis le site est disponible, la demande est transmise à contact@coconsult.fr seulement après acceptation du service. Brevo, prestataire d’envoi transactionnel, achemine ce message. L’adresse IP sert au contrôle anti-abus, en mémoire, le temps de ce contrôle. Elle n’est pas inscrite dans le message envoyé à Brevo.',
             'Si l’envoi n’est pas disponible, le site prépare le message et votre logiciel de messagerie l’envoie. Dans ce cas, le site ne reçoit pas le contenu.',
             'Coconsult reçoit alors ce que vous choisissez d’écrire : votre identité, vos coordonnées et le contenu du message.',
@@ -155,7 +155,7 @@ export function privacyPage(locale: Locale): PageContent {
           title: 'Finalités et base légale',
           paragraphs: [
             'Le formulaire sert à recevoir une demande commerciale et à y répondre : projet logiciel, intelligence artificielle, équipe, qualité, cybersécurité, cloud, paiements, automatisation, partenariat, autre demande ou démonstration de COPHARIA.',
-            'Quand vous écrivez pour obtenir une réponse, le traitement repose sur les mesures précontractuelles prises à votre demande. Le suivi de cette demande professionnelle repose sur l’intérêt légitime de Coconsult à y répondre. Le consentement marketing n’est pas recueilli, et le formulaire n’inscrit personne à une liste de prospection.',
+            'Quand vous écrivez pour obtenir une réponse, le traitement repose sur les mesures précontractuelles prises à votre demande. Le suivi de cette demande professionnelle repose sur l’intérêt légitime de Coconsult à y répondre. La source déclarée et le parcours servent à qualifier cette demande. Ils ne constituent pas un profil publicitaire. Le consentement marketing n’est pas recueilli, et le formulaire n’inscrit personne à une liste de prospection.',
             'La qualification des demandes, la prospection professionnelle et le suivi des opportunités reposent sur l’intérêt légitime, avec un droit d’opposition. Cette page ne fixe ni l’origine des fichiers ni une durée chiffrée pour ce traitement de prospection, distinct du formulaire. Elle ne tient pas lieu de validation du contrat Brevo ni des garanties du transfert de prospection vers Sfax.',
           ],
         },
@@ -201,7 +201,7 @@ export function privacyPage(locale: Locale): PageContent {
           type: 'prose',
           title: 'Cookies',
           paragraphs: [
-            'Le site ne dépose pas de cookie publicitaire ni de mesure d’audience. Aucun traceur soumis au consentement n’est utilisé, et aucun bandeau n’est affiché.',
+            'Le site ne dépose pas de cookie publicitaire ni de mesure d’audience. La question sur la source déclarée n’ajoute ni cookie ni traceur tiers. Aucun traceur soumis au consentement n’est utilisé, et aucun bandeau n’est affiché.',
           ],
         },
       ],
@@ -229,7 +229,7 @@ export function privacyPage(locale: Locale): PageContent {
         type: 'prose',
         title: 'Data concerned',
         paragraphs: [
-          'The site has no account and no online payment. The form collects your name, work email, company if you give one, the request category, the product when it is COPHARIA, and the message. The message is optional for a COPHARIA demonstration and required for other requests.',
+          'The site has no account and no online payment. The form collects your name, work email, company if you give one, the request category, the product when it is COPHARIA, and the message. The message is optional for a COPHARIA demonstration and required for other requests. An optional question asks how you heard about Coconsult. You can leave it empty or say that you prefer not to answer. The form keeps that answer, which you declare, separate from the path that opened it: the form directly, or the commercial guide. That path is a technical indicator of a click in the guide. It is not inferred from the Referer header, the IP address or advertising parameters. The guide does not pass the conversation history. A summary is copied into the message only if you ask for it.',
           'When sending from the site is available, the enquiry is passed to contact@coconsult.fr only after the service accepts it. Brevo, the transactional sending provider, delivers that message. The IP address is used for the abuse control, in memory, for the duration of that control. It is not written into the message sent to Brevo.',
           'When sending is not available, the site prepares the message and your mail software sends it. In that case the site does not receive the content.',
           'Coconsult then receives what you choose to write: your identity, your contact details and the text of the message.',
@@ -241,7 +241,7 @@ export function privacyPage(locale: Locale): PageContent {
         title: 'Purposes and legal basis',
         paragraphs: [
           'The form is used to receive a commercial enquiry and to answer it: a software project, artificial intelligence, a team, quality, cybersecurity, cloud, payments, automation, a partnership, another request, or a COPHARIA demonstration.',
-          'When you write in order to receive a reply, processing is based on pre-contractual steps taken at your request. Following up that professional enquiry is based on Coconsult’s legitimate interest in answering it. Marketing consent is not collected, and the form does not add anyone to a prospecting list.',
+          'When you write in order to receive a reply, processing is based on pre-contractual steps taken at your request. Following up that professional enquiry is based on Coconsult’s legitimate interest in answering it. The declared source and the path are used to qualify that enquiry. They are not an advertising profile. Marketing consent is not collected, and the form does not add anyone to a prospecting list.',
           'Qualifying enquiries, professional prospecting and following opportunities are based on legitimate interest, with a right to object. This page does not set the origin of prospect files or a fixed retention period for that prospecting, which is separate from the form. It does not stand in for a review of the Brevo contract or of the safeguards for the prospecting transfer to Sfax.',
         ],
       },
@@ -287,7 +287,7 @@ export function privacyPage(locale: Locale): PageContent {
         type: 'prose',
         title: 'Cookies',
         paragraphs: [
-          'The site sets no advertising or audience-measurement cookie. No tracker that requires consent is used, and no banner is shown.',
+          'The site sets no advertising or audience-measurement cookie. The declared-source question adds neither a cookie nor a third-party tracker. No tracker that requires consent is used, and no banner is shown.',
         ],
       },
     ],

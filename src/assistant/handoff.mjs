@@ -15,7 +15,12 @@ const PHONE = /\+?\d[\d\s().-]{8,}\d/;
 export function encodeHandoff(message, now = Date.now()) {
   const text = cleanMessage(message);
   if (!text || hasPersonalData(text)) return '';
-  return JSON.stringify({ exp: now + HANDOFF_TTL_MS, message: text });
+  return JSON.stringify({ exp: now + HANDOFF_TTL_MS, path: 'guide', message: text });
+}
+
+/** Marks a guide visit without copying the conversation or the summary. */
+export function encodeGuideVisit(now = Date.now()) {
+  return JSON.stringify({ exp: now + HANDOFF_TTL_MS, path: 'guide' });
 }
 
 export function decodeHandoff(raw, now = Date.now()) {
@@ -43,11 +48,18 @@ function settle(task) {
 export function armHandoff(message) {
   const body = encodeHandoff(message);
   if (!body || typeof caches === 'undefined') return Promise.resolve(false);
-  return settle(async () => {
-    const cache = await caches.open(HANDOFF_CACHE);
-    await cache.put(HANDOFF_PATH, new Response(body, { headers: { 'content-type': 'application/json' } }));
-    return true;
-  });
+  return settle(() => writeHandoff(body));
+}
+
+export function armGuideVisit() {
+  if (typeof caches === 'undefined') return Promise.resolve(false);
+  return settle(() => writeHandoff(encodeGuideVisit()));
+}
+
+async function writeHandoff(body) {
+  const cache = await caches.open(HANDOFF_CACHE);
+  await cache.put(HANDOFF_PATH, new Response(body, { headers: { 'content-type': 'application/json' } }));
+  return true;
 }
 
 export function clearHandoff() {

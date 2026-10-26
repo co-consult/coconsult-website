@@ -594,6 +594,7 @@ h1 {
 .site-footer h2 { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal); }
 .contact-panel { max-width: 640px; display: grid; gap: 14px; }
 .contact-panel .field { display: grid; gap: 6px; font-weight: 600; }
+.contact-panel .field small { font-weight: 400; font-size: 13px; color: #3d5166; }
 .contact-panel input, .contact-panel select, .contact-panel textarea {
   width: 100%; font: inherit; padding: 10px 12px; border-radius: 8px; border: 1px solid #c5d4e4; background: #fff;
 }

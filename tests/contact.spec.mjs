@@ -147,6 +147,23 @@ calls.length = 0;
 const english = await send({ ...valid, locale: 'en' }, 'english', 40_000);
 assert.equal(english.status, 200);
 assert.equal(JSON.parse(calls[0].init.body).subject, 'Coconsult — Software project');
+assert.match(JSON.parse(calls[0].init.body).textContent, /Parcours : formulaire direct/);
+assert.match(JSON.parse(calls[0].init.body).textContent, /Source déclarée : —/);
+assert.match(JSON.parse(calls[0].init.body).textContent, /Langue : English/);
+assert.equal(JSON.parse(calls[0].init.body).htmlContent, undefined);
+
+resetContactLimits();
+calls.length = 0;
+const sourced = await send({ ...valid, source: 'google', path: 'guide' }, 'sourced', 42_000);
+assert.equal(sourced.status, 200);
+const declaredText = JSON.parse(calls[0].init.body).textContent;
+assert.match(declaredText, /Type de demande : Projet logiciel/);
+assert.match(declaredText, /Source déclarée : Google/);
+assert.match(declaredText, /Parcours : guide commercial/);
+assert.match(declaredText, /Langue : Français/);
+assert.match(declaredText, /Date de réception : 1970-01-01 00:00:44 UTC/);
+assert.match(declaredText, /Nous souhaitons moderniser/);
+assert.equal(declaredText.includes('prototype'), false);
 
 resetContactLimits();
 const demoEmpty = await send({ ...valid, type: 'demo', product: 'copharia', message: '' }, 'demo-empty', 50_000);
@@ -177,6 +194,12 @@ await expectInvalid({ ...valid, email: `${'a'.repeat(151)}@gmail.com` }, 'email-
 await expectInvalid({ ...valid, email: ['ada@analytical.example'] }, 'email-type');
 await expectInvalid({ ...valid, company: { name: 'Analytical' } }, 'company-type');
 await expectInvalid({ ...valid, type: 'newsletter' }, 'unknown-type');
+await expectInvalid({ ...valid, source: 'facebook' }, 'source-label');
+await expectInvalid({ ...valid, source: 'Google' }, 'source-case');
+await expectInvalid({ ...valid, source: { channel: 'google' } }, 'source-type');
+await expectInvalid({ ...valid, path: 'referer' }, 'path-referer');
+await expectInvalid({ ...valid, path: 'utm_source' }, 'path-utm');
+await expectInvalid({ ...valid, path: ['guide'] }, 'path-type');
 await expectInvalid({ ...valid, type: 'project', product: 'copharia' }, 'product-on-project');
 await expectInvalid({ ...valid, type: 'demo', product: 'other' }, 'bad-product');
 await expectInvalid({ ...valid, type: 'demo', product: '' }, 'demo-without-product');

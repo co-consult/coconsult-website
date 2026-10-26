@@ -32,6 +32,18 @@ const copy = fr
       name: 'Nom',
       email: 'E-mail professionnel',
       company: 'Entreprise, facultative',
+      source: 'Comment avez-vous connu Coconsult ?',
+      sourceOptional: 'Facultatif. Cette réponse ne vient pas d’un traceur.',
+      sourceUnset: 'Non renseigné',
+      sources: [
+        ['google', 'Google'],
+        ['linkedin', 'LinkedIn'],
+        ['social', 'Facebook / Instagram'],
+        ['referral', 'Recommandation'],
+        ['other', 'Autre'],
+        ['undisclosed', 'Préfère ne pas répondre'],
+      ],
+      sumSource: 'Source déclarée',
       prepare: 'Préparer le message',
       send: 'Envoyer ma demande',
       sending: 'Envoi en cours',
@@ -89,6 +101,18 @@ const copy = fr
       name: 'Name',
       email: 'Work email',
       company: 'Company, optional',
+      source: 'How did you hear about Coconsult?',
+      sourceOptional: 'Optional. This answer does not come from a tracker.',
+      sourceUnset: 'Not specified',
+      sources: [
+        ['google', 'Google'],
+        ['linkedin', 'LinkedIn'],
+        ['social', 'Facebook / Instagram'],
+        ['referral', 'Recommendation'],
+        ['other', 'Other'],
+        ['undisclosed', 'Prefer not to say'],
+      ],
+      sumSource: 'Declared source',
       prepare: 'Prepare the message',
       send: 'Send my request',
       sending: 'Sending',
@@ -154,6 +178,7 @@ const copy = fr
   data-msg-label={copy.msg}
   data-msg-optional-label={copy.msgOptional}
   data-locale={locale}
+  data-journey="direct"
   data-send-label={copy.send}
   data-sending-label={copy.sending}
   data-sent-title={copy.sentTitle}
@@ -225,6 +250,14 @@ const copy = fr
         <label class="field"><span>{copy.name}</span><input id="name" name="name" autocomplete="name" maxlength="120" /></label>
         <label class="field"><span>{copy.email}</span><input id="email" name="email" type="email" autocomplete="email" maxlength="160" /></label>
         <label class="field"><span>{copy.company}</span><input id="company" name="company" autocomplete="organization" maxlength="160" /></label>
+        <label class="field">
+          <span>{copy.source}</span>
+          <small>{copy.sourceOptional}</small>
+          <select id="source" name="source">
+            <option value="">{copy.sourceUnset}</option>
+            {copy.sources.map(([value, label]) => <option value={value}>{label}</option>)}
+          </select>
+        </label>
         <div data-demo-message-slot></div>
         <p class="error" id="err-3" role="alert"></p>
         <div class="cta-row">
@@ -237,6 +270,7 @@ const copy = fr
           <div><dt>{copy.sumNeed}</dt><dd><span id="sum-need"></span><button class="edit" type="button" data-next="1" data-generic-only>{copy.edit}</button></dd></div>
           <div data-sum-msg-row><dt>{copy.sumMsg}</dt><dd><span id="sum-msg"></span><button class="edit" type="button" data-edit-message>{copy.edit}</button></dd></div>
           <div><dt>{copy.sumWho}</dt><dd><span id="sum-who"></span><button class="edit" type="button" data-next="3">{copy.edit}</button></dd></div>
+          <div><dt>{copy.sumSource}</dt><dd><span id="sum-source"></span><button class="edit" type="button" data-next="3">{copy.edit}</button></dd></div>
         </dl>
         <p class="error" id="err-4" role="alert"></p>
         <p id="send-status" role="status"></p>
@@ -284,5 +318,5 @@ const copy = fr
   </div>
   {note && note.type === 'note' && <p class="contact-note">{note.text}</p>}
   <script type="application/json" id="contact-hints" set:html={JSON.stringify(copy.hints)}></script>
-  <script is:inline src="/assets/contact.js?v=20261023" defer></script>
+  <script is:inline src="/assets/contact.js?v=20261026" defer></script>
 </div>
