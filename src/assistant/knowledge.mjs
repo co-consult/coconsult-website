@@ -235,11 +235,11 @@ export const entries = [
   {
     id: 'sports',
     group: 'work',
-    label: { fr: 'Plateforme d’opérations sportives', en: 'Sports operations platform' },
-    keywords: ['sport', 'sportive', 'billetterie', 'streaming', 'abonnement', 'abonnements', 'dons', 'donations'],
+    label: { fr: 'CSS Forever', en: 'CSS Forever' },
+    keywords: ['sport', 'sportive', 'billetterie', 'streaming', 'abonnement', 'abonnements', 'dons', 'donations', 'css forever'],
     text: {
-      fr: 'Réalisation publique : une plateforme d’opérations autour des membres, des abonnements, de la billetterie, des dons, des paiements et du streaming. Elle est utilisée au quotidien. Le site ne publie pas de nom de produit ni de client pour cette réalisation.',
-      en: 'Public case: an operations platform around members, subscriptions, ticketing, donations, payments and streaming. It is used day to day. The site does not publish a product or client name for this case.',
+      fr: 'Réalisation publique : CSS Forever, plateforme de soutien, d’abonnements, de billetterie, de diffusion et de suivi des ventes. Elle est utilisée au quotidien. Le site ne nomme pas le club.',
+      en: 'Public case: CSS Forever, a platform for support, subscriptions, ticketing, streaming and sales follow-up. It is used day to day. The site does not name the club.',
     },
     links: ['cases'],
   },

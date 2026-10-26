@@ -1,6 +1,7 @@
 ---
 import type { Locale } from '@/content/types';
 import { pathFor } from '@/data/routes';
+import { sportsShots } from '@/data/sports-shots';
 import { workItems, type WorkItem } from '@/data/work';
 
 interface Props { locale: Locale; id: 'iaps' | 'cssforever' }
@@ -15,13 +16,25 @@ const caseLink = fr ? 'Voir l’étude de cas' : 'View the case study';
 const slot = fr
   ? 'Le logiciel livré n’est pas reproduit ici. Le résultat du projet est écrit à côté.'
   : 'The delivered software is not reproduced here. The project result is written beside this space.';
+const shot = id === 'cssforever' ? sportsShots[0] : null;
 ---
 <div class="experience work-host platform-teaser">
   <article class="case case-teaser">
-    <div class="case-art">
-      <div class="case-slot">
-        <p>{slot}</p>
-      </div>
+    <div class:list={['case-art', shot && 'has-shots']}>
+      {shot ? (
+        <figure class="shot shot-main">
+          <picture>
+            <source type="image/avif" srcset={`${shot.base}.avif`} />
+            <source type="image/webp" srcset={`${shot.base}.webp`} />
+            <img src={`${shot.base}.webp`} alt={shot.alt[locale]} width={shot.width} height={shot.height} loading="lazy" decoding="async" />
+          </picture>
+          <figcaption>{shot.caption[locale]}</figcaption>
+        </figure>
+      ) : (
+        <div class="case-slot">
+          <p>{slot}</p>
+        </div>
+      )}
     </div>
     <div class="case-copy">
       <p class="eyebrow">{eyebrow}</p>

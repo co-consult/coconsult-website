@@ -1,6 +1,8 @@
 ---
 import type { Locale } from '@/content/types';
 import { contactPath } from '@/data/inquiries';
+import { pathFor } from '@/data/routes';
+import { sportsShots } from '@/data/sports-shots';
 import { workItems, type WorkItem } from '@/data/work';
 
 interface Props { locale: Locale; id: 'iaps' | 'cssforever' }
@@ -8,30 +10,69 @@ const { locale, id } = Astro.props;
 const item = workItems.find((entry) => entry.id === id) as WorkItem;
 const story = item.story?.[locale];
 const fr = locale === 'fr';
+const study = id === 'cssforever' && /\/realisations\/$|\/case-studies\/$/.test(Astro.url.pathname);
+const shots = id === 'cssforever' ? (study ? sportsShots : sportsShots.slice(0, 1)) : [];
 const moreLabel = fr ? 'Découvrir le projet' : 'Discover the project';
 const lessLabel = fr ? 'Replier' : 'Collapse';
+const screensLabel = fr ? 'Voir les trois écrans' : 'View the three screens';
+const featuresLabel = fr ? 'Fonctionnalités développées' : 'Features built';
 const slot = fr
   ? 'Le logiciel livré n’est pas reproduit ici. Le résultat du projet est écrit à côté.'
   : 'The delivered software is not reproduced here. The project result is written beside this space.';
 ---
-<div class="experience work-host">
-  <article class="case">
-    <div class="case-art">
-      <div class="case-slot">
-        <p>{slot}</p>
-      </div>
+<div class:list={['experience', 'work-host', study && 'is-study']}>
+  <article class="case" id={study ? 'sports-platform' : undefined}>
+    <div class:list={['case-art', shots.length > 0 && 'has-shots']}>
+      {shots.length > 0 ? (
+        <div class="shot-gallery">
+          {shots.map((shot, index) => (
+            <figure class:list={['shot', index === 0 && 'shot-main']}>
+              <picture>
+                <source type="image/avif" srcset={`${shot.base}.avif`} />
+                <source type="image/webp" srcset={`${shot.base}.webp`} />
+                <img
+                  src={`${shot.base}.webp`}
+                  alt={shot.alt[locale]}
+                  width={shot.width}
+                  height={shot.height}
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                />
+              </picture>
+              <figcaption>{shot.caption[locale]}</figcaption>
+            </figure>
+          ))}
+        </div>
+      ) : (
+        <div class="case-slot">
+          <p>{slot}</p>
+        </div>
+      )}
     </div>
     <div class="case-copy">
       <p class="eyebrow">{item.status[locale]}</p>
       <h3>{item.title[locale]}</h3>
       {story && <p>{story.context}</p>}
       {story && <p>{story.result}</p>}
-      <div class="more" hidden>
-        {story && <p>{story.stake}</p>}
-        {story && <p>{story.intervention}</p>}
-      </div>
+      {study && story && (
+        <div class="case-detail">
+          <p>{story.stake}</p>
+          <p>{story.intervention}</p>
+          <p class="meta-line">{featuresLabel}</p>
+          <ul>
+            {item.benefits[locale].map((benefit) => <li>{benefit}</li>)}
+          </ul>
+        </div>
+      )}
+      {!study && story && (
+        <div class="more" hidden>
+          <p>{story.stake}</p>
+          <p>{story.intervention}</p>
+        </div>
+      )}
       <div class="case-actions">
-        <button class="btn ghost small" type="button" data-case aria-expanded="false" data-more={moreLabel} data-less={lessLabel}>{moreLabel}</button>
+        {!study && id === 'cssforever' && <a class="btn ghost small" href={`${pathFor(locale, 'cases')}#sports-platform`}>{screensLabel}</a>}
+        {!study && id !== 'cssforever' && <button class="btn ghost small" type="button" data-case aria-expanded="false" data-more={moreLabel} data-less={lessLabel}>{moreLabel}</button>}
         <a class="btn ghost small" href={contactPath(locale, 'project')}>{item.cta[locale].label}</a>
       </div>
     </div>
