@@ -3,6 +3,7 @@ import type { Locale } from '@/content/types';
 import { pathFor } from '@/data/routes';
 import { sportsShots } from '@/data/sports-shots';
 import { workItems, type WorkItem } from '@/data/work';
+import DocumentFlow from '@/components/visuals/DocumentFlow.astro';
 
 interface Props { locale: Locale; id: 'iaps' | 'cssforever' }
 const { locale, id } = Astro.props;
@@ -13,14 +14,11 @@ const eyebrow = fr
   ? (id === 'iaps' ? 'Réalisation client' : 'Plateforme construite')
   : (id === 'iaps' ? 'Client delivery' : 'Built platform');
 const caseLink = fr ? 'Voir l’étude de cas' : 'View the case study';
-const slot = fr
-  ? 'Le logiciel livré n’est pas reproduit ici. Le résultat du projet est écrit à côté.'
-  : 'The delivered software is not reproduced here. The project result is written beside this space.';
 const shot = id === 'cssforever' ? sportsShots[0] : null;
 ---
 <div class="experience work-host platform-teaser">
   <article class="case case-teaser">
-    <div class:list={['case-art', shot && 'has-shots']}>
+    <div class:list={['case-art', shot && 'has-shots', !shot && 'has-flow']}>
       {shot ? (
         <figure class="shot shot-main">
           <picture>
@@ -31,9 +29,7 @@ const shot = id === 'cssforever' ? sportsShots[0] : null;
           <figcaption>{shot.caption[locale]}</figcaption>
         </figure>
       ) : (
-        <div class="case-slot">
-          <p>{slot}</p>
-        </div>
+        <DocumentFlow locale={locale} />
       )}
     </div>
     <div class="case-copy">
