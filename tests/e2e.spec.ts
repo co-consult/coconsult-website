@@ -1045,6 +1045,9 @@ test('the contact summary shows the privacy notice and no marketing checkbox', a
     await expect(notice).toContainText(item.text);
     await expect(notice.getByRole('link', { name: item.link })).toHaveAttribute('href', item.href);
     await expect(page.locator('input[type="checkbox"]')).toHaveCount(0);
+    await expect(page.locator('[data-contact-panel]')).toHaveAttribute('data-journey', 'direct');
+    await expect(page.locator('#sum-source')).toHaveText('—');
+    await expect(page.locator('#source')).toHaveCount(1);
     const gap = await notice.evaluate((node) => {
       const button = document.getElementById('prepare');
       if (!(node instanceof HTMLElement) || !(button instanceof HTMLElement)) return -1;

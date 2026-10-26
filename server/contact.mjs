@@ -10,6 +10,16 @@ const ALIASES = new Map([
 ]);
 
 const TYPES = new Set(['project', 'ai', 'team', 'qa', 'cloud', 'payments', 'partnership', 'other', 'demo']);
+const SOURCES = new Set(['google', 'linkedin', 'social', 'referral', 'other', 'undisclosed']);
+const PATHS = new Set(['direct', 'guide']);
+const SOURCE_LABELS = {
+  google: 'Google',
+  linkedin: 'LinkedIn',
+  social: 'Facebook / Instagram',
+  referral: 'Recommandation',
+  other: 'Autre',
+  undisclosed: 'Préfère ne pas répondre',
+};
 
 const SUBJECTS = {
   fr: {
@@ -80,6 +90,28 @@ function canonicalType(value) {
   if (token.length > 40) return '';
   const aliased = ALIASES.get(token.toLowerCase()) || token;
   return TYPES.has(aliased) ? aliased : '';
+}
+
+function canonicalSource(value) {
+  if (value == null || value === '') return '';
+  if (typeof value !== 'string') return null;
+  const token = value.trim();
+  if (token.length > 20) return null;
+  return SOURCES.has(token) ? token : null;
+}
+
+function canonicalPath(value) {
+  if (value == null || value === '') return 'direct';
+  if (typeof value !== 'string') return null;
+  const token = value.trim();
+  if (token.length > 16) return null;
+  return PATHS.has(token) ? token : null;
+}
+
+function receivedAt(now) {
+  const date = new Date(now);
+  if (Number.isNaN(date.getTime())) return '—';
+  return date.toISOString().replace('T', ' ').replace(/\.\d{3}Z$/, ' UTC');
 }
 
 function isIpv4(text) {
@@ -361,6 +393,9 @@ async function dispatch(request, deps) {
   if (productText === 'copharia' && !demo) return json(400, { ok: false, error: 'invalid' });
   if (demo && productText !== 'copharia') return json(400, { ok: false, error: 'invalid' });
   if (locale !== 'fr' && locale !== 'en') return json(400, { ok: false, error: 'invalid' });
+  const source = canonicalSource(body.source);
+  const journey = canonicalPath(body.path);
+  if (source == null || journey == null) return json(400, { ok: false, error: 'invalid' });
   if (!sendReady(env)) return json(503, { ok: false, error: 'unavailable' });
 
   const token = textField(body.token, 80, { required: true });
@@ -381,6 +416,12 @@ async function dispatch(request, deps) {
       `Entreprise : ${company || '—'}`,
       `Demande : ${subjectFor(type, locale)}`,
       `Produit : ${productText || '—'}`,
+      '',
+      `Type de demande : ${subjectFor(type, locale)}`,
+      `Source déclarée : ${source ? SOURCE_LABELS[source] : '—'}`,
+      `Parcours : ${journey === 'guide' ? 'guide commercial' : 'formulaire direct'}`,
+      `Langue : ${locale === 'en' ? 'English' : 'Français'}`,
+      `Date de réception : ${receivedAt(now)}`,
       '',
       message || '—',
     ].join('\n'),

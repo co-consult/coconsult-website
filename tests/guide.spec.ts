@@ -51,6 +51,7 @@ test('the French guide qualifies a need and copies the summary into the form', a
   await expect(page.locator('#message')).toHaveValue(/Un prototype logiciel a cadrer/);
   await expect(page.locator('#message')).toBeFocused();
   await expect(page.locator('[data-step="2"]')).toBeVisible();
+  await expect(page.locator('[data-contact-panel]')).toHaveAttribute('data-journey', 'guide');
   const cached = await page.evaluate(async () => {
     const cache = await caches.open('cc-guide-handoff');
     const hit = await cache.match('/cc-guide-handoff');
@@ -75,6 +76,7 @@ test('opening the form without the summary leaves the message empty', async ({ p
   await expect(page.locator('[data-need="software"]')).toHaveAttribute('aria-pressed', 'true');
   await expect(page.locator('#message')).toHaveValue('');
   await expect(page.locator('[data-step="1"]')).toBeVisible();
+  await expect(page.locator('[data-contact-panel]')).toHaveAttribute('data-journey', 'guide');
 });
 
 test('the English guide works on a phone width and does not call a model', async ({ page }) => {

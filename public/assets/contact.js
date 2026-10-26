@@ -14,6 +14,8 @@
   const nameField = document.getElementById('name');
   const emailField = document.getElementById('email');
   const companyField = document.getElementById('company');
+  const sourceField = document.getElementById('source');
+  let journey = 'direct';
   const flag = document.getElementById('topic-flag');
   const hintsBox = document.getElementById('hints');
   const prepare = document.getElementById('prepare');
@@ -154,6 +156,13 @@
     if (sumMsg) sumMsg.textContent = fieldValue(message) || '—';
     const company = fieldValue(companyField);
     if (sumWho) sumWho.textContent = `${fieldValue(nameField)} · ${fieldValue(emailField)}${company ? ` · ${company}` : ''}`;
+    const sumSource = document.getElementById('sum-source');
+    if (sumSource) {
+      const chosen = sourceField instanceof HTMLSelectElement ? sourceField.selectedOptions[0] : null;
+      sumSource.textContent = sourceField instanceof HTMLSelectElement && sourceField.value && chosen
+        ? chosen.textContent || '—'
+        : '—';
+    }
   }
 
   function messageBody() {
@@ -419,6 +428,8 @@
       product,
       message: fieldValue(message),
       locale: panel.dataset.locale === 'en' ? 'en' : 'fr',
+      source: sourceField instanceof HTMLSelectElement ? sourceField.value : '',
+      path: journey,
       token: sendState.token,
       website: honeypot instanceof HTMLInputElement ? honeypot.value : '',
     };
@@ -515,29 +526,32 @@
   const GUIDE_PATH = '/cc-guide-handoff';
   const GUIDE_TTL_MS = 120000;
 
-  async function consumeGuideSummary() {
-    if (!('caches' in window)) return '';
+  async function consumeGuideMark() {
+    const empty = { path: '', message: '' };
+    if (!('caches' in window)) return empty;
     const cache = await caches.open(GUIDE_CACHE);
     const hit = await cache.match(GUIDE_PATH);
     await caches.delete(GUIDE_CACHE);
-    if (!hit) return '';
+    if (!hit) return empty;
     let data;
     try {
       data = JSON.parse(await hit.text());
     } catch {
-      return '';
+      return empty;
     }
-    if (!data || typeof data.exp !== 'number' || data.exp < Date.now()) return '';
-    if (typeof data.message !== 'string') return '';
+    if (!data || typeof data.exp !== 'number' || data.exp < Date.now()) return empty;
+    if (Date.now() - (data.exp - GUIDE_TTL_MS) > GUIDE_TTL_MS) return empty;
+    const path = data.path === 'guide' ? 'guide' : '';
+    if (typeof data.message !== 'string') return { path, message: '' };
     const text = data.message
       .replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]+/g, ' ')
       .replace(/[ \t]+\n/g, '\n')
       .trim()
       .slice(0, 1500);
-    if (!text) return '';
-    if (/[\w.+-]+@[\w.-]+\.[a-z]{2,}/i.test(text) || /\+?\d[\d\s().-]{8,}\d/.test(text)) return '';
-    if (Date.now() - (data.exp - GUIDE_TTL_MS) > GUIDE_TTL_MS) return '';
-    return text;
+    if (!text || /[\w.+-]+@[\w.-]+\.[a-z]{2,}/i.test(text) || /\+?\d[\d\s().-]{8,}\d/.test(text)) {
+      return { path, message: '' };
+    }
+    return { path, message: text };
   }
 
   const type = params.get('type') || '';
@@ -564,10 +578,14 @@
   async function openFirstStep() {
     let guideSummary = '';
     try {
-      guideSummary = await consumeGuideSummary();
+      const mark = await consumeGuideMark();
+      journey = mark.path === 'guide' ? 'guide' : 'direct';
+      guideSummary = mark.message;
     } catch {
+      journey = 'direct';
       guideSummary = '';
     }
+    panel.dataset.journey = journey;
     if (wantsCophariaDemo) {
       applyGuideSummary(guideSummary);
       enterDemoMode();

@@ -1,4 +1,4 @@
-import { armHandoff, clearHandoff } from './handoff.mjs';
+import { armGuideVisit, armHandoff, clearHandoff } from './handoff.mjs';
 import { start, turn } from './guide.mjs';
 
 const SAFE_PREFIXES = [
@@ -144,7 +144,14 @@ function appendLink(parent, link, contact) {
   anchor.textContent = link.label;
   if (contact) {
     anchor.className = 'cc-assistant-contact';
-    anchor.addEventListener('click', () => { void clearHandoff(); });
+    anchor.addEventListener('click', (event) => {
+      event.preventDefault();
+      const href = safeHref(anchor.getAttribute('href') || '');
+      void armGuideVisit().then(() => {
+        leaving = true;
+        location.assign(href);
+      });
+    });
   }
   parent.append(anchor);
 }

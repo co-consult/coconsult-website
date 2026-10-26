@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { contactHref, entries, KNOWLEDGE_VERSION } from '../src/assistant/knowledge.mjs';
 import { start, turn } from '../src/assistant/guide.mjs';
-import { decodeHandoff, encodeHandoff } from '../src/assistant/handoff.mjs';
+import { decodeHandoff, encodeGuideVisit, encodeHandoff } from '../src/assistant/handoff.mjs';
 import { safeHref } from '../src/assistant/widget.mjs';
 import { guardOutput, handleAssistant, resetAssistantLimits, resolveAssistantIp } from '../server/assistant.mjs';
 
@@ -117,6 +117,13 @@ assert.equal(decodeHandoff(handoffRaw, 1_000 + 10_000), 'Sujet : IA et data\nMod
 assert.equal(decodeHandoff(handoffRaw, 1_000 + 120_001), '');
 assert.equal(encodeHandoff('Écrire à ada@example.com', 1_000), '');
 assert.equal(encodeHandoff('Appeler 06 37 19 17 97', 1_000), '');
+const handoffData = JSON.parse(handoffRaw);
+assert.equal(handoffData.path, 'guide');
+assert.equal(handoffRaw.includes('questions'), false);
+const visit = JSON.parse(encodeGuideVisit(1_000));
+assert.equal(visit.path, 'guide');
+assert.equal(visit.message, undefined);
+assert.equal(Object.keys(visit).includes('questions'), false);
 assert.equal(safeHref('/innovation/'), '/innovation/');
 assert.equal(safeHref('/en/innovation/'), '/en/innovation/');
 assert.equal(safeHref('https://evil.example/innovation/'), '/contact/');
