@@ -149,7 +149,8 @@ const homeEn = read('/en/');
 assert.match(home, /L(?:'|&#39;)intelligence au cœur de vos systèmes\./);
 assert.match(home, /L(?:'|&#39;)ingénierie pour les concrétiser\./);
 assert.match(home, /Intelligence artificielle et data/);
-assert.match(home, /Voir le geste, pas le catalogue\./);
+assert.match(home, /Découvrez nos expertises en action\./);
+assert.match(home, /Des modèles de collaboration adaptés à vos projets\./);
 assert.match(home, /href="\/services\/"/);
 assert.match(home, /href="\/contact\/\?type=project"/);
 assert.match(home, /href="\/contact\/\?type=ai"/);
@@ -157,7 +158,8 @@ assert.match(home, /href="\/contact\/\?type=team"/);
 assert.match(homeEn, /Intelligence at the core of your systems\./);
 assert.match(homeEn, /Engineering to make them real\./);
 assert.match(homeEn, /Artificial intelligence and data/);
-assert.match(homeEn, /The system, layer by layer\./);
+assert.match(homeEn, /Discover our expertise in action\./);
+assert.match(homeEn, /Collaboration models suited to your projects\./);
 assert.match(homeEn, /href="\/en\/contact\/\?type=project"/);
 assert.match(homeEn, /href="\/en\/contact\/\?type=ai"/);
 assert.equal(home.includes('Paiements et API'), false);
@@ -249,6 +251,9 @@ for (const [urlPath, , alternate] of pages) {
   assert.match(sitemap, new RegExp(`<loc>https://coconsult.fr${alternate}</loc>`));
 }
 assert.doesNotMatch(sitemap, /404/);
+for (const legacy of ['/nos-offres/', '/react/', '/node-js/', '/consultant/', '/hotellerie/', '/opportunite-it/']) {
+  assert.equal(sitemap.includes(`https://coconsult.fr${legacy}`), false, legacy);
+}
 const robots = fs.readFileSync(path.join(dist, 'robots.txt'), 'utf8');
 assert.match(robots, /Sitemap: https:\/\/coconsult\.fr\/sitemap\.xml/);
 
@@ -256,8 +261,38 @@ const nginx = fs.readFileSync(path.join(root, 'nginx.conf'), 'utf8');
 assert.match(nginx, /absolute_redirect off;/);
 assert.match(nginx, /port_in_redirect off;/);
 assert.match(nginx, /return 301 \$uri\/;/);
+assert.match(nginx, /return 301 \$legacy_redirect\$is_args\$args;/);
+assert.match(nginx, /if \(\$legacy_gone = "1"\)/);
 assert.match(nginx, /listen 8080;/);
 assert.doesNotMatch(nginx, /return 30\d https?:\/\//);
+assert.doesNotMatch(nginx, /return 301 \/;/);
+const redirectBlock = nginx.slice(nginx.indexOf('map $uri $legacy_redirect'), nginx.indexOf('map $uri $legacy_gone'));
+const goneBlock = nginx.slice(nginx.indexOf('map $uri $legacy_gone'), nginx.indexOf('\nserver {'));
+const legacyPairs = [...redirectBlock.matchAll(/^    (\/\S+) (\/\S+);$/gm)];
+assert.ok(legacyPairs.length >= 20);
+const legacyKeys = new Set(legacyPairs.map((match) => match[1]));
+for (const [, source, target] of legacyPairs) {
+  assert.equal(target.startsWith('/'), true, source);
+  assert.equal(target.includes('://'), false, source);
+  assert.notEqual(target.split('?')[0], '/', source);
+  assert.equal(legacyKeys.has(target.split('?')[0]), false, source);
+}
+for (const [source, target] of [
+  ['/nos-offres/', '/services/'],
+  ['/nos-offres', '/services/'],
+  ['/react/', '/services/developpement/'],
+  ['/node-js/', '/services/developpement/'],
+  ['/en/node-js-2/', '/en/services/software-engineering/'],
+  ['/en/home-english/', '/en/'],
+]) {
+  assert.ok(legacyPairs.some((match) => match[1] === source && match[2] === target), source);
+}
+const gonePaths = [...goneBlock.matchAll(/^    (\/\S+) 1;$/gm)].map((match) => match[1]);
+for (const source of ['/consultant/', '/scrum-master/', '/opportunite-it/', '/hotellerie/', '/business-analyst/']) {
+  assert.ok(gonePaths.includes(source), source);
+  assert.equal(legacyKeys.has(source), false, source);
+}
+assert.match(nginx, /location \^~ \/jobs\/ \{ return 410; \}/);
 assert.match(fs.readFileSync(path.join(root, '.gitignore'), 'utf8'), /compose\.proxy\.yaml/);
 assert.equal(fs.existsSync(path.join(root, 'compose.proxy.yaml')), false);
 assert.ok(fs.statSync(path.join(dist, 'assets', 'brand', 'coconsult-logo.png')).size > 1000);

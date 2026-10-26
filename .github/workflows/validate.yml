@@ -66,6 +66,32 @@ jobs:
               assert status == 301, (path, status, location)
               assert location == expected, (path, location)
               assert_relative(location)
+          legacy = {
+              '/nos-offres/': '/services/',
+              '/nos-offres': '/services/',
+              '/react/': '/services/developpement/',
+              '/node-js/': '/services/developpement/',
+              '/node-js?utm=legacy': '/services/developpement/?utm=legacy',
+              '/en/home-english/': '/en/',
+              '/finance/': '/secteurs/',
+          }
+          for path, expected in legacy.items():
+              status, location = head(path)
+              print('legacy', path, status, location)
+              assert status == 301, (path, status, location)
+              assert location == expected, (path, location)
+              assert_relative(location)
+              final, final_location = head(location.split('?', 1)[0])
+              assert final == 200, (location, final, final_location)
+              assert final_location is None
+          for path in ('/consultant/', '/scrum-master/', '/opportunite-it/', '/hotellerie/', '/jobs/architecte-devops-sre-h-f/', '/wp-login.php'):
+              status, location = head(path)
+              print('gone', path, status, location)
+              assert status == 410, (path, status, location)
+              assert location is None
+          status, location = head('/ancienne-page-inconnue/')
+          print('unknown', status, location)
+          assert status == 404, (status, location)
           status, location = head('/en/')
           print('/en/', status, location)
           assert status == 200, (status, location)
