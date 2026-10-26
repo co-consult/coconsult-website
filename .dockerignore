@@ -7,6 +7,7 @@ test-results
 playwright-report
 playwright
 **/*.md
+private
 compose.proxy.yaml
 _logo_crop_preview.png
 .env

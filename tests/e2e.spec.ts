@@ -337,7 +337,7 @@ test('solutions page shows COPHARIA and anonymized platforms with case links', a
   await expect(page.getByRole('heading', { name: 'Solutions Coconsult' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Plateformes et réalisations' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Application documentaire et workflows' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: /Plateforme d.opérations sportives/ })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'CSS Forever' })).toBeVisible();
   await expect(page.getByRole('link', { name: /Voir l.étude de cas/ }).first()).toHaveAttribute('href', '/realisations/');
   await expect(page.locator('body')).not.toContainText('IAPS');
   await expect(page.locator('body')).not.toContainText('CSSForever');

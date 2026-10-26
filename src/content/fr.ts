@@ -553,11 +553,11 @@ export const pages: Record<RouteKey, PageContent> = {
     key: 'cases',
     metaTitle: 'Réalisations d’ingénierie | Coconsult',
     description:
-      'Applications métier livrées par Coconsult : une gestion documentaire remise au client, et une plateforme d’opérations sportives.',
+      'Réalisations Coconsult : CSS Forever, plateforme sportive en service, et un logiciel métier livré dont les écrans ne sont pas publiés.',
     eyebrow: 'RÉALISATIONS',
     h1: 'Des systèmes livrés, décrits avec précision.',
     intro:
-      'Deux réalisations documentées : un logiciel livré avec cession du code source, et une plateforme sportive utilisée au quotidien. Les clients ne sont pas nommés.',
+      'Deux réalisations documentées. CSS Forever est montré par trois écrans réels. L’autre logiciel a été livré avec cession du code source ; ses écrans ne sont pas publiés.',
     blocks: [
       { type: 'work', source: 'cases', title: 'Projets livrés' },
       {

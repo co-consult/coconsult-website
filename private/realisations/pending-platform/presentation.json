@@ -1,0 +1,23 @@
+{
+  "publication": "blocked",
+  "reason": "These screens stay out of the public site until an explicit authorization to publish them.",
+  "shownOnSite": false,
+  "storedInRepository": false,
+  "clientNamedInManifest": false,
+  "featuresVisible": [
+    "Action dashboard",
+    "Projects",
+    "Workflow catalogue and approval steps",
+    "Timesheets and planning",
+    "CRM shortcuts: clients, prospects, quotes and scope change"
+  ],
+  "notClaimed": "Document integration is not visible in the supplied captures, so it is not listed here.",
+  "result": "The software was delivered and the source code was transferred. No figure is published.",
+  "technology": "Not confirmed from the captures.",
+  "masks": [
+    "Account initials and the name beside the greeting",
+    "Organization name in the sidebar",
+    "Month, project names and the timesheet total",
+    "Workflow names in the catalogue list"
+  ]
+}

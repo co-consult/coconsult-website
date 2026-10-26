@@ -87,8 +87,8 @@ export const workItems: WorkItem[] = [
     order: 20,
     visible: true,
     title: {
-      fr: 'Plateforme d’opérations sportives',
-      en: 'Sports operations platform',
+      fr: 'CSS Forever',
+      en: 'CSS Forever',
     },
     status: {
       fr: 'Réalisation d’ingénierie',
@@ -99,33 +99,35 @@ export const workItems: WorkItem[] = [
       en: 'Sports and digital operations',
     },
     summary: {
-      fr: 'Plateforme d’opérations autour des membres, des abonnements, de la billetterie, des dons, des paiements et du streaming. Une expérience d’ingénierie sur un produit réellement utilisé.',
-      en: 'An operations platform around members, subscriptions, ticketing, donations, payments and streaming. Engineering experience on software people actually use.',
+      fr: 'Plateforme digitale sportive : soutien et dons, abonnements, choix des places, billetterie, diffusion des matchs et suivi des ventes. Le logiciel est utilisé au quotidien.',
+      en: 'A sports platform: support and donations, subscriptions, seat selection, ticketing, match streaming and sales follow-up. The software is used day to day.',
     },
     story: {
       fr: {
-        context: 'Une activité sportive avait besoin d’une plateforme pour ses opérations numériques.',
-        stake: 'Membres, abonnements, billetterie, dons, paiements et streaming devaient vivre ensemble.',
-        intervention: 'Coconsult a construit la plateforme et les parcours qui relient ces opérations.',
-        result: 'La plateforme est utilisée au quotidien.',
+        context: 'Une activité sportive devait réunir le soutien du public, les abonnements et l’accès aux matchs sur une même plateforme.',
+        stake: 'Les dons, les places, la billetterie, la diffusion et le suivi des ventes ne pouvaient pas rester des outils séparés.',
+        intervention: 'Coconsult a conçu et développé CSS Forever, de l’interface publique jusqu’à la console de suivi.',
+        result: 'La plateforme est utilisée au quotidien. Une campagne de soutien y a été menée jusqu’à son terme.',
       },
       en: {
-        context: 'A sports operation needed a platform for its digital services.',
-        stake: 'Members, subscriptions, ticketing, donations, payments and streaming had to work as one.',
-        intervention: 'Coconsult built the platform and the journeys that connect those operations.',
-        result: 'The platform is used day to day.',
+        context: 'A sports operation needed public support, subscriptions and match access on one platform.',
+        stake: 'Donations, seats, ticketing, streaming and sales follow-up could not stay in separate tools.',
+        intervention: 'Coconsult designed and built CSS Forever, from the public interface to the sales console.',
+        result: 'The platform is used day to day. A support campaign on it ran through to the end.',
       },
     },
     benefits: {
       fr: [
-        'Plusieurs parcours métier sur une même plateforme',
-        'Paiements et opérations reliés au quotidien du service',
-        'Retour d’expérience sur un produit à usage réel',
+        'Campagne de soutien et de dons',
+        'Abonnements et sélection des places',
+        'Billetterie et diffusion des matchs',
+        'Console de suivi des ventes',
       ],
       en: [
-        'Several business journeys on one platform',
-        'Payments and operations tied to day-to-day service',
-        'Delivery experience on software people actually use',
+        'Support and donation campaign',
+        'Subscriptions and seat selection',
+        'Ticketing and match streaming',
+        'Sales follow-up console',
       ],
     },
     cta: {

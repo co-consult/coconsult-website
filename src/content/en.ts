@@ -504,11 +504,11 @@ export const pages: Record<RouteKey, PageContent> = {
     key: 'cases',
     metaTitle: 'Engineering case studies | Coconsult',
     description:
-      'Business applications delivered by Coconsult: a document system handed to the client, and a sports operations platform.',
+      'Coconsult deliveries: CSS Forever, a sports platform in use, and a business system whose screens are not published.',
     eyebrow: 'CASE STUDIES',
     h1: 'Systems we have delivered.',
     intro:
-      'Two documented deliveries: software handed over with the source code transferred, and a sports platform used day to day. Clients are not named.',
+      'Two documented deliveries. CSS Forever is shown with three real screens. The other system was delivered with its source code transferred; its screens are not published.',
     blocks: [
       { type: 'work', source: 'cases', title: 'Delivered projects' },
       {
