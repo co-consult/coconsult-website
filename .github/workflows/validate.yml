@@ -74,6 +74,31 @@ jobs:
               '/node-js?utm=legacy': '/services/developpement/?utm=legacy',
               '/en/home-english/': '/en/',
               '/finance/': '/secteurs/',
+              '/angular/': '/services/developpement/',
+              '/angular': '/services/developpement/',
+              '/java/?ref=legacy': '/services/developpement/?ref=legacy',
+              '/en/nos-offres-2/': '/en/services/',
+              '/en/nos-offres-2': '/en/services/',
+              '/en/qa-testing-2?utm=legacy': '/en/services/qa-testing/?utm=legacy',
+              '/en/devops-2/': '/en/services/cloud-devops/',
+              '/en/sante-2/': '/en/industries/',
+              '/en/finance-2': '/en/industries/',
+              '/en/retail-2/': '/en/industries/',
+              '/en/transport-2/': '/en/industries/',
+              '/en/telecommunication-2/': '/en/industries/',
+              '/en/secteur-bancaire-2/': '/en/industries/',
+              '/en/developpement-2/': '/en/services/software-engineering/',
+              '/en/net-2/': '/en/services/software-engineering/',
+              '/reseau-et-securite/': '/services/cybersecurite/',
+              '/reseau-et-securite': '/services/cybersecurite/',
+              '/reseau-et-securite/?src=gsc': '/services/cybersecurite/?src=gsc',
+              '/en/reseau-et-securite/': '/en/services/cybersecurity/',
+              '/en/reseau-et-securite': '/en/services/cybersecurity/',
+              '/externalisation-it-pourquoi-cest-un-levier-strategique-pour-votre-entreprise/': '/modes-intervention/',
+              '/externalisation-it-pourquoi-cest-un-levier-strategique-pour-votre-entreprise': '/modes-intervention/',
+              '/externalisation-it-pourquoi-cest-un-levier-strategique-pour-votre-entreprise/?q=1': '/modes-intervention/?q=1',
+              '/en/offshore-outsourcing-businesses/': '/en/engagement/',
+              '/en/offshore-outsourcing-businesses': '/en/engagement/',
           }
           for path, expected in legacy.items():
               status, location = head(path)
@@ -92,6 +117,14 @@ jobs:
           status, location = head('/ancienne-page-inconnue/')
           print('unknown', status, location)
           assert status == 404, (status, location)
+          for path in ('/en/dataops-2/', '/externalisation-it/', '/nearshore/', '/cybersecurite/'):
+              bare = path[:-1]
+              status, location = head(bare)
+              print('unmapped-bare', bare, status, location)
+              assert status == 301 and location == path, (bare, status, location)
+              status, location = head(path)
+              print('unmapped', path, status, location)
+              assert status == 404, (path, status, location)
           status, location = head('/en/')
           print('/en/', status, location)
           assert status == 200, (status, location)
