@@ -312,6 +312,23 @@ for (const [source, target] of [
   ['/node-js/', '/services/developpement/'],
   ['/en/node-js-2/', '/en/services/software-engineering/'],
   ['/en/home-english/', '/en/'],
+  ['/angular/', '/services/developpement/'],
+  ['/angular', '/services/developpement/'],
+  ['/java/', '/services/developpement/'],
+  ['/java', '/services/developpement/'],
+  ['/en/nos-offres-2/', '/en/services/'],
+  ['/en/nos-offres-2', '/en/services/'],
+  ['/en/qa-testing-2/', '/en/services/qa-testing/'],
+  ['/en/devops-2/', '/en/services/cloud-devops/'],
+  ['/en/sante-2/', '/en/industries/'],
+  ['/reseau-et-securite/', '/services/cybersecurite/'],
+  ['/reseau-et-securite', '/services/cybersecurite/'],
+  ['/en/reseau-et-securite/', '/en/services/cybersecurity/'],
+  ['/en/reseau-et-securite', '/en/services/cybersecurity/'],
+  ['/externalisation-it-pourquoi-cest-un-levier-strategique-pour-votre-entreprise/', '/modes-intervention/'],
+  ['/externalisation-it-pourquoi-cest-un-levier-strategique-pour-votre-entreprise', '/modes-intervention/'],
+  ['/en/offshore-outsourcing-businesses/', '/en/engagement/'],
+  ['/en/offshore-outsourcing-businesses', '/en/engagement/'],
 ]) {
   assert.ok(legacyPairs.some((match) => match[1] === source && match[2] === target), source);
 }
@@ -320,6 +337,10 @@ for (const source of ['/consultant/', '/scrum-master/', '/opportunite-it/', '/ho
   assert.ok(gonePaths.includes(source), source);
   assert.equal(legacyKeys.has(source), false, source);
 }
+assert.equal(gonePaths.includes('/reseau-et-securite/'), false);
+assert.equal(gonePaths.includes('/reseau-et-securite'), false);
+assert.equal(legacyKeys.has('/en/dataops-2/'), false);
+assert.equal(legacyKeys.has('/en/dataops-2/'), false);
 assert.match(nginx, /location \^~ \/jobs\/ \{ return 410; \}/);
 assert.match(fs.readFileSync(path.join(root, '.gitignore'), 'utf8'), /compose\.proxy\.yaml/);
 assert.equal(fs.existsSync(path.join(root, 'compose.proxy.yaml')), false);
