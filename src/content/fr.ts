@@ -455,9 +455,9 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   ai: {
     key: 'ai',
-    metaTitle: 'Intégration d’IA générative en entreprise | Coconsult',
+    metaTitle: 'DataOps et IA générative en entreprise | Coconsult',
     description:
-      'Agents, modèles et automatisation intelligente dans vos applications, avec droits d’accès et traçabilité cadrés avant le pilote.',
+      'Fondations DataOps, tenues à part de l’IA générative : pipelines, qualité des données, intégration, automatisation et exploitation.',
     eyebrow: 'INTELLIGENCE ARTIFICIELLE ET DATA',
     h1: 'Mettre l’IA au service d’un processus que vous connaissez.',
     intro:
@@ -491,6 +491,25 @@ export const pages: Record<RouteKey, PageContent> = {
           'La confidentialité et le RGPD se traitent pour le projet concerné, selon les bases légales applicables. Brancher un modèle ne rend pas, à lui seul, un traitement conforme.',
           'L’intégration s’appuie sur des services d’IA que vous êtes autorisé à utiliser. Coconsult ne commercialise pas un assistant conversationnel propriétaire clé en main.',
           'Un agent n’est retenu que lorsque le processus, les données qu’il peut voir et la décision qui reste humaine sont déjà décrits. Sinon, le sujet n’est pas prêt pour un pilote.',
+        ],
+      },
+      {
+        type: 'prose',
+        title: 'Fondations DataOps',
+        paragraphs: [
+          'DataOps n’est pas l’IA générative décrite au-dessus. L’IA branche un modèle sur un processus. Le DataOps, lorsqu’il est dans la mission, prépare les données que ce processus ou une application déjà en place doit consommer.',
+          'Coconsult ne publie pas de plateforme DataOps et n’annonce aucune certification d’outil. Les sources, les contrôles et ce qui reste opéré par vos équipes se cadrent avant de commencer.',
+        ],
+      },
+      {
+        type: 'list',
+        title: 'Dans le système que vous exploitez déjà',
+        items: [
+          'Pipelines de données : le chemin entre vos outils, avec une reprise quand un échange échoue',
+          'Qualité des données : champs attendus, rejets et doublons, définis avec vous',
+          'Intégration : raccordement aux applications et aux API que le projet doit alimenter',
+          'Automatisation des traitements répétitifs, là où la règle est déjà connue',
+          'Exploitation : journaux, échecs et reprise, pour les équipes qui font tourner le flux',
         ],
       },
       {
@@ -727,9 +746,9 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   software: {
     key: 'software',
-    metaTitle: 'Développement logiciel sur mesure | Coconsult',
+    metaTitle: 'Développement sur mesure Java et Angular | Coconsult',
     description:
-      'Applications web et mobiles, API et logiciels métier, conçus pour le système en place et suivis jusqu’à la mise en production.',
+      'Applications web, API et logiciels métier. Java, Spring et Angular lorsque le produit en place s’y appuie, avec une équipe dédiée si le projet dure.',
     eyebrow: 'DÉVELOPPEMENT LOGICIEL',
     h1: 'Concevoir et faire évoluer vos applications.',
     intro:
@@ -742,6 +761,7 @@ export const pages: Record<RouteKey, PageContent> = {
           { title: 'Applications', text: 'Interfaces web ou mobiles reliées aux règles métier et aux données dont vous disposez déjà.' },
           { title: 'API et intégration', text: 'Des contrats d’interface stables entre vos outils, avec reprises et observabilité lorsque le flux est critique.' },
           { title: 'Architecture', text: 'Un découpage lisible quand le produit grandit, sans refonte décorative.' },
+          { title: 'Java, Spring et Angular', text: 'Ces technologies sont reprises lorsque le produit existant s’y appuie. Angular n’est pas proposé pour remplacer un front qui ne l’utilise pas déjà.' },
         ],
       },
       {
@@ -768,7 +788,7 @@ export const pages: Record<RouteKey, PageContent> = {
         items: [
           { title: 'Intelligence artificielle', text: 'Brancher génération, modèles ou agents sur une application déjà en place.', hrefKey: 'ai' },
           { title: 'Cloud et DevOps', text: 'Mettre en production et tenir l’exploitation de ce qui est livré.', hrefKey: 'cloud' },
-          { title: 'Équipe dédiée', text: 'Constituer une squad Java, Angular ou full-stack pour la durée du projet.', hrefKey: 'dedicated' },
+          { title: 'Équipes Java et Angular', text: 'Une squad Java, Spring ou Angular pour la durée du projet, lorsque le besoin dépasse une intervention ponctuelle.', hrefKey: 'dedicated' },
           { title: 'Innovation et CII', text: 'Lire le cadre de l’agrément avant d’appeler une mission un projet d’innovation.', hrefKey: 'innovation' },
         ],
       },
@@ -827,29 +847,29 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   modes: {
     key: 'modes',
-    metaTitle: 'Régie, équipe dédiée et nearshore | Coconsult',
+    metaTitle: 'Externalisation IT, équipes dédiées et nearshore | Coconsult',
     description:
-      'Régie, équipes dédiées, développement nearshore, forfait et conseil, selon le périmètre et le rythme du projet.',
+      'Externalisation IT en assistance technique, équipes dédiées, nearshore en Tunisie ou collaboration au forfait. Coconsult Nearshore est une société distincte.',
     eyebrow: 'MODES D’INTERVENTION',
-    h1: 'Choisir la forme de la collaboration.',
+    h1: 'Choisir la forme de l’externalisation IT.',
     intro:
-      'Selon le périmètre, le travail se fait en régie, en équipe dédiée, en nearshore, au forfait ou en conseil. La même équipe peut porter le développement, l’IA, la qualité ou le cloud.',
+      'Selon le périmètre, la collaboration se fait en assistance technique, en équipes dédiées, en nearshore en Tunisie ou au forfait. Le conseil s’ajoute lorsque le projet doit être cadré avant ou pendant la réalisation.',
     blocks: [
       {
         type: 'columns',
         title: 'Cinq façons de travailler',
         items: [
-          { title: 'Régie', text: 'Assistance technique d’un ou plusieurs ingénieurs, pour un palier identifié.' },
+          { title: 'Assistance technique', text: 'Régie d’un ou plusieurs ingénieurs, pour un palier identifié.' },
           { title: 'Équipes dédiées', text: 'Une squad suivie dans la durée, avec coordination depuis la France.' },
-          { title: 'Développement nearshore', text: 'Compétences mobilisées avec Coconsult Nearshore, à Sfax. Les deux sociétés sont juridiquement distinctes.' },
-          { title: 'Forfait', text: 'Un périmètre estimable, avec un résultat à réceptionner.' },
+          { title: 'Nearshore Tunisie', text: 'Compétences mobilisées avec Coconsult Nearshore, à Sfax. Société tunisienne juridiquement distincte. Ce n’est pas une promesse de baisse de coût.' },
+          { title: 'Collaboration au forfait', text: 'Un périmètre estimable, avec un résultat à réceptionner.' },
           { title: 'Conseil', text: 'Architecture, analyse métier et pilotage, lorsque le projet a besoin d’un cadrage avant ou pendant la réalisation.' },
         ],
       },
       {
         type: 'prose',
         paragraphs: [
-          'Coconsult accompagne ses clients depuis la France et collabore avec Coconsult Nearshore, une société tunisienne juridiquement indépendante basée à Sfax, pour mobiliser des compétences d’ingénierie et constituer des équipes dédiées.',
+          'L’externalisation IT est portée depuis la France par COCONSULT. Lorsqu’elle inclut un nearshore en Tunisie, les compétences passent par Coconsult Nearshore, société tunisienne juridiquement indépendante, basée à Sfax. Les deux sociétés ne se confondent pas.',
           'Le devis, le contrat et la facture identifient la société qui contracte avec le client.',
         ],
       },

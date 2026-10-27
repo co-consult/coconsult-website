@@ -532,6 +532,58 @@ assert.match(read('/modes-intervention/'), /href="\/services\/ia-entreprise\/"/)
 assert.match(read('/en/services/software-engineering/'), /href="\/en\/services\/enterprise-ai\/"/);
 assert.match(read('/en/engagement/'), /href="\/en\/services\/dedicated-teams\/"/);
 
+const aiFr = read('/services/ia-entreprise/');
+const aiEn = read('/en/services/enterprise-ai/');
+assert.match(aiFr, /<title>DataOps et IA générative en entreprise \| Coconsult<\/title>/);
+assert.match(aiFr, /<h1>Mettre l’IA au service d’un processus que vous connaissez\.<\/h1>/);
+assert.match(aiFr, /<h2>Fondations DataOps<\/h2>/);
+assert.match(aiFr, /DataOps n’est pas l’IA générative/);
+assert.match(aiFr, /Pipelines de données/);
+assert.match(aiFr, /Qualité des données/);
+assert.match(aiFr, /rel="canonical" href="https:\/\/coconsult\.fr\/services\/ia-entreprise\/"/);
+assert.match(aiFr, /hreflang="en" href="https:\/\/coconsult\.fr\/en\/services\/enterprise-ai\/"/);
+assert.match(aiFr, /hreflang="fr" href="https:\/\/coconsult\.fr\/services\/ia-entreprise\/"/);
+assert.match(aiFr, /n’annonce aucune certification d’outil/);
+assert.match(aiEn, /does not claim a certification on any tool/);
+assert.equal(/snowflake|databricks|\bdbt\b|airflow/i.test(aiFr + aiEn), false);
+assert.match(aiEn, /<h2>DataOps foundations<\/h2>/);
+assert.match(aiEn, /DataOps is not the generative AI/);
+assert.match(aiEn, /rel="canonical" href="https:\/\/coconsult\.fr\/en\/services\/enterprise-ai\/"/);
+assert.equal((aiFr.match(/<h1\b/g) ?? []).length, 1);
+assert.equal(aiFr.includes('<h4'), false);
+
+const modesFr = read('/modes-intervention/');
+const modesEn = read('/en/engagement/');
+assert.match(modesFr, /<h1>Choisir la forme de l’externalisation IT\.<\/h1>/);
+assert.match(modesFr, /Assistance technique/);
+assert.match(modesFr, /Équipes dédiées/);
+assert.match(modesFr, /Nearshore Tunisie/);
+assert.match(modesFr, /Collaboration au forfait/);
+assert.match(modesFr, /pas une promesse de baisse de coût/);
+assert.match(modesFr, /juridiquement indépendante/);
+assert.match(modesFr, /L’agrément CII de COCONSULT couvre 2026 à 2030/);
+assert.match(modesFr, /rel="canonical" href="https:\/\/coconsult\.fr\/modes-intervention\/"/);
+assert.equal(/coût salarial|lower labor|cheaper/i.test(modesFr + modesEn), false);
+assert.match(modesEn, /<h1>Choose the form of IT outsourcing\.<\/h1>/);
+assert.match(modesEn, /Nearshore Tunisia/);
+assert.match(modesEn, /not a promise of lower cost/);
+assert.match(modesEn, /legally independent/);
+assert.match(modesEn, /CII agreement covers 2026 to 2030/);
+assert.equal((modesFr.match(/<h1\b/g) ?? []).length, 1);
+
+const devFr = read('/services/developpement/');
+const devEn = read('/en/services/software-engineering/');
+assert.match(devFr, /<title>Développement sur mesure Java et Angular \| Coconsult<\/title>/);
+assert.match(devFr, /<h1>Concevoir et faire évoluer vos applications\.<\/h1>/);
+assert.match(devFr, /Java, Spring et Angular/);
+assert.match(devFr, /href="\/services\/equipes-dediees\/"/);
+assert.equal(/Spring Boot/.test(devFr + devEn), false);
+assert.match(devEn, /Java, Spring and Angular/);
+assert.match(devEn, /href="\/en\/services\/dedicated-teams\/"/);
+assert.match(devFr, /rel="canonical" href="https:\/\/coconsult\.fr\/services\/developpement\/"/);
+assert.match(devEn, /hreflang="fr" href="https:\/\/coconsult\.fr\/services\/developpement\/"/);
+assert.equal((devFr.match(/<h1\b/g) ?? []).length, 1);
+
 for (const file of fs.readdirSync(dist, { recursive: true })) {
   const full = path.join(dist, String(file));
   if (!fs.statSync(full).isFile()) continue;
