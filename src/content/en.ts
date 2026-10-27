@@ -406,9 +406,9 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   ai: {
     key: 'ai',
-    metaTitle: 'Enterprise generative AI integration | Coconsult',
+    metaTitle: 'DataOps and enterprise generative AI | Coconsult',
     description:
-      'Agents, models and intelligent automation inside your applications, with access rights and traceability scoped before a pilot.',
+      'DataOps foundations, kept apart from generative AI: pipelines, data quality, integration, automation and operations.',
     eyebrow: 'ARTIFICIAL INTELLIGENCE AND DATA',
     h1: 'Put AI to work on a process you already understand.',
     intro:
@@ -442,6 +442,23 @@ export const pages: Record<RouteKey, PageContent> = {
           'Confidentiality and privacy law are handled for the project in question, under the legal bases that apply. Connecting a model does not, by itself, make a processing activity compliant.',
           'Integration uses AI services you are entitled to use. Coconsult does not sell a proprietary conversational assistant as a finished product.',
           'An agent is accepted only when the process, the data it may see and the decision that stays with a person are already described. Otherwise the subject is not ready for a pilot.',
+        ],
+      },
+      {
+        type: 'prose',
+        title: 'DataOps foundations',
+        paragraphs: [
+          'DataOps and generative AI are not the same work. AI connects a model to a process. DataOps moves the data that process and the applications involved need to consume.',
+        ],
+      },
+      {
+        type: 'list',
+        title: 'Inside the system you already run',
+        items: [
+          'Data integration and circulation, towards the applications and APIs the flow has to feed',
+          'Pipelines and automation of processing whose rule is known',
+          'Quality and reliability: expected fields, rejects and duplicates, defined with you',
+          'Supervision and recovery: logs, visible failures and a restart of the processing',
         ],
       },
       {
@@ -678,13 +695,13 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   software: {
     key: 'software',
-    metaTitle: 'Custom software development | Coconsult',
+    metaTitle: 'Custom Java and Angular development | Coconsult',
     description:
-      'Web and mobile applications, APIs and business software, designed around the system you run and followed through to production.',
+      'Custom applications, evolution of an existing one, or progressive modernisation. Java, Spring and Angular, with a dedicated team when the work lasts.',
     eyebrow: 'SOFTWARE DEVELOPMENT',
     h1: 'Design and evolve your applications.',
     intro:
-      'Web, mobile, backend, frontend and APIs. The work starts from the system you run and ends in a release your teams can operate.',
+      'Web, mobile, backend, frontend and APIs. A new application, the evolution of an existing one or a modernisation, through to a release your teams can operate.',
     blocks: [
       {
         type: 'columns',
@@ -693,22 +710,23 @@ export const pages: Record<RouteKey, PageContent> = {
           { title: 'Applications', text: 'Web or mobile interfaces tied to the business rules and the data you already have.' },
           { title: 'APIs and integration', text: 'Stable interfaces between your tools, with retries and observability when the flow is critical.' },
           { title: 'Architecture', text: 'A readable structure as the product grows, without a decorative rewrite.' },
+          { title: 'Java, Spring and Angular', text: 'These skills cover a new application, the evolution of an existing one and a modernisation carried out in stages.' },
         ],
       },
       {
         type: 'list',
-        title: 'Concrete work',
+        title: 'Three cases',
         items: [
-          'Evolve a web application already in production',
-          'Connect a mobile app or a portal to the backend you run',
-          'Steady the APIs between two systems that do not talk',
+          'Custom application development, from the business rules and the people who will use it',
+          'Evolution and maintenance of applications already in production',
+          'A rewrite or a progressive modernisation, carried out in stages',
         ],
       },
       {
         type: 'prose',
         title: 'Web, mobile and business software',
         paragraphs: [
-          'Custom means starting from the system already in place: rules, data and users. A web or mobile application connects to it, rather than replacing it on principle.',
+          'A custom application starts from the rules, the data and the users. When an application is already in production, the work is its evolution, its maintenance, or a modernisation carried out in stages.',
           'Delivery includes a release your team can operate, identified environments and a counterpart during the first weeks.',
           'If a client is looking at the French innovation tax credit, the CII agreement is described separately. It does not apply to every development assignment.',
         ],
@@ -719,7 +737,7 @@ export const pages: Record<RouteKey, PageContent> = {
         items: [
           { title: 'Artificial intelligence', text: 'Connect generation, models or agents to an application already in place.', hrefKey: 'ai' },
           { title: 'Cloud and DevOps', text: 'Release what is built, then keep it running.', hrefKey: 'cloud' },
-          { title: 'Dedicated team', text: 'Staff a Java, Angular or full-stack squad for the life of the project.', hrefKey: 'dedicated' },
+          { title: 'Java and Angular teams', text: 'A Java, Spring or Angular squad for the life of the project, when the work is more than a short intervention.', hrefKey: 'dedicated' },
           { title: 'Innovation and CII', text: 'Read the agreement before calling an assignment an innovation project.', hrefKey: 'innovation' },
         ],
       },
@@ -778,29 +796,29 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   modes: {
     key: 'modes',
-    metaTitle: 'Dedicated teams and nearshore delivery | Coconsult',
+    metaTitle: 'IT outsourcing, dedicated teams and nearshore | Coconsult',
     description:
-      'Staff augmentation, dedicated teams, nearshore development, fixed scope and advisory, according to the scope and pace of the project.',
+      'IT outsourcing as staff augmentation, dedicated teams, nearshore in Tunisia or a fixed scope. Coconsult Nearshore is a separate company.',
     eyebrow: 'WAYS OF WORKING',
-    h1: 'Choose how we work together.',
+    h1: 'Choose the form of IT outsourcing.',
     intro:
-      'Depending on the scope, the work is staff augmentation, a dedicated team, nearshore delivery, a fixed scope or advisory. The same team can build software, apply AI, test or run a platform.',
+      'Depending on the scope, the work is staff augmentation, a dedicated team, nearshore in Tunisia or a fixed scope. Advisory is added when the project needs a frame before or during delivery.',
     blocks: [
       {
         type: 'columns',
         title: 'Five ways to engage',
         items: [
-          { title: 'Staff augmentation', text: 'One or more engineers for an identified stretch of delivery.' },
+          { title: 'Staff augmentation', text: 'One or more engineers on a time-and-materials basis, for an identified stretch of delivery.' },
           { title: 'Dedicated teams', text: 'A squad followed over time, coordinated from France.' },
-          { title: 'Nearshore development', text: 'Skills mobilised with Coconsult Nearshore in Sfax. The two companies are legally separate.' },
-          { title: 'Fixed scope', text: 'A scope that can be estimated, with a result to accept.' },
+          { title: 'Nearshore Tunisia', text: 'Skills mobilised with Coconsult Nearshore in Sfax. A legally separate Tunisian company. This is not a promise of lower cost.' },
+          { title: 'Fixed-scope collaboration', text: 'A scope that can be estimated, with a result to accept.' },
           { title: 'Advisory', text: 'Architecture, business analysis and technical leadership, before or during delivery.' },
         ],
       },
       {
         type: 'prose',
         paragraphs: [
-          'Coconsult supports its clients from France and works with Coconsult Nearshore, a legally independent Tunisian company based in Sfax, to bring in engineering skills and build dedicated teams.',
+          'IT outsourcing is led from France by COCONSULT. When it includes nearshore work in Tunisia, the skills come through Coconsult Nearshore, a legally independent Tunisian company based in Sfax. The two companies are not the same.',
           'The quotation, the contract and the invoice name the company that contracts with the client.',
         ],
       },
