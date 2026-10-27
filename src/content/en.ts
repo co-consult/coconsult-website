@@ -448,19 +448,17 @@ export const pages: Record<RouteKey, PageContent> = {
         type: 'prose',
         title: 'DataOps foundations',
         paragraphs: [
-          'DataOps is not the generative AI described above. AI connects a model to a process. DataOps, when it is part of the assignment, prepares the data that process or an application already in place has to consume.',
-          'Coconsult does not publish a DataOps platform and does not claim a certification on any tool. The sources, the checks and what your teams keep operating are scoped before the work starts.',
+          'DataOps and generative AI are not the same work. AI connects a model to a process. DataOps moves the data that process and the applications involved need to consume.',
         ],
       },
       {
         type: 'list',
         title: 'Inside the system you already run',
         items: [
-          'Data pipelines: the path between your tools, with a retry when an exchange fails',
-          'Data quality: expected fields, rejects and duplicates, defined with you',
-          'Integration: a connection to the applications and APIs the project actually has to feed',
-          'Automation of repeatable processing, where the rule is already known',
-          'Operations: logs, failures and recovery, for the teams that keep the flow running',
+          'Data integration and circulation, towards the applications and APIs the flow has to feed',
+          'Pipelines and automation of processing whose rule is known',
+          'Quality and reliability: expected fields, rejects and duplicates, defined with you',
+          'Supervision and recovery: logs, visible failures and a restart of the processing',
         ],
       },
       {
@@ -699,11 +697,11 @@ export const pages: Record<RouteKey, PageContent> = {
     key: 'software',
     metaTitle: 'Custom Java and Angular development | Coconsult',
     description:
-      'Web applications, APIs and business software. Java, Spring and Angular when the product already uses them, with a dedicated team when the work lasts.',
+      'Custom applications, evolution of an existing one, or progressive modernisation. Java, Spring and Angular, with a dedicated team when the work lasts.',
     eyebrow: 'SOFTWARE DEVELOPMENT',
     h1: 'Design and evolve your applications.',
     intro:
-      'Web, mobile, backend, frontend and APIs. The work starts from the system you run and ends in a release your teams can operate.',
+      'Web, mobile, backend, frontend and APIs. A new application, the evolution of an existing one or a modernisation, through to a release your teams can operate.',
     blocks: [
       {
         type: 'columns',
@@ -712,23 +710,23 @@ export const pages: Record<RouteKey, PageContent> = {
           { title: 'Applications', text: 'Web or mobile interfaces tied to the business rules and the data you already have.' },
           { title: 'APIs and integration', text: 'Stable interfaces between your tools, with retries and observability when the flow is critical.' },
           { title: 'Architecture', text: 'A readable structure as the product grows, without a decorative rewrite.' },
-          { title: 'Java, Spring and Angular', text: 'These stacks are taken up when the product already relies on them. Angular is not proposed as a replacement for a front end that is not already Angular.' },
+          { title: 'Java, Spring and Angular', text: 'These skills cover a new application, the evolution of an existing one and a modernisation carried out in stages.' },
         ],
       },
       {
         type: 'list',
-        title: 'Concrete work',
+        title: 'Three cases',
         items: [
-          'Evolve a web application already in production',
-          'Connect a mobile app or a portal to the backend you run',
-          'Steady the APIs between two systems that do not talk',
+          'Custom application development, from the business rules and the people who will use it',
+          'Evolution and maintenance of applications already in production',
+          'A rewrite or a progressive modernisation, carried out in stages',
         ],
       },
       {
         type: 'prose',
         title: 'Web, mobile and business software',
         paragraphs: [
-          'Custom means starting from the system already in place: rules, data and users. A web or mobile application connects to it, rather than replacing it on principle.',
+          'A custom application starts from the rules, the data and the users. When an application is already in production, the work is its evolution, its maintenance, or a modernisation carried out in stages.',
           'Delivery includes a release your team can operate, identified environments and a counterpart during the first weeks.',
           'If a client is looking at the French innovation tax credit, the CII agreement is described separately. It does not apply to every development assignment.',
         ],

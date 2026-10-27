@@ -497,19 +497,17 @@ export const pages: Record<RouteKey, PageContent> = {
         type: 'prose',
         title: 'Fondations DataOps',
         paragraphs: [
-          'DataOps n’est pas l’IA générative décrite au-dessus. L’IA branche un modèle sur un processus. Le DataOps, lorsqu’il est dans la mission, prépare les données que ce processus ou une application déjà en place doit consommer.',
-          'Coconsult ne publie pas de plateforme DataOps et n’annonce aucune certification d’outil. Les sources, les contrôles et ce qui reste opéré par vos équipes se cadrent avant de commencer.',
+          'DataOps et IA générative ne portent pas sur le même travail. L’IA branche un modèle sur un processus. Le DataOps fait circuler les données que ce processus et les applications concernées consomment.',
         ],
       },
       {
         type: 'list',
         title: 'Dans le système que vous exploitez déjà',
         items: [
-          'Pipelines de données : le chemin entre vos outils, avec une reprise quand un échange échoue',
-          'Qualité des données : champs attendus, rejets et doublons, définis avec vous',
-          'Intégration : raccordement aux applications et aux API que le projet doit alimenter',
-          'Automatisation des traitements répétitifs, là où la règle est déjà connue',
-          'Exploitation : journaux, échecs et reprise, pour les équipes qui font tourner le flux',
+          'Intégration et circulation des données, vers les applications et les API que le flux doit alimenter',
+          'Pipelines et automatisation des traitements dont la règle est connue',
+          'Qualité et fiabilité : champs attendus, rejets et doublons, définis avec vous',
+          'Supervision et reprise : journaux, échecs visibles et redémarrage du traitement',
         ],
       },
       {
@@ -748,11 +746,11 @@ export const pages: Record<RouteKey, PageContent> = {
     key: 'software',
     metaTitle: 'Développement sur mesure Java et Angular | Coconsult',
     description:
-      'Applications web, API et logiciels métier. Java, Spring et Angular lorsque le produit en place s’y appuie, avec une équipe dédiée si le projet dure.',
+      'Applications sur mesure, évolution d’un existant ou modernisation progressive. Java, Spring et Angular, avec une équipe dédiée si le projet dure.',
     eyebrow: 'DÉVELOPPEMENT LOGICIEL',
     h1: 'Concevoir et faire évoluer vos applications.',
     intro:
-      'Web, mobile, backend, frontend et API. Le travail part du système en place et va jusqu’à une mise en production que vos équipes peuvent exploiter.',
+      'Web, mobile, backend, frontend et API. Une application neuve, l’évolution d’un existant ou une modernisation, jusqu’à une mise en production que vos équipes peuvent exploiter.',
     blocks: [
       {
         type: 'columns',
@@ -761,23 +759,23 @@ export const pages: Record<RouteKey, PageContent> = {
           { title: 'Applications', text: 'Interfaces web ou mobiles reliées aux règles métier et aux données dont vous disposez déjà.' },
           { title: 'API et intégration', text: 'Des contrats d’interface stables entre vos outils, avec reprises et observabilité lorsque le flux est critique.' },
           { title: 'Architecture', text: 'Un découpage lisible quand le produit grandit, sans refonte décorative.' },
-          { title: 'Java, Spring et Angular', text: 'Ces technologies sont reprises lorsque le produit existant s’y appuie. Angular n’est pas proposé pour remplacer un front qui ne l’utilise pas déjà.' },
+          { title: 'Java, Spring et Angular', text: 'Ces expertises couvrent une application neuve, l’évolution d’un existant et une modernisation menée par étapes.' },
         ],
       },
       {
         type: 'list',
-        title: 'Interventions concrètes',
+        title: 'Trois cas',
         items: [
-          'Faire évoluer une application web déjà en production',
-          'Relier un mobile ou un portail au backend existant',
-          'Stabiliser des API entre deux systèmes qui ne se parlent pas',
+          'Développement d’applications sur mesure, à partir des règles métier et des utilisateurs',
+          'Évolution et maintenance d’applications déjà en production',
+          'Refonte ou modernisation progressive, par étapes',
         ],
       },
       {
         type: 'prose',
         title: 'Applications web, mobiles et logiciels métier',
         paragraphs: [
-          'Sur mesure veut dire partir du système déjà en place : règles, données et utilisateurs. Une application web ou mobile s’y relie, plutôt que de remplacer l’existant par principe.',
+          'Une application sur mesure part des règles, des données et des utilisateurs. Lorsqu’une application est déjà en production, le travail porte sur son évolution, sa maintenance, ou une modernisation menée par étapes.',
           'La livraison comprend une version exploitable, des environnements identifiés et un interlocuteur pendant la mise en route.',
           'Si le donneur d’ordre étudie un crédit d’impôt innovation, le cadre de l’agrément CII est décrit à part. Il ne s’applique pas à toute mission de développement.',
         ],
