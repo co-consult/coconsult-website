@@ -1,0 +1,94 @@
+---
+import '@/styles/global.css';
+import '@/styles/behind.css';
+import BehindScene from '@/components/design/BehindScene.astro';
+import { behindCopy } from '@/components/design/behind-copy';
+import Footer from '@/components/Footer.astro';
+import Header from '@/components/Header.astro';
+import { contactPath } from '@/data/inquiries';
+
+export function getStaticPaths() {
+  if (import.meta.env.PUBLIC_DESIGN_PROTOTYPE !== 'true') return [];
+  return [{ params: { prototype: 'behind-the-digital' } }];
+}
+
+const t = behindCopy.fr;
+const talkFr = contactPath('fr', 'project');
+const talkEn = contactPath('en', 'project');
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Behind the Digital — prototype Coconsult</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#07111c" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  </head>
+  <body>
+    <div data-chrome="fr">
+      <Header locale="fr" routeKey="notFound" />
+    </div>
+    <div data-chrome="en">
+      <Header locale="en" routeKey="notFound" menuId="mobile-menu-en" />
+    </div>
+    <main id="main" class="behind">
+      <nav class="behind-nav" aria-label={t.langLabel}>
+        <a href="#introduction" data-i18n="navIntro">{t.navIntro}</a>
+        <a href="#xray" data-i18n="navXray">{t.navXray}</a>
+        <a href="#actuel" data-i18n="navCurrent">{t.navCurrent}</a>
+        <div class="lang-switch" role="group" aria-label={t.langLabel}>
+          <button type="button" data-lang-toggle="fr" aria-pressed="true">FR</button>
+          <button type="button" data-lang-toggle="en" aria-pressed="false">EN</button>
+        </div>
+      </nav>
+
+      <section class="behind-section" id="introduction">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow" data-i18n="kicker">{t.kicker}</p>
+            <h1>
+              <span data-i18n="h1a">{t.h1a}</span>
+              <span class="accent" data-i18n="h1b">{t.h1b}</span>
+            </h1>
+            <p class="lede" data-i18n="lede">{t.lede}</p>
+            <div class="cta-row">
+              <a class="btn primary" data-i18n="talk" data-href-fr={talkFr} data-href-en={talkEn} href={talkFr}>{t.talk}</a>
+              <a class="btn ghost" data-i18n="explore" data-href-fr="/#expertises" data-href-en="/en/#expertises" href="/#expertises">{t.explore}</a>
+            </div>
+          </div>
+          <BehindScene instance="intro" autoplay />
+        </div>
+      </section>
+
+      <section class="behind-section" id="xray">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Digital X-Ray</p>
+            <h2 data-i18n="xrayTitle">{t.xrayTitle}</h2>
+            <p class="lede" data-i18n="xrayLede">{t.xrayLede}</p>
+            <p class="lede" data-i18n="thesis">{t.thesis}</p>
+            <div class="cta-row">
+              <a class="btn primary" data-i18n="talk" data-href-fr={talkFr} data-href-en={talkEn} href={talkFr}>{t.talk}</a>
+              <a class="btn ghost" data-i18n="explore" data-href-fr="/#expertises" data-href-en="/en/#expertises" href="/#expertises">{t.explore}</a>
+            </div>
+          </div>
+          <BehindScene instance="explore" />
+        </div>
+      </section>
+
+      <section class="behind-section" id="actuel">
+        <h2 data-i18n="currentTitle">{t.currentTitle}</h2>
+        <p class="lede" data-i18n="currentLede">{t.currentLede}</p>
+        <iframe class="reference" data-reference title={t.currentTitle} src="/" loading="lazy"></iframe>
+      </section>
+    </main>
+    <div data-chrome="fr">
+      <Footer locale="fr" />
+    </div>
+    <div data-chrome="en">
+      <Footer locale="en" />
+    </div>
+  </body>
+</html>

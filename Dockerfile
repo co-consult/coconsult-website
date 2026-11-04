@@ -6,6 +6,9 @@ COPY . .
 # Public guide is omitted unless this build argument is exactly true.
 ARG PUBLIC_ASSISTANT=false
 ENV PUBLIC_ASSISTANT=$PUBLIC_ASSISTANT
+# The published homepage stays in place unless a staging build asks for the scene.
+ARG PUBLIC_BEHIND_HERO=false
+ENV PUBLIC_BEHIND_HERO=$PUBLIC_BEHIND_HERO
 RUN npm run build
 
 FROM nginxinc/nginx-unprivileged:stable-alpine

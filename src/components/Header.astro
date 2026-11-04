@@ -8,8 +8,9 @@ import type { Locale, RouteKey } from '@/content/types';
 interface Props {
   locale: Locale;
   routeKey: RouteKey | 'notFound';
+  menuId?: string;
 }
-const { locale, routeKey } = Astro.props;
+const { locale, routeKey, menuId = 'mobile-menu' } = Astro.props;
 const t = ui[locale];
 const home = pathFor(locale, 'home');
 const other = alternatePath(locale, routeKey);
@@ -34,7 +35,7 @@ const contactHref = contactPath(locale, 'project');
         class="menu-toggle"
         type="button"
         aria-expanded="false"
-        aria-controls="mobile-menu"
+        aria-controls={menuId}
         aria-label={t.menu}
         data-closed-label={t.menu}
         data-open-label={t.close}
@@ -43,7 +44,7 @@ const contactHref = contactPath(locale, 'project');
       </button>
     </div>
   </div>
-  <nav id="mobile-menu" class="mobile-nav" aria-label={t.navLabel} hidden>
+  <nav id={menuId} class="mobile-nav" aria-label={t.navLabel} hidden>
     {primaryNav.map((key) => (
       <a href={pathFor(locale, key)} aria-current={routeKey === key ? 'page' : undefined}>{routes[key].label[locale]}</a>
     ))}
