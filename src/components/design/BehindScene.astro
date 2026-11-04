@@ -1,0 +1,240 @@
+---
+import { behindCopy } from '@/components/design/behind-copy';
+
+interface Props {
+  instance: string;
+  autoplay?: boolean;
+}
+const { instance, autoplay = false } = Astro.props;
+const t = behindCopy.fr;
+const name = `behind-layer-${instance}`;
+---
+<div
+  class="scene"
+  data-behind
+  data-autoplay={autoplay ? 'true' : undefined}
+  data-phase={autoplay ? 'visible' : 'settle'}
+  data-closed={autoplay ? 'false' : 'true'}
+  data-instance={instance}
+>
+  <div class="stack" aria-hidden="true">
+    <article class="plate plate-cloud">
+      <p class="idx">04</p>
+      <h3 data-i18n="cloudTitle">{t.cloudTitle}</h3>
+      <p data-i18n="cloudBody">{t.cloudBody}</p>
+    </article>
+    <article class="plate plate-data">
+      <p class="idx">03</p>
+      <h3 data-i18n="dataTitle">{t.dataTitle}</h3>
+      <p data-i18n="dataBody">{t.dataBody}</p>
+    </article>
+    <article class="plate plate-arch">
+      <p class="idx">02</p>
+      <h3 data-i18n="archTitle">{t.archTitle}</h3>
+      <p data-i18n="archBody">{t.archBody}</p>
+    </article>
+    <article class="plate plate-app">
+      <header class="plate-top">
+        <p class="idx">INT-1842</p>
+        <h3 data-i18n="appTitle">{t.appTitle}</h3>
+      </header>
+      <ul class="orders">
+        <li class="is-focus">
+          <span data-i18n="place1">{t.place1}</span>
+          <span data-i18n="job1">{t.job1}</span>
+          <span class="state">
+            <span class="status-open" data-i18n="open">{t.open}</span>
+            <span class="status-done" data-i18n="done">{t.done}</span>
+          </span>
+        </li>
+        <li>
+          <span data-i18n="place2">{t.place2}</span>
+          <span data-i18n="job2">{t.job2}</span>
+          <span class="state quiet" data-i18n="open">{t.open}</span>
+        </li>
+        <li>
+          <span data-i18n="place3">{t.place3}</span>
+          <span data-i18n="job3">{t.job3}</span>
+          <span class="state quiet" data-i18n="planned">{t.planned}</span>
+        </li>
+      </ul>
+      <p class="action" data-i18n="action">{t.action}</p>
+      <span class="sheen" aria-hidden="true"></span>
+    </article>
+    <span class="bead" aria-hidden="true"></span>
+    <span class="ground" aria-hidden="true"></span>
+  </div>
+  <fieldset class="layers">
+    <legend class="sr" data-i18n="layersLegend">{t.layersLegend}</legend>
+    <label><input type="radio" name={name} value="app" checked /> <span data-i18n="layerApp">{t.layerApp}</span></label>
+    <label><input type="radio" name={name} value="arch" /> <span data-i18n="layerArch">{t.layerArch}</span></label>
+    <label><input type="radio" name={name} value="data" /> <span data-i18n="layerData">{t.layerData}</span></label>
+    <label><input type="radio" name={name} value="cloud" /> <span data-i18n="layerCloud">{t.layerCloud}</span></label>
+  </fieldset>
+  <p class="line" data-line aria-live="polite">{autoplay ? t.phaseVisible : t.explainApp}</p>
+  <div class="scene-actions">
+    <button class="btn secondary" type="button" data-replay data-i18n="replay">{t.replay}</button>
+    <button class="btn ghost" type="button" data-skip data-i18n="skip">{t.skip}</button>
+  </div>
+  <p class="note" data-i18n="note">{t.note}</p>
+</div>
+<script>
+  import { behindCopy, type BehindLang } from '@/components/design/behind-copy';
+
+  if (document.documentElement.dataset.behindBound === 'true') {
+    // The scene is used twice. The module must bind the page only once.
+  } else {
+  document.documentElement.dataset.behindBound = 'true';
+
+  const phases = ['visible', 'reveal', 'flow', 'settle'] as const;
+  const marks = [0, 3000, 6000, 9000];
+  const layers = ['app', 'arch', 'data', 'cloud'] as const;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let lang: BehindLang = 'fr';
+
+  const text = (key: string) => {
+    const value = behindCopy[lang][key as keyof typeof behindCopy.fr];
+    return typeof value === 'string' ? value : '';
+  };
+
+  const phaseKey = (phase: string) => {
+    if (phase === 'reveal') return 'phaseReveal';
+    if (phase === 'flow') return 'phaseFlow';
+    if (phase === 'settle') return 'phaseSettle';
+    return 'phaseVisible';
+  };
+
+  const explainKey = (layer: string) => {
+    if (layer === 'arch') return 'explainArch';
+    if (layer === 'data') return 'explainData';
+    if (layer === 'cloud') return 'explainCloud';
+    return 'explainApp';
+  };
+
+  const selected = (scene: HTMLElement) =>
+    scene.querySelector<HTMLInputElement>('input:checked')?.value || 'app';
+
+  const renderLine = (scene: HTMLElement) => {
+    const line = scene.querySelector('[data-line]');
+    if (!line) return;
+    const key = scene.dataset.playing === 'true' ? phaseKey(scene.dataset.phase || 'visible') : explainKey(selected(scene));
+    line.textContent = text(key);
+  };
+
+  const applyLang = () => {
+    document.documentElement.lang = lang;
+    document.querySelectorAll<HTMLElement>('[data-i18n]').forEach((el) => {
+      const key = el.dataset.i18n;
+      if (key) el.textContent = text(key);
+    });
+    document.querySelectorAll<HTMLElement>('[data-behind]').forEach(renderLine);
+    document.querySelectorAll<HTMLButtonElement>('[data-lang-toggle]').forEach((btn) => {
+      btn.setAttribute('aria-pressed', btn.dataset.langToggle === lang ? 'true' : 'false');
+    });
+    const frame = document.querySelector<HTMLIFrameElement>('[data-reference]');
+    if (frame) frame.src = lang === 'en' ? '/en/' : '/';
+    document.querySelectorAll<HTMLAnchorElement>('[data-href-fr]').forEach((anchor) => {
+      const href = lang === 'en' ? anchor.dataset.hrefEn : anchor.dataset.hrefFr;
+      if (href) anchor.href = href;
+    });
+  };
+
+  const stop = (scene: HTMLElement) => {
+    const raf = Number(scene.dataset.raf || 0);
+    if (raf) cancelAnimationFrame(raf);
+    scene.dataset.raf = '';
+  };
+
+  const settle = (scene: HTMLElement) => {
+    stop(scene);
+    scene.dataset.playing = 'false';
+    scene.dataset.phase = 'settle';
+    scene.dataset.closed = 'true';
+    delete scene.dataset.preview;
+    renderLine(scene);
+  };
+
+  const play = (scene: HTMLElement) => {
+    stop(scene);
+    if (reduced) {
+      settle(scene);
+      return;
+    }
+    delete scene.dataset.preview;
+    scene.dataset.closed = 'false';
+    scene.dataset.playing = 'true';
+    scene.dataset.phase = 'visible';
+    renderLine(scene);
+    const started = performance.now();
+    const tick = (now: number) => {
+      const elapsed = now - started;
+      let phase: (typeof phases)[number] = 'visible';
+      marks.forEach((at, index) => {
+        if (elapsed >= at) phase = phases[index];
+      });
+      if (elapsed >= 11800) {
+        settle(scene);
+        return;
+      }
+      if (scene.dataset.phase !== phase) {
+        scene.dataset.phase = phase;
+        renderLine(scene);
+      }
+      scene.dataset.raf = String(requestAnimationFrame(tick));
+    };
+    scene.dataset.raf = String(requestAnimationFrame(tick));
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-behind]').forEach((scene) => {
+    if (scene.dataset.autoplay === 'true') play(scene);
+    else renderLine(scene);
+
+    scene.addEventListener('change', (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLInputElement) || target.type !== 'radio') return;
+      delete scene.dataset.preview;
+      if (scene.dataset.playing === 'true') settle(scene);
+      else renderLine(scene);
+    });
+
+    scene.querySelector('.stack')?.addEventListener('pointermove', (event) => {
+      if (!(event instanceof PointerEvent) || event.pointerType !== 'mouse') return;
+      if (scene.dataset.playing === 'true') return;
+      if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      const stack = event.currentTarget;
+      if (!(stack instanceof HTMLElement)) return;
+      const rect = stack.getBoundingClientRect();
+      if (rect.width < 1) return;
+      const ratio = (event.clientX - rect.left) / rect.width;
+      const ratioY = rect.height > 1 ? (event.clientY - rect.top) / rect.height : 0.5;
+      if (ratio < 0 || ratio > 1) return;
+      stack.style.setProperty('--xray', String(Math.min(1, Math.max(0, ratioY))));
+      const layer = layers[Math.min(layers.length - 1, Math.max(0, Math.floor(ratio * layers.length)))];
+      if (scene.dataset.preview === layer) return;
+      scene.dataset.preview = layer;
+      const input = scene.querySelector<HTMLInputElement>(`input[value="${layer}"]`);
+      if (input && !input.checked) input.checked = true;
+      renderLine(scene);
+    });
+
+    scene.querySelector('.stack')?.addEventListener('pointerleave', () => {
+      const stack = scene.querySelector<HTMLElement>('.stack');
+      delete scene.dataset.preview;
+      stack?.style.removeProperty('--xray');
+      if (scene.dataset.playing !== 'true') renderLine(scene);
+    });
+
+    scene.querySelector('[data-replay]')?.addEventListener('click', () => play(scene));
+    scene.querySelector('[data-skip]')?.addEventListener('click', () => settle(scene));
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('[data-lang-toggle]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const next = btn.dataset.langToggle === 'en' ? 'en' : 'fr';
+      if (next === lang) return;
+      lang = next;
+      applyLang();
+    });
+  });
+  }
+</script>

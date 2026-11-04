@@ -278,6 +278,8 @@ for (const [urlPath, , alternate] of pages) {
   assert.match(sitemap, new RegExp(`<loc>https://coconsult.fr${alternate}</loc>`));
 }
 assert.doesNotMatch(sitemap, /404/);
+assert.equal(sitemap.includes('/design/'), false);
+assert.equal(fs.existsSync(path.join(dist, 'design', 'behind-the-digital', 'index.html')), false);
 for (const legacy of ['/nos-offres/', '/react/', '/node-js/', '/consultant/', '/hotellerie/', '/opportunite-it/']) {
   assert.equal(sitemap.includes(`https://coconsult.fr${legacy}`), false, legacy);
 }
