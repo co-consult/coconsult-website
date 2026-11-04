@@ -134,3 +134,30 @@ Chrome, serveur de développement, une lecture. CLS 0,006. DCL 399 ms. Débordem
 ### Limites
 
 La profondeur reste celle d’un plateau CSS et SVG. Une rotation plus forte masque encore le texte. Sans WebGL, il n’y a pas de volume réel ni de réfraction physique. Le film desktop montre les strates et l’application côte à côte ; sous 800 px, le film reste une carte à la fois. Le LCP de production n’a pas été lu dans ce Chrome headless. Ces limites sont assumées : un mauvais 3D coûterait plus que le gain.
+
+## Correction UX V3
+
+Sans V4. Le concept et le châssis de verre restent.
+
+### Changements
+
+1. **Desktop** — Colonne scène renforcée (`0.78 / 1.22`), châssis plus haut, aura et bordure plus présentes, strates plus larges, application maintenue à ~0,94 d’opacité pendant la révélation pour qu’elle ne disparaisse pas. Le H1 reste lisible, légèrement calmé à côté de la scène.
+2. **Mobile** — `IntersectionObserver` : état initial settled/lisible ; une seule lecture automatique quand la scène atteint ~42 % de visibilité ; arrêt/settle si elle quitte l’écran pendant le film. Revoir, reduced-motion, clavier et tactile conservés.
+3. **Vidéo** — Les ~12 s blanches venaient du script Playwright : enregistrement dès la page vide, taille vidéo (1280×800) différente du viewport, et attente avant peinture. Correction : préchauffage, fond nuit immédiat, taille vidéo = viewport, puis navigation et film. Pas un bug navigateur du site.
+
+### Tests
+
+| Contrôle | Résultat |
+| --- | --- |
+| Desktop 1440×900 | OK |
+| Mobile 390×844 sous le fold | `playing=false`, `top≈609` |
+| Mobile après scroll | lecture unique puis settle |
+| Quitter l’écran pendant le film | settle |
+| Overflow 320→1440 et zoom 200 % | 0 |
+| CLS | 0,004 |
+| Reduced motion | settle immédiat |
+| Clavier / tactile | Data puis Cloud |
+| H1 + CTA FR/EN | inchangés |
+| Flag public | orbite, pas de `data-behind` |
+
+Preuves : `docs/design/behind-the-digital/v3/after-ux/`, `before-ux/`, `home-fr-1440.webm`, `home-fr-390.webm`.

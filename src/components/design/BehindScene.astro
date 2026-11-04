@@ -16,8 +16,8 @@ const name = `behind-layer-${instance}`;
   data-behind
   data-version="3"
   data-autoplay={autoplay ? 'true' : undefined}
-  data-phase={autoplay ? 'visible' : 'settle'}
-  data-closed={autoplay ? 'false' : 'true'}
+  data-phase="settle"
+  data-closed="true"
   data-instance={instance}
 >
   <div class="stack" aria-hidden="true">
@@ -146,7 +146,7 @@ const name = `behind-layer-${instance}`;
     <label><input type="radio" name={name} value="data" /> <span data-i18n="layerData">{t.layerData}</span></label>
     <label><input type="radio" name={name} value="cloud" /> <span data-i18n="layerCloud">{t.layerCloud}</span></label>
   </fieldset>
-  <p class="line" data-line aria-live="polite">{autoplay ? t.phaseVisible : t.explainApp}</p>
+  <p class="line" data-line aria-live="polite">{t.explainApp}</p>
   <div class="scene-actions">
     <button class="btn secondary" type="button" data-replay data-i18n="replay">{t.replay}</button>
     <button class="btn ghost" type="button" data-skip data-i18n="skip">{t.skip}</button>
@@ -232,19 +232,22 @@ const name = `behind-layer-${instance}`;
     renderLine(scene);
   };
 
-  const play = (scene: HTMLElement) => {
+  const play = (scene: HTMLElement, reason: 'auto' | 'replay' = 'replay') => {
     stop(scene);
     if (reduced) {
       settle(scene);
+      if (reason === 'auto') scene.dataset.autoplayed = 'true';
       return;
     }
     delete scene.dataset.preview;
     scene.dataset.closed = 'false';
     scene.dataset.playing = 'true';
     scene.dataset.phase = 'visible';
+    if (reason === 'auto') scene.dataset.autoplayed = 'true';
     renderLine(scene);
     const started = performance.now();
     const tick = (now: number) => {
+      if (scene.dataset.playing !== 'true') return;
       const elapsed = now - started;
       let phase: (typeof phases)[number] = 'visible';
       marks.forEach((at, index) => {
@@ -263,9 +266,32 @@ const name = `behind-layer-${instance}`;
     scene.dataset.raf = String(requestAnimationFrame(tick));
   };
 
+  const watchVisibility = (scene: HTMLElement) => {
+    if (scene.dataset.autoplay !== 'true') return;
+    if (!('IntersectionObserver' in window)) {
+      play(scene, 'auto');
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (!entry) return;
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.42) {
+          if (scene.dataset.autoplayed !== 'true' && scene.dataset.playing !== 'true') {
+            play(scene, 'auto');
+          }
+          return;
+        }
+        if (scene.dataset.playing === 'true') settle(scene);
+      },
+      { threshold: [0, 0.25, 0.42, 0.6, 0.85] },
+    );
+    observer.observe(scene);
+  };
+
   document.querySelectorAll<HTMLElement>('[data-behind]').forEach((scene) => {
-    if (scene.dataset.autoplay === 'true') play(scene);
-    else renderLine(scene);
+    renderLine(scene);
+    watchVisibility(scene);
 
     scene.addEventListener('change', (event) => {
       const target = event.target;
@@ -302,7 +328,7 @@ const name = `behind-layer-${instance}`;
       if (scene.dataset.playing !== 'true') renderLine(scene);
     });
 
-    scene.querySelector('[data-replay]')?.addEventListener('click', () => play(scene));
+    scene.querySelector('[data-replay]')?.addEventListener('click', () => play(scene, 'replay'));
     scene.querySelector('[data-skip]')?.addEventListener('click', () => settle(scene));
   });
 
