@@ -1,0 +1,85 @@
+{
+  "scene": {
+    "desktop": {
+      "title": "Développement logiciel, IA et cloud | Coconsult",
+      "h1": "L'intelligence au cœur de vos systèmes.L'ingénierie pour les concrétiser.",
+      "talk": "/contact/?type=project",
+      "explore": "#expertises",
+      "behind": true,
+      "system": false,
+      "assistant": true,
+      "version": "3"
+    },
+    "en": {
+      "title": "Software development, AI and cloud | Coconsult",
+      "lang": "en",
+      "h1": "Intelligence at the core of your systems.Engineering to make them real.",
+      "talk": "/en/contact/?type=project",
+      "behind": true,
+      "system": false,
+      "assistant": true
+    },
+    "services": {
+      "title": "Développement, IA, cloud et qualité | Coconsult",
+      "behind": false
+    },
+    "contact": {
+      "title": "Parlons de votre prochain système | Coconsult",
+      "hasEmail": true,
+      "form": true
+    },
+    "mobile": {
+      "playing": false,
+      "ratio": 0.321,
+      "menu": true,
+      "afterScrollPlaying": true,
+      "menuOpen": true
+    },
+    "reduced": {
+      "playing": false,
+      "phase": "settle",
+      "closed": true
+    },
+    "keyboard": "data",
+    "overflow": {
+      "320": 0,
+      "390": 0,
+      "1440": 0
+    }
+  },
+  "orbit": {
+    "desktop": {
+      "title": "Développement logiciel, IA et cloud | Coconsult",
+      "h1": "L'intelligence au cœur de vos systèmes.L'ingénierie pour les concrétiser.",
+      "talk": "/contact/?type=project",
+      "explore": "#expertises",
+      "behind": false,
+      "system": true,
+      "assistant": false,
+      "version": null
+    },
+    "en": {
+      "title": "Software development, AI and cloud | Coconsult",
+      "lang": "en",
+      "h1": "Intelligence at the core of your systems.Engineering to make them real.",
+      "talk": "/en/contact/?type=project",
+      "behind": false,
+      "system": true,
+      "assistant": false
+    },
+    "services": {
+      "title": "Développement, IA, cloud et qualité | Coconsult",
+      "behind": false
+    },
+    "contact": {
+      "title": "Parlons de votre prochain système | Coconsult",
+      "hasEmail": true,
+      "form": true
+    },
+    "mobile": null,
+    "reduced": null,
+    "keyboard": null,
+    "overflow": null
+  },
+  "errors": []
+}

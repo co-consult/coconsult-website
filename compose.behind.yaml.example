@@ -1,0 +1,15 @@
+# Copy to compose.behind.yaml on the server only after the Behind the Digital
+# staging check is accepted. Do not commit compose.behind.yaml.
+# It is gitignored, like compose.proxy.yaml and compose.guide.yaml.
+#
+# Production currently ships the commercial guide. Keep compose.guide.yaml in
+# the same command, or the rebuild drops PUBLIC_ASSISTANT and removes the widget.
+#
+# Example (guide already enabled on the VPS):
+#   docker compose -p coconsult -f compose.yaml -f compose.proxy.yaml -f compose.guide.yaml -f compose.behind.yaml up -d --build --no-deps coconsult-web
+services:
+  coconsult-web:
+    build:
+      context: .
+      args:
+        PUBLIC_BEHIND_HERO: "true"
