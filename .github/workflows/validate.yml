@@ -20,6 +20,8 @@ jobs:
       - run: npm run check
       - run: npm run build
       - run: npm test
+      - name: Behind explorer regression
+        run: npm run test:behind-explorer
       - name: Legal publication gaps
         run: npm run check:legal
       - name: Container health and relative redirects

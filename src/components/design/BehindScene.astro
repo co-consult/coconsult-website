@@ -15,11 +15,16 @@ const name = `behind-layer-${instance}`;
   class="behind-scene"
   data-behind
   data-version="3"
+  data-mode="explore"
   data-autoplay={autoplay ? 'true' : undefined}
   data-phase="settle"
   data-closed="true"
   data-instance={instance}
 >
+  <header class="scene-intro">
+    <h2 class="scene-title" data-i18n="sceneTitle">{t.sceneTitle}</h2>
+    <p class="scene-guide" data-i18n="sceneGuide">{t.sceneGuide}</p>
+  </header>
   <div class="stack" aria-hidden="true">
     <span class="aura"></span>
     <svg class="frame" viewBox="0 0 640 560" preserveAspectRatio="none" aria-hidden="true">
@@ -139,14 +144,17 @@ const name = `behind-layer-${instance}`;
     <span class="seam" aria-hidden="true"></span>
     <span class="ground" aria-hidden="true"></span>
   </div>
-  <fieldset class="layers">
-    <legend class="sr" data-i18n="layersLegend">{t.layersLegend}</legend>
-    <label><input type="radio" name={name} value="app" checked /> <span data-i18n="layerApp">{t.layerApp}</span></label>
-    <label><input type="radio" name={name} value="arch" /> <span data-i18n="layerArch">{t.layerArch}</span></label>
-    <label><input type="radio" name={name} value="data" /> <span data-i18n="layerData">{t.layerData}</span></label>
-    <label><input type="radio" name={name} value="cloud" /> <span data-i18n="layerCloud">{t.layerCloud}</span></label>
-  </fieldset>
-  <p class="line" data-line aria-live="polite">{t.explainApp}</p>
+  <div class="explorer">
+    <fieldset class="layers" aria-label={t.layersLegend}>
+      <legend class="sr" data-i18n="layersLegend">{t.layersLegend}</legend>
+      <label><input type="radio" name={name} value="app" checked /> <span data-i18n="layerApp">{t.layerApp}</span></label>
+      <label><input type="radio" name={name} value="arch" /> <span data-i18n="layerArch">{t.layerArch}</span></label>
+      <label><input type="radio" name={name} value="data" /> <span data-i18n="layerData">{t.layerData}</span></label>
+      <label><input type="radio" name={name} value="cloud" /> <span data-i18n="layerCloud">{t.layerCloud}</span></label>
+    </fieldset>
+    <p class="explain" data-explain aria-live="polite">{t.explainApp}</p>
+    <p class="phase-line" data-phase-line aria-live="polite" hidden></p>
+  </div>
   <div class="scene-actions">
     <button class="btn secondary" type="button" data-replay data-i18n="replay">{t.replay}</button>
     <button class="btn ghost" type="button" data-skip data-i18n="skip">{t.skip}</button>
@@ -163,7 +171,6 @@ const name = `behind-layer-${instance}`;
 
   const phases = ['visible', 'reveal', 'flow'] as const;
   const marks = [0, 2200, 5800];
-  const layers = ['app', 'arch', 'data', 'cloud'] as const;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let lang: BehindLang = document.documentElement.lang === 'en' ? 'en' : 'fr';
 
@@ -189,11 +196,20 @@ const name = `behind-layer-${instance}`;
   const selected = (scene: HTMLElement) =>
     scene.querySelector<HTMLInputElement>('input:checked')?.value || 'app';
 
-  const renderLine = (scene: HTMLElement) => {
-    const line = scene.querySelector('[data-line]');
-    if (!line) return;
-    const key = scene.dataset.playing === 'true' ? phaseKey(scene.dataset.phase || 'visible') : explainKey(selected(scene));
-    line.textContent = text(key);
+  const renderCopy = (scene: HTMLElement) => {
+    const explain = scene.querySelector<HTMLElement>('[data-explain]');
+    const phaseLine = scene.querySelector<HTMLElement>('[data-phase-line]');
+    const playing = scene.dataset.playing === 'true';
+    scene.dataset.mode = playing ? 'intro' : 'explore';
+    if (explain) {
+      explain.hidden = playing;
+      if (!playing) explain.textContent = text(explainKey(selected(scene)));
+    }
+    if (phaseLine) {
+      phaseLine.hidden = !playing;
+      if (playing) phaseLine.textContent = text(phaseKey(scene.dataset.phase || 'visible'));
+      else phaseLine.textContent = '';
+    }
   };
 
   const applyLang = () => {
@@ -202,7 +218,7 @@ const name = `behind-layer-${instance}`;
       const key = el.dataset.i18n;
       if (key) el.textContent = text(key);
     });
-    document.querySelectorAll<HTMLElement>('[data-behind]').forEach(renderLine);
+    document.querySelectorAll<HTMLElement>('[data-behind]').forEach(renderCopy);
     document.querySelectorAll<HTMLButtonElement>('[data-lang-toggle]').forEach((btn) => {
       btn.setAttribute('aria-pressed', btn.dataset.langToggle === lang ? 'true' : 'false');
     });
@@ -228,8 +244,7 @@ const name = `behind-layer-${instance}`;
     scene.dataset.playing = 'false';
     scene.dataset.phase = 'settle';
     scene.dataset.closed = 'true';
-    delete scene.dataset.preview;
-    renderLine(scene);
+    renderCopy(scene);
   };
 
   const play = (scene: HTMLElement, reason: 'auto' | 'replay' = 'replay') => {
@@ -239,12 +254,11 @@ const name = `behind-layer-${instance}`;
       if (reason === 'auto') scene.dataset.autoplayed = 'true';
       return;
     }
-    delete scene.dataset.preview;
     scene.dataset.closed = 'false';
     scene.dataset.playing = 'true';
     scene.dataset.phase = 'visible';
     if (reason === 'auto') scene.dataset.autoplayed = 'true';
-    renderLine(scene);
+    renderCopy(scene);
     const started = performance.now();
     const tick = (now: number) => {
       if (scene.dataset.playing !== 'true') return;
@@ -259,7 +273,7 @@ const name = `behind-layer-${instance}`;
       }
       if (scene.dataset.phase !== phase) {
         scene.dataset.phase = phase;
-        renderLine(scene);
+        renderCopy(scene);
       }
       scene.dataset.raf = String(requestAnimationFrame(tick));
     };
@@ -290,42 +304,14 @@ const name = `behind-layer-${instance}`;
   };
 
   document.querySelectorAll<HTMLElement>('[data-behind]').forEach((scene) => {
-    renderLine(scene);
+    renderCopy(scene);
     watchVisibility(scene);
 
     scene.addEventListener('change', (event) => {
       const target = event.target;
       if (!(target instanceof HTMLInputElement) || target.type !== 'radio') return;
-      delete scene.dataset.preview;
       if (scene.dataset.playing === 'true') settle(scene);
-      else renderLine(scene);
-    });
-
-    scene.querySelector('.stack')?.addEventListener('pointermove', (event) => {
-      if (!(event instanceof PointerEvent) || event.pointerType !== 'mouse') return;
-      if (scene.dataset.playing === 'true') return;
-      if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-      const stack = event.currentTarget;
-      if (!(stack instanceof HTMLElement)) return;
-      const rect = stack.getBoundingClientRect();
-      if (rect.width < 1) return;
-      const ratio = (event.clientX - rect.left) / rect.width;
-      const ratioY = rect.height > 1 ? (event.clientY - rect.top) / rect.height : 0.5;
-      if (ratio < 0 || ratio > 1) return;
-      stack.style.setProperty('--xray', String(Math.min(1, Math.max(0, ratioY))));
-      const layer = layers[Math.min(layers.length - 1, Math.max(0, Math.floor(ratio * layers.length)))];
-      if (scene.dataset.preview === layer) return;
-      scene.dataset.preview = layer;
-      const input = scene.querySelector<HTMLInputElement>(`input[value="${layer}"]`);
-      if (input && !input.checked) input.checked = true;
-      renderLine(scene);
-    });
-
-    scene.querySelector('.stack')?.addEventListener('pointerleave', () => {
-      const stack = scene.querySelector<HTMLElement>('.stack');
-      delete scene.dataset.preview;
-      stack?.style.removeProperty('--xray');
-      if (scene.dataset.playing !== 'true') renderLine(scene);
+      else renderCopy(scene);
     });
 
     scene.querySelector('[data-replay]')?.addEventListener('click', () => play(scene, 'replay'));
