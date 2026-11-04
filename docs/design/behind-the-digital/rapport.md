@@ -161,3 +161,7 @@ Sans V4. Le concept et le châssis de verre restent.
 | Flag public | orbite, pas de `data-behind` |
 
 Preuves : `docs/design/behind-the-digital/v3/after-ux/`, `before-ux/`, `home-fr-1440.webm`, `home-fr-390.webm`.
+
+## Recette finale
+
+Verdict **GO** : voir `docs/design/behind-the-digital/v3/final-recette/GO-NO-GO.md`. IntersectionObserver, settle sans film, a11y, builds flag on/off, LCP mesuré via PerformanceObserver (H1 dans les deux cas). Pas d’activation publique automatique.
