@@ -11,6 +11,7 @@
     "preview": "astro preview --host 127.0.0.1",
     "check": "astro check",
     "test:static": "node tests/static.spec.mjs",
+    "test:behind-explorer": "node tests/behind-explorer.spec.mjs",
     "test:e2e": "playwright test",
     "test:docker": "node tests/docker.spec.mjs",
     "test": "node tests/static.spec.mjs && node tests/contact.spec.mjs && node tests/contact-docker-permissions.spec.mjs && node tests/contact-nginx.spec.mjs && node tests/contact-egress.spec.mjs && node tests/assistant.spec.mjs && playwright test",

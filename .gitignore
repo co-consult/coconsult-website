@@ -9,6 +9,7 @@ node_modules/
 .astro/
 dist/
 dist-guide/
+dist-behind/
 compose.guide.yaml
 compose.behind.yaml
 test-results/

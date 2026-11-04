@@ -1,0 +1,20 @@
+{
+  "base": "http://127.0.0.1:4331/",
+  "diagnosis": "pointermove on .stack mapped X to a layer and set input.checked, so crossing the visual changed the selection without a click.",
+  "fixes": [
+    "Removed pointermove/pointerleave selection and preview paths",
+    "Layer changes only via radio click/touch/keyboard",
+    "Separated intro phase captions from layer explanations",
+    "Added scene title + explore guide; soft note kept",
+    "Action label no longer styled as a primary button"
+  ],
+  "checks": {
+    "pointermoveKeepsData": true,
+    "noOverflow320": true,
+    "noOverflow390": true,
+    "noOverflow768": true,
+    "noOverflow1024": true,
+    "enTitle": true,
+    "reducedMotionStable": true
+  }
+}
