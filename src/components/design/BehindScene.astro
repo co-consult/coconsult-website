@@ -147,10 +147,10 @@ const name = `behind-layer-${instance}`;
   <div class="explorer">
     <fieldset class="layers" aria-label={t.layersLegend}>
       <legend class="sr" data-i18n="layersLegend">{t.layersLegend}</legend>
-      <label><input type="radio" name={name} value="app" checked aria-selected="true" /> <span data-i18n="layerApp">{t.layerApp}</span></label>
-      <label><input type="radio" name={name} value="arch" aria-selected="false" /> <span data-i18n="layerArch">{t.layerArch}</span></label>
-      <label><input type="radio" name={name} value="data" aria-selected="false" /> <span data-i18n="layerData">{t.layerData}</span></label>
-      <label><input type="radio" name={name} value="cloud" aria-selected="false" /> <span data-i18n="layerCloud">{t.layerCloud}</span></label>
+      <label><input type="radio" name={name} value="app" checked /> <span data-i18n="layerApp">{t.layerApp}</span></label>
+      <label><input type="radio" name={name} value="arch" /> <span data-i18n="layerArch">{t.layerArch}</span></label>
+      <label><input type="radio" name={name} value="data" /> <span data-i18n="layerData">{t.layerData}</span></label>
+      <label><input type="radio" name={name} value="cloud" /> <span data-i18n="layerCloud">{t.layerCloud}</span></label>
     </fieldset>
     <p class="explain" data-explain aria-live="polite">{t.explainApp}</p>
     <p class="phase-line" data-phase-line aria-live="polite" hidden></p>
@@ -196,13 +196,6 @@ const name = `behind-layer-${instance}`;
   const selected = (scene: HTMLElement) =>
     scene.querySelector<HTMLInputElement>('input:checked')?.value || 'app';
 
-  const syncTabs = (scene: HTMLElement) => {
-    const current = selected(scene);
-    scene.querySelectorAll<HTMLInputElement>('.layers input[type="radio"]').forEach((input) => {
-      input.setAttribute('aria-selected', input.value === current ? 'true' : 'false');
-    });
-  };
-
   const renderCopy = (scene: HTMLElement) => {
     const explain = scene.querySelector<HTMLElement>('[data-explain]');
     const phaseLine = scene.querySelector<HTMLElement>('[data-phase-line]');
@@ -217,7 +210,6 @@ const name = `behind-layer-${instance}`;
       if (playing) phaseLine.textContent = text(phaseKey(scene.dataset.phase || 'visible'));
       else phaseLine.textContent = '';
     }
-    syncTabs(scene);
   };
 
   const applyLang = () => {

@@ -961,4 +961,7 @@ html[lang="en"] [data-chrome="fr"] {
   .behind-nav,
   .behind-section { width: calc(100% - 32px); }
   .experience .behind-scene .stack { height: 440px; }
+  .behind-scene .scene-intro { margin: 0 0 10px; max-width: none; }
+  .behind-scene .scene-title { font-size: 1.05rem; }
+  .behind-scene .scene-guide { margin-top: 4px; font-size: 14px; }
 }
