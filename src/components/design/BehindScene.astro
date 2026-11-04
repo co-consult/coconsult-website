@@ -19,19 +19,40 @@ const name = `behind-layer-${instance}`;
 >
   <div class="stack" aria-hidden="true">
     <article class="plate plate-cloud">
-      <p class="idx">04</p>
-      <h3 data-i18n="cloudTitle">{t.cloudTitle}</h3>
+      <header class="plate-top">
+        <p class="idx">04</p>
+        <h3 data-i18n="cloudTitle">{t.cloudTitle}</h3>
+      </header>
       <p data-i18n="cloudBody">{t.cloudBody}</p>
+      <ul class="orders beats">
+        <li><span data-i18n="cloudRole1">{t.cloudRole1}</span><span data-i18n="cloudDo1">{t.cloudDo1}</span></li>
+        <li><span data-i18n="cloudRole2">{t.cloudRole2}</span><span data-i18n="cloudDo2">{t.cloudDo2}</span></li>
+        <li><span data-i18n="cloudRole3">{t.cloudRole3}</span><span data-i18n="cloudDo3">{t.cloudDo3}</span></li>
+      </ul>
     </article>
     <article class="plate plate-data">
-      <p class="idx">03</p>
-      <h3 data-i18n="dataTitle">{t.dataTitle}</h3>
+      <header class="plate-top">
+        <p class="idx">03</p>
+        <h3 data-i18n="dataTitle">{t.dataTitle}</h3>
+      </header>
       <p data-i18n="dataBody">{t.dataBody}</p>
+      <ul class="orders beats">
+        <li><span data-i18n="dataRole1">{t.dataRole1}</span><span data-i18n="dataDo1">{t.dataDo1}</span></li>
+        <li><span data-i18n="dataRole2">{t.dataRole2}</span><span data-i18n="dataDo2">{t.dataDo2}</span></li>
+        <li><span data-i18n="dataRole3">{t.dataRole3}</span><span data-i18n="dataDo3">{t.dataDo3}</span></li>
+      </ul>
     </article>
     <article class="plate plate-arch">
-      <p class="idx">02</p>
-      <h3 data-i18n="archTitle">{t.archTitle}</h3>
+      <header class="plate-top">
+        <p class="idx">02</p>
+        <h3 data-i18n="archTitle">{t.archTitle}</h3>
+      </header>
       <p data-i18n="archBody">{t.archBody}</p>
+      <ul class="orders beats">
+        <li><span data-i18n="archRole1">{t.archRole1}</span><span data-i18n="archDo1">{t.archDo1}</span></li>
+        <li><span data-i18n="archRole2">{t.archRole2}</span><span data-i18n="archDo2">{t.archDo2}</span></li>
+        <li><span data-i18n="archRole3">{t.archRole3}</span><span data-i18n="archDo3">{t.archDo3}</span></li>
+      </ul>
     </article>
     <article class="plate plate-app">
       <header class="plate-top">
@@ -61,7 +82,35 @@ const name = `behind-layer-${instance}`;
       <p class="action" data-i18n="action">{t.action}</p>
       <span class="sheen" aria-hidden="true"></span>
     </article>
+    <article class="plate plate-app plate-open">
+      <header class="plate-top">
+        <p class="idx">INT-1842</p>
+        <h3 data-i18n="appTitle">{t.appTitle}</h3>
+      </header>
+      <ul class="orders">
+        <li class="is-focus">
+          <span data-i18n="place1">{t.place1}</span>
+          <span data-i18n="job1">{t.job1}</span>
+          <span class="state">
+            <span class="status-open" data-i18n="open">{t.open}</span>
+            <span class="status-done" data-i18n="done">{t.done}</span>
+          </span>
+        </li>
+        <li>
+          <span data-i18n="place2">{t.place2}</span>
+          <span data-i18n="job2">{t.job2}</span>
+          <span class="state quiet" data-i18n="open">{t.open}</span>
+        </li>
+        <li>
+          <span data-i18n="place3">{t.place3}</span>
+          <span data-i18n="job3">{t.job3}</span>
+          <span class="state quiet" data-i18n="planned">{t.planned}</span>
+        </li>
+      </ul>
+      <p class="action" data-i18n="action">{t.action}</p>
+    </article>
     <span class="bead" aria-hidden="true"></span>
+    <span class="seam" aria-hidden="true"></span>
     <span class="ground" aria-hidden="true"></span>
   </div>
   <fieldset class="layers">
@@ -86,8 +135,8 @@ const name = `behind-layer-${instance}`;
   } else {
   document.documentElement.dataset.behindBound = 'true';
 
-  const phases = ['visible', 'reveal', 'flow', 'settle'] as const;
-  const marks = [0, 3000, 6000, 9000];
+  const phases = ['visible', 'reveal', 'flow'] as const;
+  const marks = [0, 2400, 6000];
   const layers = ['app', 'arch', 'data', 'cloud'] as const;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let lang: BehindLang = 'fr';
@@ -132,7 +181,10 @@ const name = `behind-layer-${instance}`;
       btn.setAttribute('aria-pressed', btn.dataset.langToggle === lang ? 'true' : 'false');
     });
     const frame = document.querySelector<HTMLIFrameElement>('[data-reference]');
-    if (frame) frame.src = lang === 'en' ? '/en/' : '/';
+    if (frame) {
+      frame.src = lang === 'en' ? '/en/' : '/';
+      frame.title = text('currentTitle');
+    }
     document.querySelectorAll<HTMLAnchorElement>('[data-href-fr]').forEach((anchor) => {
       const href = lang === 'en' ? anchor.dataset.hrefEn : anchor.dataset.hrefFr;
       if (href) anchor.href = href;
@@ -172,7 +224,7 @@ const name = `behind-layer-${instance}`;
       marks.forEach((at, index) => {
         if (elapsed >= at) phase = phases[index];
       });
-      if (elapsed >= 11800) {
+      if (elapsed >= 9200) {
         settle(scene);
         return;
       }
@@ -226,6 +278,44 @@ const name = `behind-layer-${instance}`;
 
     scene.querySelector('[data-replay]')?.addEventListener('click', () => play(scene));
     scene.querySelector('[data-skip]')?.addEventListener('click', () => settle(scene));
+  });
+
+  document.querySelectorAll<HTMLElement>('[data-chrome] .site-header').forEach((header) => {
+    if (header.dataset.menuBound === 'true') return;
+    header.dataset.menuBound = 'true';
+    const button = header.querySelector<HTMLButtonElement>('.menu-toggle');
+    const nav = header.querySelector<HTMLElement>('.mobile-nav');
+    if (!button || !nav) return;
+    const closedLabel = button.dataset.closedLabel || 'Menu';
+    const openLabel = button.dataset.openLabel || 'Close menu';
+    const close = () => {
+      button.setAttribute('aria-expanded', 'false');
+      button.setAttribute('aria-label', closedLabel);
+      nav.hidden = true;
+    };
+    const open = () => {
+      button.setAttribute('aria-expanded', 'true');
+      button.setAttribute('aria-label', openLabel);
+      nav.hidden = false;
+    };
+    button.addEventListener('click', () => {
+      if (button.getAttribute('aria-expanded') === 'true') {
+        close();
+        button.focus();
+      } else {
+        open();
+      }
+    });
+    nav.addEventListener('click', (event) => {
+      const target = event.target;
+      if (target instanceof Element && target.closest('a')) close();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
+        close();
+        button.focus();
+      }
+    });
   });
 
   document.querySelectorAll<HTMLButtonElement>('[data-lang-toggle]').forEach((btn) => {

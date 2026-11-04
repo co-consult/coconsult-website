@@ -27,7 +27,12 @@ const talkEn = contactPath('en', 'project');
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
   </head>
   <body>
-    <Header locale="fr" routeKey="notFound" />
+    <div data-chrome="fr">
+      <Header locale="fr" routeKey="notFound" />
+    </div>
+    <div data-chrome="en">
+      <Header locale="en" routeKey="notFound" menuId="mobile-menu-en" />
+    </div>
     <main id="main" class="behind">
       <nav class="behind-nav" aria-label={t.langLabel}>
         <a href="#introduction" data-i18n="navIntro">{t.navIntro}</a>
@@ -79,6 +84,11 @@ const talkEn = contactPath('en', 'project');
         <iframe class="reference" data-reference title={t.currentTitle} src="/" loading="lazy"></iframe>
       </section>
     </main>
-    <Footer locale="fr" />
+    <div data-chrome="fr">
+      <Footer locale="fr" />
+    </div>
+    <div data-chrome="en">
+      <Footer locale="en" />
+    </div>
   </body>
 </html>

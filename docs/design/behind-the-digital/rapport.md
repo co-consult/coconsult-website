@@ -1,49 +1,70 @@
-# Behind the Digital — prototype
+# Behind the Digital — prototype V2
 
 Route locale : `http://127.0.0.1:4321/design/behind-the-digital/`
 
 Le serveur de développement doit être lancé avec `PUBLIC_DESIGN_PROTOTYPE=true`. Sans cette variable, la page n’est pas générée. Un build public ne la contient pas et le sitemap ne la liste pas. `robots` est `noindex, nofollow`. La page n’utilise pas le layout public, pour ne pas publier son JSON-LD.
 
-La branche part de `main`. Elle ne contient pas les commits de la PR #32. L’échelle de lecture de cette PR (texte 15–17 px, IBM Plex Mono réservé aux index, cyan limité) est reprise seulement dans `behind.css`.
+La branche part de `main`. Elle ne contient pas les commits de la PR #32. L’échelle de lecture de cette PR (texte 15–17 px, IBM Plex Mono réservé aux index, cyan limité) est reprise seulement dans `behind.css`. Le hero public n’est pas modifié.
+
+## Ce qui change dans la V2
+
+L’introduction ne montre plus un escalier de titres. Le châssis s’ouvre : trois strates à gauche (Cloud, Data, Architecture) et l’application à droite, dans le même objet. Les strates sont déjà en place. Une seconde carte d’application, prépositionnée, apparaît par fondu. La carte pleine s’efface. Rien de visible ne change de boîte pendant le film, ce qui garde le CLS bas.
+
+Le rythme tient en 9,2 s, puis la scène se referme :
+
+- 0–2,4 s : l’application telle qu’on l’utilise
+- 2,4–6 s : le châssis ouvert
+- 6–9,2 s : le trait lumineux traverse les couches
+- ensuite : l’application se referme, l’ordre du jour est clôturé
+
+Revoir, Passer, `prefers-reduced-motion` et les deux appels à l’action restent disponibles. Le mouvement réduit affiche tout de suite l’état final.
+
+Le Digital X-Ray garde les boutons radio. La couche choisie occupe tout le châssis : le titre et la phrase en haut, les repères en bas. Le survol n’est pas nécessaire. Au clavier, deux flèches droite depuis Application sélectionnent Data et IA, et la phrase live correspond.
+
+L’en-tête et le pied anglais sont les vrais composants, avec leurs URL. `menuId` évite deux menus avec le même identifiant. Le chrome inactif est masqué selon `html[lang]`.
 
 ## Décision technique
 
-La profondeur est faite en CSS (`perspective`, `transform`, `clip-path`) et en HTML. Pas de WebGL, pas de dépendance ajoutée, pas de vidéo externe. Une timeline `requestAnimationFrame` de 12 secondes joue l’introduction puis s’arrête. Le Digital X-Ray est un groupe de boutons radio : il fonctionne sans JavaScript. Le pointeur ne fait que préselectionner une couche, sur la scène, et seulement avec une souris fine.
+Profondeur en CSS (`perspective`, `translateZ`, une légère rotation du châssis). Pas de WebGL, pas de dépendance, pas de vidéo dans la page. Animer `left` ou la largeur de la carte visible produisait un CLS de 0,21. Le fondu entre deux cartes stables le ramène à 0,011. Le trait lumineux n’anime que `transform`.
 
-Quatre couches, pas cinq : Application, Architecture, Data et IA, Cloud et qualité. Le texte parle à un décideur. La scène est illustrative. Aucun système réel n’est exécuté.
+La copie « Accès » tient sur une ligne dans le châssis ouvert : « Rôles autorisés ». La phrase complète reste dans la couche Cloud.
 
-## Comparaison avec le hero publié
+Sous 800 px, le film devient un fondu d’une carte pleine à la fois. Le trait et la coupe sont masqués : la largeur ne permet pas la double colonne sans couper le texte.
 
-Le hero public n’est pas modifié. La troisième vue du prototype l’affiche dans un cadre, pour comparer. Les appels « Parlons de votre projet » et « Explorer nos expertises » restent ceux de l’accueil, en français et en anglais. Le H1 public est conservé.
+## Preuves
+
+Vidéo avant : `intro-1440.webm` (V1). Vidéo après : `intro-after-1440.webm`.
+
+Images : `intro-visible-1440.jpg`, `intro-reveal-1440.jpg`, `intro-flow-1440.jpg`, `intro-settled-1440.jpg`, `xray-app-1440.jpg`, `xray-arch-1440.jpg`, `xray-data-1440.jpg`, `xray-cloud-1440.jpg`, `intro-1024.jpg`, `intro-768.jpg`, `intro-mobile-390.jpg`, `xray-mobile-390.jpg`, `intro-reduced-1440.jpg`, `intro-en-1440.jpg`.
 
 ## Mesures
 
-Même Chrome, débordement horizontal (`scrollWidth - clientWidth`) :
+Chrome headless, une lecture naturelle, sans rejeu, sans changement de fenêtre. Serveur de développement (le client Vite n’est pas le poids de production).
 
-| Situation | Débordement |
+| Mesure | Résultat |
 | --- | --- |
-| 320, 390, 768, 1024, 1440 | 0 |
-| 1440 pendant la révélation | 0 |
-| 1440, zoom CSS 200 % | 0 |
+| CLS | 0,011 (2 décalages sur le texte du hero) |
+| Images prêtes (DCL) | 124 ms |
+| LCP | non exposé par ce Chrome headless |
+| Fluidité | 554 images en 9 213 ms, environ 60 images/s |
+| Erreurs JavaScript | aucune |
 
-Sur le serveur de développement, le prototype et l’accueil chargent tous les deux le client Vite (environ 1,8 Mo de scripts). Ce chiffre n’est pas le poids de production. Dans ce cadre : contenu interactif prêt en 225 ms pour le prototype et 187 ms pour l’accueil. CLS du prototype : 0,008. Aucune erreur JavaScript de page.
+Débordement horizontal (`scrollWidth - clientWidth`) : 0 à 320, 390, 768, 1024 et 1440, pendant la révélation, et à zoom CSS 200 %.
 
-Build de production avec le drapeau : document du prototype 12,3 Ko, script de la scène 7,8 Ko, CSS de la page 10,1 Ko. L’accueil emporte un CSS d’expérience de 40,6 Ko, que cette page ne charge pas. Son document pèse 27,5 Ko. Aucune dépendance n’est ajoutée. Build public suivant, sans le drapeau : la page est absente, et `tests/static.spec.mjs` passe (40 URL, sitemap sans `/design/`).
+Clavier : couche `data`, phrase « Des données utilisées pour soutenir le processus. La décision reste humaine. »
 
-`astro check` : 0 erreur.
+Anglais : navigation « Our offers / Collaboration / Case studies… », pied « CAPABILITIES », lien « Let’s talk » vers `/en/contact/?type=project`. Le chrome français est `display: none`.
 
-## Critères
+Mouvement réduit : `playing` faux, phase `settle`, intervention clôturée.
 
-1. **WOW.** Jugement artistique, pas un test utilisateur : la séparation en escalier, dans les premières secondes, se distingue d’un schéma et d’un carrousel. L’effet n’a pas été mesuré auprès d’un public.
-2. **Clarté.** La phrase finale et le texte de chaque couche disent ce que Coconsult prend en charge, sans nommer une technologie.
-3. **Originalité.** Tableau de bord inventé, trajectoire lumineuse unique, pas de main, pas de tableau blanc, pas de globe, pas de logos. Aucune composition copiée sur un concurrent.
-4. **Performance.** Pas de dépendance nouvelle. Débordement nul sur les largeurs demandées. CLS 0,008. L’animation ne bloque pas les appels à l’action.
-5. **Accessibilité.** `prefers-reduced-motion` affiche directement l’état final. Les couches se parcourent au clavier (flèches dans le groupe radio) et l’état choisi est visible. Le mobile ne dépend pas du survol. Les explications sont dans une région `aria-live`.
+Build avec le drapeau : HTML 19,9 Ko, CSS de la page 13,5 Ko, script de la scène 9,6 Ko. Le CSS de pied (19,6 Ko) est celui du site, parce que le vrai pied est utilisé. L’accueil charge un CSS d’expérience de 40,6 Ko, que cette page ne charge pas. Son HTML pèse 27,5 Ko.
+
+Build public suivant, sans le drapeau : 42 pages, la route est absente, `tests/static.spec.mjs` passe (40 URL, sitemap sans `/design/`).
 
 ## Limites
 
-- Les couches texte sont des cartes courtes dans une scène haute, prévue pour l’application. Le vide sous la carte est large.
-- Le survol révèle la couche par une fente. La sélection explicite remplace la carte entière.
-- L’en-tête et le pied restent en français quand la scène passe en anglais.
-- La comparaison charge l’accueil réel dans un cadre différé.
-- Le prototype ne remplace pas le schéma orbital de l’accueil.
+- L’ouverture est un fondu vers le châssis fendu, pas un glissement continu d’une seule carte. Le glissement déplaçait la page.
+- La perspective reste légère : une rotation plus forte faisait passer l’application devant le texte des couches.
+- Les cartes du X-Ray gardent un intervalle calme entre la phrase et les repères.
+- Le film étroit ne montre qu’une couche à la fois.
+- Le LCP de production n’a pas été lu dans ce Chrome headless. Le DCL ci-dessus est celui du serveur de développement.
