@@ -162,6 +162,8 @@ assert.match(homeEn, /Discover our expertise in action\./);
 assert.match(homeEn, /Collaboration models suited to your projects\./);
 assert.match(homeEn, /href="\/en\/contact\/\?type=project"/);
 assert.match(homeEn, /href="\/en\/contact\/\?type=ai"/);
+assert.equal(home.includes('data-behind'), false);
+assert.equal(homeEn.includes('data-behind'), false);
 assert.equal(home.includes('Paiements et API'), false);
 assert.equal(home.includes('nom à venir'), false);
 assert.match(read('/secteurs/'), /Banque, finance et paiements/);
@@ -279,6 +281,9 @@ for (const [urlPath, , alternate] of pages) {
 }
 assert.doesNotMatch(sitemap, /404/);
 assert.equal(sitemap.includes('/design/'), false);
+const image = fs.readFileSync(path.join(root, 'Dockerfile'), 'utf8');
+assert.match(image, /ARG PUBLIC_BEHIND_HERO=false/);
+assert.equal(image.includes('PUBLIC_BEHIND_HERO=true'), false);
 assert.equal(fs.existsSync(path.join(dist, 'design', 'behind-the-digital', 'index.html')), false);
 for (const legacy of ['/nos-offres/', '/react/', '/node-js/', '/consultant/', '/hotellerie/', '/opportunite-it/']) {
   assert.equal(sitemap.includes(`https://coconsult.fr${legacy}`), false, legacy);

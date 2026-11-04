@@ -27,7 +27,7 @@ const videoContext = await browser.newContext({
 });
 const videoPage = await videoContext.newPage();
 await videoPage.goto(url, { waitUntil: 'domcontentloaded' });
-await videoPage.waitForSelector('#introduction .scene[data-playing="true"]');
+await videoPage.waitForSelector('#introduction .behind-scene[data-playing="true"]');
 await videoPage.waitForTimeout(11000);
 const video = videoPage.video();
 await videoContext.close();
@@ -44,7 +44,7 @@ const motion = await page.evaluate(() => new Promise((resolve) => {
   const start = performance.now();
   const tick = (now) => {
     frames += 1;
-    if (document.querySelector('#introduction .scene')?.dataset.playing === 'true' && now - start < 12000) {
+    if (document.querySelector('#introduction .behind-scene')?.dataset.playing === 'true' && now - start < 12000) {
       requestAnimationFrame(tick);
     } else {
       resolve({ frames, ms: Math.round(now - start) });
@@ -56,14 +56,14 @@ const motion = await page.evaluate(() => new Promise((resolve) => {
 await page.evaluate(() => document.querySelector('#introduction [data-replay]')?.click());
 await page.waitForTimeout(500);
 await page.screenshot({ path: path.join(dir, 'intro-visible-1440.jpg'), type: 'jpeg', quality: 72 });
-await page.waitForFunction(() => document.querySelector('#introduction .scene')?.dataset.phase === 'reveal');
+await page.waitForFunction(() => document.querySelector('#introduction .behind-scene')?.dataset.phase === 'reveal');
 await page.waitForTimeout(1200);
 await page.screenshot({ path: path.join(dir, 'intro-reveal-1440.jpg'), type: 'jpeg', quality: 74 });
 const overflowReveal = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
-await page.waitForFunction(() => document.querySelector('#introduction .scene')?.dataset.phase === 'flow');
+await page.waitForFunction(() => document.querySelector('#introduction .behind-scene')?.dataset.phase === 'flow');
 await page.waitForTimeout(900);
 await page.screenshot({ path: path.join(dir, 'intro-flow-1440.jpg'), type: 'jpeg', quality: 74 });
-await page.waitForFunction(() => document.querySelector('#introduction .scene')?.dataset.playing === 'false');
+await page.waitForFunction(() => document.querySelector('#introduction .behind-scene')?.dataset.playing === 'false');
 await page.waitForTimeout(1100);
 await page.screenshot({ path: path.join(dir, 'intro-settled-1440.jpg'), type: 'jpeg', quality: 72 });
 
@@ -77,7 +77,7 @@ await page.locator('#xray input[value="app"]').focus();
 await page.keyboard.press('ArrowRight');
 await page.keyboard.press('ArrowRight');
 const keyed = await page.evaluate(() => {
-  const scene = document.querySelector('#xray .scene');
+  const scene = document.querySelector('#xray .behind-scene');
   return {
     checked: scene?.querySelector('input:checked')?.value,
     line: scene?.querySelector('[data-line]')?.textContent,
@@ -122,7 +122,7 @@ await page.evaluate(() => { document.documentElement.style.zoom = ''; });
 const cleanPage = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 await prepare(cleanPage);
 await cleanPage.goto(url, { waitUntil: 'domcontentloaded' });
-await cleanPage.waitForFunction(() => document.querySelector('#introduction .scene')?.dataset.playing === 'false', null, { timeout: 15000 });
+await cleanPage.waitForFunction(() => document.querySelector('#introduction .behind-scene')?.dataset.playing === 'false', null, { timeout: 15000 });
 const perf = await cleanPage.evaluate(() => {
   const nav = performance.getEntriesByType('navigation')[0];
   const lcp = performance.getEntriesByType('largest-contentful-paint').at(-1);
@@ -140,7 +140,7 @@ const reducedContext = await browser.newContext({ viewport: { width: 1440, heigh
 const reducedPage = await reducedContext.newPage();
 await reducedPage.goto(url, { waitUntil: 'domcontentloaded' });
 await reducedPage.waitForTimeout(250);
-const reduced = await reducedPage.locator('#introduction .scene').evaluate((el) => ({
+const reduced = await reducedPage.locator('#introduction .behind-scene').evaluate((el) => ({
   playing: el.dataset.playing || 'unset',
   phase: el.dataset.phase,
   closed: el.dataset.closed,

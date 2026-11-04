@@ -1,16 +1,18 @@
 ---
-import { behindCopy } from '@/components/design/behind-copy';
+import '@/styles/behind.css';
+import { behindCopy, type BehindLang } from '@/components/design/behind-copy';
 
 interface Props {
   instance: string;
   autoplay?: boolean;
+  locale?: BehindLang;
 }
-const { instance, autoplay = false } = Astro.props;
-const t = behindCopy.fr;
+const { instance, autoplay = false, locale = 'fr' } = Astro.props;
+const t = behindCopy[locale];
 const name = `behind-layer-${instance}`;
 ---
 <div
-  class="scene"
+  class="behind-scene"
   data-behind
   data-autoplay={autoplay ? 'true' : undefined}
   data-phase={autoplay ? 'visible' : 'settle'}
@@ -18,8 +20,8 @@ const name = `behind-layer-${instance}`;
   data-instance={instance}
 >
   <div class="stack" aria-hidden="true">
-    <article class="plate plate-cloud">
-      <header class="plate-top">
+    <article class="btd-plate btd-cloud">
+      <header class="btd-top">
         <p class="idx">04</p>
         <h3 data-i18n="cloudTitle">{t.cloudTitle}</h3>
       </header>
@@ -30,8 +32,8 @@ const name = `behind-layer-${instance}`;
         <li><span data-i18n="cloudRole3">{t.cloudRole3}</span><span data-i18n="cloudDo3">{t.cloudDo3}</span></li>
       </ul>
     </article>
-    <article class="plate plate-data">
-      <header class="plate-top">
+    <article class="btd-plate btd-data">
+      <header class="btd-top">
         <p class="idx">03</p>
         <h3 data-i18n="dataTitle">{t.dataTitle}</h3>
       </header>
@@ -42,8 +44,8 @@ const name = `behind-layer-${instance}`;
         <li><span data-i18n="dataRole3">{t.dataRole3}</span><span data-i18n="dataDo3">{t.dataDo3}</span></li>
       </ul>
     </article>
-    <article class="plate plate-arch">
-      <header class="plate-top">
+    <article class="btd-plate btd-arch">
+      <header class="btd-top">
         <p class="idx">02</p>
         <h3 data-i18n="archTitle">{t.archTitle}</h3>
       </header>
@@ -54,8 +56,8 @@ const name = `behind-layer-${instance}`;
         <li><span data-i18n="archRole3">{t.archRole3}</span><span data-i18n="archDo3">{t.archDo3}</span></li>
       </ul>
     </article>
-    <article class="plate plate-app">
-      <header class="plate-top">
+    <article class="btd-plate btd-app">
+      <header class="btd-top">
         <p class="idx">INT-1842</p>
         <h3 data-i18n="appTitle">{t.appTitle}</h3>
       </header>
@@ -82,8 +84,8 @@ const name = `behind-layer-${instance}`;
       <p class="action" data-i18n="action">{t.action}</p>
       <span class="sheen" aria-hidden="true"></span>
     </article>
-    <article class="plate plate-app plate-open">
-      <header class="plate-top">
+    <article class="btd-plate btd-app btd-open">
+      <header class="btd-top">
         <p class="idx">INT-1842</p>
         <h3 data-i18n="appTitle">{t.appTitle}</h3>
       </header>
@@ -125,7 +127,7 @@ const name = `behind-layer-${instance}`;
     <button class="btn secondary" type="button" data-replay data-i18n="replay">{t.replay}</button>
     <button class="btn ghost" type="button" data-skip data-i18n="skip">{t.skip}</button>
   </div>
-  <p class="note" data-i18n="note">{t.note}</p>
+  <p class="behind-note" data-i18n="note">{t.note}</p>
 </div>
 <script>
   import { behindCopy, type BehindLang } from '@/components/design/behind-copy';
@@ -139,7 +141,7 @@ const name = `behind-layer-${instance}`;
   const marks = [0, 2400, 6000];
   const layers = ['app', 'arch', 'data', 'cloud'] as const;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let lang: BehindLang = 'fr';
+  let lang: BehindLang = document.documentElement.lang === 'en' ? 'en' : 'fr';
 
   const text = (key: string) => {
     const value = behindCopy[lang][key as keyof typeof behindCopy.fr];

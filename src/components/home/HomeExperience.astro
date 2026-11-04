@@ -7,6 +7,8 @@ import { pathFor } from '@/data/routes';
 
 interface Props { locale: Locale }
 const { locale } = Astro.props;
+const behindHero = import.meta.env.PUBLIC_BEHIND_HERO === 'true';
+const BehindScene = behindHero ? (await import('@/components/design/BehindScene.astro')).default : null;
 const fr = locale === 'fr';
 const talk = fr ? 'Parlons de votre projet' : "Let's talk about your project";
 const projectHref = contactPath(locale, 'project');
@@ -210,6 +212,9 @@ const demo = fr
         <a class="btn ghost" href="#expertises">{copy.explore}</a>
       </div>
     </div>
+      {BehindScene ? (
+        <BehindScene locale={locale} instance="home" autoplay />
+      ) : (
     <div class="system" data-focus="all" id="systeme">
       <div class="orbit-stage">
         <svg viewBox="0 0 640 640" role="img" aria-labelledby="sysTitle">
@@ -260,6 +265,7 @@ const demo = fr
       </div>
       <p class="focus-read" aria-live="polite" data-all={copy.focusAll}>{copy.focusAll}</p>
     </div>
+      )}
   </section>
 
   <section class="section" id="expertises">
