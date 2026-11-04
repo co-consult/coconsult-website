@@ -16,7 +16,7 @@
 | Zoom 200 % | OK (pas de débordement, sélection stable) |
 | Titre mobile : offset stack ≤ 96 px | OK (intro compactée sous 700 px) |
 | Guide + scène avec les deux flags | OK (`data-assistant-open` + `data-behind`, pas de `#systeme`) |
-| Verify V1 | À confirmer vert sur le dernier commit |
+| Verify V1 | OK — vert sur `32c58fd` (push + pull_request) |
 
 ## Hors périmètre
 
