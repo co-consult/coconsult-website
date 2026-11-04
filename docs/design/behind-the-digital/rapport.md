@@ -101,3 +101,67 @@ Recette Chrome, même machine, serveur de développement. Titre, description, ca
 Preuves : `docs/design/behind-the-digital/hero/` (`old-fr-*`, `new-fr-*`, `new-en-1440.jpg`, `new-reduced-1440.jpg`, `home-fr-1440.webm`).
 
 Build de production, 42 pages. Sans le flag, l’accueil fait 27 503 octets, charge `Base` (41 582 octets) et `Footer` (19 955 octets), et ne contient ni `data-behind` ni la feuille de la scène. Le H1, le canonique et les liens restent ceux de la page publiée. `tests/static.spec.mjs` et `tests/assistant.spec.mjs` passent. Avec le flag, le même HTML fait 27 744 octets et ajoute la feuille de la scène (14 335 octets) et son script (9 597 octets). `Base` et `Footer` ne changent pas. Ce second build n’est pas celui qui reste dans `dist`.
+
+## V3 — Reveal the Invisible
+
+Direction artistique sur la branche `feat/behind-the-digital-v3`, sans écraser la V2. L’accueil public et le flag restent inchangés. La V2 est toujours visible dans `docs/design/behind-the-digital/hero/`.
+
+### Intention
+
+La V2 lisait déjà correctement. Elle manquait d’une signature. La V3 traite l’application comme un objet de verre unique : aura, cadre SVG, chambre intérieure pour les strates, application translucide pendant la révélation, trace lumineuse pendant le flux. Les contrôles X-Ray deviennent une barre discrète, plus un formulaire radio.
+
+Trois temps, environ neuf secondes :
+1. Apparition de l’objet.
+2. Révélation de l’architecture sous la surface.
+3. Passage de la décision, puis état stable.
+
+### Comparaison V2 / V3
+
+| Aspect | V2 | V3 |
+| --- | --- | --- |
+| Objet | Cartes HTML juxtaposées | Châssis de verre, strates dans une chambre |
+| Révélation | Ouverture latérale lisible | Translucidité + profondeur légère |
+| Contrôles | Radios visibles, grille technique | Rail segmenté, focus clavier conservé |
+| Film | Démonstration claire | Moment de découverte, puis calme |
+| Mobile | Une carte à la fois | Même simplification, matériaux de verre |
+
+Preuves V3 : `docs/design/behind-the-digital/v3/` (`home-fr-1440.webm`, `home-fr-390.webm`, `moment-appear|reveal|flow|settled-1440.jpg`, `settled-fr-*`, `settled-en-1440.jpg`, `reduced-1440.jpg`).
+
+### Mesures V3
+
+Chrome, serveur de développement, une lecture. CLS 0,006. DCL 399 ms. Débordement 0 de 320 à 1440 px et au zoom 200 %. Aucune erreur JavaScript. Clavier, tactile et mouvement réduit vérifiés. `data-version="3"`.
+
+### Limites
+
+La profondeur reste celle d’un plateau CSS et SVG. Une rotation plus forte masque encore le texte. Sans WebGL, il n’y a pas de volume réel ni de réfraction physique. Le film desktop montre les strates et l’application côte à côte ; sous 800 px, le film reste une carte à la fois. Le LCP de production n’a pas été lu dans ce Chrome headless. Ces limites sont assumées : un mauvais 3D coûterait plus que le gain.
+
+## Correction UX V3
+
+Sans V4. Le concept et le châssis de verre restent.
+
+### Changements
+
+1. **Desktop** — Colonne scène renforcée (`0.78 / 1.22`), châssis plus haut, aura et bordure plus présentes, strates plus larges, application maintenue à ~0,94 d’opacité pendant la révélation pour qu’elle ne disparaisse pas. Le H1 reste lisible, légèrement calmé à côté de la scène.
+2. **Mobile** — `IntersectionObserver` : état initial settled/lisible ; une seule lecture automatique quand la scène atteint ~42 % de visibilité ; arrêt/settle si elle quitte l’écran pendant le film. Revoir, reduced-motion, clavier et tactile conservés.
+3. **Vidéo** — Les ~12 s blanches venaient du script Playwright : enregistrement dès la page vide, taille vidéo (1280×800) différente du viewport, et attente avant peinture. Correction : préchauffage, fond nuit immédiat, taille vidéo = viewport, puis navigation et film. Pas un bug navigateur du site.
+
+### Tests
+
+| Contrôle | Résultat |
+| --- | --- |
+| Desktop 1440×900 | OK |
+| Mobile 390×844 sous le fold | `playing=false`, `top≈609` |
+| Mobile après scroll | lecture unique puis settle |
+| Quitter l’écran pendant le film | settle |
+| Overflow 320→1440 et zoom 200 % | 0 |
+| CLS | 0,004 |
+| Reduced motion | settle immédiat |
+| Clavier / tactile | Data puis Cloud |
+| H1 + CTA FR/EN | inchangés |
+| Flag public | orbite, pas de `data-behind` |
+
+Preuves : `docs/design/behind-the-digital/v3/after-ux/`, `before-ux/`, `home-fr-1440.webm`, `home-fr-390.webm`.
+
+## Recette finale
+
+Verdict **GO** : voir `docs/design/behind-the-digital/v3/final-recette/GO-NO-GO.md`. IntersectionObserver, settle sans film, a11y, builds flag on/off, LCP mesuré via PerformanceObserver (H1 dans les deux cas). Pas d’activation publique automatique.

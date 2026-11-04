@@ -1,0 +1,232 @@
+{
+  "mobileIo": {
+    "offscreen": {
+      "playing": false,
+      "autoplayed": false,
+      "phase": "settle",
+      "closed": true,
+      "top": 609,
+      "height": 733,
+      "ratio": 0.321,
+      "line": "Une expérience claire pour les personnes qui font le travail.",
+      "appVisible": true,
+      "h1": "L'intelligence au cœur de vos systèmes.L'ingénierie pour les concrétiser.",
+      "talk": "/contact/?type=project",
+      "explore": "#expertises"
+    },
+    "partialBelowThreshold": {
+      "playing": false,
+      "autoplayed": false,
+      "phase": "settle",
+      "closed": true,
+      "top": 609,
+      "height": 733,
+      "ratio": 0.321,
+      "line": "Une expérience claire pour les personnes qui font le travail.",
+      "appVisible": true,
+      "h1": "L'intelligence au cœur de vos systèmes.L'ingénierie pour les concrétiser.",
+      "talk": "/contact/?type=project",
+      "explore": "#expertises"
+    },
+    "afterSlowCross": {
+      "playing": true,
+      "autoplayed": true,
+      "phase": "visible",
+      "closed": false,
+      "top": 514,
+      "height": 733,
+      "ratio": 0.45,
+      "line": "Une application métier. Un objet. Une signature.",
+      "appVisible": true,
+      "h1": "L'intelligence au cœur de vos systèmes.L'ingénierie pour les concrétiser.",
+      "talk": "/contact/?type=project",
+      "explore": "#expertises"
+    },
+    "afterLeaveDuringPlay": {
+      "playing": false,
+      "autoplayed": true,
+      "phase": "settle",
+      "closed": true,
+      "top": 609,
+      "height": 733,
+      "ratio": 0.321,
+      "line": "Une expérience claire pour les personnes qui font le travail.",
+      "appVisible": true,
+      "h1": "L'intelligence au cœur de vos systèmes.L'ingénierie pour les concrétiser.",
+      "talk": "/contact/?type=project",
+      "explore": "#expertises"
+    },
+    "afterReturnNoAuto": {
+      "playing": false,
+      "autoplayed": true,
+      "phase": "settle",
+      "closed": true,
+      "top": 331,
+      "height": 733,
+      "ratio": 0.7,
+      "line": "Une expérience claire pour les personnes qui font le travail.",
+      "appVisible": true,
+      "h1": "L'intelligence au cœur de vos systèmes.L'ingénierie pour les concrétiser.",
+      "talk": "/contact/?type=project",
+      "explore": "#expertises"
+    },
+    "afterReplay": {
+      "playing": true,
+      "autoplayed": true,
+      "phase": "visible",
+      "closed": false,
+      "top": -255,
+      "height": 733,
+      "ratio": 0.652,
+      "line": "Une application métier. Un objet. Une signature.",
+      "appVisible": true,
+      "h1": "L'intelligence au cœur de vos systèmes.L'ingénierie pour les concrétiser.",
+      "talk": "/contact/?type=project",
+      "explore": "#expertises"
+    },
+    "afterReplaySettled": {
+      "playing": false,
+      "autoplayed": true,
+      "phase": "settle",
+      "closed": true,
+      "top": -255,
+      "height": 733,
+      "ratio": 0.652,
+      "line": "Une expérience claire pour les personnes qui font le travail.",
+      "appVisible": true,
+      "h1": "L'intelligence au cœur de vos systèmes.L'ingénierie pour les concrétiser.",
+      "talk": "/contact/?type=project",
+      "explore": "#expertises"
+    },
+    "afterFastScroll": {
+      "playing": true,
+      "autoplayed": true,
+      "phase": "visible",
+      "closed": false,
+      "top": 120,
+      "height": 733,
+      "ratio": 0.988,
+      "line": "Une application métier. Un objet. Une signature.",
+      "appVisible": true,
+      "h1": "L'intelligence au cœur de vos systèmes.L'ingénierie pour les concrétiser.",
+      "talk": "/contact/?type=project",
+      "explore": "#expertises"
+    }
+  },
+  "settledWithoutPlay": {
+    "playing": false,
+    "autoplayed": false,
+    "phase": "settle",
+    "closed": true,
+    "top": 609,
+    "height": 733,
+    "ratio": 0.321,
+    "line": "Une expérience claire pour les personnes qui font le travail.",
+    "appVisible": true,
+    "h1": "L'intelligence au cœur de vos systèmes.L'ingénierie pour les concrétiser.",
+    "talk": "/contact/?type=project",
+    "explore": "#expertises"
+  },
+  "a11y": {
+    "reducedMobile": {
+      "playing": false,
+      "autoplayed": true,
+      "phase": "settle",
+      "closed": true,
+      "top": 111,
+      "height": 733,
+      "ratio": 1,
+      "line": "Une expérience claire pour les personnes qui font le travail.",
+      "appVisible": true,
+      "h1": "L'intelligence au cœur de vos systèmes.L'ingénierie pour les concrétiser.",
+      "talk": "/contact/?type=project",
+      "explore": "#expertises"
+    },
+    "desktopSettled": {
+      "playing": false,
+      "autoplayed": true,
+      "phase": "settle",
+      "closed": true,
+      "top": 117,
+      "height": 907,
+      "ratio": 0.864,
+      "line": "Une expérience claire pour les personnes qui font le travail.",
+      "appVisible": true,
+      "h1": "L'intelligence au cœur de vos systèmes.L'ingénierie pour les concrétiser.",
+      "talk": "/contact/?type=project",
+      "explore": "#expertises"
+    },
+    "keyboard": {
+      "checked": "data",
+      "line": "Des données utilisées pour soutenir le processus. La décision reste humaine."
+    },
+    "touch": "cloud",
+    "replayStarts": true,
+    "skipSettles": {
+      "playing": false,
+      "closed": true
+    },
+    "overflow": {
+      "320": 0,
+      "390": 0,
+      "1440": 0,
+      "zoom2": 0
+    },
+    "en": {
+      "lang": "en",
+      "title": "Software development, AI and cloud | Coconsult",
+      "h1": "Intelligence at the core of your systems.Engineering to make them real.",
+      "talk": "/en/contact/?type=project",
+      "explore": "#expertises"
+    },
+    "reducedDesktop": {
+      "playing": false,
+      "autoplayed": true,
+      "phase": "settle",
+      "closed": true,
+      "top": 117,
+      "height": 907,
+      "ratio": 0.864,
+      "line": "Une expérience claire pour les personnes qui font le travail.",
+      "appVisible": true,
+      "h1": "L'intelligence au cœur de vos systèmes.L'ingénierie pour les concrétiser.",
+      "talk": "/contact/?type=project",
+      "explore": "#expertises"
+    }
+  },
+  "lcp": {
+    "orbit": {
+      "dcl": 51,
+      "load": 210,
+      "fcp": 344,
+      "lcpObserver": {
+        "startTime": 344,
+        "size": 155393,
+        "tag": "H1"
+      },
+      "lcpEntries": 0,
+      "lcpLast": null,
+      "cls": 0.007,
+      "behind": false,
+      "system": true,
+      "title": "Développement logiciel, IA et cloud | Coconsult"
+    },
+    "scene": {
+      "dcl": 163,
+      "load": 172,
+      "fcp": 196,
+      "lcpObserver": {
+        "startTime": 196,
+        "size": 52548,
+        "tag": "H1"
+      },
+      "lcpEntries": 0,
+      "lcpLast": null,
+      "cls": 0.004,
+      "behind": true,
+      "system": false,
+      "title": "Développement logiciel, IA et cloud | Coconsult"
+    }
+  },
+  "errors": []
+}
