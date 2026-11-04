@@ -68,6 +68,10 @@ docker logs --tail 50 coconsult-web
 
 La commande ci-dessus construit le site sans le guide. Pour l’ajouter ou le retirer, suivre `docs/ASSISTANT.md`, section « Activer et éteindre le guide ». Cela passe par `PUBLIC_ASSISTANT=true` au build, dans `compose.guide.yaml` ou en `--build-arg`. Ne pas ajouter `compose.assistant.yaml`. Ne pas changer `compose.proxy.yaml` ni le service de contact. Une reconstruction sans cet argument retire le guide.
 
+## Behind the Digital
+
+Le hero scène est éteint par défaut (`PUBLIC_BEHIND_HERO=false` dans le `Dockerfile`). L’activation publique, le balisage d’image et le rollback sont décrits dans `docs/design/behind-the-digital/activation/GO-NO-GO.md`. Si le guide tourne déjà (`compose.guide.yaml`), toute reconstruction qui active la scène doit conserver ce fichier, sinon le widget disparaît.
+
 Puis, depuis l’extérieur, sans changer NPM :
 
 ```bash

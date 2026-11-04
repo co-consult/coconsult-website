@@ -10,6 +10,7 @@ node_modules/
 dist/
 dist-guide/
 compose.guide.yaml
+compose.behind.yaml
 test-results/
 playwright-report/
 blob-report/
