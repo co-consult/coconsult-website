@@ -55,7 +55,8 @@ const copy = fr
         ['cloud', 'Cloud & DevOps', "Parcours cloud : une version se construit, se teste, se déploie, puis s'observe."],
         ['quality', 'Qualité & Sécurité', 'Parcours qualité et sécurité : les tests et les droits protègent ce qui est exposé.'],
       ],
-      focusAll: 'Quatre parcours alimentent le même système. Choisissez un univers pour le suivre.',
+      focusAll: 'Cliquez un parcours — IA, développement, cloud ou qualité — pour le suivre dans le système.',
+      systemHint: 'Cliquez un parcours',
       exKicker: 'Expertises',
       exTitle: 'Découvrez nos expertises en action.',
       exIntro: "Chaque schéma est une démonstration pédagogique. Il n'exécute aucun traitement réel.",
@@ -117,7 +118,8 @@ const copy = fr
         ['cloud', 'Cloud & DevOps', 'Cloud path: a release is built, tested, deployed, then watched.'],
         ['quality', 'Quality & Security', 'Quality and security path: tests and access rights protect what is exposed.'],
       ],
-      focusAll: 'Four paths feed the same system. Choose one to follow it.',
+      focusAll: 'Click a path — AI, software, cloud or quality — to follow it through the system.',
+      systemHint: 'Click a path',
       exKicker: 'Expertise',
       exTitle: 'Discover our expertise in action.',
       exIntro: 'Each diagram is a teaching sketch. It runs no real processing.',
@@ -269,7 +271,8 @@ const demo = fr
       {BehindScene ? (
         <BehindScene locale={locale} instance="home" autoplay />
       ) : (
-    <div class="system" data-focus="all" id="systeme">
+    <div class="system is-awaiting" data-focus="all" id="systeme">
+      <p class="system-hint" data-system-hint>{copy.systemHint}</p>
       <div class="orbit-stage">
         <svg viewBox="0 0 640 640" role="img" aria-labelledby="sysTitle">
           <title id="sysTitle">{copy.sysTitle}</title>
@@ -307,7 +310,7 @@ const demo = fr
         <div class="core-label"><strong>{copy.core}</strong></div>
         <div class="nodes">
           {copy.lanes.map(([id, label, focus]) => (
-            <button class={`node node-${id}`} type="button" data-lane={id} data-focus-text={focus} aria-pressed="false">
+            <button class={`node node-${id} is-pulse`} type="button" data-lane={id} data-focus-text={focus} aria-pressed="false">
               <span class={`node-ico node-ico-${id}`} aria-hidden="true"></span>
               <span>{label}</span>
             </button>
@@ -320,7 +323,7 @@ const demo = fr
       <div class="mobile-nodes">
         <div class="mobile-core" aria-hidden="true"><strong>{copy.core}</strong></div>
         {copy.lanes.map(([id, label, focus]) => (
-          <button class="node" type="button" data-lane={id} data-focus-text={focus} aria-pressed="false">
+          <button class="node is-pulse" type="button" data-lane={id} data-focus-text={focus} aria-pressed="false">
             <span class={`node-ico node-ico-${id}`} aria-hidden="true"></span>
             <span>{label}</span>
           </button>
@@ -525,9 +528,13 @@ const demo = fr
       <p class="eyebrow">{copy.modeKicker}</p>
       <h2>{copy.modeTitle}</h2>
     </div>
-    <div class="mode-row">
-      {copy.modes.map(([title, text]) => (
-        <article class="mode"><strong>{title}</strong><p>{text}</p></article>
+    <div class="mode-row" data-stagger>
+      {copy.modes.map(([title, text], index) => (
+        <article class={`mode mode-${index}`}>
+          <span class="mode-ico" aria-hidden="true"></span>
+          <strong>{title}</strong>
+          <p>{text}</p>
+        </article>
       ))}
     </div>
   </section>

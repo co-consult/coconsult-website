@@ -81,10 +81,16 @@
 
   if (system instanceof HTMLElement && focusCaptions.length) {
     const allText = focusCaptions[0]?.dataset.all || '';
+    const markExplored = () => {
+      system.classList.remove('is-awaiting');
+      system.classList.add('is-explored');
+      document.querySelectorAll('.node.is-pulse').forEach((node) => node.classList.remove('is-pulse'));
+    };
     writeFocus(allText);
     document.querySelectorAll('button[data-lane]').forEach((button) => {
       button.addEventListener('click', () => {
         if (!(button instanceof HTMLButtonElement)) return;
+        markExplored();
         const lane = button.dataset.lane || '';
         const next = system.dataset.focus === lane ? 'all' : lane;
         system.dataset.focus = next;

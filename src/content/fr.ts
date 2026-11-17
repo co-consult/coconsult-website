@@ -599,42 +599,41 @@ export const pages: Record<RouteKey, PageContent> = {
     eyebrow: 'À PROPOS',
     h1: 'Une société d’ingénierie française, en collaboration avec Sfax.',
     intro:
-      'Coconsult accompagne ses clients depuis la France et collabore avec Coconsult Nearshore, une société tunisienne juridiquement indépendante basée à Sfax, pour mobiliser des compétences d’ingénierie et constituer des équipes dédiées. Fondée en 2018, la société française conçoit, intègre et exploite des applications métier.',
+      'Depuis 2018, COCONSULT conçoit et intègre des applications métier depuis la France, en collaboration avec Coconsult Nearshore à Sfax — société tunisienne juridiquement indépendante.',
     blocks: [
       {
-        type: 'columns',
-        title: 'La façon de travailler',
-        items: [
-          { title: 'Proximité de cadrage', text: 'Le besoin, les contraintes et les priorités se comprennent avec vos équipes, depuis la France lorsque c’est le bon relais.' },
-          { title: 'Ingénierie à Sfax', text: 'Coconsult Nearshore peut mobiliser des compétences d’ingénierie sur le périmètre convenu. Les deux sociétés ont des dirigeants différents.' },
-          { title: 'Renforts indépendants', text: 'Des consultants indépendants peuvent compléter un dispositif lorsque le besoin le justifie.' },
+        type: 'prose',
+        title: 'Deux sociétés, un dispositif d’ingénierie',
+        visual: 'entities',
+        paragraphs: [
+          'Le cadrage et la relation client partent de la France. Les compétences d’ingénierie peuvent être mobilisées via Coconsult Nearshore à Sfax. Les deux sociétés ont des dirigeants différents.',
+          'Des consultants indépendants complètent le dispositif lorsque le besoin le justifie.',
         ],
       },
       {
         type: 'prose',
         title: 'Ce que l’entreprise vend',
+        visual: 'offers',
         paragraphs: [
-          'Des projets au forfait lorsque le périmètre le permet, de l’intégration dans des systèmes existants, des équipes dédiées, des missions de test et d’ingénierie des paiements, et l’accompagnement de solutions métier en cours de construction.',
+          'Forfait, intégration, équipes dédiées, QA, paiements et solutions métier en construction — selon le périmètre.',
           'Le devis, le contrat et la facture identifient la société qui contracte avec le client.',
         ],
       },
       {
-        type: 'list',
+        type: 'prose',
         title: 'Repères publics',
-        items: [
-          'Fondation en 2018',
-          'Éditeur du site : COCONSULT SAS, Paris',
-          'Agrément CII n° 28910108, années 2026 à 2030, DRIEETS Île-de-France',
-          'Collaboration avec Coconsult Nearshore, Sfax',
-          'Contact : contact@coconsult.fr',
+        visual: 'facts',
+        paragraphs: [
+          'Fondée en 2018 · COCONSULT SAS, Paris · Agrément CII n° 28910108 (2026–2030) · Collaboration avec Coconsult Nearshore, Sfax · contact@coconsult.fr',
         ],
       },
       {
         type: 'prose',
         title: 'Agrément crédit d’impôt innovation',
+        visual: 'cii',
         paragraphs: [
-          'Une décision du 4 février 2026 de la DRIEETS Île-de-France accorde à COCONSULT, TVA FR90838913838, l’agrément n° 28910108 pour les années 2026, 2027, 2028, 2029 et 2030.',
-          'Cet agrément reconnaît une capacité à réaliser des travaux d’innovation. Il ne décide pas qu’une mission est éligible, et il n’ouvre pas automatiquement un crédit d’impôt au client. Coconsult Nearshore, à Sfax, n’est pas titulaire de cette décision.',
+          'Décision DRIEETS Île-de-France du 4 février 2026 : agrément n° 28910108 pour 2026 à 2030.',
+          'Il reconnaît une capacité d’innovation. Il ne décide pas qu’une mission est éligible, ni n’ouvre un crédit d’impôt automatique. Coconsult Nearshore n’en est pas titulaire.',
         ],
       },
       {

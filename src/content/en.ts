@@ -550,42 +550,41 @@ export const pages: Record<RouteKey, PageContent> = {
     eyebrow: 'ABOUT',
     h1: 'A French engineering company, in collaboration with Sfax.',
     intro:
-      'Coconsult supports its clients from France and works with Coconsult Nearshore, a legally independent Tunisian company based in Sfax, to bring in engineering skills and build dedicated teams. Founded in 2018, the French company designs, integrates and runs business applications.',
+      'Since 2018, COCONSULT designs and integrates business applications from France, working with Coconsult Nearshore in Sfax — a legally independent Tunisian company.',
     blocks: [
       {
-        type: 'columns',
-        title: 'How the company works',
-        items: [
-          { title: 'Scoping close to the client', text: 'Needs, constraints and priorities are understood with your team, from France when that is the right relay.' },
-          { title: 'Engineering in Sfax', text: 'Coconsult Nearshore can mobilise engineering skills for the agreed scope. The two companies have different directors.' },
-          { title: 'Independent specialists', text: 'Independent consultants can complete a setup when the role calls for it.' },
+        type: 'prose',
+        title: 'Two companies, one engineering setup',
+        visual: 'entities',
+        paragraphs: [
+          'Client scoping starts in France. Engineering skills can be mobilised through Coconsult Nearshore in Sfax. The two companies have different directors.',
+          'Independent consultants complete the setup when the role calls for it.',
         ],
       },
       {
         type: 'prose',
         title: 'What the company sells',
+        visual: 'offers',
         paragraphs: [
-          'Fixed-scope projects when the scope allows it, integration into existing systems, dedicated teams, testing and payments engineering, and support for business solutions still being built.',
+          'Fixed scope, integration, dedicated teams, QA, payments and business solutions still being built — depending on the perimeter.',
           'The quotation, the contract and the invoice name the company that contracts with the client.',
         ],
       },
       {
-        type: 'list',
+        type: 'prose',
         title: 'Public facts',
-        items: [
-          'Founded in 2018',
-          'Site publisher: COCONSULT SAS, Paris',
-          'CII agreement no. 28910108, years 2026 to 2030, DRIEETS Île-de-France',
-          'Collaboration with Coconsult Nearshore, Sfax',
-          'Contact: contact@coconsult.fr',
+        visual: 'facts',
+        paragraphs: [
+          'Founded in 2018 · COCONSULT SAS, Paris · CII agreement no. 28910108 (2026–2030) · Collaboration with Coconsult Nearshore, Sfax · contact@coconsult.fr',
         ],
       },
       {
         type: 'prose',
         title: 'Innovation tax credit agreement',
+        visual: 'cii',
         paragraphs: [
-          'A decision of 4 February 2026 by DRIEETS Île-de-France grants COCONSULT, VAT FR90838913838, agreement no. 28910108 for 2026, 2027, 2028, 2029 and 2030.',
-          'The agreement recognises a capacity to carry out innovation work. It does not decide that an assignment is eligible, and it does not automatically create a tax credit for the client. Coconsult Nearshore, in Sfax, is not the holder of this decision.',
+          'DRIEETS Île-de-France decision of 4 February 2026: agreement no. 28910108 for 2026 to 2030.',
+          'It recognises an innovation capacity. It does not decide that an assignment is eligible, and it does not create an automatic tax credit. Coconsult Nearshore is not the holder.',
         ],
       },
       {

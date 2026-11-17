@@ -108,9 +108,13 @@ const laneFor = (key?: string) => {
           </>
         )}
         {block.type === 'prose' && (
-          <div class:list={['prose-block', block.visual && `prose-visual-${block.visual}`]}>
+          <div class:list={['prose-block', block.visual && 'has-visual', block.visual && `prose-visual-${block.visual}`]}>
+            <div class="prose section-intro">
+              {block.title && <h2>{block.title}</h2>}
+              {block.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+            </div>
             {block.visual === 'entities' && (
-              <div class="entity-map" aria-hidden="true">
+              <div class="entity-map prose-visual-panel" aria-hidden="true">
                 <div class="entity-card entity-fr">
                   <span class="entity-pin"></span>
                   <strong>COCONSULT</strong>
@@ -129,7 +133,7 @@ const laneFor = (key?: string) => {
               </div>
             )}
             {block.visual === 'nearshore' && (
-              <div class="nearshore-visual" aria-hidden="true">
+              <div class="nearshore-visual prose-visual-panel" aria-hidden="true">
                 <svg viewBox="0 0 120 120" width="120" height="120">
                   <circle cx="60" cy="60" r="52" fill="none" stroke="currentColor" stroke-width="1.4" opacity="0.25" />
                   <circle cx="60" cy="60" r="34" fill="none" stroke="currentColor" stroke-width="1.6" opacity="0.45" />
@@ -139,10 +143,65 @@ const laneFor = (key?: string) => {
                 </svg>
               </div>
             )}
-            <div class="prose section-intro">
-              {block.title && <h2>{block.title}</h2>}
-              {block.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
-            </div>
+            {block.visual === 'offers' && (
+              <div class="prose-visual-panel" aria-hidden="true">
+                <div class="offer-mosaic">
+                  {(locale === 'fr'
+                    ? [
+                        ['Forfait', 'Périmètre cadré'],
+                        ['Intégration', 'Systèmes existants'],
+                        ['Équipes', 'Squads dédiées'],
+                        ['QA & paiements', 'Missions ciblées'],
+                        ['Solutions métier', 'En construction'],
+                      ]
+                    : [
+                        ['Fixed scope', 'When the perimeter is clear'],
+                        ['Integration', 'Existing systems'],
+                        ['Teams', 'Dedicated squads'],
+                        ['QA & payments', 'Focused missions'],
+                        ['Business solutions', 'Still being built'],
+                      ]
+                  ).map(([title, text]) => (
+                    <div class="offer-chip">
+                      <strong>{title}</strong>
+                      <span>{text}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            {block.visual === 'cii' && (
+              <div class="prose-visual-panel cii-visual" aria-hidden="true">
+                <div class="cii-visual-seal">
+                  <div>
+                    <strong>CII</strong>
+                    <span>{company.cii.number}</span>
+                    <span>2026 — 2030</span>
+                  </div>
+                </div>
+              </div>
+            )}
+            {block.visual === 'facts' && (
+              <div class="prose-visual-panel facts-orbit" aria-hidden="true">
+                <svg viewBox="0 0 280 240" role="img">
+                  <circle cx="140" cy="120" r="34" fill="#fff" stroke="currentColor" stroke-width="1.6" />
+                  <text x="140" y="116" text-anchor="middle" fill="currentColor" font-size="13" font-family="IBM Plex Mono, monospace">2018</text>
+                  <text x="140" y="134" text-anchor="middle" fill="#24384c" font-size="11" font-family="IBM Plex Mono, monospace">Paris</text>
+                  <g class="fact-ring" fill="none" stroke="currentColor" stroke-opacity="0.35" stroke-width="1.3">
+                    <circle cx="140" cy="120" r="72" stroke-dasharray="4 7" />
+                    <circle cx="140" cy="120" r="98" stroke-dasharray="2 8" />
+                  </g>
+                  <g fill="currentColor">
+                    <circle cx="140" cy="48" r="6"><animate attributeName="r" values="5;7;5" dur="2.8s" repeatCount="indefinite" /></circle>
+                    <circle cx="212" cy="88" r="6"><animate attributeName="r" values="6;8;6" dur="3.2s" repeatCount="indefinite" /></circle>
+                    <circle cx="212" cy="152" r="6"><animate attributeName="r" values="5;7;5" dur="2.6s" repeatCount="indefinite" /></circle>
+                    <circle cx="140" cy="192" r="6"><animate attributeName="r" values="6;8;6" dur="3.4s" repeatCount="indefinite" /></circle>
+                    <circle cx="68" cy="152" r="6"><animate attributeName="r" values="5;7;5" dur="3s" repeatCount="indefinite" /></circle>
+                    <circle cx="68" cy="88" r="6"><animate attributeName="r" values="6;8;6" dur="2.9s" repeatCount="indefinite" /></circle>
+                  </g>
+                </svg>
+              </div>
+            )}
           </div>
         )}
         {block.type === 'list' && (
