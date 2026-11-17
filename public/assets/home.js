@@ -86,6 +86,19 @@
       system.classList.add('is-explored');
       document.querySelectorAll('.node.is-pulse').forEach((node) => node.classList.remove('is-pulse'));
     };
+    const revealCaption = () => {
+      const visible = focusCaptions.find((caption) => {
+        const style = window.getComputedStyle(caption);
+        return style.display !== 'none' && style.visibility !== 'hidden' && caption.getClientRects().length > 0;
+      });
+      if (!(visible instanceof HTMLElement)) return;
+      const rect = visible.getBoundingClientRect();
+      const header = document.querySelector('.site-header');
+      const headerH = header instanceof HTMLElement ? header.getBoundingClientRect().height : 72;
+      if (rect.top < headerH + 12 || rect.bottom > window.innerHeight - 12) {
+        visible.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' });
+      }
+    };
     writeFocus(allText);
     document.querySelectorAll('button[data-lane]').forEach((button) => {
       button.addEventListener('click', () => {
@@ -105,6 +118,7 @@
               ? source.dataset.focusText || ''
               : '';
         if (text) writeFocus(text);
+        window.requestAnimationFrame(revealCaption);
       });
     });
   }

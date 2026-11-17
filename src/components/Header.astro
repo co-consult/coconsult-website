@@ -22,6 +22,7 @@ const contactHref = contactPath(locale, 'project');
   <div class="container header-bar">
     <a class="brand" href={home}>
       <Logo height={64} src="/assets/brand/coconsult-logo.png" />
+      <span class="brand-mark" aria-hidden="true">{locale === 'fr' ? 'Ingénierie' : 'Engineering'}</span>
     </a>
     <nav class="desktop-nav" aria-label={t.navLabel}>
       {primaryNav.filter((key) => key !== 'contact').map((key) => (
@@ -30,7 +31,9 @@ const contactHref = contactPath(locale, 'project');
     </nav>
     <div class="header-actions">
       <a class="lang" href={other} lang={otherLocale} hreflang={otherLocale} aria-label={t.langAria}>{t.langCode}</a>
-      <a class="header-contact" href={contactHref} aria-current={routeKey === 'contact' ? 'page' : undefined}>{t.headerCta}</a>
+      <a class="header-contact" href={contactHref} aria-current={routeKey === 'contact' ? 'page' : undefined}>
+        <span>{t.headerCta}</span>
+      </a>
       <button
         class="menu-toggle"
         type="button"

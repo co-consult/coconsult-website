@@ -47,29 +47,21 @@ const faqs = faqBlock?.type === 'faq' ? faqBlock.items : [];
               <h1>{page.h1}</h1>
               <p class="lede">{page.intro}</p>
             </div>
-            <div class="about-hero-art" aria-hidden="true">
-              <svg class="about-orbit-art" viewBox="0 0 420 280" role="img">
-                <defs>
-                  <radialGradient id="aboutGlow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#026d7b" stop-opacity="0.22" />
-                    <stop offset="100%" stop-color="#026d7b" stop-opacity="0" />
-                  </radialGradient>
-                </defs>
-                <circle cx="210" cy="140" r="110" fill="url(#aboutGlow)" />
-                <circle class="about-ring" cx="210" cy="140" r="78" fill="none" stroke="#026d7b" stroke-opacity="0.3" stroke-width="1.4" stroke-dasharray="5 8" />
-                <g class="about-cities">
-                  <rect x="78" y="108" width="96" height="64" rx="16" fill="#fff" stroke="#026d7b" stroke-width="1.5" />
-                  <text x="126" y="136" text-anchor="middle" fill="#026d7b" font-size="13" font-family="IBM Plex Mono, monospace">Paris</text>
-                  <text x="126" y="154" text-anchor="middle" fill="#24384c" font-size="11">COCONSULT</text>
-                  <rect x="246" y="108" width="96" height="64" rx="16" fill="#fff" stroke="#c45c26" stroke-width="1.5" />
-                  <text x="294" y="136" text-anchor="middle" fill="#c45c26" font-size="13" font-family="IBM Plex Mono, monospace">Sfax</text>
-                  <text x="294" y="154" text-anchor="middle" fill="#24384c" font-size="11">Nearshore</text>
-                </g>
-                <path class="about-link" d="M174 140 H246" stroke="#026d7b" stroke-width="1.6" stroke-dasharray="4 6" fill="none" />
-                <circle cx="210" cy="140" r="5" fill="#026d7b">
-                  <animate attributeName="r" values="4;7;4" dur="2.4s" repeatCount="indefinite" />
-                </circle>
-              </svg>
+            <div class="about-hero-art">
+              <img
+                class="about-hero-photo"
+                src="/assets/people/engineer-desk.jpg"
+                alt=""
+                width="1200"
+                height="900"
+                loading="eager"
+                decoding="async"
+              />
+              <div class="about-hero-overlay" aria-hidden="true">
+                <span>Paris</span>
+                <span class="about-hero-dot"></span>
+                <span>Sfax</span>
+              </div>
             </div>
           </div>
         ) : (

@@ -55,8 +55,8 @@ const copy = fr
         ['cloud', 'Cloud & DevOps', "Parcours cloud : une version se construit, se teste, se déploie, puis s'observe."],
         ['quality', 'Qualité & Sécurité', 'Parcours qualité et sécurité : les tests et les droits protègent ce qui est exposé.'],
       ],
-      focusAll: 'Cliquez un parcours — IA, développement, cloud ou qualité — pour le suivre dans le système.',
-      systemHint: 'Cliquez un parcours',
+      focusAll: 'Quatre orbites relient le même système. Touchez-en une pour la suivre.',
+      systemHint: 'Explorer une orbite',
       exKicker: 'Expertises',
       exTitle: 'Découvrez nos expertises en action.',
       exIntro: "Chaque schéma est une démonstration pédagogique. Il n'exécute aucun traitement réel.",
@@ -118,8 +118,8 @@ const copy = fr
         ['cloud', 'Cloud & DevOps', 'Cloud path: a release is built, tested, deployed, then watched.'],
         ['quality', 'Quality & Security', 'Quality and security path: tests and access rights protect what is exposed.'],
       ],
-      focusAll: 'Click a path — AI, software, cloud or quality — to follow it through the system.',
-      systemHint: 'Click a path',
+      focusAll: 'Four orbits feed the same system. Touch one to follow it.',
+      systemHint: 'Explore an orbit',
       exKicker: 'Expertise',
       exTitle: 'Discover our expertise in action.',
       exIntro: 'Each diagram is a teaching sketch. It runs no real processing.',
@@ -272,8 +272,15 @@ const demo = fr
         <BehindScene locale={locale} instance="home" autoplay />
       ) : (
     <div class="system is-awaiting" data-focus="all" id="systeme">
-      <p class="system-hint" data-system-hint>{copy.systemHint}</p>
+      <div class="system-invite" aria-hidden="true">
+        <span class="invite-comet"></span>
+        <span class="invite-ripple"></span>
+      </div>
+      <p class="sr-only" data-system-hint>{copy.systemHint}</p>
       <div class="orbit-stage">
+        <p class="focus-caption focus-caption-top" aria-hidden="true" data-all={copy.focusAll}>
+          <span class="focus-typed" data-focus-typed>{copy.focusAll}</span><span class="focus-caret" aria-hidden="true"></span>
+        </p>
         <svg viewBox="0 0 640 640" role="img" aria-labelledby="sysTitle">
           <title id="sysTitle">{copy.sysTitle}</title>
           <defs>
@@ -316,11 +323,11 @@ const demo = fr
             </button>
           ))}
         </div>
+      </div>
+      <div class="mobile-nodes">
         <p class="focus-caption" aria-hidden="true" data-all={copy.focusAll}>
           <span class="focus-typed" data-focus-typed>{copy.focusAll}</span><span class="focus-caret" aria-hidden="true"></span>
         </p>
-      </div>
-      <div class="mobile-nodes">
         <div class="mobile-core" aria-hidden="true"><strong>{copy.core}</strong></div>
         {copy.lanes.map(([id, label, focus]) => (
           <button class="node is-pulse" type="button" data-lane={id} data-focus-text={focus} aria-pressed="false">
@@ -328,9 +335,6 @@ const demo = fr
             <span>{label}</span>
           </button>
         ))}
-        <p class="focus-caption" aria-hidden="true" data-all={copy.focusAll}>
-          <span class="focus-typed" data-focus-typed>{copy.focusAll}</span><span class="focus-caret" aria-hidden="true"></span>
-        </p>
       </div>
       <p class="sr-only" aria-live="polite" data-focus-live>{copy.focusAll}</p>
     </div>
@@ -338,6 +342,16 @@ const demo = fr
   </section>
 
   <section class="section paper value-section" id="valeur" data-reveal>
+    <div class="people-band" data-reveal>
+      <figure class="people-shot people-shot-wide">
+        <img src="/assets/people/engineers-collab.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
+        <figcaption>{fr ? 'Ingénieurs produit — cadrage et architecture' : 'Product engineers — scoping and architecture'}</figcaption>
+      </figure>
+      <figure class="people-shot people-shot-portrait">
+        <img src="/assets/people/expert-portrait.jpg" alt="" width="900" height="1200" loading="lazy" decoding="async" />
+        <figcaption>{fr ? 'Expertise logicielle au plus près du métier' : 'Software expertise close to the business'}</figcaption>
+      </figure>
+    </div>
     <div class="section-head">
       <p class="eyebrow">{copy.valueKicker}</p>
       <div class="section-copy">

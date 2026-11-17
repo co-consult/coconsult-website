@@ -46,24 +46,24 @@ const icons: Record<string, string> = {
               <rect x="38" y="30" width="84" height="28" rx="10" stroke="currentColor" stroke-width="1.7" />
               <circle class="scene-spin" cx="56" cy="62" r="8" stroke="currentColor" stroke-width="1.7" />
               <circle class="scene-spin" cx="104" cy="62" r="8" stroke="currentColor" stroke-width="1.7" />
-              <path d="M52 40h28M88 40h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.6" />
+              <path class="scene-draw" d="M52 40h28M88 40h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.6" />
             </svg>
           )}
           {item.id === 'retail' && (
             <svg viewBox="0 0 160 88" fill="none">
-              <path d="M36 30h88l-8 42H44L36 30z" stroke="currentColor" stroke-width="1.6" />
+              <path class="scene-rise" d="M36 30h88l-8 42H44L36 30z" stroke="currentColor" stroke-width="1.6" />
               <path class="scene-draw" d="M48 24h64l6 6H42l6-6z" stroke="currentColor" stroke-width="1.6" />
               <circle class="scene-pulse" cx="70" cy="52" r="5" fill="currentColor" opacity="0.35" />
               <circle class="scene-pulse" cx="92" cy="52" r="5" fill="currentColor" opacity="0.35" style="animation-delay:0.4s" />
-              <path d="M64 70h32" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.5" />
+              <path class="scene-draw" d="M64 70h32" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.5" />
             </svg>
           )}
           {item.id === 'media' && (
             <svg viewBox="0 0 160 88" fill="none">
-              <rect x="28" y="18" width="104" height="52" rx="8" stroke="currentColor" stroke-width="1.6" />
+              <rect class="scene-rise" x="28" y="18" width="104" height="52" rx="8" stroke="currentColor" stroke-width="1.6" />
               <path class="scene-pulse" d="M48 44l24-12v24L48 44z" fill="currentColor" opacity="0.28" stroke="currentColor" stroke-width="1.4" />
               <path class="scene-draw" d="M88 36h28M88 46h22M88 56h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-              <rect x="58" y="74" width="44" height="4" rx="2" fill="currentColor" opacity="0.35" />
+              <rect class="scene-pulse" x="58" y="74" width="44" height="4" rx="2" fill="currentColor" opacity="0.35" />
             </svg>
           )}
           {item.id === 'telecom' && (
@@ -72,28 +72,28 @@ const icons: Record<string, string> = {
               <path class="scene-wave" d="M80 66c16-10 24-22 24-34" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" style="animation-delay:0.25s" />
               <path class="scene-wave" d="M80 66c-28-16-40-34-40-50" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity="0.45" style="animation-delay:0.5s" />
               <path class="scene-wave" d="M80 66c28-16 40-34 40-50" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity="0.45" style="animation-delay:0.75s" />
-              <circle cx="80" cy="70" r="5" fill="currentColor" />
+              <circle class="scene-pulse" cx="80" cy="70" r="5" fill="currentColor" />
             </svg>
           )}
           {item.id === 'sport' && (
             <svg viewBox="0 0 160 88" fill="none">
               <circle class="scene-spin" cx="80" cy="44" r="26" stroke="currentColor" stroke-width="1.6" />
-              <path d="M80 18v52M54 44h52" stroke="currentColor" stroke-width="1.4" opacity="0.55" />
+              <path class="scene-draw" d="M80 18v52M54 44h52" stroke="currentColor" stroke-width="1.4" opacity="0.55" />
               <path class="scene-draw" d="M58 28c10 8 34 8 44 0M58 60c10-8 34-8 44 0" stroke="currentColor" stroke-width="1.4" />
             </svg>
           )}
           {item.id === 'digital' && (
             <svg viewBox="0 0 160 88" fill="none">
-              <rect x="34" y="16" width="92" height="50" rx="8" stroke="currentColor" stroke-width="1.6" />
+              <rect class="scene-rise" x="34" y="16" width="92" height="50" rx="8" stroke="currentColor" stroke-width="1.6" />
               <path class="scene-draw" d="M48 32h20M48 42h36M48 52h28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
               <circle class="scene-pulse" cx="108" cy="34" r="6" fill="currentColor" opacity="0.3" />
-              <rect x="66" y="70" width="28" height="5" rx="2.5" fill="currentColor" opacity="0.4" />
+              <rect class="scene-pulse" x="66" y="70" width="28" height="5" rx="2.5" fill="currentColor" opacity="0.4" />
             </svg>
           )}
           {item.id === 'pharma' && (
             <svg viewBox="0 0 160 88" fill="none">
-              <rect x="64" y="14" width="32" height="18" rx="4" stroke="currentColor" stroke-width="1.6" />
-              <path d="M58 32h44l8 40H50L58 32z" stroke="currentColor" stroke-width="1.6" />
+              <rect class="scene-rise" x="64" y="14" width="32" height="18" rx="4" stroke="currentColor" stroke-width="1.6" />
+              <path class="scene-draw" d="M58 32h44l8 40H50L58 32z" stroke="currentColor" stroke-width="1.6" />
               <path class="scene-pulse" d="M80 42v22M69 53h22" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
               <circle class="scene-rise" cx="118" cy="58" r="7" stroke="currentColor" stroke-width="1.5" opacity="0.55" />
             </svg>
