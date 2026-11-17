@@ -18,7 +18,7 @@ const selfPath = routeKey === 'notFound' ? home : pathFor(locale, routeKey);
 const contactHref = contactPath(locale, 'project');
 ---
 <a class="skip-link" href="#main">{t.skip}</a>
-<header class="site-header">
+<header class="site-header" data-home={routeKey === 'home' ? 'true' : undefined}>
   <div class="container header-bar">
     <a class="brand" href={home} aria-label="Coconsult">
       <Logo height={64} src="/assets/brand/coconsult-logo.png" />
@@ -29,9 +29,16 @@ const contactHref = contactPath(locale, 'project');
       ))}
     </nav>
     <div class="header-actions">
-      <div class="lang-switch" role="group" aria-label={t.langAria}>
-        <a class="lang-opt" href={locale === 'fr' ? selfPath : other} lang="fr" hreflang="fr" aria-current={locale === 'fr' ? 'true' : undefined}>FR</a>
-        <a class="lang-opt" href={locale === 'en' ? selfPath : other} lang="en" hreflang="en" aria-current={locale === 'en' ? 'true' : undefined}>EN</a>
+      <div class="lang-switch" data-active={locale} role="group" aria-label={t.langAria}>
+        <span class="lang-thumb" aria-hidden="true"></span>
+        <a class="lang-opt" href={locale === 'fr' ? selfPath : other} lang="fr" hreflang="fr" aria-current={locale === 'fr' ? 'true' : undefined}>
+          <span class="lang-code">FR</span>
+          <span class="lang-name">{t.langFr}</span>
+        </a>
+        <a class="lang-opt" href={locale === 'en' ? selfPath : other} lang="en" hreflang="en" aria-current={locale === 'en' ? 'true' : undefined}>
+          <span class="lang-code">EN</span>
+          <span class="lang-name">{t.langEn}</span>
+        </a>
       </div>
       <a class="header-contact" href={contactHref} aria-current={routeKey === 'contact' ? 'page' : undefined}>
         <span>{t.headerCta}</span>
@@ -57,9 +64,16 @@ const contactHref = contactPath(locale, 'project');
     {serviceNav.map((key) => (
       <a href={pathFor(locale, key)} aria-current={routeKey === key ? 'page' : undefined}>{routes[key].label[locale]}</a>
     ))}
-    <div class="lang-switch lang-switch-mobile" role="group" aria-label={t.langAria}>
-      <a class="lang-opt" href={locale === 'fr' ? selfPath : other} lang="fr" hreflang="fr" aria-current={locale === 'fr' ? 'true' : undefined}>FR</a>
-      <a class="lang-opt" href={locale === 'en' ? selfPath : other} lang="en" hreflang="en" aria-current={locale === 'en' ? 'true' : undefined}>EN</a>
+    <div class="lang-switch lang-switch-mobile" data-active={locale} role="group" aria-label={t.langAria}>
+      <span class="lang-thumb" aria-hidden="true"></span>
+      <a class="lang-opt" href={locale === 'fr' ? selfPath : other} lang="fr" hreflang="fr" aria-current={locale === 'fr' ? 'true' : undefined}>
+        <span class="lang-code">FR</span>
+        <span class="lang-name">{t.langFr}</span>
+      </a>
+      <a class="lang-opt" href={locale === 'en' ? selfPath : other} lang="en" hreflang="en" aria-current={locale === 'en' ? 'true' : undefined}>
+        <span class="lang-code">EN</span>
+        <span class="lang-name">{t.langEn}</span>
+      </a>
     </div>
   </nav>
 </header>

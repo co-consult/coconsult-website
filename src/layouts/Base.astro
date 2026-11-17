@@ -72,7 +72,7 @@ if (faqs.length > 0) graph.push(faqLd(faqs));
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     {graph.length > 0 && <script type="application/ld+json" set:html={jsonScript(graph.length === 1 ? graph[0] : graph)} />}
   </head>
-  <body>
+  <body data-route={routeKey}>
     <Header locale={locale} routeKey={routeKey} />
     <main id="main">
       <slot />

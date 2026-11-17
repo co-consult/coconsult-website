@@ -420,12 +420,21 @@ const demo = fr
   </section>
 
   <section class="section" id="expertises" data-reveal>
-    <div class="section-head">
-      <p class="eyebrow">{copy.exKicker}</p>
-      <div>
-        <h2>{copy.exTitle}</h2>
-        <p>{copy.exIntro}</p>
+    <div class="value-split expertise-split">
+      <div class="section-head value-split-copy">
+        <p class="eyebrow">{copy.exKicker}</p>
+        <div class="section-copy">
+          <h2>{copy.exTitle}</h2>
+          <p>{copy.exIntro}</p>
+        </div>
       </div>
+      <figure class="people-frame people-frame-portrait">
+        <img src="/assets/people/architecture-review.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
+        <figcaption>
+          <span class="people-kicker">{fr ? 'Expertise en action' : 'Expertise in action'}</span>
+          <strong>{fr ? 'Du schéma au système livré' : 'From sketch to shipped system'}</strong>
+        </figcaption>
+      </figure>
     </div>
     <div class="stage">
       <div class="skill-list">
