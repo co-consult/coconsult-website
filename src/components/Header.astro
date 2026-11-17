@@ -14,15 +14,14 @@ const { locale, routeKey, menuId = 'mobile-menu' } = Astro.props;
 const t = ui[locale];
 const home = pathFor(locale, 'home');
 const other = alternatePath(locale, routeKey);
-const otherLocale = locale === 'fr' ? 'en' : 'fr';
+const selfPath = routeKey === 'notFound' ? home : pathFor(locale, routeKey);
 const contactHref = contactPath(locale, 'project');
 ---
 <a class="skip-link" href="#main">{t.skip}</a>
 <header class="site-header">
   <div class="container header-bar">
-    <a class="brand" href={home}>
+    <a class="brand" href={home} aria-label="Coconsult">
       <Logo height={64} src="/assets/brand/coconsult-logo.png" />
-      <span class="brand-mark" aria-hidden="true">{locale === 'fr' ? 'Ingénierie' : 'Engineering'}</span>
     </a>
     <nav class="desktop-nav" aria-label={t.navLabel}>
       {primaryNav.filter((key) => key !== 'contact').map((key) => (
@@ -30,7 +29,10 @@ const contactHref = contactPath(locale, 'project');
       ))}
     </nav>
     <div class="header-actions">
-      <a class="lang" href={other} lang={otherLocale} hreflang={otherLocale} aria-label={t.langAria}>{t.langCode}</a>
+      <div class="lang-switch" role="group" aria-label={t.langAria}>
+        <a class="lang-opt" href={locale === 'fr' ? selfPath : other} lang="fr" hreflang="fr" aria-current={locale === 'fr' ? 'true' : undefined}>FR</a>
+        <a class="lang-opt" href={locale === 'en' ? selfPath : other} lang="en" hreflang="en" aria-current={locale === 'en' ? 'true' : undefined}>EN</a>
+      </div>
       <a class="header-contact" href={contactHref} aria-current={routeKey === 'contact' ? 'page' : undefined}>
         <span>{t.headerCta}</span>
       </a>
@@ -55,6 +57,9 @@ const contactHref = contactPath(locale, 'project');
     {serviceNav.map((key) => (
       <a href={pathFor(locale, key)} aria-current={routeKey === key ? 'page' : undefined}>{routes[key].label[locale]}</a>
     ))}
-    <a href={other} lang={otherLocale} hreflang={otherLocale}>{t.langAria}</a>
+    <div class="lang-switch lang-switch-mobile" role="group" aria-label={t.langAria}>
+      <a class="lang-opt" href={locale === 'fr' ? selfPath : other} lang="fr" hreflang="fr" aria-current={locale === 'fr' ? 'true' : undefined}>FR</a>
+      <a class="lang-opt" href={locale === 'en' ? selfPath : other} lang="en" hreflang="en" aria-current={locale === 'en' ? 'true' : undefined}>EN</a>
+    </div>
   </nav>
 </header>

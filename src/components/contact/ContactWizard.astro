@@ -207,15 +207,25 @@ const copy = fr
       </h1>
       <p class="prepare-note" data-contact-intro>{page.intro}</p>
       <p class="topic-flag" id="topic-flag" hidden></p>
+      <div class="contact-progress" aria-hidden="true">
+        <span class="contact-progress-bar" data-progress-bar></span>
+      </div>
       <div class="steps" data-steps-generic>
         {copy.steps.map((label, index) => (
-          <button type="button" data-goto={index + 1} aria-current={index === 0 ? 'step' : undefined}>{label}</button>
+          <button type="button" data-goto={index + 1} aria-current={index === 0 ? 'step' : undefined}>
+            <span class="step-index">0{index + 1}</span>
+            <span>{label}</span>
+          </button>
         ))}
       </div>
       <div class="steps" data-steps-demo hidden>
-        <button type="button" data-goto="3" aria-current="step">{copy.demoSteps[0]}</button>
-        <button type="button" data-goto="4">{copy.demoSteps[1]}</button>
+        <button type="button" data-goto="3" aria-current="step"><span class="step-index">01</span><span>{copy.demoSteps[0]}</span></button>
+        <button type="button" data-goto="4"><span class="step-index">02</span><span>{copy.demoSteps[1]}</span></button>
       </div>
+      <figure class="contact-aside-visual">
+        <img src="/assets/people/delivery-room.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
+        <figcaption>{fr ? 'Un échange concret, pas un formulaire anonyme.' : 'A concrete exchange, not an anonymous form.'}</figcaption>
+      </figure>
       <p class="mail-fallback"><a href={plainMailto()}>{fr ? `Écrire à ${company.email}` : `Write to ${company.email}`}</a></p>
       <div class="cta-row">
         <button class="btn ghost" type="button" data-copy-email>{t.copyAddress}</button>
@@ -226,7 +236,8 @@ const copy = fr
       <section class="panel" data-step="1" data-generic-only>
         <div class="choice-grid" id="choices">
           {copy.choices.map(([need, inquiry, title, text]) => (
-            <button class="choice" type="button" data-need={need} data-inquiry={inquiry} aria-pressed="false">
+            <button class={`choice choice-${need}`} type="button" data-need={need} data-inquiry={inquiry} aria-pressed="false">
+              <span class="choice-ico" aria-hidden="true"></span>
               <b>{title}</b><span>{text}</span>
             </button>
           ))}

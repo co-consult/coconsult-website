@@ -342,22 +342,21 @@ const demo = fr
   </section>
 
   <section class="section paper value-section" id="valeur" data-reveal>
-    <div class="people-band" data-reveal>
-      <figure class="people-shot people-shot-wide">
-        <img src="/assets/people/engineers-collab.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
-        <figcaption>{fr ? 'Ingénieurs produit — cadrage et architecture' : 'Product engineers — scoping and architecture'}</figcaption>
-      </figure>
-      <figure class="people-shot people-shot-portrait">
-        <img src="/assets/people/expert-portrait.jpg" alt="" width="900" height="1200" loading="lazy" decoding="async" />
-        <figcaption>{fr ? 'Expertise logicielle au plus près du métier' : 'Software expertise close to the business'}</figcaption>
-      </figure>
-    </div>
-    <div class="section-head">
-      <p class="eyebrow">{copy.valueKicker}</p>
-      <div class="section-copy">
-        <h2>{copy.valueTitle}</h2>
-        <p class="lede-soft">{copy.valueIntro}</p>
+    <div class="value-split">
+      <div class="section-head value-split-copy">
+        <p class="eyebrow">{copy.valueKicker}</p>
+        <div class="section-copy">
+          <h2>{copy.valueTitle}</h2>
+          <p class="lede-soft">{copy.valueIntro}</p>
+        </div>
       </div>
+      <figure class="people-frame">
+        <img src="/assets/people/engineers-collab.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
+        <figcaption>
+          <span class="people-kicker">{fr ? 'Maison d’ingénierie' : 'Engineering house'}</span>
+          <strong>{fr ? 'Cadrage, architecture, delivery' : 'Scoping, architecture, delivery'}</strong>
+        </figcaption>
+      </figure>
     </div>
     <ul class="value-grid">
       {copy.values.map(([icon, title, text], index) => (
@@ -537,19 +536,30 @@ const demo = fr
     </div>
   </section>
 
-  <section class="section paper" id="modes" data-reveal>
-    <div class="section-head">
-      <p class="eyebrow">{copy.modeKicker}</p>
-      <h2>{copy.modeTitle}</h2>
-    </div>
-    <div class="mode-row" data-stagger>
-      {copy.modes.map(([title, text], index) => (
-        <article class={`mode mode-${index}`}>
-          <span class="mode-ico" aria-hidden="true"></span>
-          <strong>{title}</strong>
-          <p>{text}</p>
-        </article>
-      ))}
+  <section class="section paper modes-section" id="modes" data-reveal>
+    <div class="modes-split">
+      <figure class="people-frame people-frame-portrait">
+        <img src="/assets/people/expert-portrait.jpg" alt="" width="900" height="1200" loading="lazy" decoding="async" />
+        <figcaption>
+          <span class="people-kicker">{fr ? 'Expertise' : 'Expertise'}</span>
+          <strong>{fr ? 'Des ingénieurs au plus près du métier' : 'Engineers close to the business'}</strong>
+        </figcaption>
+      </figure>
+      <div>
+        <div class="section-head">
+          <p class="eyebrow">{copy.modeKicker}</p>
+          <h2>{copy.modeTitle}</h2>
+        </div>
+        <div class="mode-row" data-stagger>
+          {copy.modes.map(([title, text], index) => (
+            <article class={`mode mode-${index}`}>
+              <span class="mode-ico" aria-hidden="true"></span>
+              <strong>{title}</strong>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
     </div>
   </section>
 

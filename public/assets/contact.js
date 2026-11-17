@@ -235,6 +235,12 @@
       else item.removeAttribute('aria-current');
       item.disabled = value > state.reached;
     });
+    const progress = panel.querySelector('[data-progress-bar]');
+    if (progress instanceof HTMLElement) {
+      const total = isDemoMode() ? 2 : 4;
+      const index = isDemoMode() ? (step === 3 ? 1 : 2) : step;
+      progress.style.width = `${Math.max(12, (index / total) * 100)}%`;
+    }
     if (step === 2 && !isDemoMode()) paintHints();
     if (step === 4) paintSummary();
     if (!moveFocus) return;

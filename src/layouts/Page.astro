@@ -40,8 +40,8 @@ const faqs = faqBlock?.type === 'faq' ? faqBlock.items : [];
             </ol>
           </nav>
         )}
-        {page.key === 'about' ? (
-          <div class="about-hero-grid">
+        {page.key === 'about' || page.key === 'services' || page.key === 'cases' ? (
+          <div class="about-hero-grid editorial-hero">
             <div class="about-hero-copy">
               <p class="eyebrow">{page.eyebrow}</p>
               <h1>{page.h1}</h1>
@@ -50,7 +50,13 @@ const faqs = faqBlock?.type === 'faq' ? faqBlock.items : [];
             <div class="about-hero-art">
               <img
                 class="about-hero-photo"
-                src="/assets/people/engineer-desk.jpg"
+                src={
+                  page.key === 'about'
+                    ? '/assets/people/engineer-desk.jpg'
+                    : page.key === 'services'
+                      ? '/assets/people/delivery-room.jpg'
+                      : '/assets/people/engineers-collab.jpg'
+                }
                 alt=""
                 width="1200"
                 height="900"
@@ -58,9 +64,15 @@ const faqs = faqBlock?.type === 'faq' ? faqBlock.items : [];
                 decoding="async"
               />
               <div class="about-hero-overlay" aria-hidden="true">
-                <span>Paris</span>
-                <span class="about-hero-dot"></span>
-                <span>Sfax</span>
+                {page.key === 'about' && (
+                  <>
+                    <span>Paris</span>
+                    <span class="about-hero-dot"></span>
+                    <span>Sfax</span>
+                  </>
+                )}
+                {page.key === 'services' && <span>{locale === 'fr' ? 'Offres d’ingénierie' : 'Engineering offers'}</span>}
+                {page.key === 'cases' && <span>{locale === 'fr' ? 'Systèmes livrés' : 'Systems delivered'}</span>}
               </div>
             </div>
           </div>
@@ -74,5 +86,9 @@ const faqs = faqBlock?.type === 'faq' ? faqBlock.items : [];
       </div>
     </header>
   )}
-  {!customShell && <Blocks locale={locale} blocks={blocks} />}
+  {!customShell && (
+    <div class:list={[{ 'page-surface': true, 'page-surface-services': page.key === 'services', 'page-surface-cases': page.key === 'cases' }]}>
+      <Blocks locale={locale} blocks={blocks} />
+    </div>
+  )}
 </Base>

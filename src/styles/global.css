@@ -176,21 +176,6 @@ p { line-height: 1.7; }
 }
 
 .site-header .brand img { height: 64px; width: auto; }
-.brand-mark {
-  display: none;
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--brand-teal);
-  padding: 5px 9px;
-  border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--brand-teal) 28%, var(--line-on-paper));
-  background: color-mix(in srgb, var(--brand-teal) 8%, white);
-}
-@media (min-width: 1100px) {
-  .brand-mark { display: inline-flex; }
-}
 .site-footer .brand img { height: 64px; width: auto; }
 
 .desktop-nav {
@@ -251,22 +236,44 @@ p { line-height: 1.7; }
   margin-left: 8px;
 }
 
-.lang {
+.lang-switch {
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  padding: 3px;
+  min-height: 40px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--brand-teal) 22%, var(--line-on-paper));
+  background:
+    linear-gradient(180deg, #fff, color-mix(in srgb, var(--brand-teal) 6%, white));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+.lang-opt {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  color: var(--text-on-paper);
+  justify-content: center;
+  min-width: 40px;
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
   text-decoration: none;
+  color: #3a5166;
   font-family: var(--mono);
-  font-size: 13px;
-  font-weight: 400;
+  font-size: 12px;
+  font-weight: 600;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
-  min-height: 44px;
-  padding-inline: 8px;
+  transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
 }
-
-.lang:hover { color: var(--brand-teal); }
+.lang-opt:hover { color: var(--brand-teal); }
+.lang-opt[aria-current="true"] {
+  color: #fff;
+  background: linear-gradient(135deg, var(--brand-teal), color-mix(in srgb, var(--brand-teal) 65%, var(--brand-blue)));
+  box-shadow: 0 6px 14px rgba(2, 109, 123, 0.22);
+}
+.lang-switch-mobile {
+  margin-top: 12px;
+  width: fit-content;
+}
 
 .header-contact,
 .btn {
@@ -894,6 +901,47 @@ h1 {
   position: relative;
   overflow: hidden;
 }
+.page-surface-services .service-card,
+.page-surface-cases .work-card {
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+.page-surface-services .service-card::before,
+.page-surface-cases .work-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--brand-teal), var(--brand-blue), var(--brand-orange-on-paper));
+  transform: scaleX(0.22);
+  transform-origin: left center;
+  transition: transform 0.35s ease;
+}
+.page-surface-services .service-card:hover,
+.page-surface-cases .work-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--brand-teal) 35%, var(--line));
+  box-shadow: 0 16px 34px rgba(6, 32, 51, 0.08);
+}
+.page-surface-services .service-card:hover::before,
+.page-surface-cases .work-card:hover::before {
+  transform: scaleX(1);
+}
+.page-surface-services .kicker-no,
+.page-surface-cases .badge {
+  color: #0b5f6b;
+  font-weight: 600;
+}
+.page-surface-services .card-grid,
+.page-surface-cases .work-grid {
+  gap: 18px;
+}
+.page-surface-services .column-grid .info-card {
+  border-top: 2px solid var(--brand-teal);
+}
+.page-surface-services .column-grid .info-card:nth-child(2) { border-top-color: var(--brand-blue); }
+.page-surface-services .column-grid .info-card:nth-child(3) { border-top-color: var(--brand-green); }
+.page-surface-services .column-grid .info-card:nth-child(4) { border-top-color: var(--brand-orange-on-paper); }
 
 .service-card h3, .info-card h3, .work-card h3, .intent-card h3 {
   margin-bottom: 10px;
@@ -1049,14 +1097,18 @@ h1 {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 12px;
+  padding: 10px 14px;
   border-radius: 999px;
-  background: rgba(7, 17, 28, 0.72);
+  background: linear-gradient(135deg, rgba(7, 17, 28, 0.78), rgba(2, 109, 123, 0.45));
   color: #e8f2f8;
   font-family: var(--mono);
   font-size: 12px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  backdrop-filter: blur(8px);
+}
+.editorial-hero .lede {
+  max-width: 48ch;
 }
 .about-hero-dot {
   width: 7px;
