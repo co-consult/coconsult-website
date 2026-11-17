@@ -112,8 +112,8 @@ p { line-height: 1.7; }
   position: sticky;
   top: 0;
   z-index: 40;
-  background: rgba(8, 21, 43, 0.94);
-  border-bottom: 1px solid var(--line-dark);
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid var(--line-on-paper);
   backdrop-filter: blur(16px);
   container-type: inline-size;
   container-name: site-header;
@@ -154,14 +154,16 @@ p { line-height: 1.7; }
 }
 
 .desktop-nav a {
-  color: #d5e4f2;
+  color: var(--text-muted-on-paper);
   text-decoration: none;
   font-size: 15px;
-  font-weight: 400;
+  font-weight: 500;
   white-space: nowrap;
 }
 
-.desktop-nav a[aria-current="page"] { color: var(--teal); }
+.desktop-nav a:hover { color: var(--text-on-paper); }
+
+.desktop-nav a[aria-current="page"] { color: var(--brand-teal); }
 
 .header-actions {
   display: flex;
@@ -174,13 +176,15 @@ p { line-height: 1.7; }
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  color: #e7f3fb;
+  color: var(--text-muted-on-paper);
   text-decoration: none;
   font-size: 15px;
-  font-weight: 400;
+  font-weight: 500;
   min-height: 44px;
   padding-inline: 4px;
 }
+
+.lang:hover { color: var(--text-on-paper); }
 
 .header-contact,
 .btn {
@@ -197,10 +201,18 @@ p { line-height: 1.7; }
   border: 1px solid transparent;
 }
 
-.header-contact,
+.header-contact {
+  background: var(--brand-teal);
+  color: #ffffff;
+}
+
 .btn.primary {
   background: var(--teal);
   color: #062033;
+}
+
+.site-header .header-contact:hover {
+  background: color-mix(in srgb, var(--brand-teal) 88%, black);
 }
 
 .btn.secondary {
@@ -221,7 +233,7 @@ p { line-height: 1.7; }
   width: 44px;
   height: 44px;
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  border: 1px solid var(--line-on-paper);
   background: transparent;
   padding: 12px 10px;
   flex-direction: column;
@@ -233,26 +245,26 @@ p { line-height: 1.7; }
   display: block;
   height: 2px;
   width: 100%;
-  background: #e7f6ff;
+  background: var(--text-on-paper);
 }
 
 .mobile-nav {
-  background: #0c213c;
-  border-top: 1px solid var(--line-dark);
+  background: #ffffff;
+  border-top: 1px solid var(--line-on-paper);
   padding: 8px 24px 18px;
 }
 
 .mobile-nav a {
   display: block;
   padding: 12px 0;
-  color: #e7f3fb;
+  color: var(--text-on-paper);
   text-decoration: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--line-on-paper);
 }
 
 .mobile-label {
   margin: 14px 0 0;
-  color: var(--teal);
+  color: var(--brand-teal);
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.06em;

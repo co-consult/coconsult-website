@@ -1,4 +1,44 @@
 (() => {
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const revealNodes = [...document.querySelectorAll('[data-reveal]')];
+  if (revealNodes.length) {
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      revealNodes.forEach((node) => node.classList.add('is-in'));
+    } else {
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-in');
+            revealObserver.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.18, rootMargin: '0px 0px -8% 0px' },
+      );
+      revealNodes.forEach((node) => revealObserver.observe(node));
+    }
+  }
+
+  const ciiChart = document.querySelector('[data-cii-chart]');
+  if (ciiChart instanceof HTMLElement) {
+    const chartHost = ciiChart.closest('.cii-chart, .cii-showcase');
+    if (reduceMotion) chartHost?.classList.add('is-live');
+    else if ('IntersectionObserver' in window && chartHost) {
+      const chartObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            chartHost.classList.add('is-live');
+            chartObserver.disconnect();
+          });
+        },
+        { threshold: 0.35 },
+      );
+      chartObserver.observe(chartHost);
+    }
+  }
+
   const system = document.querySelector('.system');
   const focusRead = document.querySelector('.focus-read');
   if (system instanceof HTMLElement && focusRead instanceof HTMLElement) {
@@ -237,7 +277,6 @@
     });
   });
 
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.querySelectorAll('[data-copharia-gallery]').forEach((gallery) => {
     if (!(gallery instanceof HTMLElement)) return;
     const img = gallery.querySelector('[data-screen]');
