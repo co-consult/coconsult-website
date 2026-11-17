@@ -4,6 +4,7 @@
 @keyframes travel { from { offset-distance: 0%; } to { offset-distance: 100%; } }
 @keyframes value-rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 @keyframes cii-draw { to { stroke-dashoffset: 0; } }
+@keyframes hero-rise { from { transform: translateY(14px); } to { transform: none; } }
 .experience {
   --night: var(--surface-night);
   --night-2: #0d1b2c;
@@ -139,16 +140,22 @@ a { color: inherit; }
 .hero-copy {
   max-width: 680px;
   padding-left: clamp(8px, 3vw, 48px);
-  animation: rise 0.9s cubic-bezier(0.22, 0.7, 0.2, 1) both;
+  /* Transform only: opacity on the hero would muddle CTA contrast mid-animation (axe). */
+  animation: hero-rise 0.9s cubic-bezier(0.22, 0.7, 0.2, 1) both;
 }
 .hero .system,
 .hero .behind-scene {
-  animation: rise 1.05s cubic-bezier(0.22, 0.7, 0.2, 1) 0.12s both;
+  animation: hero-rise 1.05s cubic-bezier(0.22, 0.7, 0.2, 1) 0.12s both;
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-copy,
   .hero .system,
   .hero .behind-scene { animation: none; }
+}
+.hero .btn.primary {
+  background: var(--cyan);
+  color: #062033;
+  isolation: isolate;
 }
 .eyebrow, .mono {
   font-family: var(--mono);
@@ -325,8 +332,9 @@ g.field { opacity: 0.45; }
 .paper .eyebrow { color: var(--brand-teal); }
 .paper .btn.primary {
   background: var(--brand-teal);
-  color: #fff;
+  color: #ffffff;
   border-color: var(--brand-teal);
+  isolation: isolate;
 }
 
 [data-reveal] {
