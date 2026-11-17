@@ -313,6 +313,9 @@ const demo = fr
             </button>
           ))}
         </div>
+        <p class="focus-caption" aria-hidden="true" data-all={copy.focusAll}>
+          <span class="focus-typed" data-focus-typed>{copy.focusAll}</span><span class="focus-caret" aria-hidden="true"></span>
+        </p>
       </div>
       <div class="mobile-nodes">
         <div class="mobile-core" aria-hidden="true"><strong>{copy.core}</strong></div>
@@ -322,8 +325,11 @@ const demo = fr
             <span>{label}</span>
           </button>
         ))}
+        <p class="focus-caption" aria-hidden="true" data-all={copy.focusAll}>
+          <span class="focus-typed" data-focus-typed>{copy.focusAll}</span><span class="focus-caret" aria-hidden="true"></span>
+        </p>
       </div>
-      <p class="focus-read" aria-live="polite" data-all={copy.focusAll}>{copy.focusAll}</p>
+      <p class="sr-only" aria-live="polite" data-focus-live>{copy.focusAll}</p>
     </div>
       )}
   </section>
