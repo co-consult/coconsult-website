@@ -179,7 +179,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'Développement, IA, cloud et qualité | Coconsult',
     description:
       'Développement logiciel, applications web et mobiles, cloud, data et IA, qualité, cybersécurité et équipes IT.',
-    eyebrow: 'NOS OFFRES',
+    eyebrow: 'Nos offres',
     h1: 'Six familles de solutions pour vos systèmes.',
     intro:
       'Chaque famille ouvre une page déjà publiée. Les modalités de collaboration viennent ensuite, selon le périmètre.',
@@ -528,7 +528,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'Secteurs d’expérience | Coconsult',
     description:
       'Environnements métier où l’ingénierie Coconsult a déjà été exercée : finance et paiements, mobilité, retail, médias, télécoms, sport, systèmes métier, et santé pharmaceutique en domaine émergent.',
-    eyebrow: 'SECTEURS',
+    eyebrow: 'Secteurs',
     h1: 'Notre ingénierie au service de vos métiers.',
     intro:
       'Finance, mobilité, retail, médias, télécoms, sport, systèmes métier et santé : des contextes où nos consultants ont déjà accompagné des projets d’ingénierie logicielle, de DevOps et de QA.',
@@ -539,7 +539,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'Solutions et plateformes | Coconsult',
     description:
       'COPHARIA, ERP pharmaceutique en développement, et des plateformes livrées : opérations sportives, gestion documentaire. Demandez une démonstration depuis Contact.',
-    eyebrow: 'SOLUTIONS',
+    eyebrow: 'Solutions',
     h1: 'Les solutions que Coconsult construit.',
     intro:
       'Une solution Coconsult en cours de développement, et des plateformes déjà livrées. Les deux ne se confondent pas : le produit et les réalisations restent distincts.',
@@ -571,7 +571,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'Réalisations d’ingénierie | Coconsult',
     description:
       'Réalisations Coconsult : CSS Forever, plateforme sportive en service, et un logiciel métier livré dont les écrans ne sont pas publiés.',
-    eyebrow: 'RÉALISATIONS',
+    eyebrow: 'Réalisations',
     h1: 'Des systèmes livrés, décrits avec précision.',
     intro:
       'Deux réalisations documentées. CSS Forever est montré par trois écrans réels. L’autre logiciel a été livré avec cession du code source ; ses écrans ne sont pas publiés.',
@@ -596,7 +596,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'À propos de Coconsult | Paris et Sfax',
     description:
       'COCONSULT SAS, société française fondée en 2018, accompagne ses clients depuis Paris et collabore avec Coconsult Nearshore, société tunisienne indépendante basée à Sfax.',
-    eyebrow: 'À PROPOS',
+    eyebrow: 'À propos',
     h1: 'Une société d’ingénierie française, en collaboration avec Sfax.',
     intro:
       'Depuis 2018, COCONSULT conçoit et intègre des applications métier depuis la France, en collaboration avec Coconsult Nearshore à Sfax — société tunisienne juridiquement indépendante.',
@@ -653,7 +653,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'Agrément CII et innovation logicielle | Coconsult',
     description:
       'Décision DRIEETS Île-de-France du 4 février 2026 : agrément n° 28910108 pour 2026-2030. Il ne rend pas un projet éligible au crédit d’impôt.',
-    eyebrow: 'INNOVATION',
+    eyebrow: 'Innovation',
     h1: 'Accompagner un projet d’innovation logicielle.',
     intro:
       'COCONSULT conçoit et fait évoluer des logiciels. Une décision du 4 février 2026 de la DRIEETS Île-de-France lui accorde un agrément Crédit d’impôt innovation, n° 28910108, pour les années 2026 à 2030. Cet agrément ne décide pas, à lui seul, qu’un projet ouvre droit à un crédit d’impôt.',
@@ -700,7 +700,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'Partenariats et clients pilotes | Coconsult',
     description:
       'Coconsult accueille des clients pilotes et des partenaires commerciaux ou techniques. Le cadre, le périmètre et le statut du pilote sont écrits avant de commencer.',
-    eyebrow: 'PARTENARIATS',
+    eyebrow: 'Partenariats',
     h1: 'Pilotes et partenariats, avec un périmètre écrit.',
     intro:
       'Un pilote sert à vérifier qu’une solution en développement ou qu’un dispositif d’équipe répond à un cas réel. Un partenariat commercial ou technique se discute lorsque les rôles de chacun sont clairs.',
@@ -732,7 +732,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'Parlons de votre prochain système | Coconsult',
     description:
       'Décrivez le système à construire : projet, équipe, intelligence artificielle ou démonstration. L’adresse contact@coconsult.fr est sur la page.',
-    eyebrow: 'CONTACT',
+    eyebrow: 'Contact',
     h1: 'Parlons de votre prochain système.',
     h1Accent: 'Projet, équipe, IA ou démonstration.',
     intro: 'La confirmation n’apparaît qu’une fois la demande acceptée. Sinon, le message se prépare dans votre messagerie.',
@@ -852,7 +852,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'Externalisation IT, équipes dédiées et nearshore | Coconsult',
     description:
       'Externalisation IT en assistance technique, équipes dédiées, nearshore en Tunisie ou collaboration au forfait. Coconsult Nearshore est une société distincte.',
-    eyebrow: 'MODES D’INTERVENTION',
+    eyebrow: 'Modes d’intervention',
     h1: 'Choisir la forme de l’externalisation IT.',
     intro:
       'Selon le périmètre, la collaboration se fait en assistance technique, en équipes dédiées, en nearshore en Tunisie ou au forfait. Le conseil s’ajoute lorsque le projet doit être cadré avant ou pendant la réalisation.',

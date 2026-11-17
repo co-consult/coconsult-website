@@ -40,7 +40,7 @@ const faqs = faqBlock?.type === 'faq' ? faqBlock.items : [];
             </ol>
           </nav>
         )}
-        {page.key === 'about' || page.key === 'services' || page.key === 'cases' ? (
+        {page.key === 'about' || page.key === 'services' || page.key === 'cases' || page.key === 'solutions' ? (
           <div class="about-hero-grid editorial-hero">
             <div class="about-hero-copy">
               <p class="eyebrow">{page.eyebrow}</p>
@@ -55,7 +55,9 @@ const faqs = faqBlock?.type === 'faq' ? faqBlock.items : [];
                     ? '/assets/people/engineer-desk.jpg'
                     : page.key === 'services'
                       ? '/assets/people/architecture-review.jpg'
-                      : '/assets/people/delivery-room.jpg'
+                      : page.key === 'solutions'
+                        ? '/assets/people/engineers-collab.jpg'
+                        : '/assets/people/delivery-room.jpg'
                 }
                 alt=""
                 width="1200"
@@ -72,6 +74,7 @@ const faqs = faqBlock?.type === 'faq' ? faqBlock.items : [];
                   </>
                 )}
                 {page.key === 'services' && <span>{locale === 'fr' ? 'Offres d’ingénierie' : 'Engineering offers'}</span>}
+                {page.key === 'solutions' && <span>{locale === 'fr' ? 'Produits & plateformes' : 'Products & platforms'}</span>}
                 {page.key === 'cases' && <span>{locale === 'fr' ? 'Systèmes livrés' : 'Systems delivered'}</span>}
               </div>
             </div>
@@ -87,7 +90,7 @@ const faqs = faqBlock?.type === 'faq' ? faqBlock.items : [];
     </header>
   )}
   {!customShell && (
-    <div class:list={[{ 'page-surface': true, 'page-surface-services': page.key === 'services', 'page-surface-cases': page.key === 'cases' }]}>
+    <div class:list={[{ 'page-surface': true, 'page-surface-services': page.key === 'services', 'page-surface-cases': page.key === 'cases', 'page-surface-solutions': page.key === 'solutions' }]}>
       <Blocks locale={locale} blocks={blocks} />
     </div>
   )}

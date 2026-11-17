@@ -133,7 +133,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'Software, AI, cloud and quality | Coconsult',
     description:
       'Software development, web and mobile applications, cloud, data and AI, quality, cybersecurity and IT teams.',
-    eyebrow: 'OUR OFFERS',
+    eyebrow: 'Our offers',
     h1: 'Six solution families for your systems.',
     intro:
       'Each family opens a page that is already published. How we collaborate comes next, according to the scope.',
@@ -479,7 +479,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'Industry experience | Coconsult',
     description:
       'Business environments where Coconsult engineering has already been practised: finance and payments, mobility, retail, media, telecom, sports, business systems, and healthcare pharmaceuticals as an emerging domain.',
-    eyebrow: 'INDUSTRIES',
+    eyebrow: 'Industries',
     h1: 'Our engineering in the service of your industries.',
     intro:
       'Finance, mobility, retail, media, telecom, sports, business systems and healthcare: contexts where our consultants have already supported software engineering, DevOps and QA projects.',
@@ -490,7 +490,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'Solutions and platforms | Coconsult',
     description:
       'COPHARIA, a pharmaceutical ERP in development, and delivered platforms: sports operations, document workflows. Request a demonstration from Contact.',
-    eyebrow: 'SOLUTIONS',
+    eyebrow: 'Solutions',
     h1: 'Products Coconsult is building.',
     intro:
       'One Coconsult solution still in development, and platforms already delivered. The two stay distinct: the product and the case studies are not the same thing.',
@@ -522,7 +522,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'Engineering case studies | Coconsult',
     description:
       'Coconsult deliveries: CSS Forever, a sports platform in use, and a business system whose screens are not published.',
-    eyebrow: 'CASE STUDIES',
+    eyebrow: 'Case studies',
     h1: 'Systems we have delivered.',
     intro:
       'Two documented deliveries. CSS Forever is shown with three real screens. The other system was delivered with its source code transferred; its screens are not published.',
@@ -547,7 +547,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'About Coconsult | Paris and Sfax',
     description:
       'COCONSULT SAS, a French company founded in 2018, supports clients from Paris and works with Coconsult Nearshore, an independent Tunisian company based in Sfax.',
-    eyebrow: 'ABOUT',
+    eyebrow: 'About',
     h1: 'A French engineering company, in collaboration with Sfax.',
     intro:
       'Since 2018, COCONSULT designs and integrates business applications from France, working with Coconsult Nearshore in Sfax — a legally independent Tunisian company.',
@@ -604,7 +604,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'CII agreement and software innovation | Coconsult',
     description:
       'DRIEETS Île-de-France decision of 4 February 2026: agreement no. 28910108 for 2026-2030. It does not make a project eligible for the tax credit.',
-    eyebrow: 'INNOVATION',
+    eyebrow: 'Innovation',
     h1: 'Support a software innovation project.',
     intro:
       'COCONSULT designs and evolves software. A decision of 4 February 2026 by DRIEETS Île-de-France grants it a French innovation tax credit agreement, no. 28910108, for 2026 to 2030. The agreement does not, by itself, mean a project qualifies for a tax credit.',
@@ -651,7 +651,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'Partnerships and pilot customers | Coconsult',
     description:
       'Coconsult works with pilot customers and commercial or technical partners. Scope and pilot status are written down before work starts.',
-    eyebrow: 'PARTNERSHIPS',
+    eyebrow: 'Partnerships',
     h1: 'Pilots and partnerships with a written scope.',
     intro:
       'A pilot checks whether a solution in development, or a team setup, fits a real case. A commercial or technical partnership is discussed when each side’s role is clear.',
@@ -683,7 +683,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: "Let's talk about your next system | Coconsult",
     description:
       'Describe the system to build: a project, a team, artificial intelligence or a demonstration. contact@coconsult.fr is on the page.',
-    eyebrow: 'CONTACT',
+    eyebrow: 'Contact',
     h1: "Let's talk about your next system.",
     h1Accent: 'A project, a team, AI, or a demonstration.',
     intro: 'Confirmation appears only after the enquiry is accepted. Otherwise the message is prepared in your mail software.',
@@ -803,7 +803,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'IT outsourcing, dedicated teams and nearshore | Coconsult',
     description:
       'IT outsourcing as staff augmentation, dedicated teams, nearshore in Tunisia or a fixed scope. Coconsult Nearshore is a separate company.',
-    eyebrow: 'WAYS OF WORKING',
+    eyebrow: 'Ways of working',
     h1: 'Choose the form of IT outsourcing.',
     intro:
       'Depending on the scope, the work is staff augmentation, a dedicated team, nearshore in Tunisia or a fixed scope. Advisory is added when the project needs a frame before or during delivery.',

@@ -342,22 +342,20 @@ const demo = fr
   </section>
 
   <section class="section paper value-section" id="valeur" data-reveal>
-    <div class="value-split">
-      <div class="section-head value-split-copy">
-        <p class="eyebrow">{copy.valueKicker}</p>
-        <div class="section-copy">
-          <h2>{copy.valueTitle}</h2>
-          <p class="lede-soft">{copy.valueIntro}</p>
-        </div>
+    <div class="section-head">
+      <p class="eyebrow">{copy.valueKicker}</p>
+      <div class="section-copy">
+        <h2>{copy.valueTitle}</h2>
+        <p class="lede-soft">{copy.valueIntro}</p>
       </div>
-      <figure class="people-frame">
-        <img src="/assets/people/engineers-collab.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
-        <figcaption>
-          <span class="people-kicker">{fr ? 'Maison d’ingénierie' : 'Engineering house'}</span>
-          <strong>{fr ? 'Cadrage, architecture, delivery' : 'Scoping, architecture, delivery'}</strong>
-        </figcaption>
-      </figure>
     </div>
+    <figure class="people-frame value-media">
+      <img src="/assets/people/engineers-collab.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
+      <figcaption>
+        <span class="people-kicker">{fr ? 'Maison d’ingénierie' : 'Engineering house'}</span>
+        <strong>{fr ? 'Cadrage, architecture, delivery' : 'Scoping, architecture, delivery'}</strong>
+      </figcaption>
+    </figure>
     <ul class="value-grid">
       {copy.values.map(([icon, title, text], index) => (
         <li class="value-card" style={`--delay:${index * 80}ms`}>
@@ -383,11 +381,15 @@ const demo = fr
   </section>
 
   <section class="section paper cii-showcase" id="cii" data-reveal aria-labelledby="cii-showcase-title">
+    <div class="section-head">
+      <p class="eyebrow">{copy.ciiKicker}</p>
+      <div class="section-copy">
+        <h2 id="cii-showcase-title">{copy.ciiTitle}</h2>
+        <p class="lede-soft">{copy.ciiLead}</p>
+      </div>
+    </div>
     <div class="cii-showcase-grid">
       <div class="cii-showcase-copy">
-        <p class="eyebrow">{copy.ciiKicker}</p>
-        <h2 id="cii-showcase-title">{copy.ciiTitle}</h2>
-        <p class="cii-lead">{copy.ciiLead}</p>
         <ul class="cii-benefits">
           {copy.ciiBenefits.map(([title, text]) => (
             <li>
@@ -419,23 +421,21 @@ const demo = fr
     </div>
   </section>
 
-  <section class="section" id="expertises" data-reveal>
-    <div class="value-split expertise-split">
-      <div class="section-head value-split-copy">
-        <p class="eyebrow">{copy.exKicker}</p>
-        <div class="section-copy">
-          <h2>{copy.exTitle}</h2>
-          <p>{copy.exIntro}</p>
-        </div>
+  <section class="section paper" id="expertises" data-reveal>
+    <div class="section-head">
+      <p class="eyebrow">{copy.exKicker}</p>
+      <div class="section-copy">
+        <h2>{copy.exTitle}</h2>
+        <p class="lede-soft">{copy.exIntro}</p>
       </div>
-      <figure class="people-frame people-frame-portrait">
-        <img src="/assets/people/architecture-review.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
-        <figcaption>
-          <span class="people-kicker">{fr ? 'Expertise en action' : 'Expertise in action'}</span>
-          <strong>{fr ? 'Du schéma au système livré' : 'From sketch to shipped system'}</strong>
-        </figcaption>
-      </figure>
     </div>
+    <figure class="people-frame value-media">
+      <img src="/assets/people/architecture-review.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
+      <figcaption>
+        <span class="people-kicker">{fr ? 'Expertise en action' : 'Expertise in action'}</span>
+        <strong>{fr ? 'Du schéma au système livré' : 'From sketch to shipped system'}</strong>
+      </figcaption>
+    </figure>
     <div class="stage">
       <div class="skill-list">
         {skills.map(([id, label], index) => (
@@ -546,6 +546,12 @@ const demo = fr
   </section>
 
   <section class="section paper modes-section" id="modes" data-reveal>
+    <div class="section-head">
+      <p class="eyebrow">{copy.modeKicker}</p>
+      <div class="section-copy">
+        <h2>{copy.modeTitle}</h2>
+      </div>
+    </div>
     <div class="modes-split">
       <figure class="people-frame people-frame-portrait">
         <img src="/assets/people/expert-portrait.jpg" alt="" width="900" height="1200" loading="lazy" decoding="async" />
@@ -554,20 +560,14 @@ const demo = fr
           <strong>{fr ? 'Des ingénieurs au plus près du métier' : 'Engineers close to the business'}</strong>
         </figcaption>
       </figure>
-      <div>
-        <div class="section-head">
-          <p class="eyebrow">{copy.modeKicker}</p>
-          <h2>{copy.modeTitle}</h2>
-        </div>
-        <div class="mode-row" data-stagger>
-          {copy.modes.map(([title, text], index) => (
-            <article class={`mode mode-${index}`}>
-              <span class="mode-ico" aria-hidden="true"></span>
-              <strong>{title}</strong>
-              <p>{text}</p>
-            </article>
-          ))}
-        </div>
+      <div class="mode-row" data-stagger>
+        {copy.modes.map(([title, text], index) => (
+          <article class={`mode mode-${index}`}>
+            <span class="mode-ico" aria-hidden="true"></span>
+            <strong>{title}</strong>
+            <p>{text}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>

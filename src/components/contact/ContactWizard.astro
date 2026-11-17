@@ -200,12 +200,16 @@ const copy = fr
           </ol>
         </nav>
       )}
-      <p class="eyebrow">Coconsult</p>
-      <h1 data-contact-heading>
-        <span data-heading-main>{page.h1}</span>
-        {page.h1Accent && <span class="accent" data-heading-accent>{page.h1Accent}</span>}
-      </h1>
-      <p class="prepare-note" data-contact-intro>{page.intro}</p>
+      <div class="section-head contact-heading">
+        <p class="eyebrow">{page.eyebrow || 'Contact'}</p>
+        <div class="section-copy">
+          <h1 data-contact-heading>
+            <span data-heading-main>{page.h1}</span>
+            {page.h1Accent && <span class="accent" data-heading-accent>{page.h1Accent}</span>}
+          </h1>
+          <p class="prepare-note" data-contact-intro>{page.intro}</p>
+        </div>
+      </div>
       <p class="topic-flag" id="topic-flag" hidden></p>
       <div class="contact-progress" aria-hidden="true">
         <span class="contact-progress-bar" data-progress-bar></span>
