@@ -307,14 +307,20 @@ const demo = fr
         <div class="core-label"><strong>{copy.core}</strong></div>
         <div class="nodes">
           {copy.lanes.map(([id, label, focus]) => (
-            <button class={`node node-${id}`} type="button" data-lane={id} data-focus-text={focus} aria-pressed="false"><span>{label}</span></button>
+            <button class={`node node-${id}`} type="button" data-lane={id} data-focus-text={focus} aria-pressed="false">
+              <span class={`node-ico node-ico-${id}`} aria-hidden="true"></span>
+              <span>{label}</span>
+            </button>
           ))}
         </div>
       </div>
       <div class="mobile-nodes">
         <div class="mobile-core" aria-hidden="true"><strong>{copy.core}</strong></div>
         {copy.lanes.map(([id, label, focus]) => (
-          <button class="node" type="button" data-lane={id} data-focus-text={focus} aria-pressed="false"><span>{label}</span></button>
+          <button class="node" type="button" data-lane={id} data-focus-text={focus} aria-pressed="false">
+            <span class={`node-ico node-ico-${id}`} aria-hidden="true"></span>
+            <span>{label}</span>
+          </button>
         ))}
       </div>
       <p class="focus-read" aria-live="polite" data-all={copy.focusAll}>{copy.focusAll}</p>
@@ -374,22 +380,19 @@ const demo = fr
           <a class="btn ghost" href={projectHref}>{talk}</a>
         </div>
       </div>
-      <aside class="cii-chart" aria-label={copy.ciiChartLabel}>
-        <p class="cii-chart-label">{copy.ciiChartLabel}</p>
-        <p class="cii-chart-ref">n° {company.cii.number}</p>
-        <div class="cii-bars" data-cii-chart>
-          {ciiYears.map((year, index) => (
-            <div class="cii-bar" style={`--i:${index}`}>
-              <span class="cii-bar-fill"></span>
-              <span class="cii-bar-year">{year}</span>
-            </div>
-          ))}
+      <aside class="cii-seal" aria-label={copy.ciiChartLabel} data-cii-chart>
+        <div class="cii-seal-brand">
+          <img src="/assets/brand/coconsult-logo.png" alt="" width="148" height="102" loading="lazy" decoding="async" />
         </div>
-        <p class="cii-chart-cap">{company.cii.authority}</p>
-        <svg class="cii-spark" viewBox="0 0 280 120" role="img" aria-hidden="true">
-          <path class="cii-spark-line" d="M12 88 C 48 88, 56 70, 84 62 C 112 54, 120 40, 148 36 C 176 32, 188 28, 216 24 C 244 20, 252 18, 268 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" pathLength="1" />
-          <circle class="cii-spark-dot" cx="268" cy="16" r="4" fill="currentColor" />
-        </svg>
+        <p class="cii-seal-kicker">{copy.ciiChartLabel}</p>
+        <p class="cii-seal-number">n° {company.cii.number}</p>
+        <ul class="cii-year-chips">
+          {ciiYears.map((year) => (
+            <li>{year}</li>
+          ))}
+        </ul>
+        <p class="cii-seal-cap">{company.cii.authority}</p>
+        <p class="cii-seal-mark">{locale === 'fr' ? 'Prestataire agréé' : 'Approved provider'}</p>
       </aside>
     </div>
   </section>

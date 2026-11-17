@@ -22,7 +22,7 @@
 
   const ciiChart = document.querySelector('[data-cii-chart]');
   if (ciiChart instanceof HTMLElement) {
-    const chartHost = ciiChart.closest('.cii-chart, .cii-showcase');
+    const chartHost = ciiChart.closest('.cii-seal, .cii-chart, .cii-showcase') || ciiChart;
     if (reduceMotion) chartHost?.classList.add('is-live');
     else if ('IntersectionObserver' in window && chartHost) {
       const chartObserver = new IntersectionObserver(

@@ -824,6 +824,7 @@ export const pages: Record<RouteKey, PageContent> = {
       },
       {
         type: 'prose',
+        visual: 'entities',
         paragraphs: [
           'IT outsourcing is led from France by COCONSULT. When it includes nearshore work in Tunisia, the skills come through Coconsult Nearshore, a legally independent Tunisian company based in Sfax. The two companies are not the same.',
           'The quotation, the contract and the invoice name the company that contracts with the client.',
@@ -831,6 +832,7 @@ export const pages: Record<RouteKey, PageContent> = {
       },
       {
         type: 'prose',
+        visual: 'nearshore',
         title: 'Nearshore in Tunisia',
         paragraphs: [
           'Coconsult Nearshore, in Sfax, brings engineering skills for clients supported from France. The two companies have different directors. No capital link is asserted.',

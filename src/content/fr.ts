@@ -873,6 +873,7 @@ export const pages: Record<RouteKey, PageContent> = {
       },
       {
         type: 'prose',
+        visual: 'entities',
         paragraphs: [
           'L’externalisation IT est portée depuis la France par COCONSULT. Lorsqu’elle inclut un nearshore en Tunisie, les compétences passent par Coconsult Nearshore, société tunisienne juridiquement indépendante, basée à Sfax. Les deux sociétés ne se confondent pas.',
           'Le devis, le contrat et la facture identifient la société qui contracte avec le client.',
@@ -880,6 +881,7 @@ export const pages: Record<RouteKey, PageContent> = {
       },
       {
         type: 'prose',
+        visual: 'nearshore',
         title: 'Nearshore en Tunisie',
         paragraphs: [
           'Coconsult Nearshore, à Sfax, mobilise des compétences d’ingénierie pour des clients accompagnés depuis la France. Les deux sociétés ont des dirigeants différents. Aucun lien capitalistique n’est affirmé.',
