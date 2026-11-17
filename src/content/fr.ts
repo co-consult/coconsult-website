@@ -584,6 +584,8 @@ export const pages: Record<RouteKey, PageContent> = {
       },
       {
         type: 'prose',
+        title: 'Une limite claire',
+        visual: 'note',
         paragraphs: [
           'Lorsqu’un logiciel a été remis au client, il n’est pas proposé comme un produit Coconsult.',
         ],
@@ -872,7 +874,8 @@ export const pages: Record<RouteKey, PageContent> = {
       },
       {
         type: 'prose',
-        visual: 'entities',
+        visual: 'collab',
+        title: 'Deux sociétés, un dispositif',
         paragraphs: [
           'L’externalisation IT est portée depuis la France par COCONSULT. Lorsqu’elle inclut un nearshore en Tunisie, les compétences passent par Coconsult Nearshore, société tunisienne juridiquement indépendante, basée à Sfax. Les deux sociétés ne se confondent pas.',
           'Le devis, le contrat et la facture identifient la société qui contracte avec le client.',
@@ -880,7 +883,7 @@ export const pages: Record<RouteKey, PageContent> = {
       },
       {
         type: 'prose',
-        visual: 'nearshore',
+        visual: 'entities',
         title: 'Nearshore en Tunisie',
         paragraphs: [
           'Coconsult Nearshore, à Sfax, mobilise des compétences d’ingénierie pour des clients accompagnés depuis la France. Les deux sociétés ont des dirigeants différents. Aucun lien capitalistique n’est affirmé.',

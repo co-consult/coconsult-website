@@ -108,11 +108,26 @@ const laneFor = (key?: string) => {
           </>
         )}
         {block.type === 'prose' && (
-          <div class:list={['prose-block', block.visual && 'has-visual', block.visual && `prose-visual-${block.visual}`]}>
+          <div class:list={['prose-block', block.visual && 'has-visual', block.visual && `prose-visual-${block.visual}`, block.visual === 'note' && 'prose-note']}>
             <div class="prose section-intro">
               {block.title && <h2>{block.title}</h2>}
               {block.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
             </div>
+            {block.visual === 'note' && (
+              <aside class="prose-note-mark" aria-hidden="true">
+                <span>{locale === 'fr' ? 'Limite' : 'Boundary'}</span>
+                <strong>{locale === 'fr' ? 'Livrable client ≠ produit Coconsult' : 'Client deliverable ≠ Coconsult product'}</strong>
+              </aside>
+            )}
+            {block.visual === 'collab' && (
+              <figure class="prose-photo-panel">
+                <img src="/assets/people/engineers-collab.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
+                <figcaption>
+                  <span>{locale === 'fr' ? 'Collaboration' : 'Collaboration'}</span>
+                  <strong>{locale === 'fr' ? 'Paris · Sfax · un même cadrage' : 'Paris · Sfax · one framing'}</strong>
+                </figcaption>
+              </figure>
+            )}
             {block.visual === 'entities' && (
               <div class="entity-map prose-visual-panel" aria-hidden="true">
                 <div class="entity-card entity-fr">
@@ -327,13 +342,18 @@ const laneFor = (key?: string) => {
           </>
         )}
         {block.type === 'cta' && (
-          <div class="section-intro">
-            <h2>{block.title}</h2>
-            <p>{block.text}</p>
-            <div class="cta-actions">
-              <a class="btn primary" href={contactPath(locale, block.primary, block.product)}>{block.product === 'copharia' ? (locale === 'fr' ? 'Demander une démonstration de COPHARIA' : 'Request a COPHARIA demonstration') : getInquiry(locale, block.primary).label}</a>
-              {block.secondary && <a class="btn secondary" href={contactPath(locale, block.secondary)}>{block.secondary === 'team' ? (locale === 'fr' ? 'Constituer une équipe' : 'Build your team') : getInquiry(locale, block.secondary).label}</a>}
+          <div class="cta-panel">
+            <div class="section-intro cta-copy">
+              <h2>{block.title}</h2>
+              <p>{block.text}</p>
+              <div class="cta-actions">
+                <a class="btn primary" href={contactPath(locale, block.primary, block.product)}>{block.product === 'copharia' ? (locale === 'fr' ? 'Demander une démonstration de COPHARIA' : 'Request a COPHARIA demonstration') : getInquiry(locale, block.primary).label}</a>
+                {block.secondary && <a class="btn secondary" href={contactPath(locale, block.secondary)}>{block.secondary === 'team' ? (locale === 'fr' ? 'Constituer une équipe' : 'Build your team') : getInquiry(locale, block.secondary).label}</a>}
+              </div>
             </div>
+            <figure class="cta-photo" aria-hidden="true">
+              <img src="/assets/people/delivery-room.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
+            </figure>
           </div>
         )}
       </div>
