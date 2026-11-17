@@ -527,7 +527,12 @@ export const pages: Record<RouteKey, PageContent> = {
     intro:
       'Two documented deliveries. CSS Forever is shown with three real screens. The other system was delivered with its source code transferred; its screens are not published.',
     blocks: [
-      { type: 'work', source: 'cases', title: 'Delivered projects' },
+      {
+        type: 'work',
+        source: 'cases',
+        title: 'Delivered projects',
+        intro: 'Each case states the context, the work and the outcome — without turning a client deliverable into a Coconsult product.',
+      },
       {
         type: 'prose',
         paragraphs: [
@@ -806,7 +811,9 @@ export const pages: Record<RouteKey, PageContent> = {
     blocks: [
       {
         type: 'columns',
+        layout: 'rail',
         title: 'Five ways to engage',
+        intro: 'One counterpart in France. The shape changes with scope, pace and how much framing the project needs.',
         items: [
           { title: 'Staff augmentation', text: 'One or more engineers on a time-and-materials basis, for an identified stretch of delivery.' },
           { title: 'Dedicated teams', text: 'A squad followed over time, coordinated from France.' },

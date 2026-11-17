@@ -576,7 +576,12 @@ export const pages: Record<RouteKey, PageContent> = {
     intro:
       'Deux réalisations documentées. CSS Forever est montré par trois écrans réels. L’autre logiciel a été livré avec cession du code source ; ses écrans ne sont pas publiés.',
     blocks: [
-      { type: 'work', source: 'cases', title: 'Projets livrés' },
+      {
+        type: 'work',
+        source: 'cases',
+        title: 'Projets livrés',
+        intro: 'Chaque cas décrit le contexte, l’intervention et le résultat — sans transformer un livrable client en produit Coconsult.',
+      },
       {
         type: 'prose',
         paragraphs: [
@@ -855,7 +860,9 @@ export const pages: Record<RouteKey, PageContent> = {
     blocks: [
       {
         type: 'columns',
+        layout: 'rail',
         title: 'Cinq façons de travailler',
+        intro: 'Un même interlocuteur en France. La forme change selon le périmètre, le rythme et le niveau de cadrage.',
         items: [
           { title: 'Assistance technique', text: 'Régie d’un ou plusieurs ingénieurs, pour un palier identifié.' },
           { title: 'Équipes dédiées', text: 'Une squad suivie dans la durée, avec coordination depuis la France.' },
