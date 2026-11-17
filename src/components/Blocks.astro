@@ -24,7 +24,7 @@ const laneFor = (key?: string) => {
 {blocks.map((block, index) => {
   const tone = block.type === 'cta' ? 'band-dark' : tones[index % tones.length];
   return (
-    <section class:list={['section', tone]}>
+    <section class:list={['section', tone]} data-reveal style={`--reveal-delay:${Math.min(index, 4) * 60}ms`}>
       <div class="container">
         {block.type === 'cards' && (
           <>
@@ -32,7 +32,7 @@ const laneFor = (key?: string) => {
               <h2>{block.title}</h2>
               {block.intro && <p>{block.intro}</p>}
             </div>
-            <div class:list={['card-grid', { bento: block.layout === 'bento', five: block.layout !== 'bento' && block.items.length > 4 }]}>
+            <div class:list={['card-grid', { bento: block.layout === 'bento', five: block.layout !== 'bento' && block.items.length > 4 }]} data-stagger>
               {block.items.map((item) => (
                 <article class="service-card" data-lane={laneFor(item.hrefKey)}>
                   {item.kicker && <p class="kicker-no">{item.kicker}</p>}
@@ -77,7 +77,7 @@ const laneFor = (key?: string) => {
               <h2>{block.title}</h2>
               {block.intro && <p>{block.intro}</p>}
             </div>
-            <div class:list={['column-grid', { rail: block.layout === 'rail' }]}>
+            <div class:list={['column-grid', { rail: block.layout === 'rail' }]} data-stagger>
               {block.items.map((item, itemIndex) => (
                 <article class="info-card">
                   {block.layout === 'rail' && <span class="rail-no">{String(itemIndex + 1).padStart(2, '0')}</span>}
@@ -94,7 +94,7 @@ const laneFor = (key?: string) => {
               <h2>{block.title}</h2>
               {block.intro && <p>{block.intro}</p>}
             </div>
-            <div class="steps">
+            <div class="steps" data-stagger>
               {block.items.map((item, stepIndex) => (
                 <article class="step">
                   <span class="step-no">{String(stepIndex + 1).padStart(2, '0')}</span>
@@ -165,7 +165,7 @@ const laneFor = (key?: string) => {
                   })}
               </div>
             ) : (
-              <div class="work-grid">
+              <div class="work-grid" data-stagger>
                 {visibleWork(block.source === 'cases' ? 'case' : 'solution').map((item) => {
                   if (item.id === 'iaps' || item.id === 'cssforever') return <WorkCase locale={locale} id={item.id} />;
                   if (item.id === 'copharia') return <CophariaFeature locale={locale} />;

@@ -27,7 +27,7 @@ const faqs = faqBlock?.type === 'faq' ? faqBlock.items : [];
   ) : page.key === 'sectors' ? (
     <SectorExperience locale={locale} page={page} />
   ) : (
-    <header class="page-hero">
+    <header class="page-hero" data-page-hero>
       <div class="container">
         {crumbs.length > 0 && (
           <nav aria-label={ui[locale].breadcrumb}>
