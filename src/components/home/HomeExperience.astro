@@ -4,6 +4,7 @@ import SectorMatrix from '@/components/visuals/SectorMatrix.astro';
 import WorkCase from '@/components/visuals/WorkCase.astro';
 import type { Locale } from '@/content/types';
 import { company } from '@/data/company';
+import { imageAlt } from '@/data/image-alts';
 import { contactPath } from '@/data/inquiries';
 import { pathFor } from '@/data/routes';
 
@@ -352,7 +353,7 @@ const demo = fr
     </div>
     <div class="value-body">
       <figure class="people-frame">
-        <img src="/assets/people/workshop-journey.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
+        <img src="/assets/people/workshop-journey.jpg" alt={imageAlt('/assets/people/workshop-journey.jpg', locale)} width="1280" height="720" loading="lazy" decoding="async" />
         <figcaption>
           <span class="people-kicker">{fr ? 'Maison d’ingénierie' : 'Engineering house'}</span>
           <strong>{fr ? 'Cadrage, architecture, delivery' : 'Scoping, architecture, delivery'}</strong>
@@ -434,7 +435,7 @@ const demo = fr
     </div>
     <div class="expertise-body expertise-stack">
       <figure class="people-frame expertise-photo">
-        <img src="/assets/people/engineer-focus.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
+        <img src="/assets/people/engineer-focus.jpg" alt={imageAlt('/assets/people/engineer-focus.jpg', locale)} width="1280" height="720" loading="lazy" decoding="async" />
         <figcaption>
           <span class="people-kicker">{fr ? 'Expertise en action' : 'Expertise in action'}</span>
           <strong>{fr ? 'Du schéma au système livré' : 'From sketch to shipped system'}</strong>
@@ -562,7 +563,7 @@ const demo = fr
     </div>
     <div class="modes-body">
       <figure class="people-frame">
-        <img src="/assets/people/team-standup.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
+        <img src="/assets/people/team-standup.jpg" alt={imageAlt('/assets/people/team-standup.jpg', locale)} width="1280" height="720" loading="lazy" decoding="async" />
         <figcaption>
           <span class="people-kicker">{fr ? 'Collaboration' : 'Collaboration'}</span>
           <strong>{fr ? 'Des ingénieurs au plus près du métier' : 'Engineers close to the business'}</strong>

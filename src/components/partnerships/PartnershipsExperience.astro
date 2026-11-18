@@ -1,6 +1,7 @@
 ---
 import FinalCta from '@/components/FinalCta.astro';
 import type { Locale, PageContent } from '@/content/types';
+import { imageAlt } from '@/data/image-alts';
 import { contactPath } from '@/data/inquiries';
 import { crumbsFor } from '@/lib/seo';
 import { ui } from '@/content/ui';
@@ -118,7 +119,7 @@ const copy = fr
           </div>
         </div>
         <figure class="partnerships-hero-art">
-          <img src="/assets/people/nearshore-pair.jpg" alt="" width="1280" height="720" loading="eager" decoding="async" />
+          <img src="/assets/people/nearshore-pair.jpg" alt={imageAlt('/assets/people/nearshore-pair.jpg', locale)} width="1280" height="720" loading="eager" decoding="async" />
           <figcaption>
             <span>{fr ? 'Collaboration' : 'Collaboration'}</span>
             <strong>{fr ? 'Un cadre écrit avant de démarrer' : 'A written frame before starting'}</strong>
@@ -140,7 +141,7 @@ const copy = fr
       {copy.doors.map((door) => (
         <article class="partnerships-door">
           <figure class="partnerships-door-media">
-            <img src={door.image} alt="" width="960" height="640" loading="lazy" decoding="async" />
+            <img src={door.image} alt={imageAlt(door.image, locale)} width="960" height="640" loading="lazy" decoding="async" />
             <figcaption>
               <span>{door.no}</span>
               <strong>{door.caption}</strong>

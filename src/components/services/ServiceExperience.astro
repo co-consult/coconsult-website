@@ -5,6 +5,7 @@ import { ui } from '@/content/ui';
 import { contactPath, getInquiry } from '@/data/inquiries';
 import { pathFor } from '@/data/routes';
 import { crumbsFor } from '@/lib/seo';
+import { imageAlt } from '@/data/image-alts';
 import { pageVisuals } from '@/data/page-visuals';
 
 interface Props { locale: Locale; page: PageContent }
@@ -34,7 +35,7 @@ const takeScope = () => {
 };
 
 const midImages: Partial<Record<RouteKey, string>> = {
-  software: '/assets/people/engineers-collab.jpg',
+  software: '/assets/people/nearshore-pair.jpg',
   dedicated: '/assets/people/team-standup.jpg',
   qa: '/assets/people/engineer-desk.jpg',
   cloud: '/assets/people/delivery-room.jpg',
@@ -82,7 +83,7 @@ const laneFor = (key?: string) => {
         {visual && (
           <div class="service-hero-art">
             <div class="service-hero-frame">
-              <img src={visual.image} alt="" width="1200" height="900" loading="eager" decoding="async" />
+              <img src={visual.image} alt={imageAlt(visual.image, locale)} width="1200" height="900" loading="eager" decoding="async" />
               <span class="service-hero-glow" aria-hidden="true"></span>
             </div>
             <span class="service-hero-tag">{visual.overlay[locale]}</span>
@@ -112,8 +113,8 @@ const laneFor = (key?: string) => {
           ))}
         </div>
         {blockIndex === 0 && midImage && (
-          <figure class="service-scope-media" aria-hidden="true">
-            <img src={midImage} alt="" width="960" height="720" loading="lazy" decoding="async" />
+          <figure class="service-scope-media">
+            <img src={midImage} alt={imageAlt(midImage, locale)} width="960" height="720" loading="lazy" decoding="async" />
             <figcaption>
               <span>{visual?.overlay[locale] || page.eyebrow}</span>
               <strong>{fr ? 'Livré avec vos équipes' : 'Delivered with your teams'}</strong>
@@ -173,8 +174,15 @@ const laneFor = (key?: string) => {
           {block.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
         </div>
         {midImage && (
-          <figure class="service-prose-media" aria-hidden="true">
-            <img src={visual?.image || midImage} alt="" width="900" height="700" loading="lazy" decoding="async" />
+          <figure class="service-prose-media">
+            <img
+              src={visual?.image || midImage}
+              alt={imageAlt(visual?.image || midImage, locale)}
+              width="900"
+              height="700"
+              loading="lazy"
+              decoding="async"
+            />
           </figure>
         )}
       </div>

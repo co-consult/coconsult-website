@@ -38,6 +38,11 @@ const copy = fr
       platformsTitle: 'Des systèmes déjà en service.',
       platformsIntro: 'Deux contextes livrés. Pour le récit complet, ouvrez l’étude de cas.',
       cases: 'Toutes les réalisations',
+      ciiKicker: 'Innovation',
+      ciiTitle: 'Produit en construction et agrément CII.',
+      ciiText:
+        'COPHARIA est un produit Coconsult en développement. Lorsqu’un donneur d’ordre étudie un prototype d’innovation logicielle, le cadre de l’agrément CII de COCONSULT (n° 28910108, 2026–2030) se lit à part. Il ne rend pas le projet éligible automatiquement.',
+      ciiLink: 'Lire le cadre Innovation et CII',
       endKicker: 'Prochaine étape',
       endTitle: 'Voir COPHARIA sur votre contexte.',
       endText: 'Indiquez le métier et le périmètre. Nous revenons pour convenir d’un échange sur le produit en développement.',
@@ -64,6 +69,11 @@ const copy = fr
       platformsTitle: 'Systems already in use.',
       platformsIntro: 'Two delivered contexts. Open the case study for the full account.',
       cases: 'All case studies',
+      ciiKicker: 'Innovation',
+      ciiTitle: 'A product in development and the CII agreement.',
+      ciiText:
+        'COPHARIA is a Coconsult product still being built. When a client is looking at a software innovation prototype, COCONSULT’s CII agreement (no. 28910108, 2026–2030) is read separately. It does not make the project automatically eligible.',
+      ciiLink: 'Read the Innovation and CII frame',
       endKicker: 'Next step',
       endTitle: 'See COPHARIA against your context.',
       endText: 'Share the business and the perimeter. We come back to arrange a conversation about the product in development.',
@@ -165,6 +175,19 @@ const copy = fr
     </div>
     <p class="solutions-platforms-more">
       <a class="btn ghost" href={pathFor(locale, 'cases')}>{copy.cases}</a>
+    </p>
+  </section>
+
+  <section class="section paper solutions-cii" data-reveal>
+    <div class="section-head">
+      <p class="eyebrow">{copy.ciiKicker}</p>
+      <div class="section-copy">
+        <h2>{copy.ciiTitle}</h2>
+        <p class="lede-soft">{copy.ciiText}</p>
+      </div>
+    </div>
+    <p class="solutions-platforms-more">
+      <a class="btn ghost" href={pathFor(locale, 'innovation')}>{copy.ciiLink}</a>
     </p>
   </section>
 

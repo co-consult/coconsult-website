@@ -4811,6 +4811,26 @@ textarea { min-height: 140px; resize: vertical; }
   font-size: 1.05rem;
   line-height: 1.55;
 }
+.delivery-limit .cases-cii-bridge {
+  margin-top: 14px;
+}
+.delivery-limit .text-link {
+  color: #0b5f6b;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.solutions-cii .lede-soft {
+  max-width: 68ch;
+}
+.solutions-page .text-link,
+.contact-shell .text-link,
+.experience .contact-note .text-link {
+  color: #0b5f6b;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 
 @media (max-width: 1100px) {
   .mode-spectrum { grid-template-columns: repeat(3, minmax(0, 1fr)); }
