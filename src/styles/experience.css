@@ -29,6 +29,18 @@
   from { object-position: 50% 40%; }
   to { object-position: 48% 55%; }
 }
+@keyframes people-note-float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(var(--tilt, -4deg)); opacity: 0.92; }
+  50% { transform: translate3d(var(--dx, 6px), var(--dy, -10px), 0) rotate(calc(var(--tilt, -4deg) + 3deg)); opacity: 1; }
+}
+@keyframes people-note-in {
+  from { opacity: 0; transform: translate3d(0, 14px, 0) scale(0.86) rotate(var(--tilt, -4deg)); }
+  to { opacity: 0.92; transform: translate3d(0, 0, 0) scale(1) rotate(var(--tilt, -4deg)); }
+}
+@keyframes people-wave-draw {
+  0%, 100% { stroke-dashoffset: 18; opacity: 0.45; }
+  50% { stroke-dashoffset: 0; opacity: 0.9; }
+}
 @keyframes caret-blink {
   0%, 45% { opacity: 1; }
   50%, 100% { opacity: 0; }
@@ -2372,6 +2384,7 @@ g.field { opacity: 0.45; }
   left: 16px;
   right: 16px;
   bottom: 16px;
+  z-index: 3;
   margin: 0;
   display: grid;
   gap: 4px;
@@ -2380,6 +2393,91 @@ g.field { opacity: 0.45; }
   background: linear-gradient(135deg, rgba(7, 17, 28, 0.78), rgba(2, 109, 123, 0.42));
   color: #f3f7fb;
   backdrop-filter: blur(8px);
+}
+.people-live {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+.people-note {
+  position: absolute;
+  width: clamp(22px, 3.2vw, 34px);
+  aspect-ratio: 1;
+  border-radius: 4px;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.4) inset,
+    0 0 0 1px rgba(255, 255, 255, 0.18),
+    0 10px 22px rgba(6, 32, 51, 0.28);
+  animation:
+    people-note-in 0.9s cubic-bezier(0.22, 0.7, 0.2, 1) both,
+    people-note-float 5.8s ease-in-out 0.9s infinite;
+}
+.people-note::after {
+  content: "";
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  top: 28%;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(18, 32, 51, 0.18);
+  box-shadow: 0 5px 0 rgba(18, 32, 51, 0.12), 0 10px 0 rgba(18, 32, 51, 0.1);
+}
+.people-note-a {
+  left: 14%;
+  top: 22%;
+  --tilt: -8deg;
+  --dx: 8px;
+  --dy: -12px;
+  background: #ffd166;
+  animation-delay: 0s, 0.9s;
+}
+.people-note-b {
+  left: 58%;
+  top: 16%;
+  --tilt: 6deg;
+  --dx: -7px;
+  --dy: 9px;
+  background: #8ef3ff;
+  animation-delay: 0.18s, 1.2s;
+  animation-duration: 0.9s, 6.4s;
+}
+.people-note-c {
+  right: 18%;
+  top: 34%;
+  left: auto;
+  --tilt: -3deg;
+  --dx: 5px;
+  --dy: -8px;
+  background: #ff9f7a;
+  animation-delay: 0.34s, 1.5s;
+  animation-duration: 0.9s, 7s;
+}
+.people-live-wave {
+  position: absolute;
+  left: 18%;
+  right: 22%;
+  top: 28%;
+  width: auto;
+  height: clamp(42px, 10vw, 72px);
+  color: rgba(2, 109, 123, 0.72);
+  filter: drop-shadow(0 0 10px rgba(142, 243, 255, 0.25));
+  opacity: 0.85;
+}
+.people-live-wave-a,
+.people-live-wave-b {
+  stroke-dasharray: 12 10;
+  animation: people-wave-draw 4.8s ease-in-out infinite;
+}
+.people-live-wave-b {
+  color: rgba(142, 243, 255, 0.7);
+  animation-duration: 5.6s;
+  animation-delay: 0.4s;
+}
+.people-frame-live img {
+  animation-duration: 16s;
 }
 .people-kicker {
   font-family: var(--mono);
@@ -2403,7 +2501,15 @@ g.field { opacity: 0.45; }
   .people-frame-portrait img { min-height: 240px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .people-frame img { animation: none; }
+  .people-frame img,
+  .people-note,
+  .people-live-wave-a,
+  .people-live-wave-b {
+    animation: none;
+  }
+  .people-note { opacity: 0.88; transform: rotate(var(--tilt, -4deg)); }
+  .people-live-wave-a,
+  .people-live-wave-b { opacity: 0.7; stroke-dashoffset: 0; }
 }
 &.sectors-page .sectors-map {
   padding-top: 36px;
