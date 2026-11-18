@@ -4,6 +4,7 @@ import type { Locale, PageContent } from '@/content/types';
 import { company } from '@/data/company';
 import { contactIntentOrder, getInquiry, plainMailto } from '@/data/inquiries';
 import { crumbsFor } from '@/lib/seo';
+import { pathFor } from '@/data/routes';
 
 interface Props { locale: Locale; page: PageContent }
 const { locale, page } = Astro.props;
@@ -15,6 +16,7 @@ const ids = inquiryBlock && inquiryBlock.type === 'inquiries' ? inquiryBlock.ids
 const fr = locale === 'fr';
 const copy = fr
   ? {
+      ciiLink: 'Cadre Innovation et CII',
       steps: ['Besoin', 'Projet', 'Coordonnées', 'Récapitulatif'],
       demoSteps: ['Coordonnées', 'Récapitulatif'],
       choices: [
@@ -84,6 +86,7 @@ const copy = fr
       },
     }
   : {
+      ciiLink: 'Innovation and CII frame',
       steps: ['Need', 'Project', 'Details', 'Summary'],
       demoSteps: ['Details', 'Summary'],
       choices: [
@@ -336,6 +339,9 @@ const copy = fr
         </nav>
       )}
       {note && note.type === 'note' && <p class="contact-note contact-note-inline">{note.text}</p>}
+      <p class="contact-note contact-note-inline">
+        <a class="text-link" href={pathFor(locale, 'innovation')}>{copy.ciiLink}</a>
+      </p>
     </footer>
   </div>
   <script type="application/json" id="contact-hints" set:html={JSON.stringify(copy.hints)}></script>

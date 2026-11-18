@@ -8,6 +8,7 @@ import { sportsShots } from '@/data/sports-shots';
 import { workItems, type WorkItem } from '@/data/work';
 import { crumbsFor } from '@/lib/seo';
 import { pageVisuals } from '@/data/page-visuals';
+import { pathFor } from '@/data/routes';
 
 interface Props { locale: Locale; page: PageContent }
 const { locale, page } = Astro.props;
@@ -34,6 +35,9 @@ const copy = fr
       screens: 'Écrans masqués',
       endTitle: 'Un projet comparable se discute à partir du vôtre.',
       endText: 'Décrivez le système à construire ou à fiabiliser. Nous dirons si le retour d’expérience est pertinent.',
+      ciiText:
+        'Un prototype d’innovation logicielle se cadre autrement qu’une réalisation déjà livrée. L’agrément CII de COCONSULT (n° 28910108, 2026–2030) ne transforme pas une mission ordinaire en projet éligible.',
+      ciiLink: 'Lire le cadre Innovation et CII',
     }
   : {
       limitTitle: 'A clear limit',
@@ -48,6 +52,9 @@ const copy = fr
       screens: 'Masked screens',
       endTitle: 'A comparable project starts from yours.',
       endText: 'Describe the system to build or harden. We will say whether the experience is relevant.',
+      ciiText:
+        'A software innovation prototype is scoped differently from a delivery already handed over. COCONSULT’s CII agreement (no. 28910108, 2026–2030) does not turn an ordinary assignment into an eligible project.',
+      ciiLink: 'Read the Innovation and CII frame',
     };
 
 ---
@@ -205,6 +212,8 @@ const copy = fr
       <p class="eyebrow">{fr ? 'Cadre' : 'Frame'}</p>
       <h2>{copy.limitTitle}</h2>
       <p>{copy.limitText}</p>
+      <p class="cases-cii-bridge">{copy.ciiText}</p>
+      <p><a class="text-link" href={pathFor(locale, 'innovation')}>{copy.ciiLink}</a></p>
     </aside>
   </section>
 
