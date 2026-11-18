@@ -111,8 +111,12 @@ p { line-height: 1.7; }
   margin: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
+  /* Keep long live-region copy from inflating ancestor scrollWidth. */
+  max-width: 1px;
+  max-height: 1px;
 }
 
 :focus-visible {
@@ -1141,8 +1145,8 @@ h1 {
 .page-surface-services .service-card::after {
   content: "";
   position: absolute;
-  right: -20%;
-  bottom: -30%;
+  right: 0;
+  bottom: 0;
   width: 55%;
   height: 55%;
   border-radius: 50%;
@@ -1913,14 +1917,20 @@ h1 {
 }
 .need-tile {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   gap: 14px;
   align-items: start;
   text-decoration: none;
   color: inherit;
+  min-width: 0;
+  max-width: 100%;
   min-height: 148px;
   background:
     linear-gradient(165deg, #fff 0%, color-mix(in srgb, var(--surface-paper, #f4f7f8) 55%, #fff) 100%);
+}
+.need-tile .need-body h3,
+.need-tile .need-body p {
+  overflow-wrap: break-word;
 }
 .need-tile.is-link {
   cursor: pointer;
