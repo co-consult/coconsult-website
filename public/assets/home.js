@@ -132,10 +132,12 @@
         skillList.querySelectorAll('[data-skill]').forEach((item) => {
           const on = item.dataset.skill === id;
           item.setAttribute('aria-pressed', on ? 'true' : 'false');
+          item.setAttribute('aria-selected', on ? 'true' : 'false');
         });
         panels.forEach((panel) => {
           panel.hidden = panel.id !== `panel-${id}`;
         });
+        if (aiPipe) aiPipe.classList.remove('is-live');
       });
     });
     skillList.addEventListener('keydown', (event) => {

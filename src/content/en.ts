@@ -493,25 +493,35 @@ export const pages: Record<RouteKey, PageContent> = {
     eyebrow: 'Solutions',
     h1: 'Products Coconsult is building.',
     intro:
-      'One Coconsult solution still in development, and platforms already delivered. The two stay distinct: the product and the case studies are not the same thing.',
+      'One Coconsult product still in development, and platforms already delivered to clients. The two stay separate: a product offer is not a case study.',
     blocks: [
+      {
+        type: 'columns',
+        title: 'Two distinct readings',
+        intro: 'Before the screens, here is the useful boundary.',
+        items: [
+          { title: 'Coconsult product', text: 'COPHARIA is a pharmaceutical ERP we are building. Real status: in development. A demonstration is requested from Contact.' },
+          { title: 'Delivered platforms', text: 'Systems designed and handed to clients. These are not SaaS products sold by Coconsult. Details live in the case studies.' },
+          { title: 'What you can do', text: 'Browse anonymized COPHARIA views, then request a demo — or open a comparable delivery.' },
+        ],
+      },
       {
         type: 'work',
         source: 'solutions',
-        title: 'Coconsult solutions',
-        intro: 'COPHARIA, a pharmaceutical ERP in development. Real status, anonymized views, demonstration on request.',
+        title: 'COPHARIA in views',
+        intro: 'A pharmaceutical ERP in development. Anonymized views, demonstration on request.',
       },
       {
         type: 'work',
         source: 'platforms',
-        title: 'Platforms and deliveries',
+        title: 'Platforms already in use',
         intro:
-          'Systems that were built and handed over. These are not SaaS products sold by Coconsult. The context and the result are described in the case studies.',
+          'Delivered systems. Context and outcome are described in the case studies.',
       },
       {
         type: 'cta',
         title: 'Request a COPHARIA demonstration.',
-        text: 'Share your context. We will come back to arrange a conversation.',
+        text: 'Share your business context. We will come back to arrange a conversation about the product in development.',
         primary: 'demo',
         product: 'copharia',
       },

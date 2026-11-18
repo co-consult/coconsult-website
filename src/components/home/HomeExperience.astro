@@ -431,37 +431,39 @@ const demo = fr
         <p class="lede-soft">{copy.exIntro}</p>
       </div>
     </div>
-    <div class="expertise-body">
-      <figure class="people-frame">
+    <div class="expertise-body expertise-stack">
+      <figure class="people-frame expertise-photo">
         <img src="/assets/people/engineer-focus.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
         <figcaption>
           <span class="people-kicker">{fr ? 'Expertise en action' : 'Expertise in action'}</span>
           <strong>{fr ? 'Du schéma au système livré' : 'From sketch to shipped system'}</strong>
         </figcaption>
       </figure>
-      <div class="stage">
-      <div class="skill-list">
+      <div class="stage stage-interactive" data-expertise-stage>
+      <p class="stage-cue">{fr ? 'Interactif — choisissez une expertise, puis explorez le schéma.' : 'Interactive — pick an expertise, then explore the diagram.'}</p>
+      <div class="skill-list" role="tablist" aria-label={fr ? 'Expertises' : 'Expertise areas'}>
         {skills.map(([id, label], index) => (
-          <button class="skill" type="button" id={`tab-${id}`} aria-controls={`panel-${id}`} aria-pressed={index === 0 ? 'true' : 'false'} data-skill={id}>
+          <button class="skill" type="button" role="tab" id={`tab-${id}`} aria-controls={`panel-${id}`} aria-selected={index === 0 ? 'true' : 'false'} aria-pressed={index === 0 ? 'true' : 'false'} data-skill={id}>
             <span>0{index + 1}</span><b>{label}</b>
           </button>
         ))}
       </div>
       <div class="viz">
-        <div class="viz-panel" id="panel-ai">
+        <div class="viz-panel" id="panel-ai" role="tabpanel" aria-labelledby="tab-ai">
           <h3>{demo.aiH}</h3>
-          <div class="pipeline" id="ai-pipe">
+          <p class="viz-prompt">{fr ? '1. Choisissez une pièce' : '1. Choose a document'}</p>
+          <div class="pipeline pipeline-stack" id="ai-pipe">
             <div class="station docs">
               {demo.docs.map(([id, label, result]) => (
                 <button class="chip" type="button" data-doc={id} data-result={result} aria-pressed="false">{label}</button>
               ))}
             </div>
-            <div class="rail" aria-hidden="true"><span class="token"></span></div>
-            <div class="plate"><small>02</small><b>{demo.extract}</b></div>
-            <div class="rail" aria-hidden="true"><span class="token"></span></div>
-            <div class="plate ai-plate"><small>03</small><b>{demo.model}</b></div>
-            <div class="rail" aria-hidden="true"><span class="token"></span></div>
-            <div class="plate out-plate"><small>04</small><b>{demo.out}</b></div>
+            <p class="viz-prompt">{fr ? '2. Le parcours illustré' : '2. Illustrated path'}</p>
+            <ol class="pipe-flow" aria-hidden="true">
+              <li class="plate"><small>02</small><b>{demo.extract}</b></li>
+              <li class="plate ai-plate"><small>03</small><b>{demo.model}</b></li>
+              <li class="plate out-plate"><small>04</small><b>{demo.out}</b></li>
+            </ol>
           </div>
           <p class="result-line" id="ai-result" data-idle={demo.aiIdle}>{demo.aiIdle}</p>
           <p class="demo-note">{demo.aiNote}</p>
@@ -568,8 +570,10 @@ const demo = fr
       <div class="mode-row" data-stagger>
         {copy.modes.map(([title, text], index) => (
           <article class={`mode mode-${index}`}>
-            <span class="mode-ico" aria-hidden="true"></span>
-            <strong>{title}</strong>
+            <header class="mode-head">
+              <span class="mode-ico" aria-hidden="true"></span>
+              <strong>{title}</strong>
+            </header>
             <p>{text}</p>
           </article>
         ))}

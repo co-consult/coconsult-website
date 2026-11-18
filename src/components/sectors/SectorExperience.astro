@@ -102,4 +102,27 @@ const entryText = fr
       <a class="btn primary" href={contactPath(locale, 'project')}>{fr ? 'Parler d’un contexte métier' : 'Discuss a business context'}</a>
     </p>
   </section>
+
+  <section class="final final-band sectors-final" data-reveal>
+    <div class="final-copy">
+      <p class="eyebrow">{fr ? 'Prochaine étape' : 'Next step'}</p>
+      <h2>{fr ? 'Parlons de votre projet.' : "Let's talk about your project."}</h2>
+      <p class="lede-soft">
+        {fr
+          ? 'Décrivez le contexte métier et le système à construire ou à fiabiliser. Nous revenons avec un premier cadrage.'
+          : 'Describe the business context and the system to build or harden. We come back with a first scoping.'}
+      </p>
+      <div class="cta-row">
+        <a class="btn primary" href={contactPath(locale, 'project')}>{fr ? 'Parler d’un projet' : 'Discuss a project'}</a>
+        <a class="btn ghost" href={pathFor(locale, 'contact')}>{fr ? 'Page contact' : 'Contact page'}</a>
+      </div>
+    </div>
+    <figure class="people-frame final-media">
+      <img src="/assets/people/delivery-room.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
+      <figcaption>
+        <span class="people-kicker">{fr ? 'Échange' : 'Exchange'}</span>
+        <strong>{fr ? 'Un premier contact concret' : 'A concrete first contact'}</strong>
+      </figcaption>
+    </figure>
+  </section>
 </div>

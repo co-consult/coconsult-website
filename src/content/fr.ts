@@ -542,25 +542,35 @@ export const pages: Record<RouteKey, PageContent> = {
     eyebrow: 'Solutions',
     h1: 'Les solutions que Coconsult construit.',
     intro:
-      'Une solution Coconsult en cours de développement, et des plateformes déjà livrées. Les deux ne se confondent pas : le produit et les réalisations restent distincts.',
+      'Un produit Coconsult encore en développement, et des plateformes déjà livrées à des clients. Les deux restent séparés : on ne confond pas une offre produit avec une réalisation.',
     blocks: [
+      {
+        type: 'columns',
+        title: 'Deux lectures distinctes',
+        intro: 'Avant de parcourir les écrans, voici la frontière utile.',
+        items: [
+          { title: 'Produit Coconsult', text: 'COPHARIA est un ERP pharmaceutique que nous construisons. Statut réel : en développement. Une démonstration se demande depuis Contact.' },
+          { title: 'Plateformes livrées', text: 'Des systèmes conçus et remis à des clients. Ce ne sont pas des SaaS vendus par Coconsult. Le détail est dans les réalisations.' },
+          { title: 'Ce que vous pouvez faire', text: 'Explorer les vues anonymisées de COPHARIA, puis demander une démo — ou ouvrir une réalisation comparable.' },
+        ],
+      },
       {
         type: 'work',
         source: 'solutions',
-        title: 'Solutions Coconsult',
-        intro: 'COPHARIA, ERP pharmaceutique en développement. Statut réel, vues anonymisées, démonstration sur demande.',
+        title: 'COPHARIA en vues',
+        intro: 'ERP pharmaceutique en développement. Vues anonymisées, démonstration sur demande.',
       },
       {
         type: 'work',
         source: 'platforms',
-        title: 'Plateformes et réalisations',
+        title: 'Plateformes déjà en service',
         intro:
-          'Des systèmes construits et livrés. Ce ne sont pas des SaaS commercialisés par Coconsult. Le contexte et le résultat sont décrits dans les études de cas.',
+          'Des systèmes livrés. Le contexte et le résultat sont décrits dans les études de cas.',
       },
       {
         type: 'cta',
         title: 'Demander une démonstration de COPHARIA.',
-        text: 'Indiquez votre contexte. Nous revenons vers vous pour convenir d’un échange.',
+        text: 'Indiquez votre contexte métier. Nous revenons pour convenir d’un échange sur le produit en développement.',
         primary: 'demo',
         product: 'copharia',
       },
