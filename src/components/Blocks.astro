@@ -1,4 +1,5 @@
 ---
+import FinalCta from '@/components/FinalCta.astro';
 import CophariaFeature from '@/components/visuals/CophariaFeature.astro';
 import PlatformTeaser from '@/components/visuals/PlatformTeaser.astro';
 import WorkCase from '@/components/visuals/WorkCase.astro';
@@ -22,7 +23,19 @@ const laneFor = (key?: string) => {
 };
 ---
 {blocks.map((block, index) => {
-  const tone = block.type === 'cta' ? 'band-dark' : tones[index % tones.length];
+  if (block.type === 'cta') {
+    return (
+      <FinalCta
+        locale={locale}
+        title={block.title}
+        text={block.text}
+        primary={block.primary}
+        secondary={block.secondary}
+        product={block.product}
+      />
+    );
+  }
+  const tone = tones[index % tones.length];
   return (
     <section class:list={['section', tone]} data-reveal style={`--reveal-delay:${Math.min(index, 4) * 60}ms`}>
       <div class="container">
@@ -340,21 +353,6 @@ const laneFor = (key?: string) => {
               </form>
             </div>
           </>
-        )}
-        {block.type === 'cta' && (
-          <div class="cta-panel">
-            <div class="section-intro cta-copy">
-              <h2>{block.title}</h2>
-              <p>{block.text}</p>
-              <div class="cta-actions">
-                <a class="btn primary" href={contactPath(locale, block.primary, block.product)}>{block.product === 'copharia' ? (locale === 'fr' ? 'Demander une démonstration de COPHARIA' : 'Request a COPHARIA demonstration') : getInquiry(locale, block.primary).label}</a>
-                {block.secondary && <a class="btn secondary" href={contactPath(locale, block.secondary)}>{block.secondary === 'team' ? (locale === 'fr' ? 'Constituer une équipe' : 'Build your team') : getInquiry(locale, block.secondary).label}</a>}
-              </div>
-            </div>
-            <figure class="cta-photo" aria-hidden="true">
-              <img src="/assets/people/delivery-room.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
-            </figure>
-          </div>
         )}
       </div>
     </section>

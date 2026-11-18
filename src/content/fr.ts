@@ -543,38 +543,7 @@ export const pages: Record<RouteKey, PageContent> = {
     h1: 'Les solutions que Coconsult construit.',
     intro:
       'Un produit Coconsult encore en développement, et des plateformes déjà livrées à des clients. Les deux restent séparés : on ne confond pas une offre produit avec une réalisation.',
-    blocks: [
-      {
-        type: 'columns',
-        title: 'Deux lectures distinctes',
-        intro: 'Avant de parcourir les écrans, voici la frontière utile.',
-        items: [
-          { title: 'Produit Coconsult', text: 'COPHARIA est un ERP pharmaceutique que nous construisons. Statut réel : en développement. Une démonstration se demande depuis Contact.' },
-          { title: 'Plateformes livrées', text: 'Des systèmes conçus et remis à des clients. Ce ne sont pas des SaaS vendus par Coconsult. Le détail est dans les réalisations.' },
-          { title: 'Ce que vous pouvez faire', text: 'Explorer les vues anonymisées de COPHARIA, puis demander une démo — ou ouvrir une réalisation comparable.' },
-        ],
-      },
-      {
-        type: 'work',
-        source: 'solutions',
-        title: 'COPHARIA en vues',
-        intro: 'ERP pharmaceutique en développement. Vues anonymisées, démonstration sur demande.',
-      },
-      {
-        type: 'work',
-        source: 'platforms',
-        title: 'Plateformes déjà en service',
-        intro:
-          'Des systèmes livrés. Le contexte et le résultat sont décrits dans les études de cas.',
-      },
-      {
-        type: 'cta',
-        title: 'Demander une démonstration de COPHARIA.',
-        text: 'Indiquez votre contexte métier. Nous revenons pour convenir d’un échange sur le produit en développement.',
-        primary: 'demo',
-        product: 'copharia',
-      },
-    ],
+    blocks: [],
   },
   cases: {
     key: 'cases',
@@ -716,28 +685,7 @@ export const pages: Record<RouteKey, PageContent> = {
     h1: 'Pilotes et partenariats, avec un périmètre écrit.',
     intro:
       'Un pilote sert à vérifier qu’une solution en développement ou qu’un dispositif d’équipe répond à un cas réel. Un partenariat commercial ou technique se discute lorsque les rôles de chacun sont clairs.',
-    blocks: [
-      {
-        type: 'columns',
-        title: 'Trois portes d’entrée',
-        items: [
-          { title: 'Client pilote', text: 'Vous testez une solution en développement sur un périmètre limité, avec un statut affiché comme tel et une démonstration préalable.' },
-          { title: 'Partenaire commercial', text: 'Vous apportez un accès à un marché ou à des opérations, et Coconsult apporte l’ingénierie. Le cadre se contractualise avant toute promesse commune.' },
-          { title: 'Partenaire technique', text: 'Éditeur, intégrateur ou hébergeur : la collaboration porte sur une brique précise du système.' },
-        ],
-      },
-      {
-        type: 'list',
-        title: 'Ce qu’un premier échange clarifie',
-        items: [
-          'Le cas d’usage et le secteur, décrits sans données confidentielles dans l’e-mail',
-          'Ce que chaque partie fournit',
-          'La durée envisagée du pilote',
-          'Ce qui sera décidé à la fin : étendre, modifier ou arrêter',
-        ],
-      },
-      { type: 'cta', title: 'Proposer un pilote ou un partenariat.', text: 'Le type de demande est déjà sélectionné lorsque vous arrivez depuis cette page.', primary: 'partnership' },
-    ],
+    blocks: [],
   },
   contact: {
     key: 'contact',

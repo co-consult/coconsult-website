@@ -494,38 +494,7 @@ export const pages: Record<RouteKey, PageContent> = {
     h1: 'Products Coconsult is building.',
     intro:
       'One Coconsult product still in development, and platforms already delivered to clients. The two stay separate: a product offer is not a case study.',
-    blocks: [
-      {
-        type: 'columns',
-        title: 'Two distinct readings',
-        intro: 'Before the screens, here is the useful boundary.',
-        items: [
-          { title: 'Coconsult product', text: 'COPHARIA is a pharmaceutical ERP we are building. Real status: in development. A demonstration is requested from Contact.' },
-          { title: 'Delivered platforms', text: 'Systems designed and handed to clients. These are not SaaS products sold by Coconsult. Details live in the case studies.' },
-          { title: 'What you can do', text: 'Browse anonymized COPHARIA views, then request a demo — or open a comparable delivery.' },
-        ],
-      },
-      {
-        type: 'work',
-        source: 'solutions',
-        title: 'COPHARIA in views',
-        intro: 'A pharmaceutical ERP in development. Anonymized views, demonstration on request.',
-      },
-      {
-        type: 'work',
-        source: 'platforms',
-        title: 'Platforms already in use',
-        intro:
-          'Delivered systems. Context and outcome are described in the case studies.',
-      },
-      {
-        type: 'cta',
-        title: 'Request a COPHARIA demonstration.',
-        text: 'Share your business context. We will come back to arrange a conversation about the product in development.',
-        primary: 'demo',
-        product: 'copharia',
-      },
-    ],
+    blocks: [],
   },
   cases: {
     key: 'cases',
@@ -667,28 +636,7 @@ export const pages: Record<RouteKey, PageContent> = {
     h1: 'Pilots and partnerships with a written scope.',
     intro:
       'A pilot checks whether a solution in development, or a team setup, fits a real case. A commercial or technical partnership is discussed when each side’s role is clear.',
-    blocks: [
-      {
-        type: 'columns',
-        title: 'Three ways in',
-        items: [
-          { title: 'Pilot customer', text: 'You try a solution in development on a limited scope, with that status shown openly, after a demo.' },
-          { title: 'Commercial partner', text: 'You bring market or operational access. Coconsult brings engineering. The frame is contracted before any joint promise.' },
-          { title: 'Technical partner', text: 'A vendor, integrator or host: the collaboration is about a specific part of the system.' },
-        ],
-      },
-      {
-        type: 'list',
-        title: 'What a first conversation clarifies',
-        items: [
-          'The use case and sector, described without confidential data in the email',
-          'What each party provides',
-          'How long the pilot is expected to run',
-          'What will be decided at the end: extend, change or stop',
-        ],
-      },
-      { type: 'cta', title: 'Propose a pilot or a partnership.', text: 'The request type is already selected when you arrive from this page.', primary: 'partnership' },
-    ],
+    blocks: [],
   },
   contact: {
     key: 'contact',

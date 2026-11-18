@@ -1,0 +1,185 @@
+---
+import FinalCta from '@/components/FinalCta.astro';
+import type { Locale, PageContent } from '@/content/types';
+import { contactPath } from '@/data/inquiries';
+import { crumbsFor } from '@/lib/seo';
+import { ui } from '@/content/ui';
+
+interface Props { locale: Locale; page: PageContent }
+const { locale, page } = Astro.props;
+const t = ui[locale];
+const crumbs = crumbsFor(locale, 'partnerships', t.home);
+const fr = locale === 'fr';
+
+const copy = fr
+  ? {
+      lead: 'Un pilote vérifie qu’une solution en développement ou qu’un dispositif d’équipe répond à un cas réel. Un partenariat se discute lorsque les rôles sont clairs.',
+      doorsKicker: 'Entrées',
+      doorsTitle: 'Trois façons de collaborer.',
+      doorsIntro: 'Chaque porte a un périmètre écrit avant de commencer.',
+      doors: [
+        {
+          no: '01',
+          title: 'Client pilote',
+          text: 'Vous testez une solution en développement sur un périmètre limité, avec un statut affiché comme tel et une démonstration préalable.',
+          image: '/assets/people/product-demo.jpg',
+          caption: 'Pilote cadré',
+        },
+        {
+          no: '02',
+          title: 'Partenaire commercial',
+          text: 'Vous apportez un accès à un marché ou à des opérations. Coconsult apporte l’ingénierie. Le cadre se contractualise avant toute promesse commune.',
+          image: '/assets/people/engineers-collab.jpg',
+          caption: 'Accès & ingénierie',
+        },
+        {
+          no: '03',
+          title: 'Partenaire technique',
+          text: 'Éditeur, intégrateur ou hébergeur : la collaboration porte sur une brique précise du système.',
+          image: '/assets/people/architecture-review.jpg',
+          caption: 'Brique précise',
+        },
+      ],
+      clarifyKicker: 'Premier échange',
+      clarifyTitle: 'Ce que l’on clarifie tout de suite.',
+      clarify: [
+        'Le cas d’usage et le secteur, sans données confidentielles dans l’e-mail',
+        'Ce que chaque partie fournit',
+        'La durée envisagée du pilote',
+        'Ce qui sera décidé à la fin : étendre, modifier ou arrêter',
+      ],
+      ctaTitle: 'Proposer un pilote ou un partenariat.',
+      ctaText: 'Le type de demande est déjà sélectionné lorsque vous arrivez depuis cette page.',
+      propose: 'Proposer un partenariat',
+    }
+  : {
+      lead: 'A pilot checks whether a solution in development, or a team setup, fits a real case. A partnership is discussed when each side’s role is clear.',
+      doorsKicker: 'Ways in',
+      doorsTitle: 'Three ways to collaborate.',
+      doorsIntro: 'Each path has a written scope before work starts.',
+      doors: [
+        {
+          no: '01',
+          title: 'Pilot customer',
+          text: 'You try a solution in development on a limited scope, with that status shown openly, after a demo.',
+          image: '/assets/people/product-demo.jpg',
+          caption: 'Scoped pilot',
+        },
+        {
+          no: '02',
+          title: 'Commercial partner',
+          text: 'You bring market or operational access. Coconsult brings engineering. The frame is contracted before any joint promise.',
+          image: '/assets/people/engineers-collab.jpg',
+          caption: 'Access & engineering',
+        },
+        {
+          no: '03',
+          title: 'Technical partner',
+          text: 'A vendor, integrator or host: the collaboration is about a specific part of the system.',
+          image: '/assets/people/architecture-review.jpg',
+          caption: 'A precise brick',
+        },
+      ],
+      clarifyKicker: 'First conversation',
+      clarifyTitle: 'What we clarify right away.',
+      clarify: [
+        'The use case and sector, without confidential data in the email',
+        'What each party provides',
+        'How long the pilot is expected to run',
+        'What will be decided at the end: extend, change or stop',
+      ],
+      ctaTitle: 'Propose a pilot or a partnership.',
+      ctaText: 'The request type is already selected when you arrive from this page.',
+      propose: 'Propose a partnership',
+    };
+---
+<div class="experience partnerships-page">
+  <header class="page-hero partnerships-hero" data-page-hero>
+    <div class="container">
+      {crumbs.length > 0 && (
+        <nav aria-label={t.breadcrumb}>
+          <ol class="crumbs">
+            {crumbs.map((crumb) => (
+              <li>
+                {crumb.href ? <a href={crumb.href}>{crumb.label}</a> : <span aria-current="page">{crumb.label}</span>}
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
+      <div class="partnerships-hero-grid">
+        <div class="partnerships-hero-copy">
+          <p class="eyebrow">{page.eyebrow}</p>
+          <h1>{page.h1}</h1>
+          <p class="lede">{copy.lead}</p>
+          <div class="cta-row">
+            <a class="btn primary" href={contactPath(locale, 'partnership')}>{copy.propose}</a>
+            <a class="btn ghost" href="#portes">{fr ? 'Voir les portes d’entrée' : 'See the ways in'}</a>
+          </div>
+        </div>
+        <figure class="partnerships-hero-art">
+          <img src="/assets/people/nearshore-pair.jpg" alt="" width="1280" height="720" loading="eager" decoding="async" />
+          <figcaption>
+            <span>{fr ? 'Collaboration' : 'Collaboration'}</span>
+            <strong>{fr ? 'Un cadre écrit avant de démarrer' : 'A written frame before starting'}</strong>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </header>
+
+  <section class="section partnerships-doors" id="portes" data-reveal>
+    <div class="section-head">
+      <p class="eyebrow">{copy.doorsKicker}</p>
+      <div class="section-copy">
+        <h2>{copy.doorsTitle}</h2>
+        <p class="lede-soft">{copy.doorsIntro}</p>
+      </div>
+    </div>
+    <div class="partnerships-door-grid" data-stagger>
+      {copy.doors.map((door) => (
+        <article class="partnerships-door">
+          <figure class="partnerships-door-media">
+            <img src={door.image} alt="" width="960" height="640" loading="lazy" decoding="async" />
+            <figcaption>
+              <span>{door.no}</span>
+              <strong>{door.caption}</strong>
+            </figcaption>
+          </figure>
+          <div class="partnerships-door-copy">
+            <h3>{door.title}</h3>
+            <p>{door.text}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section paper partnerships-clarify" data-reveal>
+    <div class="section-head">
+      <p class="eyebrow">{copy.clarifyKicker}</p>
+      <div class="section-copy">
+        <h2>{copy.clarifyTitle}</h2>
+      </div>
+    </div>
+    <ol class="partnerships-clarify-list" data-stagger>
+      {copy.clarify.map((item, index) => (
+        <li>
+          <span class="partnerships-clarify-no">0{index + 1}</span>
+          <p>{item}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <FinalCta
+    locale={locale}
+    title={copy.ctaTitle}
+    text={copy.ctaText}
+    primary="partnership"
+    primaryLabel={copy.propose}
+    image="/assets/people/contact-exchange.jpg"
+    captionKicker={fr ? 'Partenariat' : 'Partnership'}
+    captionTitle={fr ? 'Un premier cadre écrit' : 'A first written frame'}
+  />
+</div>
