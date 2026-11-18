@@ -207,6 +207,19 @@ export const pages: Record<RouteKey, PageContent> = {
           { title: 'Nearshore', text: 'Avec Coconsult Nearshore, société tunisienne juridiquement indépendante, à Sfax.' },
         ],
       },
+      {
+        type: 'cards',
+        title: 'Quand le sujet est l’innovation',
+        intro:
+          'Un prototype ou un produit innovant se cadre à part d’une régie ou d’une maintenance. L’agrément CII de COCONSULT ne rend pas une mission ordinaire éligible.',
+        items: [
+          {
+            title: 'Agrément CII et innovation logicielle',
+            text: 'Prestataire agréé n° 28910108 (DRIEETS Île-de-France, 2026–2030). Lire le cadre avant d’appeler une mission un projet d’innovation.',
+            hrefKey: 'innovation',
+          },
+        ],
+      },
       { type: 'cta', title: 'Décrire le besoin suffit pour commencer.', text: 'Indiquez le sujet dans votre message. Nous revenons vers vous pour un premier échange.', primary: 'project', secondary: 'team' },
     ],
   },
@@ -631,9 +644,9 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   innovation: {
     key: 'innovation',
-    metaTitle: 'Agrément CII et innovation logicielle | Coconsult',
+    metaTitle: 'Prestataire agréé CII et innovation logicielle | Coconsult',
     description:
-      'Décision DRIEETS Île-de-France du 4 février 2026 : agrément n° 28910108 pour 2026-2030. Il ne rend pas un projet éligible au crédit d’impôt.',
+      'Prestataire agréé Crédit d’impôt innovation n° 28910108 (DRIEETS Île-de-France, 2026–2030). L’agrément ne rend pas un projet éligible au crédit d’impôt.',
     eyebrow: 'Innovation',
     h1: 'Accompagner un projet d’innovation logicielle.',
     intro:
@@ -665,12 +678,37 @@ export const pages: Record<RouteKey, PageContent> = {
         ],
       },
       {
+        type: 'faq',
+        title: 'Questions fréquentes',
+        items: [
+          {
+            q: 'Que signifie « prestataire agréé Crédit d’impôt innovation » ?',
+            a: 'COCONSULT est titulaire de l’agrément CII n° 28910108, délivré par la DRIEETS Île-de-France pour 2026 à 2030. L’agrément reconnaît une capacité à participer à des travaux d’innovation pour un donneur d’ordre. Il ne décide pas, à lui seul, qu’un projet ouvre droit à un crédit d’impôt.',
+          },
+          {
+            q: 'Une mission de développement ou une régie est-elle automatiquement éligible ?',
+            a: 'Non. Une maintenance, une régie ou une évolution courante ne deviennent pas éligibles parce que l’agrément existe. L’éligibilité de l’opération reste à vérifier côté client, selon l’assiette du crédit d’impôt innovation.',
+          },
+          {
+            q: 'Qui est titulaire de l’agrément : COCONSULT ou Coconsult Nearshore ?',
+            a: 'Le titulaire est COCONSULT, société française qui édite ce site (TVA FR90838913838). Coconsult Nearshore, société tunisienne basée à Sfax, n’en est pas titulaire.',
+          },
+          {
+            q: 'Comment démarrer un cadrage d’innovation logicielle ?',
+            a: 'Décrivez le prototype, le produit ou l’installation pilote à concevoir. Le périmètre, les livrables et la société qui contracte sont écrits avant le démarrage. Vous pouvez aussi ouvrir Contact pour un premier échange.',
+          },
+        ],
+      },
+      {
         type: 'cards',
         title: 'Selon le besoin',
         items: [
           { title: 'Développement logiciel', text: 'Applications web et mobiles, API et logiciels métier, jusqu’à la mise en production.', hrefKey: 'software' },
           { title: 'Intelligence artificielle', text: 'Intégration d’IA générative, d’agents et de modèles, avec un cas d’usage cadré.', hrefKey: 'ai' },
           { title: 'Modes d’intervention', text: 'Régie, équipe dédiée, nearshore ou forfait, une fois le périmètre compris.', hrefKey: 'modes' },
+          { title: 'Solutions', text: 'Produits Coconsult en construction et plateformes livrées, sans les confondre.', hrefKey: 'solutions' },
+          { title: 'Réalisations', text: 'Systèmes déjà livrés, décrits avec le contexte et le résultat.', hrefKey: 'cases' },
+          { title: 'Contact', text: 'Décrire le prototype ou le produit à concevoir pour un premier échange.', hrefKey: 'contact' },
         ],
       },
       { type: 'cta', title: 'Décrire le prototype ou le produit à concevoir.', text: 'Le contexte suffit pour dire si un cadrage d’innovation a du sens. L’éligibilité fiscale se confirme à part.', primary: 'project' },
@@ -703,7 +741,10 @@ export const pages: Record<RouteKey, PageContent> = {
         intro: 'Le sujet est déjà indiqué si vous arrivez depuis une expertise, une offre ou une solution.',
         ids: ['project', 'team', 'qaDiscuss', 'qaTeam', 'payments', 'automation', 'ai', 'partnership', 'demo'],
       },
-      { type: 'note', text: 'Pour ce premier message, décrivez le contexte du projet. Les données sensibles (cartes, secrets, accès) se traitent ensuite sur un canal dédié.' },
+      {
+        type: 'note',
+        text: 'Pour ce premier message, décrivez le contexte du projet. Les données sensibles (cartes, secrets, accès) se traitent ensuite sur un canal dédié. Si le sujet est un prototype d’innovation logicielle ou l’agrément CII, lisez d’abord le cadre sur la page Innovation.',
+      },
     ],
   },
   software: {

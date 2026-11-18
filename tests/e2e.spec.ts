@@ -1281,3 +1281,30 @@ test('home and QA pages meet WCAG AA checks we can automate', async ({ page }) =
     expect(results.violations, JSON.stringify(results.violations, null, 2)).toEqual([]);
   }
 });
+
+test('Bing-flagged pages keep image alternatives and pass image-alt axe rule', async ({ page }) => {
+  const urls = [
+    '/',
+    '/services/',
+    '/services/ia-entreprise/',
+    '/services/automatisation/',
+    '/services/cloud-devops/',
+    '/realisations/',
+    '/modes-intervention/',
+    '/a-propos/',
+    '/contact/',
+    '/contact/?type=ai',
+    '/en/',
+    '/en/services/',
+    '/en/contact/',
+  ];
+  for (const urlPath of urls) {
+    await page.goto(urlPath);
+    const missing = await page.locator('img:not([alt])').count();
+    expect(missing, urlPath).toBe(0);
+    const emptyPeople = await page.locator('img[src^="/assets/people/"][alt=""]').count();
+    expect(emptyPeople, urlPath).toBe(0);
+    const results = await new AxeBuilder({ page }).withRules(['image-alt']).analyze();
+    expect(results.violations, `${urlPath}\n${JSON.stringify(results.violations, null, 2)}`).toEqual([]);
+  }
+});

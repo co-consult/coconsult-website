@@ -9,6 +9,7 @@ import { contactPath, getInquiry, plainMailto } from '@/data/inquiries';
 import { pathFor } from '@/data/routes';
 import { visibleWork, workItems } from '@/data/work';
 import { company } from '@/data/company';
+import { imageAlt } from '@/data/image-alts';
 
 interface Props { locale: Locale; blocks: Block[]; }
 const { locale, blocks } = Astro.props;
@@ -162,7 +163,7 @@ const laneFor = (key?: string) => {
             )}
             {block.visual === 'collab' && (
               <figure class="prose-photo-panel">
-                <img src="/assets/people/nearshore-pair.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
+                <img src="/assets/people/nearshore-pair.jpg" alt={imageAlt('/assets/people/nearshore-pair.jpg', locale)} width="1280" height="720" loading="lazy" decoding="async" />
                 <figcaption>
                   <span>{locale === 'fr' ? 'Collaboration' : 'Collaboration'}</span>
                   <strong>{locale === 'fr' ? 'Paris · Sfax · un même cadrage' : 'Paris · Sfax · one framing'}</strong>

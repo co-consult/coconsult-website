@@ -161,6 +161,19 @@ export const pages: Record<RouteKey, PageContent> = {
           { title: 'Nearshore', text: 'With Coconsult Nearshore, a legally independent Tunisian company in Sfax.' },
         ],
       },
+      {
+        type: 'cards',
+        title: 'When the subject is innovation',
+        intro:
+          'A prototype or an innovative product is scoped separately from staff augmentation or maintenance. COCONSULT’s CII agreement does not make an ordinary assignment eligible.',
+        items: [
+          {
+            title: 'CII agreement and software innovation',
+            text: 'Approved provider no. 28910108 (DRIEETS Île-de-France, 2026–2030). Read the frame before calling an assignment an innovation project.',
+            hrefKey: 'innovation',
+          },
+        ],
+      },
       { type: 'cta', title: 'Describing the need is enough to begin.', text: 'Put the subject in the message. We reply to arrange a first conversation.', primary: 'project', secondary: 'team' },
     ],
   },
@@ -582,9 +595,9 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   innovation: {
     key: 'innovation',
-    metaTitle: 'CII agreement and software innovation | Coconsult',
+    metaTitle: 'Approved CII provider and software innovation | Coconsult',
     description:
-      'DRIEETS Île-de-France decision of 4 February 2026: agreement no. 28910108 for 2026-2030. It does not make a project eligible for the tax credit.',
+      'Approved French innovation tax credit (CII) provider no. 28910108 (DRIEETS Île-de-France, 2026–2030). The agreement does not make a project eligible.',
     eyebrow: 'Innovation',
     h1: 'Support a software innovation project.',
     intro:
@@ -616,12 +629,37 @@ export const pages: Record<RouteKey, PageContent> = {
         ],
       },
       {
+        type: 'faq',
+        title: 'Frequently asked questions',
+        items: [
+          {
+            q: 'What does “approved CII provider” mean?',
+            a: 'COCONSULT holds CII agreement no. 28910108, issued by DRIEETS Île-de-France for 2026 to 2030. The agreement recognises a capacity to take part in innovation work for a client. It does not, by itself, mean a project qualifies for a tax credit.',
+          },
+          {
+            q: 'Is a development assignment or staff augmentation automatically eligible?',
+            a: 'No. Maintenance, staff augmentation or an ordinary change do not become eligible because the agreement exists. Eligibility of the operation remains the client’s check against the innovation tax credit base.',
+          },
+          {
+            q: 'Who holds the agreement: COCONSULT or Coconsult Nearshore?',
+            a: 'The holder is COCONSULT, the French company that publishes this site (VAT FR90838913838). Coconsult Nearshore, a Tunisian company in Sfax, is not the holder.',
+          },
+          {
+            q: 'How do we start scoping a software innovation subject?',
+            a: 'Describe the prototype, product or pilot installation to design. Scope, deliverables and the contracting company are written before work starts. You can also open Contact for a first conversation.',
+          },
+        ],
+      },
+      {
         type: 'cards',
         title: 'Depending on the need',
         items: [
           { title: 'Software development', text: 'Web and mobile applications, APIs and business software, through to production.', hrefKey: 'software' },
           { title: 'Artificial intelligence', text: 'Generative AI, agents and models, with a bounded use case.', hrefKey: 'ai' },
           { title: 'Ways of working', text: 'Staff augmentation, a dedicated team, nearshore or a fixed scope, once the work is clear.', hrefKey: 'modes' },
+          { title: 'Solutions', text: 'Coconsult products in development and delivered platforms, kept distinct.', hrefKey: 'solutions' },
+          { title: 'Case studies', text: 'Systems already delivered, with context and outcome.', hrefKey: 'cases' },
+          { title: 'Contact', text: 'Describe the prototype or product to design for a first exchange.', hrefKey: 'contact' },
         ],
       },
       { type: 'cta', title: 'Describe the prototype or the product to design.', text: 'The context is enough to say whether an innovation scoping is useful. Tax eligibility is confirmed separately.', primary: 'project' },
@@ -654,7 +692,10 @@ export const pages: Record<RouteKey, PageContent> = {
         intro: 'The subject is already set if you arrive from an expertise, an offer or a solution.',
         ids: ['project', 'team', 'qaDiscuss', 'qaTeam', 'payments', 'automation', 'ai', 'partnership', 'demo'],
       },
-      { type: 'note', text: 'For this first message, describe the project context. Sensitive data (cards, secrets, access) belongs on a dedicated channel afterwards.' },
+      {
+        type: 'note',
+        text: 'For this first message, describe the project context. Sensitive data (cards, secrets, access) belongs on a dedicated channel afterwards. If the subject is a software innovation prototype or the CII agreement, read the Innovation frame first.',
+      },
     ],
   },
   software: {

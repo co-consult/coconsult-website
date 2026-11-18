@@ -5,6 +5,7 @@ import SectorMatrix from '@/components/visuals/SectorMatrix.astro';
 import WorkCase from '@/components/visuals/WorkCase.astro';
 import type { Locale } from '@/content/types';
 import { company } from '@/data/company';
+import { imageAlt } from '@/data/image-alts';
 import { contactPath } from '@/data/inquiries';
 import { pathFor } from '@/data/routes';
 
@@ -355,7 +356,7 @@ const demo = fr
       <figure class="people-frame">
         <PeopleImg
           src="/assets/people/workshop-journey.jpg"
-          alt={fr ? 'Deux collègues pointent un graphique et des notes collées sur une cloison en verre.' : 'Two colleagues point at a graph and sticky notes on a glass partition.'}
+          alt={imageAlt('/assets/people/workshop-journey.jpg', locale)}
           width={1280}
           height={720}
         />
@@ -442,7 +443,7 @@ const demo = fr
       <figure class="people-frame expertise-photo">
         <PeopleImg
           src="/assets/people/engineer-focus.jpg"
-          alt={fr ? 'Ingénieure devant deux écrans d’éditeur de code et de schéma d’architecture.' : 'Engineer at two monitors showing a code editor and an architecture diagram.'}
+          alt={imageAlt('/assets/people/engineer-focus.jpg', locale)}
           width={1280}
           height={720}
         />
@@ -575,7 +576,7 @@ const demo = fr
       <figure class="people-frame">
         <PeopleImg
           src="/assets/people/team-standup.jpg"
-          alt={fr ? 'Cinq collaborateurs autour d’une table debout couverte de notes collées.' : 'Five colleagues around a standing table covered with sticky notes.'}
+          alt={imageAlt('/assets/people/team-standup.jpg', locale)}
           width={1280}
           height={720}
         />

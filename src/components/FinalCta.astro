@@ -1,6 +1,7 @@
 ---
 import PeopleImg from '@/components/visuals/PeopleImg.astro';
 import type { InquiryId, Locale } from '@/content/types';
+import { imageAlt } from '@/data/image-alts';
 import { contactPath, getInquiry } from '@/data/inquiries';
 
 interface Props {
@@ -76,12 +77,7 @@ const resolvedSecondaryLabel =
       </div>
     </div>
     <figure class="final-cta-media">
-      <PeopleImg
-        src={image}
-        alt={fr ? 'Un homme et une femme examinent du code sur un écran dans un open space.' : 'A man and a woman review code on a monitor in an open-plan office.'}
-        width={1280}
-        height={720}
-      />
+      <PeopleImg src={image} alt={imageAlt(image, locale)} width={1280} height={720} />
       <figcaption>
         <span>{copy.captionKicker}</span>
         <strong>{copy.captionTitle}</strong>

@@ -533,6 +533,25 @@ assert.equal(permit.identifier, '28910108');
 assert.equal(permit.issuedBy.name, 'DRIEETS Île-de-France');
 assert.equal(permit.validFrom, undefined);
 assert.equal(jsonLd(home).some((node) => node['@type'] === 'GovernmentPermit'), false);
+const innovationFr = read('/innovation/');
+const innovationEn = read('/en/innovation/');
+assert.match(innovationFr, /<title>Prestataire agréé CII et innovation logicielle \| Coconsult<\/title>/);
+assert.match(innovationEn, /<title>Approved CII provider and software innovation \| Coconsult<\/title>/);
+const innovationFaq = jsonLd(innovationFr).find((node) => node['@type'] === 'FAQPage');
+assert.equal(innovationFaq.mainEntity.length, 4);
+assert.match(JSON.stringify(innovationFaq), /automatiquement éligible|ne deviennent pas éligibles/);
+assert.match(JSON.stringify(innovationFaq), /Coconsult Nearshore/);
+assert.match(read('/services/'), /href="\/innovation\/"/);
+assert.match(read('/en/services/'), /href="\/en\/innovation\/"/);
+assert.match(read('/solutions/'), /href="\/innovation\/"/);
+assert.match(read('/en/solutions/'), /href="\/en\/innovation\/"/);
+assert.match(read('/realisations/'), /href="\/innovation\/"/);
+assert.match(read('/en/case-studies/'), /href="\/en\/innovation\/"/);
+assert.match(read('/contact/'), /href="\/innovation\/"/);
+assert.match(read('/en/contact/'), /href="\/en\/innovation\/"/);
+assert.match(innovationFr, /href="\/solutions\/"/);
+assert.match(innovationFr, /href="\/realisations\/"/);
+assert.match(innovationFr, /href="\/contact\/"/);
 const softwareNodes = jsonLd(read('/services/developpement/'));
 assert.equal(softwareNodes.some((node) => node['@type'] === 'Service' && node.areaServed === 'FR'), true);
 const qaNodes = jsonLd(read('/services/qa-testing/'));
@@ -632,6 +651,57 @@ assert.match(read('/en/contact/'), /id="collect-note"/);
 assert.match(read('/contact/'), /sous deux jours ouvrés/);
 assert.match(fs.readFileSync(path.join(root, 'nginx.conf'), 'utf8'), /Strict-Transport-Security/);
 assert.match(fs.readFileSync(path.join(root, 'nginx.conf'), 'utf8'), /gzip on;/);
+
+const bingAltPages = [
+  '/',
+  '/en/',
+  '/services/',
+  '/en/services/',
+  '/services/ia-entreprise/',
+  '/en/services/enterprise-ai/',
+  '/services/automatisation/',
+  '/en/services/business-automation/',
+  '/services/cloud-devops/',
+  '/en/services/cloud-devops/',
+  '/realisations/',
+  '/en/case-studies/',
+  '/modes-intervention/',
+  '/en/engagement/',
+  '/a-propos/',
+  '/en/about/',
+  '/contact/',
+  '/en/contact/',
+];
+const decorativeEmptyAlt = new Set(['/assets/brand/coconsult-logo.png']);
+for (const urlPath of bingAltPages) {
+  const html = read(urlPath);
+  const imgs = [...html.matchAll(/<img\b[^>]*>/gi)].map((match) => match[0]);
+  assert.ok(imgs.length > 0, `${urlPath} expected images`);
+  for (const tag of imgs) {
+    assert.match(tag, /\balt=/i, `${urlPath} missing alt attribute: ${tag.slice(0, 120)}`);
+    const src = (tag.match(/\bsrc=(["'])([^"']+)\1/i) || [])[2] || '';
+    const alt = (tag.match(/\balt=(["'])([^"']*)\1/i) || [])[2];
+    assert.equal(typeof alt, 'string', `${urlPath} unparsed alt: ${tag.slice(0, 120)}`);
+    if (src.startsWith('/assets/people/')) {
+      assert.ok(alt.length > 0, `${urlPath} people photo needs non-empty alt: ${src}`);
+      assert.equal(/crédit d’impôt|tax credit|\bCII\b|\bCloud\b|\bIA\b|\bAI\b/i.test(alt), false, `${urlPath} keyword stuffing in alt: ${alt}`);
+    }
+    if (decorativeEmptyAlt.has(src) && /cii-seal/i.test(html) && tag.includes('coconsult-logo.png')) {
+      // Seal logo may be empty when adjacent labelled text names the brand.
+      continue;
+    }
+  }
+  const emptyPeople = imgs.filter((tag) => {
+    const src = (tag.match(/\bsrc=(["'])([^"']+)\1/i) || [])[2] || '';
+    const alt = (tag.match(/\balt=(["'])([^"']*)\1/i) || [])[2];
+    return src.startsWith('/assets/people/') && alt === '';
+  });
+  assert.equal(emptyPeople.length, 0, `${urlPath} empty people alts: ${emptyPeople.join(' | ')}`);
+}
+assert.match(read('/'), /workshop-journey\.jpg"[^>]*alt="Deux collègues/);
+assert.match(read('/en/'), /workshop-journey\.jpg"[^>]*alt="Two colleagues/);
+assert.match(read('/contact/'), /contact-exchange\.jpg"[^>]*alt="Un homme et une femme/);
+assert.match(read('/en/contact/'), /contact-exchange\.jpg"[^>]*alt="A man and a woman/);
 
 for (const file of fs.readdirSync(dist, { recursive: true })) {
   const full = path.join(dist, String(file));
