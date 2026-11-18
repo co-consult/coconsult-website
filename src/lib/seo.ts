@@ -28,6 +28,7 @@ export function organizationLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': company.siteUrl + '/#organization',
     name: company.name,
     url: company.siteUrl + '/',
     logo: absoluteUrl('/assets/brand/coconsult-logo.png'),
@@ -43,6 +44,18 @@ export function organizationLd() {
       addressCountry: 'FR',
     },
     ...(company.legal.linkedin ? { sameAs: [company.legal.linkedin] } : {}),
+  };
+}
+
+export function webSiteLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': company.siteUrl + '/#website',
+    name: company.name,
+    url: company.siteUrl + '/',
+    inLanguage: ['fr', 'en'],
+    publisher: { '@id': company.siteUrl + '/#organization' },
   };
 }
 
@@ -73,7 +86,7 @@ export function webPageLd(locale: Locale, key: RouteKey, title: string, descript
     description,
     url: absoluteUrl(path),
     inLanguage: locale,
-    isPartOf: { '@type': 'WebSite', name: company.name, url: company.siteUrl + '/' },
+    isPartOf: { '@id': company.siteUrl + '/#website' },
   };
 }
 
