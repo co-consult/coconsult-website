@@ -109,7 +109,7 @@ export const routes: Record<RouteKey, RouteDef> = {
     en: '/en/solutions/',
     nav: true,
     footer: 'company',
-    label: { fr: 'Solutions', en: 'Solutions' },
+    label: { fr: 'Produits', en: 'Products' },
   },
   cases: {
     key: 'cases',

@@ -1,4 +1,5 @@
 ---
+import PeopleImg from '@/components/visuals/PeopleImg.astro';
 import { ui } from '@/content/ui';
 import type { Locale, PageContent } from '@/content/types';
 import { company } from '@/data/company';
@@ -29,9 +30,11 @@ const copy = fr
       back: 'Retour',
       msg: 'Message',
       msgOptional: 'Message, facultatif',
-      name: 'Nom',
-      email: 'E-mail professionnel',
+      name: 'Nom (obligatoire)',
+      email: 'E-mail professionnel (obligatoire)',
       company: 'Entreprise, facultative',
+      msgRequired: 'Message (obligatoire)',
+      collectNote: 'Nom et e-mail sont requis pour vous répondre. Voir la politique de confidentialité.',
       source: 'Comment avez-vous connu Coconsult ?',
       sourceOptional: 'Facultatif. Cette réponse ne vient pas d’un traceur.',
       sourceUnset: 'Non renseigné',
@@ -98,9 +101,11 @@ const copy = fr
       back: 'Back',
       msg: 'Message',
       msgOptional: 'Message, optional',
-      name: 'Name',
-      email: 'Work email',
+      name: 'Name (required)',
+      email: 'Work email (required)',
       company: 'Company, optional',
+      msgRequired: 'Message (required)',
+      collectNote: 'Name and email are required so we can reply. See the privacy policy.',
       source: 'How did you hear about Coconsult?',
       sourceOptional: 'Optional. This answer does not come from a tracker.',
       sourceUnset: 'Not specified',
@@ -208,7 +213,13 @@ const copy = fr
         <p data-copy-status aria-live="polite"></p>
       </div>
       <figure class="contact-aside-visual">
-        <img src="/assets/people/contact-exchange.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
+        <PeopleImg
+          src="/assets/people/contact-exchange.jpg"
+          alt={fr ? 'Un homme et une femme examinent ensemble le contenu d’une tablette.' : 'A man and a woman review a tablet together at a desk.'}
+          width={1280}
+          height={720}
+          sizes="(max-width: 980px) 92vw, 420px"
+        />
         <figcaption>{fr ? 'Un échange concret, pas un formulaire anonyme.' : 'A concrete exchange, not an anonymous form.'}</figcaption>
       </figure>
     </header>
@@ -244,8 +255,8 @@ const copy = fr
       <section class="panel" data-step="2" data-generic-only hidden>
         <div class="hints" id="hints"></div>
         <label class="field" data-message-field>
-          <span data-message-label>{copy.msg}</span>
-          <textarea id="message" name="message" maxlength="4000"></textarea>
+          <span data-message-label>{copy.msgRequired}</span>
+          <textarea id="message" name="message" maxlength="4000" required aria-required="true" aria-describedby="err-2"></textarea>
         </label>
         <p class="error" id="err-2" role="alert"></p>
         <div class="cta-row">
@@ -254,8 +265,8 @@ const copy = fr
         </div>
       </section>
       <section class="panel" data-step="3" hidden>
-        <label class="field"><span>{copy.name}</span><input id="name" name="name" autocomplete="name" maxlength="120" /></label>
-        <label class="field"><span>{copy.email}</span><input id="email" name="email" type="email" autocomplete="email" maxlength="160" /></label>
+        <label class="field"><span>{copy.name}</span><input id="name" name="name" autocomplete="name" maxlength="120" required aria-required="true" aria-describedby="err-3 collect-note" /></label>
+        <label class="field"><span>{copy.email}</span><input id="email" name="email" type="email" autocomplete="email" maxlength="160" required aria-required="true" aria-describedby="err-3 collect-note" /></label>
         <label class="field"><span>{copy.company}</span><input id="company" name="company" autocomplete="organization" maxlength="160" /></label>
         <label class="field">
           <span>{copy.source}</span>
@@ -266,6 +277,10 @@ const copy = fr
           </select>
         </label>
         <div data-demo-message-slot></div>
+        <p class="privacy-notice collect-note" id="collect-note">
+          {copy.collectNote}{' '}
+          <a href={locale === 'fr' ? '/confidentialite/' : '/en/privacy-policy/'}>{t.privacyNote}</a>
+        </p>
         <p class="error" id="err-3" role="alert"></p>
         <div class="cta-row">
           <button class="btn ghost" type="button" data-next="2" data-generic-only>{copy.back}</button>

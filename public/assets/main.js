@@ -8,16 +8,23 @@
     const closedLabel = button.dataset.closedLabel || 'Menu';
     const openLabel = button.dataset.openLabel || 'Close menu';
 
+    function setBodyLock(locked) {
+      document.documentElement.classList.toggle('nav-open', locked);
+      document.body.classList.toggle('nav-open', locked);
+    }
+
     function close() {
       button.setAttribute('aria-expanded', 'false');
       button.setAttribute('aria-label', closedLabel);
       nav.hidden = true;
+      setBodyLock(false);
     }
 
     function open() {
       button.setAttribute('aria-expanded', 'true');
       button.setAttribute('aria-label', openLabel);
       nav.hidden = false;
+      setBodyLock(true);
       const first = nav.querySelector('a');
       if (first instanceof HTMLElement) first.focus();
     }

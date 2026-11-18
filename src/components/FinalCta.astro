@@ -1,4 +1,5 @@
 ---
+import PeopleImg from '@/components/visuals/PeopleImg.astro';
 import type { InquiryId, Locale } from '@/content/types';
 import { contactPath, getInquiry } from '@/data/inquiries';
 
@@ -74,8 +75,13 @@ const resolvedSecondaryLabel =
         )}
       </div>
     </div>
-    <figure class="final-cta-media" aria-hidden="true">
-      <img src={image} alt="" width="1280" height="720" loading="lazy" decoding="async" />
+    <figure class="final-cta-media">
+      <PeopleImg
+        src={image}
+        alt={fr ? 'Un homme et une femme examinent du code sur un écran dans un open space.' : 'A man and a woman review code on a monitor in an open-plan office.'}
+        width={1280}
+        height={720}
+      />
       <figcaption>
         <span>{copy.captionKicker}</span>
         <strong>{copy.captionTitle}</strong>

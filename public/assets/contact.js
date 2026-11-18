@@ -249,24 +249,36 @@
     if (target instanceof HTMLElement) target.focus();
   }
 
+  function setInvalid(field, invalid) {
+    if (!(field instanceof HTMLElement)) return;
+    if (invalid) field.setAttribute('aria-invalid', 'true');
+    else field.removeAttribute('aria-invalid');
+  }
+
   function validate(step) {
     const error = document.getElementById(`err-${step}`);
     if (error) error.textContent = '';
+    setInvalid(message, false);
+    setInvalid(nameField, false);
+    setInvalid(emailField, false);
     if (step === 1 && !isDemoMode() && !state.need) {
       if (error) error.textContent = panel.dataset.needErr || '';
       return false;
     }
     if (step === 2 && !isDemoMode() && fieldValue(message).length < 20) {
       if (error) error.textContent = panel.dataset.msgErr || '';
+      setInvalid(message, true);
       return false;
     }
     if (step === 3) {
       if (fieldValue(nameField).length < 2) {
         if (error) error.textContent = panel.dataset.nameErr || '';
+        setInvalid(nameField, true);
         return false;
       }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fieldValue(emailField))) {
         if (error) error.textContent = panel.dataset.mailErr || '';
+        setInvalid(emailField, true);
         return false;
       }
     }

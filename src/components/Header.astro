@@ -16,6 +16,7 @@ const home = pathFor(locale, 'home');
 const other = alternatePath(locale, routeKey);
 const selfPath = routeKey === 'notFound' ? home : pathFor(locale, routeKey);
 const contactHref = contactPath(locale, 'project');
+const mobilePrimary = primaryNav.filter((key) => key !== 'contact');
 ---
 <a class="skip-link" href="#main">{t.skip}</a>
 <header class="site-header" data-home={routeKey === 'home' ? 'true' : undefined}>
@@ -57,23 +58,17 @@ const contactHref = contactPath(locale, 'project');
     </div>
   </div>
   <nav id={menuId} class="mobile-nav" aria-label={t.navLabel} hidden>
-    {primaryNav.map((key) => (
+    <a class="mobile-contact" href={contactHref} aria-current={routeKey === 'contact' ? 'page' : undefined}>{t.headerCta}</a>
+    {mobilePrimary.map((key) => (
       <a href={pathFor(locale, key)} aria-current={routeKey === key ? 'page' : undefined}>{routes[key].label[locale]}</a>
     ))}
-    <p class="mobile-label">{t.servicesGroup}</p>
-    {serviceNav.map((key) => (
-      <a href={pathFor(locale, key)} aria-current={routeKey === key ? 'page' : undefined}>{routes[key].label[locale]}</a>
-    ))}
-    <div class="lang-switch lang-switch-mobile" data-active={locale} role="group" aria-label={t.langAria}>
-      <span class="lang-thumb" aria-hidden="true"></span>
-      <a class="lang-opt" href={locale === 'fr' ? selfPath : other} lang="fr" hreflang="fr" aria-current={locale === 'fr' ? 'true' : undefined}>
-        <span class="lang-code">FR</span>
-        <span class="lang-name">{t.langFr}</span>
-      </a>
-      <a class="lang-opt" href={locale === 'en' ? selfPath : other} lang="en" hreflang="en" aria-current={locale === 'en' ? 'true' : undefined}>
-        <span class="lang-code">EN</span>
-        <span class="lang-name">{t.langEn}</span>
-      </a>
-    </div>
+    <details class="mobile-services">
+      <summary>{t.servicesGroup}</summary>
+      <div class="mobile-services-list">
+        {serviceNav.map((key) => (
+          <a href={pathFor(locale, key)} aria-current={routeKey === key ? 'page' : undefined}>{routes[key].label[locale]}</a>
+        ))}
+      </div>
+    </details>
   </nav>
 </header>

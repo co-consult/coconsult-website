@@ -73,16 +73,24 @@ test('language switch keeps the equivalent page', async ({ page }) => {
 });
 
 test('mobile menu opens, closes on Escape, and follows a link', async ({ page }) => {
-  await page.setViewportSize({ width: 375, height: 800 });
+  await page.setViewportSize({ width: 375, height: 667 });
   await page.goto('/en/');
   const button = page.getByRole('button', { name: 'Menu' });
   await button.click();
   const menu = page.locator('#mobile-menu');
   await expect(menu).toBeVisible();
   await expect(button).toHaveAttribute('aria-expanded', 'true');
+  await expect(page.locator('body')).toHaveClass(/nav-open/);
+  const contact = menu.locator('.mobile-contact');
+  await expect(contact).toBeVisible();
+  const contactBox = await contact.boundingBox();
+  expect(contactBox?.y ?? 9999).toBeLessThan(200);
+  await expect(menu).toHaveCSS('overflow-y', 'auto');
   await page.keyboard.press('Escape');
   await expect(menu).toBeHidden();
+  await expect(page.locator('body')).not.toHaveClass(/nav-open/);
   await button.click();
+  await menu.locator('.mobile-services > summary').click();
   await menu.getByRole('link', { name: 'QA & testing' }).click();
   await expect(page).toHaveURL(/\/en\/services\/qa-testing\/$/);
 });
@@ -192,9 +200,10 @@ for (const viewport of [
     await page.goto('/');
     const header = await page.locator('.site-header .brand img').evaluate((element) => Math.round(element.getBoundingClientRect().height));
     const footer = await page.locator('.site-footer .brand img').evaluate((element) => Math.round(element.getBoundingClientRect().height));
-    const mobile = viewport.width <= 700;
-    expect(header).toBe(mobile ? 52 : 64);
-    expect(footer).toBe(mobile ? 48 : 64);
+    const expectedHeader = viewport.width <= 380 ? 44 : viewport.width <= 700 ? 52 : 64;
+    const expectedFooter = viewport.width <= 700 ? 48 : 64;
+    expect(header).toBe(expectedHeader);
+    expect(footer).toBe(expectedFooter);
   });
 }
 
@@ -426,12 +435,11 @@ test('the contact page stays usable on a phone', async ({ page }) => {
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(1);
   await expect(page.locator('h1')).toContainText('Parlons de votre prochain système.');
-  await expect(page.locator('.prepare-note')).toContainText('confirmation s’affiche seulement si la demande est bien reçue');
+  await expect(page.locator('.prepare-note')).toContainText('sous deux jours ouvrés');
   await page.locator('[data-need="team"]').click();
   await expect(page.locator('#message')).toBeVisible();
-  await expect(page.locator('.header-contact')).toBeHidden();
   await page.getByRole('button', { name: 'Menu' }).click();
-  await expect(page.locator('#mobile-menu').getByRole('link', { name: 'Contact' })).toBeVisible();
+  await expect(page.locator('#mobile-menu').locator('.mobile-contact')).toBeVisible();
 });
 
 test('desktop navigation keeps a single Contact call to action', async ({ page }) => {
@@ -1121,6 +1129,28 @@ test('the document case is a conceptual illustration in French and English', asy
       expect(bounds.overflow, `${item.path} ${width}`).toBeLessThanOrEqual(1);
     }
   }
+});
+
+test('collaboration cards stay single-column on narrow viewports', async ({ page }) => {
+  for (const width of [360, 414, 1024]) {
+    await page.setViewportSize({ width, height: 800 });
+    await page.goto('/en/');
+    const columns = await page.locator('#modes .modes-body .mode-row').evaluate((el) => getComputedStyle(el).gridTemplateColumns);
+    expect(columns.trim().split(/\s+/).length, `modes at ${width}`).toBe(1);
+  }
+});
+
+test('contact details mark required fields and keep step aria-current', async ({ page }) => {
+  await page.goto('/en/contact/');
+  await page.locator('[data-need="software"]').click();
+  await page.locator('[data-step="2"] .btn.primary').click();
+  await expect(page.locator('#message')).toHaveAttribute('aria-invalid', 'true');
+  await page.locator('#message').fill('We want to evolve an application that is already running.');
+  await page.locator('[data-step="2"] .btn.primary').click();
+  await expect(page.locator('#name')).toHaveAttribute('aria-required', 'true');
+  await expect(page.locator('#email')).toHaveAttribute('aria-required', 'true');
+  await expect(page.locator('#collect-note')).toBeVisible();
+  await expect(page.locator('[data-steps-generic] button[data-goto="3"]')).toHaveAttribute('aria-current', 'step');
 });
 
 test('the contact summary shows the privacy notice and no marketing checkbox', async ({ page }) => {

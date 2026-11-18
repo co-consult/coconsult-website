@@ -618,6 +618,21 @@ assert.match(devFr, /rel="canonical" href="https:\/\/coconsult\.fr\/services\/de
 assert.match(devEn, /hreflang="fr" href="https:\/\/coconsult\.fr\/services\/developpement\/"/);
 assert.equal((devFr.match(/<h1\b/g) ?? []).length, 1);
 
+const industriesEn = read('/en/industries/');
+const industriesMeta = industriesEn.match(/<meta name="description" content="([^"]*)"/i);
+assert.ok(industriesMeta, 'industries meta description');
+assert.ok(industriesMeta[1].length <= 160, `industries meta too long: ${industriesMeta[1].length}`);
+assert.match(read('/en/'), /workshop-journey-480w\.webp/);
+assert.match(read('/en/'), /mobile-nav/);
+assert.match(read('/en/'), /mobile-contact/);
+assert.match(read('/en/'), />Products</);
+assert.match(read('/'), />Produits</);
+assert.match(read('/en/contact/'), /aria-required="true"/);
+assert.match(read('/en/contact/'), /id="collect-note"/);
+assert.match(read('/contact/'), /sous deux jours ouvrés/);
+assert.match(fs.readFileSync(path.join(root, 'nginx.conf'), 'utf8'), /Strict-Transport-Security/);
+assert.match(fs.readFileSync(path.join(root, 'nginx.conf'), 'utf8'), /gzip on;/);
+
 for (const file of fs.readdirSync(dist, { recursive: true })) {
   const full = path.join(dist, String(file));
   if (!fs.statSync(full).isFile()) continue;
