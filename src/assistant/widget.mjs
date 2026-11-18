@@ -1,4 +1,5 @@
 import { armGuideVisit, armHandoff, clearHandoff } from './handoff.mjs';
+import { chrome } from './knowledge.mjs';
 import { start, turn } from './guide.mjs';
 
 const SAFE_PREFIXES = [
@@ -11,6 +12,13 @@ const SAFE_PREFIXES = [
   '/a-propos/',
   '/innovation/',
   '/solutions/',
+  '/secteurs/',
+  '/partenariats/',
+  '/en/industries/',
+  '/en/partnerships/',
+  '/en/case-studies/',
+  '/en/engagement/',
+  '/en/about/',
 ];
 
 let launcher = null;
@@ -19,6 +27,11 @@ let state = null;
 let open = false;
 let handoffMessage = '';
 let leaving = false;
+let locale = 'fr';
+let labels = chrome('fr');
+let history = [];
+let typingTimer = 0;
+let busy = false;
 
 export function mountAssistant(button) {
   if (!(button instanceof HTMLButtonElement)) return;
@@ -28,11 +41,14 @@ export function mountAssistant(button) {
   button.dataset.assistantReady = 'true';
   launcher = button;
   panel = dialog;
-  const locale = button.dataset.locale === 'en' ? 'en' : 'fr';
-  const opening = start(locale);
-  state = opening.state;
-  render(opening);
+  locale = button.dataset.locale === 'en' ? 'en' : 'fr';
+  labels = chrome(locale);
+  resetConversation(false);
   dialog.querySelector('[data-assistant-close]')?.addEventListener('click', () => setOpen(false));
+  dialog.querySelector('[data-assistant-restart]')?.addEventListener('click', () => {
+    void clearHandoff();
+    resetConversation(true);
+  });
   dialog.addEventListener('click', onChoice);
   dialog.addEventListener('click', onHandoff);
   dialog.addEventListener('keydown', onKey);
@@ -45,38 +61,65 @@ export function mountAssistant(button) {
       if (form instanceof HTMLFormElement) form.requestSubmit();
     }
   });
+  field?.addEventListener('input', autoGrow);
 }
 
 export function toggleAssistant() {
   setOpen(!open);
 }
 
+function resetConversation(focusInput) {
+  window.clearTimeout(typingTimer);
+  busy = false;
+  const opening = start(locale);
+  state = opening.state;
+  history = [];
+  renderOpening(opening);
+  if (focusInput) {
+    const field = panel?.querySelector('#cc-assistant-input');
+    if (field instanceof HTMLTextAreaElement) field.focus();
+  }
+}
+
 function setOpen(next) {
   if (!panel || !launcher) return;
   open = next;
   if (!next && !leaving) void clearHandoff();
-  panel.hidden = !open;
+  if (open) {
+    panel.hidden = false;
+    requestAnimationFrame(() => panel?.classList.add('is-open'));
+  } else {
+    panel.classList.remove('is-open');
+    window.setTimeout(() => {
+      if (!open && panel) panel.hidden = true;
+    }, 220);
+  }
   launcher.setAttribute('aria-expanded', open ? 'true' : 'false');
-  const target = open ? panel.querySelector('[data-assistant-close]') : launcher;
+  const target = open ? panel.querySelector('#cc-assistant-input') : launcher;
   if (target instanceof HTMLElement) target.focus();
 }
 
 function onChoice(event) {
   const target = event.target instanceof Element ? event.target.closest('[data-choice]') : null;
-  if (!(target instanceof HTMLButtonElement) || !state) return;
+  if (!(target instanceof HTMLButtonElement) || !state || busy) return;
   void clearHandoff();
-  show(turn(state, { type: 'choice', id: target.dataset.choice || '' }));
+  const label = target.textContent || '';
+  pushUser(label);
+  respond(turn(state, { type: 'choice', id: target.dataset.choice || '' }));
 }
 
 function onSubmit(event) {
   event.preventDefault();
-  if (!panel || !state) return;
+  if (!panel || !state || busy) return;
   const field = panel.querySelector('#cc-assistant-input');
   if (!(field instanceof HTMLTextAreaElement)) return;
-  const text = field.value;
+  const text = field.value.trim();
+  if (!text) return;
   field.value = '';
+  autoGrow({ target: field });
   void clearHandoff();
-  show(turn(state, { type: 'text', text }));
+  pushUser(text);
+  respond(turn(state, { type: 'text', text }));
   field.focus();
 }
 
@@ -87,7 +130,7 @@ function onKey(event) {
     return;
   }
   if (event.key !== 'Tab' || !panel) return;
-  const nodes = [...panel.querySelectorAll('button, a[href], textarea')].filter((node) => node instanceof HTMLElement);
+  const nodes = [...panel.querySelectorAll('button, a[href], textarea')].filter((node) => node instanceof HTMLElement && !node.hasAttribute('disabled'));
   if (nodes.length === 0) return;
   const first = nodes[0];
   const last = nodes[nodes.length - 1];
@@ -100,42 +143,145 @@ function onKey(event) {
   }
 }
 
-function show(reply) {
-  state = reply.state;
-  render(reply);
+function pushUser(text) {
+  history.push({ role: 'user', text });
+  paintHistory();
+  clearChoices();
 }
 
-function render(reply) {
+function respond(reply) {
+  busy = true;
+  showTyping(true);
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const delay = reduce ? 0 : 280;
+  window.clearTimeout(typingTimer);
+  typingTimer = window.setTimeout(() => {
+    showTyping(false);
+    state = reply.state;
+    history.push({ role: 'bot', reply });
+    paintHistory();
+    paintChoices(reply);
+    busy = false;
+    scrollLog();
+  }, delay);
+}
+
+function renderOpening(reply) {
+  history = [{ role: 'bot', reply }];
+  paintHistory();
+  paintChoices(reply);
+}
+
+function paintHistory() {
   if (!panel) return;
   const log = panel.querySelector('.cc-assistant-log');
-  const choices = panel.querySelector('.cc-assistant-choices');
-  if (!(log instanceof HTMLElement) || !(choices instanceof HTMLElement)) return;
-  handoffMessage = reply.handoff?.message || '';
+  if (!(log instanceof HTMLElement)) return;
   log.replaceChildren();
-  const paragraph = document.createElement('p');
-  paragraph.textContent = reply.text;
-  log.append(paragraph);
+  for (const item of history) {
+    if (item.role === 'user') {
+      log.append(messageNode('user', item.text));
+      continue;
+    }
+    log.append(botNode(item.reply));
+  }
+  scrollLog();
+}
+
+function botNode(reply) {
+  handoffMessage = reply.handoff?.message || '';
+  const wrap = document.createElement('div');
+  wrap.className = 'cc-msg cc-msg-bot';
+  const meta = document.createElement('span');
+  meta.className = 'cc-msg-meta';
+  meta.textContent = labels.guideLabel;
+  wrap.append(meta);
+  const bubble = document.createElement('p');
+  bubble.className = 'cc-msg-bubble';
+  bubble.textContent = reply.text;
+  wrap.append(bubble);
   if (reply.summary?.lines) {
     const list = document.createElement('ul');
+    list.className = 'cc-msg-list';
     for (const line of reply.summary.lines) {
       const item = document.createElement('li');
       item.textContent = line;
       list.append(item);
     }
-    log.append(list);
+    wrap.append(list);
   }
-  for (const link of reply.links || []) appendLink(log, link, false);
-  if (reply.handoff) appendHandoff(log, reply.handoff);
-  if (reply.contact) appendLink(log, reply.contact, true);
+  const actions = document.createElement('div');
+  actions.className = 'cc-msg-actions';
+  for (const link of reply.links || []) appendLink(actions, link, false);
+  if (reply.handoff) appendHandoff(actions, reply.handoff);
+  if (reply.contact) appendLink(actions, reply.contact, true);
+  if (actions.childNodes.length) wrap.append(actions);
+  return wrap;
+}
+
+function messageNode(role, text) {
+  const wrap = document.createElement('div');
+  wrap.className = `cc-msg cc-msg-${role}`;
+  const meta = document.createElement('span');
+  meta.className = 'cc-msg-meta';
+  meta.textContent = role === 'user' ? labels.youLabel : labels.guideLabel;
+  const bubble = document.createElement('p');
+  bubble.className = 'cc-msg-bubble';
+  bubble.textContent = text;
+  wrap.append(meta, bubble);
+  return wrap;
+}
+
+function paintChoices(reply) {
+  if (!panel) return;
+  const choices = panel.querySelector('.cc-assistant-choices');
+  if (!(choices instanceof HTMLElement)) return;
   choices.replaceChildren();
   for (const choice of reply.choices || []) {
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = 'cc-assistant-choice';
+    button.className = choice.primary ? 'cc-assistant-choice is-primary' : 'cc-assistant-choice';
     button.dataset.choice = choice.id;
     button.textContent = choice.label;
     choices.append(button);
   }
+}
+
+function clearChoices() {
+  const choices = panel?.querySelector('.cc-assistant-choices');
+  if (choices instanceof HTMLElement) choices.replaceChildren();
+}
+
+function showTyping(on) {
+  if (!panel) return;
+  const log = panel.querySelector('.cc-assistant-log');
+  if (!(log instanceof HTMLElement)) return;
+  const existing = log.querySelector('.cc-assistant-typing');
+  if (!on) {
+    existing?.remove();
+    return;
+  }
+  if (existing) return;
+  const row = document.createElement('div');
+  row.className = 'cc-msg cc-msg-bot';
+  const dots = document.createElement('div');
+  dots.className = 'cc-assistant-typing';
+  dots.setAttribute('aria-hidden', 'true');
+  for (let i = 0; i < 3; i += 1) dots.append(document.createElement('span'));
+  row.append(dots);
+  log.append(row);
+  scrollLog();
+}
+
+function scrollLog() {
+  const log = panel?.querySelector('.cc-assistant-log');
+  if (log instanceof HTMLElement) log.scrollTop = log.scrollHeight;
+}
+
+function autoGrow(event) {
+  const field = event.target;
+  if (!(field instanceof HTMLTextAreaElement)) return;
+  field.style.height = 'auto';
+  field.style.height = `${Math.min(110, Math.max(46, field.scrollHeight))}px`;
 }
 
 function appendLink(parent, link, contact) {

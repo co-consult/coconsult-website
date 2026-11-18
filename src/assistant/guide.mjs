@@ -7,6 +7,8 @@ import {
   localeOf,
   matchEntry,
   pathFor,
+  relatedEntries,
+  suggestEntries,
 } from './knowledge.mjs';
 
 export { KNOWLEDGE_VERSION };
@@ -104,7 +106,7 @@ function applyText(state, raw) {
   if (COMMERCIAL.test(text)) return blocked(state, 'commercial');
   if (PRIVATE.test(text)) return blocked(state, 'private');
   const entry = matchEntry(text);
-  if (!entry) return unmatched(state);
+  if (!entry) return unmatched(state, text);
   return showEntry(state, entry.id);
 }
 
@@ -160,9 +162,17 @@ function showEntry(state, id) {
   state.topic = id;
   state.phase = 'entry';
   state.editing = false;
+  const related = relatedEntries(id, 2).map((item) => ({
+    id: item.id,
+    label: item.label[state.locale],
+  }));
   return pack(state, {
     text: entry.text[state.locale],
-    choices: [qualifyChoice(state.locale), backChoice(state.locale)],
+    choices: [
+      { ...qualifyChoice(state.locale), primary: true },
+      ...related,
+      backChoice(state.locale),
+    ],
     links: linksFor(state.locale, entry),
     matched: true,
   });
@@ -332,13 +342,28 @@ function blocked(state, reason) {
   });
 }
 
-function unmatched(state) {
+function unmatched(state, raw = '') {
   const en = state.locale === 'en';
+  const suggestions = suggestEntries(raw, 3)
+    .map((entry) => ({ id: entry.id, label: entry.label[state.locale] }));
+  const hasHints = suggestions.length > 0;
   return pack(state, {
-    text: en
-      ? 'I do not have a public page that answers this precisely. The contact form reaches the team.'
-      : 'Je n’ai pas de page publique qui réponde précisément. Le formulaire de contact joint l’équipe.',
-    choices: [backChoice(state.locale)],
+    text: hasHints
+      ? (en
+        ? 'I do not have an exact public answer. These topics are close — or open the contact form.'
+        : 'Je n’ai pas de réponse publique exacte. Ces sujets sont proches — ou ouvrez le formulaire de contact.')
+      : (en
+        ? 'I do not have a public page that answers this precisely. Pick a topic below, or open the contact form.'
+        : 'Je n’ai pas de page publique qui réponde précisément. Choisissez un sujet ci-dessous, ou ouvrez le formulaire.'),
+    choices: [
+      ...(hasHints ? suggestions : [
+        { id: 'topics', label: en ? 'Expertise' : 'Les expertises' },
+        { id: 'works', label: en ? 'Case studies' : 'Les réalisations' },
+        { id: 'qualify', label: en ? 'Describe a need' : 'Qualifier un besoin', primary: true },
+      ]),
+      { id: 'contact', label: en ? 'Contact form' : 'Le formulaire de contact' },
+      backChoice(state.locale),
+    ],
     contact: {
       href: pathFor(state.locale, 'contact'),
       label: en ? 'Open the contact form' : 'Ouvrir le formulaire de contact',
@@ -379,25 +404,25 @@ function summaryLines(state) {
 
 function welcome(locale) {
   return locale === 'en'
-    ? 'Hello. I can introduce Coconsult, its expertise and the public case studies, then point you to a page or to the contact form.'
-    : 'Bonjour. Je peux présenter Coconsult, ses expertises et les réalisations publiques, puis vous orienter vers une page ou vers le formulaire de contact.';
+    ? 'Hello — I orient you from Coconsult’s public pages: expertise, ways of working, case studies, or a short need so we open the right contact form. Ask in your own words, or tap a suggestion.'
+    : 'Bonjour — je vous oriente à partir des pages publiques Coconsult : expertises, modes de collaboration, réalisations, ou un besoin court pour ouvrir le bon formulaire. Posez votre question, ou choisissez une suggestion.';
 }
 
 function menuChoices(locale) {
   if (locale === 'en') {
     return [
+      { id: 'qualify', label: 'Describe a need', primary: true },
       { id: 'topics', label: 'Expertise' },
       { id: 'modes', label: 'Ways of working' },
       { id: 'works', label: 'Case studies' },
-      { id: 'qualify', label: 'Describe a need' },
       { id: 'contact', label: 'Contact form' },
     ];
   }
   return [
+    { id: 'qualify', label: 'Qualifier un besoin', primary: true },
     { id: 'topics', label: 'Les expertises' },
     { id: 'modes', label: 'Les modes de collaboration' },
     { id: 'works', label: 'Les réalisations' },
-    { id: 'qualify', label: 'Qualifier un besoin' },
     { id: 'contact', label: 'Le formulaire de contact' },
   ];
 }

@@ -1,0 +1,241 @@
+---
+import FinalCta from '@/components/FinalCta.astro';
+import type { Block, Locale, PageContent, RouteKey } from '@/content/types';
+import { ui } from '@/content/ui';
+import { contactPath, getInquiry } from '@/data/inquiries';
+import { pathFor } from '@/data/routes';
+import { crumbsFor } from '@/lib/seo';
+import { pageVisuals } from '@/data/page-visuals';
+
+interface Props { locale: Locale; page: PageContent }
+const { locale, page } = Astro.props;
+const t = ui[locale];
+const fr = locale === 'fr';
+const crumbs = crumbsFor(locale, page.key, t.home);
+const visual = pageVisuals[page.key];
+
+const columnsBlocks = page.blocks.filter((block): block is Extract<Block, { type: 'columns' }> => block.type === 'columns');
+const listBlocks = page.blocks.filter((block): block is Extract<Block, { type: 'list' }> => block.type === 'list');
+const stepsBlocks = page.blocks.filter((block): block is Extract<Block, { type: 'steps' }> => block.type === 'steps');
+const proseBlocks = page.blocks.filter((block): block is Extract<Block, { type: 'prose' }> => block.type === 'prose');
+const cardsBlocks = page.blocks.filter((block): block is Extract<Block, { type: 'cards' }> => block.type === 'cards');
+const faqBlocks = page.blocks.filter((block): block is Extract<Block, { type: 'faq' }> => block.type === 'faq');
+const cta = page.blocks.find((block): block is Extract<Block, { type: 'cta' }> => block.type === 'cta');
+
+const primaryCta = page.heroPrimary || cta?.primary || 'project';
+const secondaryHref = page.heroSecondary
+  ? contactPath(locale, page.heroSecondary)
+  : '#scope';
+
+const midImages: Partial<Record<RouteKey, string>> = {
+  software: '/assets/people/engineers-collab.jpg',
+  dedicated: '/assets/people/team-standup.jpg',
+  qa: '/assets/people/engineer-desk.jpg',
+  cloud: '/assets/people/delivery-room.jpg',
+  cyber: '/assets/people/architecture-review.jpg',
+  ai: '/assets/people/workshop-journey.jpg',
+  automation: '/assets/people/product-demo.jpg',
+  payments: '/assets/people/engineer-focus.jpg',
+};
+const midImage = midImages[page.key] || visual?.image;
+
+const laneFor = (key?: string) => {
+  if (key === 'ai' || key === 'automation') return 'ai';
+  if (key === 'software' || key === 'payments') return 'software';
+  if (key === 'cloud') return 'cloud';
+  if (key === 'qa' || key === 'cyber') return 'quality';
+  if (key === 'dedicated') return 'team';
+  if (key === 'innovation') return 'innovation';
+  return undefined;
+};
+---
+<div class:list={['experience', 'service-page', visual?.lane && `service-lane-${visual.lane}`]}>
+  <header class:list={['page-hero', 'service-hero', visual?.lane && `page-hero-lane-${visual.lane}`]} data-page-hero>
+    <div class="container">
+      {crumbs.length > 0 && (
+        <nav aria-label={t.breadcrumb}>
+          <ol class="crumbs">
+            {crumbs.map((crumb) => (
+              <li>
+                {crumb.href ? <a href={crumb.href}>{crumb.label}</a> : <span aria-current="page">{crumb.label}</span>}
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
+      <div class="service-hero-grid">
+        <div class="service-hero-copy">
+          <p class="eyebrow">{page.eyebrow}</p>
+          <h1>{page.h1}</h1>
+          <p class="lede">{page.intro}</p>
+          <div class="cta-row">
+            <a class="btn primary" href={contactPath(locale, primaryCta)}>{getInquiry(locale, primaryCta).label}</a>
+            <a class="btn ghost" href={secondaryHref}>{fr ? 'Parcourir l’offre' : 'Browse the offer'}</a>
+          </div>
+        </div>
+        {visual && (
+          <div class="service-hero-art">
+            <div class="service-hero-frame">
+              <img src={visual.image} alt="" width="1200" height="900" loading="eager" decoding="async" />
+              <span class="service-hero-glow" aria-hidden="true"></span>
+            </div>
+            <span class="service-hero-tag">{visual.overlay[locale]}</span>
+          </div>
+        )}
+      </div>
+    </div>
+  </header>
+
+  {columnsBlocks.map((block, blockIndex) => (
+    <section class="section service-scope" id={blockIndex === 0 ? 'scope' : undefined} data-reveal>
+      <div class="section-head">
+        <p class="eyebrow">{fr ? 'Périmètre' : 'Scope'}</p>
+        <div class="section-copy">
+          <h2>{block.title}</h2>
+          {block.intro && <p class="lede-soft">{block.intro}</p>}
+        </div>
+      </div>
+      <div class="service-scope-stage">
+        <div class="service-scope-grid" data-stagger>
+          {block.items.map((item, index) => (
+            <article class="service-scope-card" style={`--i:${index}`}>
+              <span class="service-scope-no" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+        {blockIndex === 0 && midImage && (
+          <figure class="service-scope-media" aria-hidden="true">
+            <img src={midImage} alt="" width="960" height="720" loading="lazy" decoding="async" />
+            <figcaption>
+              <span>{visual?.overlay[locale] || page.eyebrow}</span>
+              <strong>{fr ? 'Livré avec vos équipes' : 'Delivered with your teams'}</strong>
+            </figcaption>
+          </figure>
+        )}
+      </div>
+    </section>
+  ))}
+
+  {listBlocks.map((block) => (
+    <section class="section service-capabilities" data-reveal>
+      <div class="section-head">
+        <p class="eyebrow">{fr ? 'Capacités' : 'Capabilities'}</p>
+        <div class="section-copy">
+          <h2>{block.title}</h2>
+        </div>
+      </div>
+      <div class="service-cap-stream" data-stagger>
+        {block.items.map((item, index) => (
+          <article class="service-cap-chip" style={`--i:${index}`}>
+            <span class="service-cap-mark" aria-hidden="true"></span>
+            <p>{item}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  {stepsBlocks.map((block) => (
+    <section class="section service-process" data-reveal>
+      <div class="section-head">
+        <p class="eyebrow">{fr ? 'Déroulement' : 'Process'}</p>
+        <div class="section-copy">
+          <h2>{block.title}</h2>
+          {block.intro && <p class="lede-soft">{block.intro}</p>}
+        </div>
+      </div>
+      <div class="service-process-track" data-stagger>
+        <div class="service-process-line" aria-hidden="true"></div>
+        {block.items.map((item, index) => (
+          <article class="service-process-step" style={`--i:${index}`}>
+            <span class="service-process-node" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  {proseBlocks.map((block) => (
+    <section class="section service-prose" data-reveal>
+      <div class="service-prose-panel">
+        <div class="section-copy">
+          {block.title && <h2>{block.title}</h2>}
+          {block.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+        {midImage && (
+          <figure class="service-prose-media" aria-hidden="true">
+            <img src={visual?.image || midImage} alt="" width="900" height="700" loading="lazy" decoding="async" />
+          </figure>
+        )}
+      </div>
+    </section>
+  ))}
+
+  {cardsBlocks.map((block) => (
+    <section class="section service-next" data-reveal>
+      <div class="section-head">
+        <p class="eyebrow">{fr ? 'Suite' : 'Next'}</p>
+        <div class="section-copy">
+          <h2>{block.title}</h2>
+          {block.intro && <p class="lede-soft">{block.intro}</p>}
+        </div>
+      </div>
+      <div class:list={['need-mosaic', 'card-grid', { five: block.items.length > 4 }]} data-stagger>
+        {block.items.map((item, itemIndex) => {
+          const href = item.hrefKey ? pathFor(locale, item.hrefKey) : undefined;
+          const body = (
+            <>
+              <span class="need-index" aria-hidden="true">{String(itemIndex + 1).padStart(2, '0')}</span>
+              <div class="need-body">
+                {item.kicker && <p class="kicker-no">{item.kicker}</p>}
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+              {href && <span class="need-go" aria-hidden="true">→</span>}
+            </>
+          );
+          return href ? (
+            <a class="need-tile service-card is-link" data-lane={laneFor(item.hrefKey)} href={href}>{body}</a>
+          ) : (
+            <article class="need-tile service-card" data-lane={laneFor(item.hrefKey)}>{body}</article>
+          );
+        })}
+      </div>
+    </section>
+  ))}
+
+  {faqBlocks.map((block) => (
+    <section class="section service-faq" data-reveal>
+      <div class="section-head">
+        <p class="eyebrow">FAQ</p>
+        <div class="section-copy">
+          <h2>{block.title}</h2>
+        </div>
+      </div>
+      <div class="service-faq-list">
+        {block.items.map((item) => (
+          <details class="service-faq-item">
+            <summary>{item.q}</summary>
+            <p>{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  {cta && (
+    <FinalCta
+      locale={locale}
+      title={cta.title}
+      text={cta.text}
+      primary={cta.primary}
+      secondary={cta.secondary}
+      product={cta.product}
+      image={visual?.image}
+    />
+  )}
+</div>

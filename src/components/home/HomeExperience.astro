@@ -593,20 +593,47 @@ const demo = fr
     <SectorMatrix locale={locale} variant="home" />
   </section>
 
-  <section class="section paper" id="copharia" data-reveal>
-    <article class="copharia-card">
-      <p class="eyebrow">{fr ? 'Produit en développement' : 'Product in development'}</p>
-      <h2>COPHARIA</h2>
-      <p>
-        {fr
-          ? 'ERP pharmaceutique. Les modules présentés sur la page Solutions sont encore en développement.'
-          : 'A pharmaceutical ERP. The modules shown on the Solutions page are still in development.'}
-      </p>
-      <div class="cta-row">
-        <a class="btn primary" href={pathFor(locale, 'solutions')}>{fr ? 'Voir la solution' : 'View the solution'}</a>
-        <a class="btn ghost" href={contactPath(locale, 'demo', 'copharia')}>{fr ? 'Demander une démonstration de COPHARIA' : 'Request a COPHARIA demonstration'}</a>
+  <section class="section paper solutions-strip" id="solutions" data-reveal>
+    <div class="section-head">
+      <p class="eyebrow">{fr ? 'Solutions' : 'Solutions'}</p>
+      <div class="section-copy">
+        <h2>{fr ? 'Des systèmes métier que nous construisons.' : 'Business systems we build.'}</h2>
+        <p class="lede-soft">
+          {fr
+            ? 'Un produit Coconsult en développement, et des familles de plateformes déjà livrées à des clients.'
+            : 'One Coconsult product in development, and platform families already delivered to clients.'}
+        </p>
       </div>
-    </article>
+    </div>
+    <div class="solution-families" data-stagger>
+      <a class="solution-family" href={pathFor(locale, 'solutions')}>
+        <span class="solution-family-mark" aria-hidden="true">ERP</span>
+        <span class="solution-family-copy">
+          <span class="solution-family-status">{fr ? 'En développement' : 'In development'}</span>
+          <strong>{fr ? 'ERP métier' : 'Business ERP'}</strong>
+          <span>{fr ? 'COPHARIA — pharmacie, stocks, qualité.' : 'COPHARIA — pharmacy, stock, quality.'}</span>
+        </span>
+      </a>
+      <a class="solution-family" href={`${pathFor(locale, 'cases')}#sports-platform`}>
+        <span class="solution-family-mark" aria-hidden="true">SPORT</span>
+        <span class="solution-family-copy">
+          <span class="solution-family-status">{fr ? 'Livré' : 'Delivered'}</span>
+          <strong>{fr ? 'Plateformes sportives' : 'Sports platforms'}</strong>
+          <span>{fr ? 'Soutien, places, billetterie, suivi.' : 'Support, seats, ticketing, follow-up.'}</span>
+        </span>
+      </a>
+      <a class="solution-family" href={pathFor(locale, 'cases')}>
+        <span class="solution-family-mark" aria-hidden="true">DOC</span>
+        <span class="solution-family-copy">
+          <span class="solution-family-status">{fr ? 'Livré · code cédé' : 'Delivered · code transferred'}</span>
+          <strong>{fr ? 'Systèmes documentaires' : 'Document systems'}</strong>
+          <span>{fr ? 'Workflows, dossiers, parcours métier.' : 'Workflows, cases, business journeys.'}</span>
+        </span>
+      </a>
+    </div>
+    <p class="sector-more">
+      <a class="btn ghost" href={pathFor(locale, 'solutions')}>{fr ? 'Voir les solutions' : 'View solutions'}</a>
+    </p>
   </section>
 
   <FinalCta

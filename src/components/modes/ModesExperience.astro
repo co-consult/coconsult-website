@@ -1,0 +1,137 @@
+---
+import FinalCta from '@/components/FinalCta.astro';
+import Blocks from '@/components/Blocks.astro';
+import type { Block, Locale, PageContent } from '@/content/types';
+import { ui } from '@/content/ui';
+import { contactPath } from '@/data/inquiries';
+import { pathFor } from '@/data/routes';
+import { crumbsFor } from '@/lib/seo';
+import { pageVisuals } from '@/data/page-visuals';
+
+interface Props { locale: Locale; page: PageContent }
+const { locale, page } = Astro.props;
+const t = ui[locale];
+const fr = locale === 'fr';
+const crumbs = crumbsFor(locale, 'modes', t.home);
+const visual = pageVisuals.modes;
+
+const columns = page.blocks.find((block): block is Extract<Block, { type: 'columns' }> => block.type === 'columns');
+const cards = page.blocks.find((block): block is Extract<Block, { type: 'cards' }> => block.type === 'cards');
+const proseBlocks = page.blocks.filter((block) => block.type === 'prose');
+const cta = page.blocks.find((block): block is Extract<Block, { type: 'cta' }> => block.type === 'cta');
+
+const laneFor = (key?: string) => {
+  if (key === 'ai') return 'ai';
+  if (key === 'software') return 'software';
+  if (key === 'cloud') return 'cloud';
+  if (key === 'qa' || key === 'cyber') return 'quality';
+  if (key === 'dedicated') return 'team';
+  if (key === 'innovation') return 'innovation';
+  return undefined;
+};
+---
+<div class="experience modes-page">
+  <header class="page-hero modes-hero" data-page-hero>
+    <div class="container">
+      {crumbs.length > 0 && (
+        <nav aria-label={t.breadcrumb}>
+          <ol class="crumbs">
+            {crumbs.map((crumb) => (
+              <li>
+                {crumb.href ? <a href={crumb.href}>{crumb.label}</a> : <span aria-current="page">{crumb.label}</span>}
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
+      <div class="modes-hero-grid">
+        <div class="modes-hero-copy">
+          <p class="eyebrow">{page.eyebrow}</p>
+          <h1>{page.h1}</h1>
+          <p class="lede">{page.intro}</p>
+          <div class="cta-row">
+            <a class="btn primary" href={contactPath(locale, 'team')}>{fr ? 'Constituer mon équipe' : 'Build my team'}</a>
+            <a class="btn ghost" href="#facons">{fr ? 'Voir les modes' : 'See the models'}</a>
+          </div>
+        </div>
+        {visual && (
+          <div class="modes-hero-art">
+            <img src={visual.image} alt="" width="1200" height="900" loading="eager" decoding="async" />
+            <span>{visual.overlay[locale]}</span>
+          </div>
+        )}
+      </div>
+    </div>
+  </header>
+
+  {columns && (
+    <section class="section modes-ways" id="facons" data-reveal>
+      <div class="section-head">
+        <p class="eyebrow">{fr ? 'Modèles' : 'Models'}</p>
+        <div class="section-copy">
+          <h2>{columns.title}</h2>
+          {columns.intro && <p class="lede-soft">{columns.intro}</p>}
+        </div>
+      </div>
+      <div class="mode-spectrum" data-stagger>
+        {columns.items.map((item, index) => (
+          <article class="mode-spectrum-card" style={`--i:${index}`}>
+            <span class="mode-spectrum-no" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {proseBlocks.length > 0 && (
+    <div class="modes-prose-wrap">
+      <Blocks locale={locale} blocks={proseBlocks} />
+    </div>
+  )}
+
+  {cards && (
+    <section class="section modes-needs" data-reveal>
+      <div class="section-head">
+        <p class="eyebrow">{fr ? 'Suite' : 'Next'}</p>
+        <div class="section-copy">
+          <h2>{cards.title}</h2>
+          {cards.intro && <p class="lede-soft">{cards.intro}</p>}
+        </div>
+      </div>
+      <div class="need-mosaic modes-need-grid" data-stagger>
+        {cards.items.map((item, index) => {
+          const href = item.hrefKey ? pathFor(locale, item.hrefKey) : undefined;
+          const body = (
+            <>
+              <span class="need-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              <div class="need-body">
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+              {href && <span class="need-go" aria-hidden="true">→</span>}
+            </>
+          );
+          return href ? (
+            <a class="need-tile service-card is-link" data-lane={laneFor(item.hrefKey)} href={href}>{body}</a>
+          ) : (
+            <article class="need-tile service-card" data-lane={laneFor(item.hrefKey)}>{body}</article>
+          );
+        })}
+      </div>
+    </section>
+  )}
+
+  {cta && (
+    <FinalCta
+      locale={locale}
+      title={cta.title}
+      text={cta.text}
+      primary={cta.primary}
+      secondary={cta.secondary}
+    />
+  )}
+</div>

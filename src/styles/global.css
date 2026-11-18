@@ -344,8 +344,12 @@ p { line-height: 1.7; }
 .btn:hover { transform: translateY(-1px); }
 
 .btn.primary {
-  background: var(--teal);
-  color: #062033;
+  background: color-mix(in srgb, var(--brand-teal) 90%, #041018);
+  color: #ffffff;
+}
+.btn.primary:hover {
+  background: color-mix(in srgb, var(--brand-teal) 78%, #041018);
+  color: #ffffff;
 }
 
 .site-header .header-contact:hover {
@@ -1809,6 +1813,169 @@ h1 {
 .story div { display: grid; gap: 2px; margin-bottom: 10px; }
 .story dt { font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--teal-deep); }
 .story dd { margin: 0; color: var(--muted); font-size: 17px; line-height: 1.55; }
+
+/* —— Way board (columns rail) —— */
+.way-board {
+  position: relative;
+  display: grid;
+  gap: 12px;
+  max-width: 920px;
+}
+.way-spine {
+  position: absolute;
+  left: 23px;
+  top: 18px;
+  bottom: 18px;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--brand-teal) 55%, transparent),
+    color-mix(in srgb, var(--brand-blue) 40%, transparent),
+    color-mix(in srgb, var(--brand-orange-on-paper) 35%, transparent)
+  );
+  opacity: 0.55;
+  pointer-events: none;
+}
+.way-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 16px;
+  align-items: start;
+  padding: 16px 18px 16px 0;
+  border-radius: 18px;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+.way-item:hover {
+  transform: translateX(4px);
+  background: color-mix(in srgb, white 82%, var(--surface-paper, #f4f7f8));
+}
+.way-node {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid color-mix(in srgb, var(--brand-teal) 22%, var(--line));
+  box-shadow: 0 8px 20px rgba(6, 32, 51, 0.06);
+  color: var(--brand-teal);
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+.way-item:nth-child(3n + 2) .way-node {
+  color: var(--brand-blue);
+  border-color: color-mix(in srgb, var(--brand-blue) 24%, var(--line));
+}
+.way-item:nth-child(3n + 3) .way-node {
+  color: var(--brand-green);
+  border-color: color-mix(in srgb, var(--brand-green) 24%, var(--line));
+}
+.way-item:nth-child(3n + 4) .way-node,
+.way-item:nth-child(5) .way-node {
+  color: var(--brand-orange-on-paper);
+  border-color: color-mix(in srgb, var(--brand-orange-on-paper) 26%, var(--line));
+}
+.way-copy {
+  display: grid;
+  gap: 6px;
+  padding: 4px 0;
+  min-width: 0;
+}
+.way-copy h3 {
+  margin: 0;
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+}
+.way-copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.5;
+  max-width: 62ch;
+}
+.page-surface-modes .way-board {
+  margin-top: 8px;
+}
+
+/* —— Need mosaic (cards) —— */
+.need-mosaic {
+  align-items: stretch;
+}
+.need-tile {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px;
+  align-items: start;
+  text-decoration: none;
+  color: inherit;
+  min-height: 148px;
+  background:
+    linear-gradient(165deg, #fff 0%, color-mix(in srgb, var(--surface-paper, #f4f7f8) 55%, #fff) 100%);
+}
+.need-tile.is-link {
+  cursor: pointer;
+}
+.need-index {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--mark, var(--brand-teal));
+  padding-top: 4px;
+}
+.need-body {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+.need-body h3 {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+}
+.need-body p {
+  margin: 0;
+}
+.need-go {
+  align-self: end;
+  font-size: 1.25rem;
+  color: var(--mark, var(--brand-teal));
+  opacity: 0.55;
+  transition: transform 0.22s ease, opacity 0.22s ease;
+}
+.need-tile.is-link:hover .need-go,
+.need-tile.is-link:focus-visible .need-go {
+  opacity: 1;
+  transform: translateX(3px);
+}
+.need-mosaic.card-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.need-mosaic.card-grid.five {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (min-width: 1100px) {
+  .need-mosaic.card-grid:not(.bento):not(.five) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .need-mosaic.card-grid.five {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 700px) {
+  .need-mosaic.card-grid,
+  .need-mosaic.card-grid.five {
+    grid-template-columns: 1fr;
+  }
+  .way-item { grid-template-columns: 40px 1fr; gap: 12px; }
+  .way-node { width: 40px; height: 40px; border-radius: 14px; }
+  .way-spine { left: 19px; }
+}
 
 @media (max-width: 1100px) {
   .column-grid.rail { grid-template-columns: 1fr 1fr; }

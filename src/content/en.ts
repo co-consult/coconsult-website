@@ -166,38 +166,38 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   dedicated: {
     key: 'dedicated',
-    metaTitle: 'Java, Angular and full-stack teams | Coconsult',
+    metaTitle: 'Dedicated engineering teams | Coconsult',
     description:
-      'Dedicated Java, Angular, full-stack and DevOps teams, coordinated from France, with Coconsult Nearshore in Sfax, a separate company.',
+      'Dedicated engineering teams, shaped around your stack and pace, coordinated from France, with Coconsult Nearshore in Sfax, a separate company.',
     eyebrow: 'DEDICATED TEAMS',
     h1: 'Build an engineering team around the work you actually have.',
     intro:
-      'Coconsult supports its clients from France and works with Coconsult Nearshore, a legally independent Tunisian company based in Sfax, to bring in engineering skills and build dedicated teams. Independent consultants complete a setup when the role calls for it. Not every profile is free to start immediately.',
+      'Coconsult supports its clients from France and works with Coconsult Nearshore, a legally independent Tunisian company based in Sfax, to bring in engineering skills and build dedicated teams. The stack is chosen with you: backend, front end, full-stack, mobile, cloud, QA or data, according to the product already in place. Independent consultants complete a setup when the role calls for it. Not every profile is free to start immediately.',
     blocks: [
       {
         type: 'columns',
         title: 'Who it is for',
         items: [
-          { title: 'Targeted reinforcement', text: 'One or more Java/Spring, Angular, full-stack or cloud/DevOps engineers for a defined stretch of delivery.' },
+          { title: 'Targeted reinforcement', text: 'One or more engineers for a defined stretch of delivery: backend, front end, full-stack, mobile, cloud/DevOps or QA, matched to your stack.' },
           { title: 'Dedicated squad', text: 'A stable team, coordinated between France and Tunisia, when the backlog justifies a continuous setup.' },
           { title: 'Fixed scope', text: 'Possible when the scope is clear enough to estimate. Otherwise we recommend time and materials or a dedicated team.' },
         ],
       },
       {
         type: 'list',
-        title: 'Profiles we can look for',
+        title: 'What we compose with you',
         items: [
-          'Java / Spring and full-stack software engineers',
-          'Angular engineers when that is what the product already uses',
-          'Cloud and DevOps, matched to the platform you run',
-          'Specialists for a specific gap, only when someone is available or hired for that mission',
+          'Backend and APIs: Java / Spring, and other backend stacks when the product or the market justifies them',
+          'Front end and full-stack: the framework already in place (Angular, React or another), without imposing a stack',
+          'Mobile, cloud and DevOps: according to the platform and delivery rhythm you already run',
+          'QA, data or specialist profiles: only when someone is available or hired for that mission',
         ],
       },
       {
         type: 'steps',
         title: 'From the request to a steady rhythm',
         items: [
-          { title: 'Discovery', text: 'Context, stack, seniority, language, overlap hours and how you want to collaborate.' },
+          { title: 'Discovery', text: 'Context, real stack, seniority, language, overlap hours and how you want to collaborate.' },
           { title: 'Sourcing and selection', text: 'Search within the team and, if needed, among independent consultants. Each proposed profile is described with their level and experience.' },
           { title: 'Your interview', text: 'You meet the proposed people before anyone starts.' },
           { title: 'Onboarding', text: 'Access, counterparts, tools and the first weeks of scope, defined with your team.' },
@@ -208,9 +208,9 @@ export const pages: Record<RouteKey, PageContent> = {
       { type: 'note', text: 'The quotation, the contract and the invoice name the company that contracts with the client. Engineers based in Sfax are not employees of COCONSULT SAS merely because of this collaboration.' },
       {
         type: 'prose',
-        title: 'Java, Angular and nearshore',
+        title: 'Your stack, not a closed catalogue',
         paragraphs: [
-          'Java and Spring are profiles we can look for. Angular is proposed only when the existing product already uses it. A profile that is not available is not presented as ready to start.',
+          'We do not reduce the offer to two languages. Java / Spring is among the profiles we often know how to source; other backend, front-end or full-stack stacks are discussed from what you already run. A profile that is not available is not presented as ready to start.',
           'Reinforcement in Sfax goes through Coconsult Nearshore, a legally independent Tunisian company. It is not an establishment of COCONSULT SAS. The contract names the company that commits.',
         ],
       },
@@ -574,7 +574,7 @@ export const pages: Record<RouteKey, PageContent> = {
         items: [
           { title: 'Innovation and CII', text: 'The scope of the agreement, and what it does not promise.', hrefKey: 'innovation' },
           { title: 'Software development', text: 'Web and mobile applications, APIs and business software.', hrefKey: 'software' },
-          { title: 'Dedicated teams', text: 'Java, Angular, full-stack or DevOps, with a separate company in Sfax.', hrefKey: 'dedicated' },
+          { title: 'Dedicated teams', text: 'Engineering profiles matched to your stack, with a separate company in Sfax.', hrefKey: 'dedicated' },
         ],
       },
       { type: 'cta', title: 'Meet the team on a concrete subject.', text: 'A message is enough to propose a time. The project context matters more than a general presentation.', primary: 'project', secondary: 'partnership' },
@@ -659,9 +659,9 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   software: {
     key: 'software',
-    metaTitle: 'Custom Java and Angular development | Coconsult',
+    metaTitle: 'Custom software engineering | Coconsult',
     description:
-      'Custom applications, evolution of an existing one, or progressive modernisation. Java, Spring and Angular, with a dedicated team when the work lasts.',
+      'Custom applications, evolution of an existing one, or progressive modernisation. Stack matched to the project, with a dedicated team when the work lasts.',
     eyebrow: 'SOFTWARE DEVELOPMENT',
     h1: 'Design and evolve your applications.',
     intro:
@@ -674,7 +674,7 @@ export const pages: Record<RouteKey, PageContent> = {
           { title: 'Applications', text: 'Web or mobile interfaces tied to the business rules and the data you already have.' },
           { title: 'APIs and integration', text: 'Stable interfaces between your tools, with retries and observability when the flow is critical.' },
           { title: 'Architecture', text: 'A readable structure as the product grows, without a decorative rewrite.' },
-          { title: 'Java, Spring and Angular', text: 'These skills cover a new application, the evolution of an existing one and a modernisation carried out in stages.' },
+          { title: 'Project stack', text: 'Backend, front, mobile or full-stack according to what you already run. Java/Spring or Angular are frequent strengths, not a closed catalogue.' },
         ],
       },
       {
@@ -701,7 +701,7 @@ export const pages: Record<RouteKey, PageContent> = {
         items: [
           { title: 'Artificial intelligence', text: 'Connect generation, models or agents to an application already in place.', hrefKey: 'ai' },
           { title: 'Cloud and DevOps', text: 'Release what is built, then keep it running.', hrefKey: 'cloud' },
-          { title: 'Java and Angular teams', text: 'A Java, Spring or Angular squad for the life of the project, when the work is more than a short intervention.', hrefKey: 'dedicated' },
+          { title: 'Dedicated teams', text: 'An engineering squad matched to your stack, for the life of the project, when the work is more than a short intervention.', hrefKey: 'dedicated' },
           { title: 'Innovation and CII', text: 'Read the agreement before calling an assignment an innovation project.', hrefKey: 'innovation' },
         ],
       },
@@ -803,7 +803,7 @@ export const pages: Record<RouteKey, PageContent> = {
         type: 'cards',
         title: 'Depending on the need',
         items: [
-          { title: 'Dedicated teams', text: 'Java, Angular, full-stack or DevOps, followed over time.', hrefKey: 'dedicated' },
+          { title: 'Dedicated teams', text: 'Backend, front end, full-stack, cloud or QA, followed over time.', hrefKey: 'dedicated' },
           { title: 'Software development', text: 'Web and mobile applications, APIs and integration.', hrefKey: 'software' },
           { title: 'Artificial intelligence', text: 'Generative AI, agents and models integrated into the tools you run.', hrefKey: 'ai' },
           { title: 'Innovation and CII', text: 'The agreement number, the years covered, and what the client still has to check.', hrefKey: 'innovation' },

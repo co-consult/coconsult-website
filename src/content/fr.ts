@@ -212,38 +212,38 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   dedicated: {
     key: 'dedicated',
-    metaTitle: 'Équipes Java, Angular et full-stack | Coconsult',
+    metaTitle: 'Équipes d’ingénierie dédiées | Coconsult',
     description:
-      'Équipes dédiées Java, Angular, full-stack et DevOps, coordonnées depuis la France, avec Coconsult Nearshore à Sfax, société distincte.',
+      'Équipes d’ingénierie dédiées, composées selon votre stack et votre rythme, coordonnées depuis la France, avec Coconsult Nearshore à Sfax, société distincte.',
     eyebrow: 'ÉQUIPES DÉDIÉES',
     h1: 'Constituer une équipe d’ingénierie adaptée au besoin réel.',
     intro:
-      'Coconsult accompagne ses clients depuis la France et collabore avec Coconsult Nearshore, une société tunisienne juridiquement indépendante basée à Sfax, pour mobiliser des compétences d’ingénierie et constituer des équipes dédiées. Des consultants indépendants complètent un dispositif lorsque le besoin le justifie. Tous les profils ne sont pas disponibles immédiatement.',
+      'Coconsult accompagne ses clients depuis la France et collabore avec Coconsult Nearshore, une société tunisienne juridiquement indépendante basée à Sfax, pour mobiliser des compétences d’ingénierie et constituer des équipes dédiées. La stack se choisit avec vous : backend, front, full-stack, mobile, cloud, QA ou data, selon le produit déjà en place. Des consultants indépendants complètent un dispositif lorsque le besoin le justifie. Tous les profils ne sont pas disponibles immédiatement.',
     blocks: [
       {
         type: 'columns',
         title: 'À qui cela sert',
         items: [
-          { title: 'Renfort ciblé', text: 'Un ou plusieurs ingénieurs Java/Spring, Angular, full-stack ou cloud/DevOps, le temps d’un palier de delivery.' },
+          { title: 'Renfort ciblé', text: 'Un ou plusieurs ingénieurs pour un palier de delivery : backend, front, full-stack, mobile, cloud/DevOps ou QA, selon votre stack.' },
           { title: 'Équipe dédiée', text: 'Une squad stable, avec coordination France–Tunisie, quand le backlog justifie un dispositif continu.' },
           { title: 'Projet au forfait', text: 'Possible lorsque le périmètre est assez clair pour être estimé. Sinon, nous recommandons un cadre en régie ou en équipe.' },
         ],
       },
       {
         type: 'list',
-        title: 'Profils que nous pouvons chercher',
+        title: 'Ce que nous composons avec vous',
         items: [
-          'Ingénierie logicielle Java / Spring et full-stack',
-          'Front Angular lorsque le produit existant s’appuie dessus',
-          'Cloud et DevOps, selon la plateforme déjà en place',
-          'Spécialistes ponctuels, uniquement si le profil est disponible ou recruté pour la mission',
+          'Backend et API : Java / Spring, et d’autres stacks backend lorsque le produit ou le marché le justifie',
+          'Front et full-stack : le framework déjà en place chez vous (Angular, React ou autre), sans imposer une stack',
+          'Mobile, cloud et DevOps : selon la plateforme et le rythme de livraison déjà retenus',
+          'QA, data ou profils spécialisés : uniquement si une personne est disponible ou recrutée pour la mission',
         ],
       },
       {
         type: 'steps',
         title: 'De la demande au rythme de croisière',
         items: [
-          { title: 'Découverte', text: 'Contexte, stack, séniorité attendue, langue, chevauchement horaire et mode de collaboration.' },
+          { title: 'Découverte', text: 'Contexte, stack réelle, séniorité attendue, langue, chevauchement horaire et mode de collaboration.' },
           { title: 'Sourcing et sélection', text: 'Recherche dans l’équipe et, si besoin, auprès de consultants indépendants. Chaque profil proposé est décrit avec son niveau et son expérience.' },
           { title: 'Entretien avec vous', text: 'Vous rencontrez les personnes proposées avant un démarrage.' },
           { title: 'Onboarding', text: 'Accès, référents, outils et périmètre des premières semaines, définis avec vos équipes.' },
@@ -257,9 +257,9 @@ export const pages: Record<RouteKey, PageContent> = {
       },
       {
         type: 'prose',
-        title: 'Java, Angular et nearshore',
+        title: 'La stack du client, pas un catalogue fermé',
         paragraphs: [
-          'Java et Spring sont des profils que nous pouvons chercher. Angular n’est proposé que lorsque le produit existant s’appuie déjà dessus. Un profil qui n’est pas disponible n’est pas annoncé comme prêt à démarrer.',
+          'Nous ne réduisons pas l’offre à deux langages. Java / Spring fait partie des profils que nous savons chercher souvent ; d’autres stacks backend, front ou full-stack se discutent à partir de votre existant. Un profil qui n’est pas disponible n’est pas annoncé comme prêt à démarrer.',
           'Le renfort à Sfax passe par Coconsult Nearshore, société tunisienne juridiquement indépendante. Ce n’est pas un établissement de COCONSULT SAS. Le contrat nomme la société qui s’engage.',
         ],
       },
@@ -623,7 +623,7 @@ export const pages: Record<RouteKey, PageContent> = {
         items: [
           { title: 'Innovation et CII', text: 'Le cadre de l’agrément, et ce qu’il ne garantit pas.', hrefKey: 'innovation' },
           { title: 'Développement logiciel', text: 'Applications web, mobiles, API et logiciels métier.', hrefKey: 'software' },
-          { title: 'Équipes dédiées', text: 'Java, Angular, full-stack ou DevOps, avec une société distincte à Sfax.', hrefKey: 'dedicated' },
+          { title: 'Équipes dédiées', text: 'Des profils d’ingénierie selon votre stack, avec une société distincte à Sfax.', hrefKey: 'dedicated' },
         ],
       },
       { type: 'cta', title: 'Rencontrer l’équipe sur un sujet concret.', text: 'Un message suffit pour proposer un créneau. Le contexte du projet compte plus qu’une présentation générale.', primary: 'project', secondary: 'partnership' },
@@ -708,9 +708,9 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   software: {
     key: 'software',
-    metaTitle: 'Développement sur mesure Java et Angular | Coconsult',
+    metaTitle: 'Développement logiciel sur mesure | Coconsult',
     description:
-      'Applications sur mesure, évolution d’un existant ou modernisation progressive. Java, Spring et Angular, avec une équipe dédiée si le projet dure.',
+      'Applications sur mesure, évolution d’un existant ou modernisation progressive. Stack adaptée au projet, avec une équipe dédiée si le travail dure.',
     eyebrow: 'DÉVELOPPEMENT LOGICIEL',
     h1: 'Concevoir et faire évoluer vos applications.',
     intro:
@@ -723,7 +723,7 @@ export const pages: Record<RouteKey, PageContent> = {
           { title: 'Applications', text: 'Interfaces web ou mobiles reliées aux règles métier et aux données dont vous disposez déjà.' },
           { title: 'API et intégration', text: 'Des contrats d’interface stables entre vos outils, avec reprises et observabilité lorsque le flux est critique.' },
           { title: 'Architecture', text: 'Un découpage lisible quand le produit grandit, sans refonte décorative.' },
-          { title: 'Java, Spring et Angular', text: 'Ces expertises couvrent une application neuve, l’évolution d’un existant et une modernisation menée par étapes.' },
+          { title: 'Stack du projet', text: 'Backend, front, mobile ou full-stack selon votre existant. Java/Spring ou Angular sont des forces fréquentes, pas un catalogue fermé.' },
         ],
       },
       {
@@ -750,7 +750,7 @@ export const pages: Record<RouteKey, PageContent> = {
         items: [
           { title: 'Intelligence artificielle', text: 'Brancher génération, modèles ou agents sur une application déjà en place.', hrefKey: 'ai' },
           { title: 'Cloud et DevOps', text: 'Mettre en production et tenir l’exploitation de ce qui est livré.', hrefKey: 'cloud' },
-          { title: 'Équipes Java et Angular', text: 'Une squad Java, Spring ou Angular pour la durée du projet, lorsque le besoin dépasse une intervention ponctuelle.', hrefKey: 'dedicated' },
+          { title: 'Équipes dédiées', text: 'Une squad d’ingénierie selon votre stack, pour la durée du projet, lorsque le besoin dépasse une intervention ponctuelle.', hrefKey: 'dedicated' },
           { title: 'Innovation et CII', text: 'Lire le cadre de l’agrément avant d’appeler une mission un projet d’innovation.', hrefKey: 'innovation' },
         ],
       },
@@ -852,7 +852,7 @@ export const pages: Record<RouteKey, PageContent> = {
         type: 'cards',
         title: 'Selon le besoin',
         items: [
-          { title: 'Équipes dédiées', text: 'Java, Angular, full-stack ou DevOps, suivis dans la durée.', hrefKey: 'dedicated' },
+          { title: 'Équipes dédiées', text: 'Backend, front, full-stack, cloud ou QA, suivis dans la durée.', hrefKey: 'dedicated' },
           { title: 'Développement logiciel', text: 'Applications web, mobiles, API et intégration.', hrefKey: 'software' },
           { title: 'Intelligence artificielle', text: 'Intégration d’IA générative, d’agents et de modèles dans vos outils.', hrefKey: 'ai' },
           { title: 'Innovation et CII', text: 'Le numéro d’agrément, les années couvertes, et ce qui reste à vérifier côté client.', hrefKey: 'innovation' },

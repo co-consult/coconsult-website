@@ -5,6 +5,9 @@ import SectorExperience from '@/components/sectors/SectorExperience.astro';
 import SolutionsExperience from '@/components/solutions/SolutionsExperience.astro';
 import PartnershipsExperience from '@/components/partnerships/PartnershipsExperience.astro';
 import InnovationExperience from '@/components/innovation/InnovationExperience.astro';
+import CasesExperience from '@/components/cases/CasesExperience.astro';
+import ModesExperience from '@/components/modes/ModesExperience.astro';
+import ServiceExperience from '@/components/services/ServiceExperience.astro';
 import Blocks from '@/components/Blocks.astro';
 import Base from '@/layouts/Base.astro';
 import { ui } from '@/content/ui';
@@ -17,19 +20,23 @@ interface Props { locale: Locale; page: PageContent; }
 const { locale, page } = Astro.props;
 const crumbs = crumbsFor(locale, page.key, ui[locale].home);
 const blocks = page.key === 'contact' ? page.blocks.filter((block) => block.type !== 'inquiries' && block.type !== 'note') : page.blocks;
+const serviceExperienceKeys: RouteKey[] = ['software', 'dedicated', 'qa', 'cloud', 'cyber', 'ai', 'automation', 'payments'];
 const customShell =
   page.key === 'home' ||
   page.key === 'contact' ||
   page.key === 'sectors' ||
   page.key === 'solutions' ||
   page.key === 'partnerships' ||
-  page.key === 'innovation';
+  page.key === 'innovation' ||
+  page.key === 'cases' ||
+  page.key === 'modes' ||
+  serviceExperienceKeys.includes(page.key);
 const serviceKeys: RouteKey[] = ['services', 'dedicated', 'qa', 'payments', 'automation', 'ai', 'software', 'cloud', 'cyber', 'modes'];
 const serviceName = serviceKeys.includes(page.key) ? routes[page.key].label[locale] : undefined;
 const faqBlock = page.blocks.find((block) => block.type === 'faq');
 const faqs = faqBlock?.type === 'faq' ? faqBlock.items : [];
 const visual = pageVisuals[page.key];
-const editorialKeys: RouteKey[] = ['about', 'services', 'cases', 'modes', 'software', 'dedicated', 'qa', 'cloud', 'cyber', 'ai', 'automation', 'payments'];
+const editorialKeys: RouteKey[] = ['about', 'services'];
 const isEditorial = editorialKeys.includes(page.key);
 ---
 <Base locale={locale} title={page.metaTitle} description={page.description} routeKey={page.key} serviceName={serviceName} faqs={faqs}>
@@ -45,6 +52,12 @@ const isEditorial = editorialKeys.includes(page.key);
     <PartnershipsExperience locale={locale} page={page} />
   ) : page.key === 'innovation' ? (
     <InnovationExperience locale={locale} page={page} />
+  ) : page.key === 'cases' ? (
+    <CasesExperience locale={locale} page={page} />
+  ) : page.key === 'modes' ? (
+    <ModesExperience locale={locale} page={page} />
+  ) : serviceExperienceKeys.includes(page.key) ? (
+    <ServiceExperience locale={locale} page={page} />
   ) : (
     <header class:list={['page-hero', visual?.lane && `page-hero-lane-${visual.lane}`]} data-page-hero>
       <div class="container">

@@ -1,0 +1,212 @@
+---
+import FinalCta from '@/components/FinalCta.astro';
+import DocumentFlow from '@/components/visuals/DocumentFlow.astro';
+import type { Locale, PageContent } from '@/content/types';
+import { ui } from '@/content/ui';
+import { contactPath } from '@/data/inquiries';
+import { sportsShots } from '@/data/sports-shots';
+import { workItems, type WorkItem } from '@/data/work';
+import { crumbsFor } from '@/lib/seo';
+import { pageVisuals } from '@/data/page-visuals';
+
+interface Props { locale: Locale; page: PageContent }
+const { locale, page } = Astro.props;
+const t = ui[locale];
+const fr = locale === 'fr';
+const crumbs = crumbsFor(locale, 'cases', t.home);
+const visual = pageVisuals.cases;
+const sports = workItems.find((entry) => entry.id === 'cssforever') as WorkItem;
+const docs = workItems.find((entry) => entry.id === 'iaps') as WorkItem;
+const sportsStory = sports.story?.[locale];
+const docsStory = docs.story?.[locale];
+
+const copy = fr
+  ? {
+      limitTitle: 'Une limite claire',
+      limitText: 'Lorsqu’un logiciel a été remis au client, il n’est pas proposé comme un produit Coconsult.',
+      beats: [
+        { key: 'context', label: 'Contexte' },
+        { key: 'stake', label: 'Enjeu' },
+        { key: 'intervention', label: 'Intervention' },
+        { key: 'result', label: 'Résultat' },
+      ] as const,
+      features: 'Fonctionnalités développées',
+      screens: 'Écrans masqués',
+      endTitle: 'Un projet comparable se discute à partir du vôtre.',
+      endText: 'Décrivez le système à construire ou à fiabiliser. Nous dirons si le retour d’expérience est pertinent.',
+    }
+  : {
+      limitTitle: 'A clear limit',
+      limitText: 'When software has been handed to the client, it is not offered as a Coconsult product.',
+      beats: [
+        { key: 'context', label: 'Context' },
+        { key: 'stake', label: 'Stake' },
+        { key: 'intervention', label: 'Work' },
+        { key: 'result', label: 'Result' },
+      ] as const,
+      features: 'Features built',
+      screens: 'Masked screens',
+      endTitle: 'A comparable project starts from yours.',
+      endText: 'Describe the system to build or harden. We will say whether the experience is relevant.',
+    };
+
+---
+<div class="experience cases-page">
+  <header class="page-hero cases-hero" data-page-hero>
+    <div class="container">
+      {crumbs.length > 0 && (
+        <nav aria-label={t.breadcrumb}>
+          <ol class="crumbs">
+            {crumbs.map((crumb) => (
+              <li>
+                {crumb.href ? <a href={crumb.href}>{crumb.label}</a> : <span aria-current="page">{crumb.label}</span>}
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
+      <div class="cases-hero-grid">
+        <div class="cases-hero-copy">
+          <p class="eyebrow">{page.eyebrow}</p>
+          <h1>{page.h1}</h1>
+          <p class="lede">{page.intro}</p>
+        </div>
+        {visual && (
+          <div class="cases-hero-art">
+            <img src={visual.image} alt="" width="1200" height="900" loading="eager" decoding="async" />
+            <span>{visual.overlay[locale]}</span>
+          </div>
+        )}
+      </div>
+    </div>
+  </header>
+
+  <section class="section cases-featured" id="sports-platform" data-reveal>
+    <div class="delivery-feature">
+      <div class="delivery-feature-media">
+        <div class="delivery-stage">
+          <span class="delivery-stage-glow" aria-hidden="true"></span>
+          <div class="delivery-stage-top">
+            <p class="delivery-kicker">{copy.screens}</p>
+            <p class="delivery-stage-note">{fr ? 'Données sensibles floutées' : 'Sensitive data blurred'}</p>
+          </div>
+          <div class="delivery-stage-board" data-stagger>
+            {sportsShots.map((shot, index) => (
+              <figure class:list={['delivery-frame', index === 0 && 'is-main', index === 1 && 'is-mid', index === 2 && 'is-low']} style={`--i:${index}`}>
+                <div class="delivery-frame-chrome" aria-hidden="true">
+                  <span></span><span></span><span></span>
+                </div>
+                <div class="delivery-frame-screen">
+                  <picture>
+                    <source type="image/avif" srcset={`${shot.base}.avif`} />
+                    <source type="image/webp" srcset={`${shot.base}.webp`} />
+                    <img
+                      src={`${shot.base}.webp`}
+                      alt={shot.alt[locale]}
+                      width={shot.width}
+                      height={shot.height}
+                      loading={index === 0 ? 'eager' : 'lazy'}
+                      decoding="async"
+                    />
+                  </picture>
+                </div>
+                <figcaption>
+                  <span class="delivery-frame-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                  <span>{shot.caption[locale]}</span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div class="delivery-feature-copy">
+        <p class="eyebrow">{sports.status[locale]}</p>
+        <p class="delivery-sector">{sports.sector[locale]}</p>
+        <h2>{sports.title[locale]}</h2>
+        {sportsStory && (
+          <ol class="delivery-beats">
+            <li>
+              <span>01</span>
+              <div>
+                <strong>{copy.beats[0].label}</strong>
+                <p>{sportsStory.context}</p>
+              </div>
+            </li>
+            <li>
+              <span>02</span>
+              <div>
+                <strong>{copy.beats[1].label}</strong>
+                <p>{sportsStory.stake}</p>
+              </div>
+            </li>
+            <li>
+              <span>03</span>
+              <div>
+                <strong>{copy.beats[2].label}</strong>
+                <p>{sportsStory.intervention}</p>
+              </div>
+            </li>
+            <li>
+              <span>04</span>
+              <div>
+                <strong>{copy.beats[3].label}</strong>
+                <p>{sportsStory.result}</p>
+              </div>
+            </li>
+          </ol>
+        )}
+        <div class="delivery-features">
+          <p class="meta-line">{copy.features}</p>
+          <ul>
+            {sports.benefits[locale].map((benefit) => <li>{benefit}</li>)}
+          </ul>
+        </div>
+        <a class="btn primary" href={contactPath(locale, 'project')}>{sports.cta[locale].label}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cases-companion" data-reveal>
+    <article class="delivery-companion">
+      <div class="delivery-companion-art" aria-hidden="true">
+        <DocumentFlow locale={locale} />
+      </div>
+      <div class="delivery-companion-copy">
+        <p class="eyebrow">{docs.status[locale]}</p>
+        <p class="delivery-sector">{docs.sector[locale]}</p>
+        <h2>{docs.title[locale]}</h2>
+        {docsStory && (
+          <div class="delivery-pair">
+            <div>
+              <strong>{copy.beats[0].label}</strong>
+              <p>{docsStory.context}</p>
+            </div>
+            <div>
+              <strong>{copy.beats[3].label}</strong>
+              <p>{docsStory.result}</p>
+            </div>
+            <div>
+              <strong>{copy.beats[1].label}</strong>
+              <p>{docsStory.stake}</p>
+            </div>
+            <div>
+              <strong>{copy.beats[2].label}</strong>
+              <p>{docsStory.intervention}</p>
+            </div>
+          </div>
+        )}
+        <a class="btn ghost" href={contactPath(locale, 'project')}>{docs.cta[locale].label}</a>
+      </div>
+    </article>
+  </section>
+
+  <section class="section cases-limit" data-reveal>
+    <aside class="delivery-limit">
+      <p class="eyebrow">{fr ? 'Cadre' : 'Frame'}</p>
+      <h2>{copy.limitTitle}</h2>
+      <p>{copy.limitText}</p>
+    </aside>
+  </section>
+
+  <FinalCta locale={locale} title={copy.endTitle} text={copy.endText} primary="project" />
+</div>
