@@ -95,7 +95,9 @@ function setOpen(next) {
     }, 220);
   }
   launcher.setAttribute('aria-expanded', open ? 'true' : 'false');
-  const target = open ? panel.querySelector('#cc-assistant-input') : launcher;
+  const target = open
+    ? panel.querySelector('[data-assistant-close]') || panel.querySelector('#cc-assistant-input')
+    : launcher;
   if (target instanceof HTMLElement) target.focus();
 }
 

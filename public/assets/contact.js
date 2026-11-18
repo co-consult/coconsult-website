@@ -606,6 +606,12 @@
       show(2, true);
       return;
     }
+    // URL preselect (except open-ended demo) advances past the need grid — no Continuer on step 1.
+    if (state.need && type !== 'demo') {
+      state.reached = Math.max(state.reached, 2);
+      show(2, true);
+      return;
+    }
     show(1);
   }
 

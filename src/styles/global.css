@@ -296,6 +296,10 @@ p { line-height: 1.7; }
   opacity: 0.72;
   text-transform: none;
 }
+@media (max-width: 980px) {
+  .lang-name { display: none; }
+  .lang-opt { min-width: 44px; padding: 4px 10px; }
+}
 .lang-opt:hover { color: var(--brand-teal); }
 .lang-opt[aria-current="true"] {
   color: #fff;
@@ -1473,8 +1477,7 @@ h1 {
 }
 
 .site-footer {
-  background:
-    linear-gradient(180deg, #ffffff 0%, var(--surface-paper) 100%);
+  background: #ffffff;
   color: var(--text-on-paper);
   padding: 40px 0 32px;
   border-top: 1px solid var(--line-on-paper);
@@ -1982,4 +1985,19 @@ h1 {
 }
 @media (max-width: 700px) {
   .column-grid.rail { grid-template-columns: 1fr; }
+}
+
+/* Light experience shells remap --cyan to dark teal; keep primary CTAs white-on-teal. */
+.service-page .btn.primary,
+.service-page a.btn.primary,
+.modes-page .btn.primary,
+.cases-page .btn.primary,
+.solutions-page .btn.primary,
+.innovation-page .btn.primary,
+.partnerships-page .btn.primary,
+.sectors-page .btn.primary,
+.paper .btn.primary {
+  background: #026d7b !important;
+  color: #ffffff !important;
+  border-color: #026d7b !important;
 }

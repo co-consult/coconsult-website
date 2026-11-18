@@ -131,8 +131,8 @@
         const id = tab.dataset.skill;
         skillList.querySelectorAll('[data-skill]').forEach((item) => {
           const on = item.dataset.skill === id;
-          item.setAttribute('aria-pressed', on ? 'true' : 'false');
           item.setAttribute('aria-selected', on ? 'true' : 'false');
+          item.removeAttribute('aria-pressed');
         });
         panels.forEach((panel) => {
           panel.hidden = panel.id !== `panel-${id}`;

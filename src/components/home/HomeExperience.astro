@@ -444,7 +444,7 @@ const demo = fr
       <p class="stage-cue">{fr ? 'Interactif — choisissez une expertise, puis explorez le schéma.' : 'Interactive — pick an expertise, then explore the diagram.'}</p>
       <div class="skill-list" role="tablist" aria-label={fr ? 'Expertises' : 'Expertise areas'}>
         {skills.map(([id, label], index) => (
-          <button class="skill" type="button" role="tab" id={`tab-${id}`} aria-controls={`panel-${id}`} aria-selected={index === 0 ? 'true' : 'false'} aria-pressed={index === 0 ? 'true' : 'false'} data-skill={id}>
+          <button class="skill" type="button" role="tab" id={`tab-${id}`} aria-controls={`panel-${id}`} aria-selected={index === 0 ? 'true' : 'false'} data-skill={id}>
             <span>0{index + 1}</span><b>{label}</b>
           </button>
         ))}
