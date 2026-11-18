@@ -26,6 +26,12 @@ const primaryCta = page.heroPrimary || cta?.primary || 'project';
 const secondaryHref = page.heroSecondary
   ? contactPath(locale, page.heroSecondary)
   : '#scope';
+let scoped = false;
+const takeScope = () => {
+  if (scoped) return undefined;
+  scoped = true;
+  return 'scope';
+};
 
 const midImages: Partial<Record<RouteKey, string>> = {
   software: '/assets/people/engineers-collab.jpg',
@@ -87,7 +93,7 @@ const laneFor = (key?: string) => {
   </header>
 
   {columnsBlocks.map((block, blockIndex) => (
-    <section class="section service-scope" id={blockIndex === 0 ? 'scope' : undefined} data-reveal>
+    <section class="section service-scope" id={takeScope()} data-reveal>
       <div class="section-head">
         <p class="eyebrow">{fr ? 'Périmètre' : 'Scope'}</p>
         <div class="section-copy">
@@ -119,7 +125,7 @@ const laneFor = (key?: string) => {
   ))}
 
   {listBlocks.map((block) => (
-    <section class="section service-capabilities" data-reveal>
+    <section class="section service-capabilities" id={takeScope()} data-reveal>
       <div class="section-head">
         <p class="eyebrow">{fr ? 'Capacités' : 'Capabilities'}</p>
         <div class="section-copy">
@@ -138,7 +144,7 @@ const laneFor = (key?: string) => {
   ))}
 
   {stepsBlocks.map((block) => (
-    <section class="section service-process" data-reveal>
+    <section class="section service-process" id={takeScope()} data-reveal>
       <div class="section-head">
         <p class="eyebrow">{fr ? 'Déroulement' : 'Process'}</p>
         <div class="section-copy">

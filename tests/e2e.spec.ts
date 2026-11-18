@@ -336,8 +336,8 @@ test('COPHARIA demo skips the six choices and keeps context while editing', asyn
 
 test('solutions page shows COPHARIA and anonymized platforms with case links', async ({ page }) => {
   await page.goto('/solutions/');
-  await expect(page.getByRole('heading', { name: 'Solutions Coconsult' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Plateformes et réalisations' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Les solutions que Coconsult construit.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Plateformes livrées' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Application documentaire et workflows' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'CSS Forever' })).toBeVisible();
   await expect(page.getByRole('link', { name: /Voir l.étude de cas/ }).first()).toHaveAttribute('href', '/realisations/');
