@@ -2,22 +2,42 @@
 import ContactWizard from '@/components/contact/ContactWizard.astro';
 import HomeExperience from '@/components/home/HomeExperience.astro';
 import SectorExperience from '@/components/sectors/SectorExperience.astro';
+import SolutionsExperience from '@/components/solutions/SolutionsExperience.astro';
+import PartnershipsExperience from '@/components/partnerships/PartnershipsExperience.astro';
+import InnovationExperience from '@/components/innovation/InnovationExperience.astro';
+import CasesExperience from '@/components/cases/CasesExperience.astro';
+import ModesExperience from '@/components/modes/ModesExperience.astro';
+import ServiceExperience from '@/components/services/ServiceExperience.astro';
 import Blocks from '@/components/Blocks.astro';
 import Base from '@/layouts/Base.astro';
 import { ui } from '@/content/ui';
 import type { Locale, PageContent, RouteKey } from '@/content/types';
 import { crumbsFor } from '@/lib/seo';
 import { routes } from '@/data/routes';
+import { pageVisuals } from '@/data/page-visuals';
 
 interface Props { locale: Locale; page: PageContent; }
 const { locale, page } = Astro.props;
 const crumbs = crumbsFor(locale, page.key, ui[locale].home);
 const blocks = page.key === 'contact' ? page.blocks.filter((block) => block.type !== 'inquiries' && block.type !== 'note') : page.blocks;
-const customShell = page.key === 'home' || page.key === 'contact' || page.key === 'sectors';
+const serviceExperienceKeys: RouteKey[] = ['software', 'dedicated', 'qa', 'cloud', 'cyber', 'ai', 'automation', 'payments'];
+const customShell =
+  page.key === 'home' ||
+  page.key === 'contact' ||
+  page.key === 'sectors' ||
+  page.key === 'solutions' ||
+  page.key === 'partnerships' ||
+  page.key === 'innovation' ||
+  page.key === 'cases' ||
+  page.key === 'modes' ||
+  serviceExperienceKeys.includes(page.key);
 const serviceKeys: RouteKey[] = ['services', 'dedicated', 'qa', 'payments', 'automation', 'ai', 'software', 'cloud', 'cyber', 'modes'];
 const serviceName = serviceKeys.includes(page.key) ? routes[page.key].label[locale] : undefined;
 const faqBlock = page.blocks.find((block) => block.type === 'faq');
 const faqs = faqBlock?.type === 'faq' ? faqBlock.items : [];
+const visual = pageVisuals[page.key];
+const editorialKeys: RouteKey[] = ['about', 'services'];
+const isEditorial = editorialKeys.includes(page.key);
 ---
 <Base locale={locale} title={page.metaTitle} description={page.description} routeKey={page.key} serviceName={serviceName} faqs={faqs}>
   {page.key === 'home' ? (
@@ -26,8 +46,20 @@ const faqs = faqBlock?.type === 'faq' ? faqBlock.items : [];
     <ContactWizard locale={locale} page={page} />
   ) : page.key === 'sectors' ? (
     <SectorExperience locale={locale} page={page} />
+  ) : page.key === 'solutions' ? (
+    <SolutionsExperience locale={locale} page={page} />
+  ) : page.key === 'partnerships' ? (
+    <PartnershipsExperience locale={locale} page={page} />
+  ) : page.key === 'innovation' ? (
+    <InnovationExperience locale={locale} page={page} />
+  ) : page.key === 'cases' ? (
+    <CasesExperience locale={locale} page={page} />
+  ) : page.key === 'modes' ? (
+    <ModesExperience locale={locale} page={page} />
+  ) : serviceExperienceKeys.includes(page.key) ? (
+    <ServiceExperience locale={locale} page={page} />
   ) : (
-    <header class="page-hero">
+    <header class:list={['page-hero', visual?.lane && `page-hero-lane-${visual.lane}`]} data-page-hero>
       <div class="container">
         {crumbs.length > 0 && (
           <nav aria-label={ui[locale].breadcrumb}>
@@ -40,11 +72,59 @@ const faqs = faqBlock?.type === 'faq' ? faqBlock.items : [];
             </ol>
           </nav>
         )}
-        <p class="eyebrow">{page.eyebrow}</p>
-        <h1>{page.h1}</h1>
-        <p class="lede">{page.intro}</p>
+        {isEditorial && visual ? (
+          <div class="about-hero-grid editorial-hero">
+            <div class="about-hero-copy">
+              <p class="eyebrow">{page.eyebrow}</p>
+              <h1>{page.h1}</h1>
+              <p class="lede">{page.intro}</p>
+            </div>
+            <div class="about-hero-art">
+              <img
+                class="about-hero-photo"
+                src={visual.image}
+                alt=""
+                width="1200"
+                height="900"
+                loading="eager"
+                decoding="async"
+              />
+              <div class="about-hero-overlay" aria-hidden="true">
+                {page.key === 'about' ? (
+                  <>
+                    <span>Paris</span>
+                    <span class="about-hero-dot"></span>
+                    <span>Sfax</span>
+                  </>
+                ) : (
+                  <span>{visual.overlay[locale]}</span>
+                )}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <>
+            <p class="eyebrow">{page.eyebrow}</p>
+            <h1>{page.h1}</h1>
+            <p class="lede">{page.intro}</p>
+          </>
+        )}
       </div>
     </header>
   )}
-  {!customShell && <Blocks locale={locale} blocks={blocks} />}
+  {!customShell && (
+    <div
+      class:list={[
+        'page-surface',
+        page.key === 'services' && 'page-surface-services',
+        page.key === 'cases' && 'page-surface-cases',
+        page.key === 'modes' && 'page-surface-modes',
+        serviceKeys.includes(page.key) && 'page-surface-service',
+        visual?.lane && `page-surface-lane-${visual.lane}`,
+      ]}
+      data-service-lane={visual?.lane}
+    >
+      <Blocks locale={locale} blocks={blocks} />
+    </div>
+  )}
 </Base>

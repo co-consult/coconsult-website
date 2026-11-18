@@ -22,9 +22,18 @@ const contact = pathFor(locale, 'contact');
     aria-haspopup="dialog"
     aria-label={copy.openLabel}
   >
-    <span class="cc-assistant-mark" aria-hidden="true"></span>
-    <span>{copy.launcher}</span>
+    <span class="cc-assistant-fab" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 18.5V8.2A3.2 3.2 0 0 1 8.2 5h7.6A3.2 3.2 0 0 1 19 8.2v5.1A3.2 3.2 0 0 1 15.8 16.5H9.2L5 19.2z"></path>
+        <path d="M9 10h6M9 13h3.5"></path>
+      </svg>
+    </span>
+    <span class="cc-assistant-launcher-copy">
+      <strong>{copy.launcher}</strong>
+      <small>{copy.launcherHint}</small>
+    </span>
   </button>
+
   <div
     id="cc-assistant-dialog"
     class="cc-assistant-panel"
@@ -34,25 +43,45 @@ const contact = pathFor(locale, 'contact');
     hidden
   >
     <div class="cc-assistant-head">
-      <div>
-        <p id="cc-assistant-title">{copy.title}</p>
-        <p class="cc-assistant-disclosure">{copy.disclosure}</p>
+      <div class="cc-assistant-brand">
+        <span class="cc-assistant-avatar" aria-hidden="true">CC</span>
+        <div>
+          <p id="cc-assistant-title">{copy.title}</p>
+          <p class="cc-assistant-status">
+            <span class="cc-assistant-pulse" aria-hidden="true"></span>
+            {copy.status}
+          </p>
+        </div>
       </div>
-      <button type="button" data-assistant-close aria-label={copy.closeLabel}>
-        <span aria-hidden="true">×</span>
-      </button>
+      <div class="cc-assistant-tools">
+        <button type="button" class="cc-assistant-iconbtn" data-assistant-restart aria-label={copy.restartLabel} title={copy.restartLabel}>
+          <span aria-hidden="true">↻</span>
+        </button>
+        <button type="button" class="cc-assistant-iconbtn" data-assistant-close aria-label={copy.closeLabel} title={copy.closeLabel}>
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
     </div>
+
+    <p class="cc-assistant-disclosure">{copy.disclosure}</p>
+
     <div class="cc-assistant-body">
       <div class="cc-assistant-log" role="log" aria-live="polite" aria-relevant="additions"></div>
-      <div class="cc-assistant-choices"></div>
+      <div class="cc-assistant-choices" aria-label={copy.suggestionsLabel}></div>
     </div>
-    <form data-assistant-form>
+
+    <form data-assistant-form class="cc-assistant-composer">
       <label class="cc-assistant-sr" for="cc-assistant-input">{copy.inputLabel}</label>
-      <textarea id="cc-assistant-input" maxlength="400" rows="2"></textarea>
-      <button type="submit">{copy.sendLabel}</button>
+      <textarea id="cc-assistant-input" maxlength="400" rows="2" placeholder={copy.placeholder}></textarea>
+      <button type="submit" class="cc-assistant-send" aria-label={copy.sendLabel}>
+        <span>{copy.sendLabel}</span>
+      </button>
     </form>
+
     <p class="cc-assistant-always">
       <a href={contact}>{copy.contactLabel}</a>
+      <span aria-hidden="true">·</span>
+      <span>{copy.footerHint}</span>
     </p>
   </div>
 </div>
@@ -92,171 +121,409 @@ const contact = pathFor(locale, 'contact');
   }
 
   .cc-assistant-launcher {
-    right: 16px;
-    bottom: 16px;
+    right: 18px;
+    bottom: 18px;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    min-height: 44px;
-    padding: 0 14px;
-    border: 1px solid rgba(142, 243, 255, 0.55);
+    gap: 12px;
+    min-height: 56px;
+    padding: 8px 16px 8px 8px;
+    border: 1px solid rgba(142, 243, 255, 0.35);
     border-radius: 999px;
-    background: #07111c;
-    color: #8ef3ff;
+    background:
+      linear-gradient(145deg, rgba(14, 40, 58, 0.96), rgba(7, 17, 28, 0.98));
+    color: #e8f4fa;
     cursor: pointer;
+    box-shadow:
+      0 12px 32px rgba(3, 12, 22, 0.35),
+      0 0 0 1px rgba(142, 243, 255, 0.08) inset;
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.2s ease;
   }
-
-  .cc-assistant-mark {
-    width: 8px;
-    height: 8px;
+  .cc-assistant-launcher:hover {
+    transform: translateY(-2px);
+    border-color: rgba(142, 243, 255, 0.55);
+    box-shadow: 0 16px 36px rgba(3, 12, 22, 0.42);
+  }
+  .cc-assistant-fab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background: var(--brand-teal);
+    background: linear-gradient(145deg, #0f8a98, #026d7b);
+    color: #f4fcff;
+    flex-shrink: 0;
+  }
+  .cc-assistant-launcher-copy {
+    display: grid;
+    gap: 1px;
+    text-align: left;
+    line-height: 1.2;
+  }
+  .cc-assistant-launcher-copy strong {
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .cc-assistant-launcher-copy small {
+    font-size: 0.72rem;
+    color: #9eb6c8;
+    font-weight: 400;
   }
 
   .cc-assistant-panel {
-    right: 16px;
-    bottom: 72px;
+    right: 18px;
+    bottom: 88px;
     display: flex;
     flex-direction: column;
-    width: min(380px, calc(100vw - 32px));
-    max-height: min(70vh, 560px, calc(100dvh - var(--header) - 96px));
-    padding: 14px;
-    border: 1px solid rgba(142, 243, 255, 0.4);
-    border-radius: 18px;
-    background: #07111c;
+    width: min(400px, calc(100vw - 28px));
+    max-height: min(74vh, 620px, calc(100dvh - var(--header, 88px) - 110px));
+    padding: 0;
+    border: 1px solid rgba(142, 243, 255, 0.28);
+    border-radius: 22px;
+    background:
+      radial-gradient(ellipse 80% 40% at 10% 0%, rgba(142, 243, 255, 0.1), transparent 55%),
+      linear-gradient(180deg, #0b1826 0%, #07111c 48%, #060f18 100%);
     color: #e7eef2;
-    box-shadow: none;
+    box-shadow: 0 24px 60px rgba(3, 12, 22, 0.45);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+    pointer-events: none;
+    transition:
+      opacity 0.22s ease,
+      transform 0.22s ease;
   }
-
-  .cc-assistant-body {
-    overflow: auto;
-    min-height: 0;
-    flex: 1 1 auto;
+  .cc-assistant-panel.is-open {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
   }
 
   .cc-assistant-lift .cc-assistant-launcher { bottom: 88px; }
-  .cc-assistant-lift .cc-assistant-panel { bottom: 144px; }
+  .cc-assistant-lift .cc-assistant-panel { bottom: 156px; }
 
   .cc-assistant-head {
     display: flex;
     justify-content: space-between;
     gap: 12px;
-    align-items: flex-start;
+    align-items: center;
+    padding: 14px 14px 10px;
+    border-bottom: 1px solid rgba(142, 243, 255, 0.12);
   }
-
+  .cc-assistant-brand {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    min-width: 0;
+  }
+  .cc-assistant-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+    background: linear-gradient(145deg, rgba(142, 243, 255, 0.2), rgba(2, 109, 123, 0.35));
+    border: 1px solid rgba(142, 243, 255, 0.28);
+    color: #8ef3ff;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
   .cc-assistant-head p { margin: 0; }
-
   #cc-assistant-title {
     font-family: var(--display);
-    font-size: 1.4rem;
+    font-size: 1.15rem;
+    letter-spacing: -0.02em;
+    color: #f3fafc;
+    line-height: 1.2;
+  }
+  .cc-assistant-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 3px;
+    color: #9eb6c8;
+    font-size: 0.75rem;
+  }
+  .cc-assistant-pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #3dd6a5;
+    box-shadow: 0 0 0 0 rgba(61, 214, 165, 0.55);
+    animation: cc-pulse 2s ease infinite;
+  }
+  @keyframes cc-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(61, 214, 165, 0.5); }
+    70% { box-shadow: 0 0 0 8px rgba(61, 214, 165, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(61, 214, 165, 0); }
+  }
+  .cc-assistant-tools {
+    display: flex;
+    gap: 6px;
+  }
+  .cc-assistant-iconbtn {
+    width: 40px;
+    height: 40px;
+    min-height: 40px;
+    padding: 0;
+    border: 1px solid rgba(142, 243, 255, 0.22);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    color: #d7e6f0;
+    font-size: 1.15rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .cc-assistant-iconbtn:hover {
+    border-color: rgba(142, 243, 255, 0.45);
     color: #8ef3ff;
   }
 
   .cc-assistant-disclosure {
-    margin-top: 6px;
-    color: #c5d2e0;
-    font-size: 0.82rem;
+    margin: 0;
+    padding: 8px 14px 10px;
+    color: #a7bbc9;
+    font-size: 0.72rem;
     line-height: 1.45;
+    border-bottom: 1px solid rgba(142, 243, 255, 0.08);
   }
 
-  .cc-assistant-head button,
-  .cc-assistant-panel form button,
-  .cc-assistant-choice {
-    min-height: 44px;
-    border: 1px solid rgba(142, 243, 255, 0.45);
-    border-radius: 999px;
-    background: transparent;
-    color: #e7eef2;
-    cursor: pointer;
-  }
-
-  .cc-assistant-head button {
-    width: 44px;
-    padding: 0;
-    font-size: 1.4rem;
-    line-height: 1;
+  .cc-assistant-body {
+    overflow: hidden;
+    min-height: 0;
+    flex: 1 1 auto;
+    padding: 12px 14px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .cc-assistant-log {
+    display: grid;
+    gap: 10px;
+    flex: 1 1 auto;
     min-height: 0;
-    margin: 12px 0;
-    padding-right: 4px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     line-height: 1.5;
+    padding-right: 2px;
   }
-
-  .cc-assistant-log p,
-  .cc-assistant-log ul { margin: 0 0 10px; white-space: pre-wrap; }
-
-  .cc-assistant-log a { color: #8ef3ff; }
-
+  .cc-msg {
+    display: grid;
+    gap: 6px;
+    max-width: 92%;
+    position: relative;
+    isolation: isolate;
+    animation: cc-msg-in 0.28s ease both;
+  }
+  @keyframes cc-msg-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+  .cc-msg-user {
+    justify-self: end;
+  }
+  .cc-msg-bot {
+    justify-self: start;
+  }
+  .cc-msg-bubble {
+    margin: 0;
+    padding: 10px 12px;
+    border-radius: 16px;
+    font-size: 0.92rem;
+    white-space: pre-wrap;
+  }
+  .cc-msg-user .cc-msg-bubble {
+    background: linear-gradient(145deg, #0f8a98, #067a88);
+    color: #f4fcff;
+    border-bottom-right-radius: 6px;
+  }
+  .cc-msg-bot .cc-msg-bubble {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(142, 243, 255, 0.14);
+    color: #e7eef2;
+    border-bottom-left-radius: 6px;
+  }
+  .cc-msg-meta {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #7f97a8;
+    padding: 0 4px;
+  }
+  .cc-msg-user .cc-msg-meta { text-align: right; }
+  .cc-msg-list {
+    margin: 0;
+    padding: 0 0 0 1.1em;
+    display: grid;
+    gap: 4px;
+    color: #d5e4ee;
+    font-size: 0.88rem;
+  }
+  .cc-msg-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 2px;
+  }
+  .cc-assistant-log a,
+  .cc-assistant-contact,
+  .cc-assistant-handoff {
+    color: #8ef3ff;
+  }
   .cc-assistant-contact,
   .cc-assistant-handoff {
     display: inline-flex;
     align-items: center;
-    min-height: 44px;
-    margin-top: 4px;
-    font-weight: 600;
-  }
-
-  .cc-assistant-handoff {
-    margin-right: 8px;
+    min-height: 40px;
     padding: 0 12px;
-    border: 1px solid rgba(142, 243, 255, 0.45);
     border-radius: 999px;
-    background: transparent;
+    border: 1px solid rgba(142, 243, 255, 0.35);
+    background: rgba(142, 243, 255, 0.08);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+  }
+  .cc-assistant-handoff {
     color: #8ef3ff;
     font: inherit;
-    text-align: left;
     cursor: pointer;
   }
-
-  .cc-assistant-launcher:focus-visible,
-  .cc-assistant-head button:focus-visible,
-  .cc-assistant-choice:focus-visible,
-  .cc-assistant-handoff:focus-visible,
-  .cc-assistant-panel form button:focus-visible,
-  .cc-assistant-panel a:focus-visible,
-  .cc-assistant-panel textarea:focus-visible {
-    outline: 2px solid #8ef3ff;
-    outline-offset: 2px;
+  .cc-assistant-handoff:hover,
+  .cc-assistant-contact:hover {
+    background: rgba(142, 243, 255, 0.14);
   }
 
   .cc-assistant-choices {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 10px;
+    flex: 0 0 auto;
+    position: relative;
+    z-index: 1;
+    padding-top: 2px;
+    background: linear-gradient(180deg, transparent, rgba(7, 17, 28, 0.55) 18%);
+  }
+  .cc-assistant-choices:empty {
+    display: none;
+  }
+  .cc-assistant-choice {
+    min-height: 40px;
+    padding: 0 12px;
+    border: 1px solid rgba(142, 243, 255, 0.28);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.03);
+    color: #e7eef2;
+    cursor: pointer;
+    text-align: left;
+    font-size: 0.85rem;
+    transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+  }
+  .cc-assistant-choice:hover {
+    background: rgba(142, 243, 255, 0.1);
+    border-color: rgba(142, 243, 255, 0.5);
+    transform: translateY(-1px);
+  }
+  .cc-assistant-choice.is-primary {
+    background: rgba(142, 243, 255, 0.14);
+    border-color: rgba(142, 243, 255, 0.5);
+    color: #8ef3ff;
+    font-weight: 600;
   }
 
-  .cc-assistant-choice { padding: 0 12px; text-align: left; }
-
-  .cc-assistant-panel form {
+  .cc-assistant-composer {
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 8px;
     align-items: end;
+    padding: 10px 14px 8px;
+    border-top: 1px solid rgba(142, 243, 255, 0.12);
+    background: rgba(0, 0, 0, 0.18);
   }
-
   .cc-assistant-panel textarea {
     width: 100%;
-    min-height: 44px;
-    resize: vertical;
-    border: 1px solid rgba(142, 243, 255, 0.35);
-    border-radius: 12px;
-    padding: 8px 10px;
-    background: #050d16;
+    min-height: 46px;
+    max-height: 110px;
+    resize: none;
+    border: 1px solid rgba(142, 243, 255, 0.22);
+    border-radius: 14px;
+    padding: 10px 12px;
+    background: rgba(5, 13, 22, 0.85);
     color: #e7eef2;
     font: inherit;
+    line-height: 1.4;
   }
-
-  .cc-assistant-panel form button { padding: 0 14px; }
+  .cc-assistant-panel textarea::placeholder { color: #7f97a8; }
+  .cc-assistant-send {
+    min-height: 46px;
+    padding: 0 14px;
+    border: 0;
+    border-radius: 14px;
+    background: linear-gradient(145deg, #12a0b0, #026d7b);
+    color: #f4fcff;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .cc-assistant-send:hover { filter: brightness(1.06); }
 
   .cc-assistant-always {
-    margin: 10px 0 0;
-    font-size: 0.85rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    margin: 0;
+    padding: 0 14px 12px;
+    font-size: 0.75rem;
+    color: #8aa0b0;
+  }
+  .cc-assistant-always a {
+    color: #8ef3ff;
+    font-weight: 600;
   }
 
-  .cc-assistant-always a { color: #8ef3ff; }
+  .cc-assistant-typing {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+    padding: 10px 12px;
+    border-radius: 16px;
+    border-bottom-left-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(142, 243, 255, 0.14);
+    width: fit-content;
+  }
+  .cc-assistant-typing span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #8ef3ff;
+    opacity: 0.45;
+    animation: cc-dot 1s ease infinite;
+  }
+  .cc-assistant-typing span:nth-child(2) { animation-delay: 0.15s; }
+  .cc-assistant-typing span:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes cc-dot {
+    0%, 80%, 100% { opacity: 0.3; transform: translateY(0); }
+    40% { opacity: 1; transform: translateY(-2px); }
+  }
+
+  .cc-assistant-launcher:focus-visible,
+  .cc-assistant-iconbtn:focus-visible,
+  .cc-assistant-choice:focus-visible,
+  .cc-assistant-handoff:focus-visible,
+  .cc-assistant-send:focus-visible,
+  .cc-assistant-panel a:focus-visible,
+  .cc-assistant-panel textarea:focus-visible {
+    outline: 2px solid #8ef3ff;
+    outline-offset: 2px;
+  }
 
   .cc-assistant-sr {
     position: absolute;
@@ -272,20 +539,29 @@ const contact = pathFor(locale, 'contact');
 
   @media (max-width: 700px) {
     .cc-assistant-panel {
-      right: 12px;
-      left: 12px;
+      right: 10px;
+      left: 10px;
       width: auto;
-      bottom: 68px;
-      max-height: min(78dvh, 640px);
+      bottom: 78px;
+      max-height: min(80dvh, 680px);
     }
-
-    .cc-assistant-launcher { right: 12px; }
-
-    .cc-assistant-lift .cc-assistant-panel { bottom: 128px; }
+    .cc-assistant-launcher {
+      right: 12px;
+      padding-right: 14px;
+    }
+    .cc-assistant-launcher-copy small { display: none; }
+    .cc-assistant-lift .cc-assistant-panel { bottom: 140px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .cc-assistant-launcher,
-    .cc-assistant-panel { transition: none; }
+    .cc-assistant-panel,
+    .cc-assistant-choice,
+    .cc-assistant-pulse,
+    .cc-assistant-typing span,
+    .cc-msg {
+      transition: none;
+      animation: none;
+    }
   }
 </style>

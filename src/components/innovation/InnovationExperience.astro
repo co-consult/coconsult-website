@@ -1,0 +1,120 @@
+---
+import FinalCta from '@/components/FinalCta.astro';
+import Blocks from '@/components/Blocks.astro';
+import type { Locale, PageContent } from '@/content/types';
+import { company } from '@/data/company';
+import { contactPath } from '@/data/inquiries';
+import { crumbsFor } from '@/lib/seo';
+import { ui } from '@/content/ui';
+
+interface Props { locale: Locale; page: PageContent }
+const { locale, page } = Astro.props;
+const t = ui[locale];
+const crumbs = crumbsFor(locale, 'innovation', t.home);
+const fr = locale === 'fr';
+const years = ['2026', '2027', '2028', '2029', '2030'];
+const bodyBlocks = page.blocks.filter((block) => block.type !== 'cta');
+const cta = page.blocks.find((block) => block.type === 'cta');
+
+const copy = fr
+  ? {
+      status: 'Agrément CII',
+      lead: 'Un cadre pour concevoir un prototype ou un produit innovant — sans promettre un crédit d’impôt automatique.',
+      explore: 'Lire le cadre',
+      pulseKicker: 'Signal',
+      pulseTitle: 'L’innovation se voit dans le cadrage, pas dans le jargon.',
+      pulses: [
+        { title: 'Prototype ou produit', text: 'On part d’un objet à concevoir, pas d’une régie générique.' },
+        { title: 'Périmètre écrit', text: 'Livrables, société qui contracte et statut du pilote avant de démarrer.' },
+        { title: 'Éligibilité à part', text: 'L’agrément reconnaît une capacité. L’assiette fiscale reste à vérifier côté client.' },
+      ],
+      sealCap: 'Prestataire agréé',
+      yearsLabel: 'Couverture',
+    }
+  : {
+      status: 'CII approval',
+      lead: 'A frame to design a prototype or an innovative product — without promising an automatic tax credit.',
+      explore: 'Read the frame',
+      pulseKicker: 'Signal',
+      pulseTitle: 'Innovation shows in the scoping, not in the buzzwords.',
+      pulses: [
+        { title: 'Prototype or product', text: 'We start from something to design, not a generic staff assignment.' },
+        { title: 'Written scope', text: 'Deliverables, contracting company and pilot status before work starts.' },
+        { title: 'Eligibility apart', text: 'The approval recognises a capability. Tax eligibility stays the client’s check.' },
+      ],
+      sealCap: 'Approved provider',
+      yearsLabel: 'Coverage',
+    };
+---
+<div class="experience innovation-page">
+  <header class="page-hero innovation-hero" data-page-hero>
+    <div class="container">
+      {crumbs.length > 0 && (
+        <nav aria-label={t.breadcrumb}>
+          <ol class="crumbs">
+            {crumbs.map((crumb) => (
+              <li>
+                {crumb.href ? <a href={crumb.href}>{crumb.label}</a> : <span aria-current="page">{crumb.label}</span>}
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
+      <div class="innovation-hero-grid">
+        <div class="innovation-hero-copy">
+          <p class="eyebrow">{page.eyebrow}</p>
+          <p class="innovation-status"><span>{copy.status}</span> · n° {company.cii.number}</p>
+          <h1>{page.h1}</h1>
+          <p class="lede">{copy.lead}</p>
+          <div class="cta-row">
+            <a class="btn primary" href={contactPath(locale, 'project')}>{fr ? 'Cadrer un sujet d’innovation' : 'Scope an innovation topic'}</a>
+            <a class="btn ghost" href="#cadre">{copy.explore}</a>
+          </div>
+        </div>
+        <aside class="innovation-seal" aria-label={copy.status}>
+          <p class="innovation-seal-kicker">{company.cii.authority}</p>
+          <p class="innovation-seal-no">n° {company.cii.number}</p>
+          <p class="innovation-seal-mark">{copy.sealCap}</p>
+          <p class="innovation-years-label">{copy.yearsLabel}</p>
+          <ul class="innovation-years">
+            {years.map((year) => <li>{year}</li>)}
+          </ul>
+          <span class="innovation-seal-glow" aria-hidden="true"></span>
+        </aside>
+      </div>
+    </div>
+  </header>
+
+  <section class="section innovation-pulse" data-reveal>
+    <div class="section-head">
+      <p class="eyebrow">{copy.pulseKicker}</p>
+      <div class="section-copy">
+        <h2>{copy.pulseTitle}</h2>
+      </div>
+    </div>
+    <div class="innovation-pulse-grid" data-stagger>
+      {copy.pulses.map((item, index) => (
+        <article class="innovation-pulse-card">
+          <span>0{index + 1}</span>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <div class="page-surface page-surface-innovation" id="cadre">
+    <Blocks locale={locale} blocks={bodyBlocks} />
+  </div>
+
+  {cta && cta.type === 'cta' ? (
+    <FinalCta locale={locale} title={cta.title} text={cta.text} primary={cta.primary} secondary={cta.secondary} product={cta.product} />
+  ) : (
+    <FinalCta
+      locale={locale}
+      title={fr ? 'Décrire le prototype ou le produit à concevoir.' : 'Describe the prototype or the product to design.'}
+      text={fr ? 'Le contexte suffit pour dire si un cadrage d’innovation a du sens. L’éligibilité fiscale se confirme à part.' : 'The context is enough to say whether an innovation scoping is useful. Tax eligibility is confirmed separately.'}
+      primary="project"
+    />
+  )}
+</div>

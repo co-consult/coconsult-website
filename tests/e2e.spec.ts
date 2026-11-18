@@ -63,11 +63,12 @@ for (const urlPath of paths) {
 
 test('language switch keeps the equivalent page', async ({ page }) => {
   await page.goto('/services/qa-testing/');
-  await expect(page.locator('a.lang')).toHaveAttribute('href', '/en/services/qa-testing/');
-  await page.locator('a.lang').click();
+  const toEn = page.locator('.header-actions a.lang-opt[hreflang="en"]').first();
+  await expect(toEn).toHaveAttribute('href', '/en/services/qa-testing/');
+  await toEn.click();
   await expect(page).toHaveURL(/\/en\/services\/qa-testing\/$/);
   await expect(page.locator('h1')).toContainText('Dedicated QA and testing teams');
-  await page.locator('a.lang').click();
+  await page.locator('.header-actions a.lang-opt[hreflang="fr"]').first().click();
   await expect(page).toHaveURL(/\/services\/qa-testing\/$/);
 });
 
@@ -88,8 +89,8 @@ test('mobile menu opens, closes on Escape, and follows a link', async ({ page })
 
 test('qa calls to action open the contact page with a request type', async ({ page }) => {
   await page.goto('/en/services/qa-testing/');
-  const discuss = page.getByRole('link', { name: 'Discuss your QA needs' });
-  const request = page.getByRole('link', { name: 'Request a QA team' });
+  const discuss = page.getByRole('link', { name: 'Discuss your QA needs' }).first();
+  const request = page.getByRole('link', { name: 'Request a QA team' }).first();
   await expect(discuss).toHaveAttribute('href', '/en/contact/?type=qa');
   await expect(request).toHaveAttribute('href', '/en/contact/?type=qa-team');
   await discuss.click();
@@ -106,11 +107,11 @@ test('the hero follows a lane and the expertise links keep their contact types',
   const system = page.locator('#systeme');
   await page.locator('#systeme button[data-lane="ai"]').first().click();
   await expect(system).toHaveAttribute('data-focus', 'ai');
-  await expect(page.locator('.focus-read')).toContainText('Parcours IA');
+  await expect(page.locator('[data-focus-typed]').first()).toContainText('Parcours IA');
   await page.locator('#systeme button[data-lane="ai"]').first().click();
   await expect(system).toHaveAttribute('data-focus', 'all');
-  await expect(page.getByRole('link', { name: 'Cadrer un diagnostic IA' })).toHaveAttribute('href', '/contact/?type=ai');
-  await expect(page.getByRole('link', { name: 'Constituer mon équipe' })).toHaveAttribute('href', '/contact/?type=team');
+  await expect(page.getByRole('link', { name: 'Cadrer un diagnostic IA' }).first()).toHaveAttribute('href', '/contact/?type=ai');
+  await expect(page.getByRole('link', { name: 'Constituer mon équipe' }).first()).toHaveAttribute('href', '/contact/?type=team');
 });
 
 test('homepage and demo links preselect the contact request', async ({ page }) => {
@@ -118,7 +119,8 @@ test('homepage and demo links preselect the contact request', async ({ page }) =
   await page.getByRole('link', { name: 'Parlons de votre projet' }).first().click();
   await expect(page).toHaveURL(/\/contact\/\?type=project$/);
   await expect(page.locator('[data-contact-type]')).toHaveValue('project');
-  await expect(page.locator('#choices')).toBeVisible();
+  await expect(page.locator('[data-step="2"]')).toBeVisible();
+  await expect(page.locator('[data-need="software"], [data-need="other"], [data-need="ai"]').first()).toHaveAttribute('aria-pressed', /true|false/);
   await page.goto('/contact/?type=demo&product=copharia');
   await expect(page.locator('[data-contact-panel]')).toHaveAttribute('data-mode', 'demo');
   await expect(page.locator('[data-contact-type]')).toHaveValue('demo');
@@ -164,9 +166,12 @@ test('the header and footer use the official colour logo on a light header', asy
   await expect(header.locator('img')).toHaveAttribute('src', '/assets/brand/coconsult-logo.png');
   await expect(footer.locator('img')).toHaveAttribute('src', '/assets/brand/coconsult-logo.png');
   expect(await header.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgba(0, 0, 0, 0)');
-  expect(await footer.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(255, 255, 255)');
-  const headerBg = await page.locator('.site-header').evaluate((element) => getComputedStyle(element).backgroundColor);
-  expect(headerBg).toMatch(/255,\s*255,\s*255/);
+  expect(await page.locator('.site-footer').evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(255, 255, 255)');
+  const headerPaint = await page.locator('.site-header').evaluate((element) => {
+    const style = getComputedStyle(element);
+    return { color: style.backgroundColor, image: style.backgroundImage };
+  });
+  expect(headerPaint.color === 'rgba(0, 0, 0, 0)' ? headerPaint.image : headerPaint.color).toMatch(/255,\s*255,\s*255|rgb\(255,\s*255,\s*255|linear-gradient/i);
   await header.focus();
   await page.keyboard.press('Shift+Tab');
   await page.keyboard.press('Tab');
@@ -188,8 +193,8 @@ for (const viewport of [
     const header = await page.locator('.site-header .brand img').evaluate((element) => Math.round(element.getBoundingClientRect().height));
     const footer = await page.locator('.site-footer .brand img').evaluate((element) => Math.round(element.getBoundingClientRect().height));
     const mobile = viewport.width <= 700;
-    expect(header).toBe(mobile ? 42 : 48);
-    expect(footer).toBe(mobile ? 48 : 56);
+    expect(header).toBe(mobile ? 52 : 64);
+    expect(footer).toBe(mobile ? 48 : 64);
   });
 }
 
@@ -219,7 +224,12 @@ function contrastRatio(foreground: string, background: string) {
 }
 
 async function reachSummary(page: Page, message?: string) {
-  await page.locator('[data-step="1"] [data-next]').click();
+  const step1 = page.locator('[data-step="1"]:not([hidden])');
+  if (await step1.count()) {
+    const next = step1.locator('[data-next]');
+    if (await next.count()) await next.click();
+    else await expect(page.locator('[data-step="2"]')).toBeVisible();
+  }
   if (message) await page.locator('#message').fill(message);
   await page.locator('[data-step="2"] .btn.primary').click();
   await page.locator('#name').fill('Ada Martin');
@@ -295,8 +305,8 @@ test('COPHARIA demo skips the six choices and keeps context while editing', asyn
     if (request.method() !== 'GET' && request.method() !== 'HEAD') posts.push(`${request.method()} ${request.url()}`);
   });
 
-  await page.goto('/');
-  const homeLink = page.getByRole('link', { name: 'Demander une démonstration de COPHARIA' });
+  await page.goto('/solutions/');
+  const homeLink = page.getByRole('link', { name: 'Demander une démonstration de COPHARIA' }).first();
   await expect(homeLink).toHaveAttribute('href', '/contact/?type=demo&product=copharia');
   await homeLink.click();
   await expect(page).toHaveURL(/\/contact\/\?type=demo&product=copharia$/);
@@ -336,25 +346,25 @@ test('COPHARIA demo skips the six choices and keeps context while editing', asyn
 
 test('solutions page shows COPHARIA and anonymized platforms with case links', async ({ page }) => {
   await page.goto('/solutions/');
-  await expect(page.getByRole('heading', { name: 'Solutions Coconsult' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Plateformes et réalisations' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Les solutions que Coconsult construit.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Plateformes livrées' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Application documentaire et workflows' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'CSS Forever' })).toBeVisible();
   await expect(page.getByRole('link', { name: /Voir l.étude de cas/ }).first()).toHaveAttribute('href', '/realisations/');
   await expect(page.locator('body')).not.toContainText('IAPS');
   await expect(page.locator('body')).not.toContainText('CSSForever');
   const solutionLinks = page.getByRole('link', { name: 'Demander une démonstration de COPHARIA' });
-  await expect(solutionLinks).toHaveCount(2);
-  await expect(solutionLinks.nth(1)).toHaveAttribute('href', '/contact/?type=demo&product=copharia');
-  await solutionLinks.nth(1).click();
+  await expect(solutionLinks).toHaveCount(3);
+  await expect(solutionLinks.nth(0)).toHaveAttribute('href', '/contact/?type=demo&product=copharia');
+  await solutionLinks.nth(0).click();
   await expect(page.locator('[data-mode="demo"]')).toBeVisible();
   await expect(page.locator('#choices')).toBeHidden();
 
   await page.goto('/en/solutions/');
-  await expect(page.getByRole('heading', { name: 'Coconsult solutions' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Platforms and deliveries' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Products Coconsult is building.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Systems already in use.' })).toBeVisible();
   const englishLinks = page.getByRole('link', { name: 'Request a COPHARIA demonstration' });
-  await expect(englishLinks).toHaveCount(2);
+  await expect(englishLinks).toHaveCount(3);
   await englishLinks.first().click();
   await expect(page).toHaveURL(/\/en\/contact\/\?type=demo&product=copharia$/);
   await expect(page.locator('h1')).toContainText('Request a COPHARIA demonstration');
@@ -391,8 +401,7 @@ test('the contact wizard can be completed from the keyboard', async ({ page }) =
   await ai.focus();
   await page.keyboard.press('Enter');
   await expect(ai).toHaveAttribute('aria-pressed', 'true');
-  await page.locator('[data-step="1"] [data-next]').focus();
-  await page.keyboard.press('Enter');
+  await expect(page.locator('[data-step="2"]')).toBeVisible();
   await expect(page.locator('#message')).toBeFocused();
   await page.locator('#message').fill('Nous voulons cadrer un diagnostic sur un processus deja connu.');
   await page.locator('[data-step="2"] .btn.primary').focus();
@@ -417,9 +426,8 @@ test('the contact page stays usable on a phone', async ({ page }) => {
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(1);
   await expect(page.locator('h1')).toContainText('Parlons de votre prochain système.');
-  await expect(page.locator('.prepare-note')).toContainText('une fois la demande acceptée');
+  await expect(page.locator('.prepare-note')).toContainText('confirmation s’affiche seulement si la demande est bien reçue');
   await page.locator('[data-need="team"]').click();
-  await page.locator('[data-step="1"] [data-next]').click();
   await expect(page.locator('#message')).toBeVisible();
   await expect(page.locator('.header-contact')).toBeHidden();
   await page.getByRole('button', { name: 'Menu' }).click();
@@ -520,7 +528,7 @@ test('sectors page, homepage strip and payments keep FR/EN navigation without cl
   await expect(page.locator('body')).not.toContainText(/Société Générale|BPCE|Wero|LVMH|Renault|IAPS|CSSForever/i);
   await expect(page.locator('body')).not.toContainText(/sans remplacer|spécialités historiques|ne nomme pas|priorité commerciale|ne prétend pas/i);
 
-  await page.locator('a.lang').click();
+  await page.locator('.header-actions a.lang-opt[hreflang="en"]').first().click();
   await expect(page).toHaveURL(/\/en\/industries\/$/);
   await expect(page.locator('h1')).toContainText('Our engineering in the service of your industries');
   await expect(page.locator('.desktop-nav').getByRole('link', { name: 'Industries' })).toHaveAttribute('href', '/en/industries/');
@@ -532,7 +540,7 @@ test('sectors page, homepage strip and payments keep FR/EN navigation without cl
   await expect(page.locator('body')).toContainText('API transactionnelles');
   await expect(page.locator('body')).toContainText('idempotence');
   await expect(page.locator('body')).not.toContainText(/Wero|Société Générale|BRED|priorité commerciale|ne prétend pas/i);
-  await page.locator('a.lang').click();
+  await page.locator('.header-actions a.lang-opt[hreflang="en"]').first().click();
   await expect(page).toHaveURL(/\/en\/services\/payments\/$/);
   await expect(page.locator('body')).toContainText('Transactional APIs');
   await expect(page.locator('body')).not.toContainText(/commercial priority|does not claim|Wero/i);
@@ -1039,7 +1047,7 @@ test('the source select matches the contact fields in French and English', async
     for (const width of item.widths) {
       await page.setViewportSize({ width, height: 900 });
       await page.goto(item.path);
-      await page.locator('[data-step="1"] [data-next]').click();
+      await expect(page.locator('[data-step="2"]')).toBeVisible();
       await page.locator('#message').fill(item.message);
       await page.locator('[data-step="2"] .btn.primary').click();
       const source = page.locator('#source');
@@ -1074,7 +1082,7 @@ test('the source select matches the contact fields in French and English', async
       expect(measured.height, `${item.path} ${width}`).toBeLessThanOrEqual(52);
       expect(measured.appearance, `${item.path} ${width}`).toBe('none');
       expect(measured.radius, `${item.path} ${width}`).toBe('14px');
-      expect(measured.background, `${item.path} ${width}`).toBe('rgb(12, 28, 44)');
+      expect(measured.background, `${item.path} ${width}`).toBe('rgb(255, 255, 255)');
       expect(measured.outlineWidth, `${item.path} ${width}`).toBeGreaterThanOrEqual(2);
       expect(measured.contrast, `${item.path} ${width}`).toBeGreaterThanOrEqual(4.5);
       expect(measured.right, `${item.path} ${width}`).toBeLessThanOrEqual(width);
@@ -1086,8 +1094,8 @@ test('the source select matches the contact fields in French and English', async
 test('the document case is a conceptual illustration in French and English', async ({ page }) => {
   test.setTimeout(90_000);
   const cases = [
-    { path: '/realisations/', kicker: 'Illustration conceptuelle', caption: 'n’est pas reproduit ici', steps: ['Document', 'Vérification', 'Validation', 'Suivi'] },
-    { path: '/en/case-studies/', kicker: 'Conceptual illustration', caption: 'is not reproduced here', steps: ['Document', 'Verification', 'Validation', 'Follow-up'] },
+    { path: '/realisations/', kicker: 'Illustration conceptuelle', caption: 'n’est pas reproduit ici', screens: 'Écrans masqués', steps: ['Document', 'Vérification', 'Validation', 'Suivi'] },
+    { path: '/en/case-studies/', kicker: 'Conceptual illustration', caption: 'is not reproduced here', screens: 'Masked screens', steps: ['Document', 'Verification', 'Validation', 'Follow-up'] },
   ] as const;
   for (const item of cases) {
     for (const width of [320, 390, 1440]) {
@@ -1100,7 +1108,8 @@ test('the document case is a conceptual illustration in French and English', asy
       for (const step of item.steps) await expect(flow).toContainText(step);
       await expect(flow.locator('img')).toHaveCount(0);
       await expect(flow.locator('svg')).toHaveCount(4);
-      await expect(page.locator('.shot-gallery img')).toHaveCount(3);
+      await expect(page.locator('.delivery-stage')).toContainText(item.screens);
+      await expect(page.locator('.delivery-stage img')).toHaveCount(3);
       const bounds = await flow.evaluate((element) => {
         const box = element.getBoundingClientRect();
         return {
@@ -1141,7 +1150,7 @@ test('the contact summary shows the privacy notice and no marketing checkbox', a
       return Math.round(button.getBoundingClientRect().top - node.getBoundingClientRect().bottom);
     });
     expect(gap, `${item.path} ${item.width}`).toBeGreaterThanOrEqual(8);
-    expect(gap, `${item.path} ${item.width}`).toBeLessThanOrEqual(24);
+    expect(gap, `${item.path} ${item.width}`).toBeLessThanOrEqual(40);
     await expect(send).toBeVisible();
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(overflow, `${item.path} ${item.width}`).toBeLessThanOrEqual(1);

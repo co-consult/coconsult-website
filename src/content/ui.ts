@@ -9,6 +9,8 @@ export const ui: Record<
     close: string;
     langAria: string;
     langCode: string;
+    langFr: string;
+    langEn: string;
     breadcrumb: string;
     servicesGroup: string;
     footerPlaces: string;
@@ -54,6 +56,8 @@ export const ui: Record<
     close: 'Fermer le menu',
     langAria: 'Passer à la version anglaise',
     langCode: 'EN',
+    langFr: 'Français',
+    langEn: 'English',
     breadcrumb: 'Fil d’Ariane',
     servicesGroup: 'Expertises',
     footerPlaces: 'Paris · collaboration avec Sfax · depuis 2018',
@@ -97,6 +101,8 @@ export const ui: Record<
     close: 'Close menu',
     langAria: 'Switch to French',
     langCode: 'FR',
+    langFr: 'Français',
+    langEn: 'English',
     breadcrumb: 'Breadcrumb',
     servicesGroup: 'Capabilities',
     footerPlaces: 'Paris · collaboration with Sfax · since 2018',

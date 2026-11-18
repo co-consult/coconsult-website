@@ -187,52 +187,59 @@ const copy = fr
   data-uncertain-label={copy.uncertain}
   data-send-intro={copy.sendIntro}
 >
-  <div class="contact-shell">
-    <div class="contact-intro">
-      {crumbs.length > 0 && (
-        <nav aria-label={t.breadcrumb}>
-          <ol class="crumbs">
-            {crumbs.map((crumb) => (
-              <li>
-                {crumb.href ? <a href={crumb.href}>{crumb.label}</a> : <span aria-current="page">{crumb.label}</span>}
-              </li>
-            ))}
-          </ol>
-        </nav>
-      )}
-      <p class="eyebrow">Coconsult</p>
-      <h1 data-contact-heading>
-        <span data-heading-main>{page.h1}</span>
-        {page.h1Accent && <span class="accent" data-heading-accent>{page.h1Accent}</span>}
-      </h1>
-      <p class="prepare-note" data-contact-intro>{page.intro}</p>
-      <p class="topic-flag" id="topic-flag" hidden></p>
+  <div class="contact-shell contact-shell-stack">
+    <header class="contact-masthead">
+      <div class="contact-intro">
+        <div class="section-head contact-heading">
+          <p class="eyebrow">{page.eyebrow || 'Contact'}</p>
+          <div class="section-copy">
+            <h1 data-contact-heading>
+              <span data-heading-main>{page.h1}</span>
+              {page.h1Accent && <span class="accent" data-heading-accent>{page.h1Accent}</span>}
+            </h1>
+            <p class="prepare-note" data-contact-intro>{page.intro}</p>
+          </div>
+        </div>
+        <p class="topic-flag" id="topic-flag" hidden></p>
+        <p class="mail-fallback"><a href={plainMailto()}>{fr ? `Écrire à ${company.email}` : `Write to ${company.email}`}</a></p>
+        <div class="cta-row">
+          <button class="btn ghost" type="button" data-copy-email>{t.copyAddress}</button>
+        </div>
+        <p data-copy-status aria-live="polite"></p>
+      </div>
+      <figure class="contact-aside-visual">
+        <img src="/assets/people/contact-exchange.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
+        <figcaption>{fr ? 'Un échange concret, pas un formulaire anonyme.' : 'A concrete exchange, not an anonymous form.'}</figcaption>
+      </figure>
+    </header>
+
+    <div class="contact-stage">
+      <div class="contact-progress" aria-hidden="true">
+        <span class="contact-progress-bar" data-progress-bar></span>
+      </div>
       <div class="steps" data-steps-generic>
         {copy.steps.map((label, index) => (
-          <button type="button" data-goto={index + 1} aria-current={index === 0 ? 'step' : undefined}>{label}</button>
+          <button type="button" data-goto={index + 1} aria-current={index === 0 ? 'step' : undefined}>
+            <span class="step-index">0{index + 1}</span>
+            <span>{label}</span>
+          </button>
         ))}
       </div>
       <div class="steps" data-steps-demo hidden>
-        <button type="button" data-goto="3" aria-current="step">{copy.demoSteps[0]}</button>
-        <button type="button" data-goto="4">{copy.demoSteps[1]}</button>
+        <button type="button" data-goto="3" aria-current="step"><span class="step-index">01</span><span>{copy.demoSteps[0]}</span></button>
+        <button type="button" data-goto="4"><span class="step-index">02</span><span>{copy.demoSteps[1]}</span></button>
       </div>
-      <p class="mail-fallback"><a href={plainMailto()}>{fr ? `Écrire à ${company.email}` : `Write to ${company.email}`}</a></p>
-      <div class="cta-row">
-        <button class="btn ghost" type="button" data-copy-email>{t.copyAddress}</button>
-      </div>
-      <p data-copy-status aria-live="polite"></p>
-    </div>
-    <div class="contact-stage">
       <section class="panel" data-step="1" data-generic-only>
         <div class="choice-grid" id="choices">
           {copy.choices.map(([need, inquiry, title, text]) => (
-            <button class="choice" type="button" data-need={need} data-inquiry={inquiry} aria-pressed="false">
+            <button class={`choice choice-${need}`} type="button" data-need={need} data-inquiry={inquiry} aria-pressed="false">
+              <span class="choice-ico" aria-hidden="true"></span>
               <b>{title}</b><span>{text}</span>
             </button>
           ))}
         </div>
         <p class="error" id="err-1" role="alert"></p>
-        <button class="btn primary" type="button" data-next="2">{copy.next}</button>
+        <p class="choice-hint">{fr ? 'Choisissez un besoin pour continuer.' : 'Choose a need to continue.'}</p>
       </section>
       <section class="panel" data-step="2" data-generic-only hidden>
         <div class="hints" id="hints"></div>
@@ -315,8 +322,22 @@ const copy = fr
         <p><a href={locale === 'fr' ? '/confidentialite/' : '/en/privacy-policy/'}>{t.privacyNote}</a></p>
       </form>
     </div>
+
+    <footer class="contact-foot">
+      {crumbs.length > 0 && (
+        <nav aria-label={t.breadcrumb}>
+          <ol class="crumbs">
+            {crumbs.map((crumb) => (
+              <li>
+                {crumb.href ? <a href={crumb.href}>{crumb.label}</a> : <span aria-current="page">{crumb.label}</span>}
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
+      {note && note.type === 'note' && <p class="contact-note contact-note-inline">{note.text}</p>}
+    </footer>
   </div>
-  {note && note.type === 'note' && <p class="contact-note">{note.text}</p>}
   <script type="application/json" id="contact-hints" set:html={JSON.stringify(copy.hints)}></script>
-  <script is:inline src="/assets/contact.js?v=20261026" defer></script>
+  <script is:inline src="/assets/contact.js?v=20261118b" defer></script>
 </div>

@@ -14,14 +14,14 @@ const { locale, routeKey, menuId = 'mobile-menu' } = Astro.props;
 const t = ui[locale];
 const home = pathFor(locale, 'home');
 const other = alternatePath(locale, routeKey);
-const otherLocale = locale === 'fr' ? 'en' : 'fr';
+const selfPath = routeKey === 'notFound' ? home : pathFor(locale, routeKey);
 const contactHref = contactPath(locale, 'project');
 ---
 <a class="skip-link" href="#main">{t.skip}</a>
-<header class="site-header">
+<header class="site-header" data-home={routeKey === 'home' ? 'true' : undefined}>
   <div class="container header-bar">
-    <a class="brand" href={home}>
-      <Logo height={48} src="/assets/brand/coconsult-logo.png" />
+    <a class="brand" href={home} aria-label="Coconsult">
+      <Logo height={64} src="/assets/brand/coconsult-logo.png" />
     </a>
     <nav class="desktop-nav" aria-label={t.navLabel}>
       {primaryNav.filter((key) => key !== 'contact').map((key) => (
@@ -29,8 +29,20 @@ const contactHref = contactPath(locale, 'project');
       ))}
     </nav>
     <div class="header-actions">
-      <a class="lang" href={other} lang={otherLocale} hreflang={otherLocale} aria-label={t.langAria}>{t.langCode}</a>
-      <a class="header-contact" href={contactHref} aria-current={routeKey === 'contact' ? 'page' : undefined}>{t.headerCta}</a>
+      <div class="lang-switch" data-active={locale} role="group" aria-label={t.langAria}>
+        <span class="lang-thumb" aria-hidden="true"></span>
+        <a class="lang-opt" href={locale === 'fr' ? selfPath : other} lang="fr" hreflang="fr" aria-current={locale === 'fr' ? 'true' : undefined}>
+          <span class="lang-code">FR</span>
+          <span class="lang-name">{t.langFr}</span>
+        </a>
+        <a class="lang-opt" href={locale === 'en' ? selfPath : other} lang="en" hreflang="en" aria-current={locale === 'en' ? 'true' : undefined}>
+          <span class="lang-code">EN</span>
+          <span class="lang-name">{t.langEn}</span>
+        </a>
+      </div>
+      <a class="header-contact" href={contactHref} aria-current={routeKey === 'contact' ? 'page' : undefined}>
+        <span>{t.headerCta}</span>
+      </a>
       <button
         class="menu-toggle"
         type="button"
@@ -52,6 +64,16 @@ const contactHref = contactPath(locale, 'project');
     {serviceNav.map((key) => (
       <a href={pathFor(locale, key)} aria-current={routeKey === key ? 'page' : undefined}>{routes[key].label[locale]}</a>
     ))}
-    <a href={other} lang={otherLocale} hreflang={otherLocale}>{t.langAria}</a>
+    <div class="lang-switch lang-switch-mobile" data-active={locale} role="group" aria-label={t.langAria}>
+      <span class="lang-thumb" aria-hidden="true"></span>
+      <a class="lang-opt" href={locale === 'fr' ? selfPath : other} lang="fr" hreflang="fr" aria-current={locale === 'fr' ? 'true' : undefined}>
+        <span class="lang-code">FR</span>
+        <span class="lang-name">{t.langFr}</span>
+      </a>
+      <a class="lang-opt" href={locale === 'en' ? selfPath : other} lang="en" hreflang="en" aria-current={locale === 'en' ? 'true' : undefined}>
+        <span class="lang-code">EN</span>
+        <span class="lang-name">{t.langEn}</span>
+      </a>
+    </div>
   </nav>
 </header>

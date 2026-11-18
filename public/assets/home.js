@@ -22,7 +22,7 @@
 
   const ciiChart = document.querySelector('[data-cii-chart]');
   if (ciiChart instanceof HTMLElement) {
-    const chartHost = ciiChart.closest('.cii-chart, .cii-showcase');
+    const chartHost = ciiChart.closest('.cii-seal, .cii-chart, .cii-showcase') || ciiChart;
     if (reduceMotion) chartHost?.classList.add('is-live');
     else if ('IntersectionObserver' in window && chartHost) {
       const chartObserver = new IntersectionObserver(
@@ -40,11 +40,70 @@
   }
 
   const system = document.querySelector('.system');
-  const focusRead = document.querySelector('.focus-read');
-  if (system instanceof HTMLElement && focusRead instanceof HTMLElement) {
+  const focusCaptions = [...document.querySelectorAll('.focus-caption')];
+  let focusTimer = 0;
+
+  const focusLive = document.querySelector('[data-focus-live]');
+
+  function writeFocus(text) {
+    window.clearTimeout(focusTimer);
+    if (focusLive instanceof HTMLElement) focusLive.textContent = text;
+    focusCaptions.forEach((caption) => {
+      const typed = caption.querySelector('[data-focus-typed]');
+      if (!(typed instanceof HTMLElement)) return;
+      caption.classList.remove('is-typing');
+      if (reduceMotion) {
+        typed.textContent = text;
+        return;
+      }
+      typed.textContent = '';
+      caption.classList.add('is-typing');
+    });
+    if (reduceMotion) return;
+    let i = 0;
+    const step = () => {
+      i += 1;
+      const slice = text.slice(0, i);
+      focusCaptions.forEach((caption) => {
+        const typed = caption.querySelector('[data-focus-typed]');
+        if (typed instanceof HTMLElement) typed.textContent = slice;
+      });
+      if (i < text.length) {
+        const ch = text.charAt(i - 1);
+        const delay = ch === ' ' ? 18 : ch === ',' || ch === '.' || ch === ':' ? 90 : 28;
+        focusTimer = window.setTimeout(step, delay);
+      } else {
+        focusCaptions.forEach((caption) => caption.classList.remove('is-typing'));
+      }
+    };
+    focusTimer = window.setTimeout(step, 120);
+  }
+
+  if (system instanceof HTMLElement && focusCaptions.length) {
+    const allText = focusCaptions[0]?.dataset.all || '';
+    const markExplored = () => {
+      system.classList.remove('is-awaiting');
+      system.classList.add('is-explored');
+      document.querySelectorAll('.node.is-pulse').forEach((node) => node.classList.remove('is-pulse'));
+    };
+    const revealCaption = () => {
+      const visible = focusCaptions.find((caption) => {
+        const style = window.getComputedStyle(caption);
+        return style.display !== 'none' && style.visibility !== 'hidden' && caption.getClientRects().length > 0;
+      });
+      if (!(visible instanceof HTMLElement)) return;
+      const rect = visible.getBoundingClientRect();
+      const header = document.querySelector('.site-header');
+      const headerH = header instanceof HTMLElement ? header.getBoundingClientRect().height : 72;
+      if (rect.top < headerH + 12 || rect.bottom > window.innerHeight - 12) {
+        visible.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' });
+      }
+    };
+    writeFocus(allText);
     document.querySelectorAll('button[data-lane]').forEach((button) => {
       button.addEventListener('click', () => {
         if (!(button instanceof HTMLButtonElement)) return;
+        markExplored();
         const lane = button.dataset.lane || '';
         const next = system.dataset.focus === lane ? 'all' : lane;
         system.dataset.focus = next;
@@ -52,8 +111,14 @@
           item.setAttribute('aria-pressed', item.dataset.lane === next ? 'true' : 'false');
         });
         const source = document.querySelector(`button[data-lane="${next}"]`);
-        const text = next === 'all' ? focusRead.dataset.all : source instanceof HTMLElement ? source.dataset.focusText : '';
-        if (text) focusRead.textContent = text;
+        const text =
+          next === 'all'
+            ? allText
+            : source instanceof HTMLElement
+              ? source.dataset.focusText || ''
+              : '';
+        if (text) writeFocus(text);
+        window.requestAnimationFrame(revealCaption);
       });
     });
   }
@@ -66,11 +131,13 @@
         const id = tab.dataset.skill;
         skillList.querySelectorAll('[data-skill]').forEach((item) => {
           const on = item.dataset.skill === id;
-          item.setAttribute('aria-pressed', on ? 'true' : 'false');
+          item.setAttribute('aria-selected', on ? 'true' : 'false');
+          item.removeAttribute('aria-pressed');
         });
         panels.forEach((panel) => {
           panel.hidden = panel.id !== `panel-${id}`;
         });
+        if (aiPipe) aiPipe.classList.remove('is-live');
       });
     });
     skillList.addEventListener('keydown', (event) => {

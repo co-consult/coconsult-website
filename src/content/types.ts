@@ -68,7 +68,7 @@ export type Block =
   | { type: 'challenge'; title: string; intro?: string; items: ChallengeItem[] }
   | { type: 'steps'; title: string; intro?: string; items: TitledText[] }
   | { type: 'columns'; title: string; intro?: string; layout?: 'rail'; items: TitledText[] }
-  | { type: 'prose'; title?: string; paragraphs: string[] }
+  | { type: 'prose'; title?: string; paragraphs: string[]; visual?: 'entities' | 'nearshore' | 'offers' | 'cii' | 'facts' | 'note' | 'collab' }
   | { type: 'list'; title: string; items: string[] }
   | { type: 'faq'; title: string; items: { q: string; a: string }[] }
   | { type: 'note'; text: string }

@@ -1,0 +1,183 @@
+---
+import FinalCta from '@/components/FinalCta.astro';
+import CophariaFeature from '@/components/visuals/CophariaFeature.astro';
+import PlatformTeaser from '@/components/visuals/PlatformTeaser.astro';
+import type { Locale, PageContent } from '@/content/types';
+import { contactPath } from '@/data/inquiries';
+import { pathFor } from '@/data/routes';
+import { crumbsFor } from '@/lib/seo';
+import { ui } from '@/content/ui';
+import { workItems } from '@/data/work';
+
+interface Props { locale: Locale; page: PageContent }
+const { locale, page } = Astro.props;
+const t = ui[locale];
+const crumbs = crumbsFor(locale, 'solutions', t.home);
+const fr = locale === 'fr';
+const copharia = workItems.find((entry) => entry.id === 'copharia');
+const copy = fr
+  ? {
+      status: 'En développement',
+      heroKicker: 'Produit Coconsult',
+      heroLead: 'COPHARIA est un ERP pharmaceutique que nous construisons. Les plateformes ci-dessous sont des livrables clients — ce ne sont pas des SaaS Coconsult.',
+      demo: 'Demander une démonstration de COPHARIA',
+      explore: 'Voir les écrans',
+      productTitle: 'COPHARIA, vu de près',
+      productIntro: 'Statut réel : en développement. Les vues sont anonymisées. Une démonstration se cadre depuis Contact.',
+      boundaryKicker: 'Frontière utile',
+      boundaryTitle: 'Produit et livrable ne se confondent pas.',
+      productLane: {
+        title: 'Produit Coconsult',
+        text: 'COPHARIA. Modules construits au fil du besoin réel. Démonstration sur demande.',
+      },
+      deliveryLane: {
+        title: 'Plateformes livrées',
+        text: 'Systèmes remis à des clients. Le détail est dans les réalisations — pas une offre produit.',
+      },
+      platformsKicker: 'Livraisons',
+      platformsTitle: 'Des systèmes déjà en service.',
+      platformsIntro: 'Deux contextes livrés. Pour le récit complet, ouvrez l’étude de cas.',
+      cases: 'Toutes les réalisations',
+      endKicker: 'Prochaine étape',
+      endTitle: 'Voir COPHARIA sur votre contexte.',
+      endText: 'Indiquez le métier et le périmètre. Nous revenons pour convenir d’un échange sur le produit en développement.',
+    }
+  : {
+      status: 'In development',
+      heroKicker: 'Coconsult product',
+      heroLead: 'COPHARIA is a pharmaceutical ERP we are building. The platforms below are client deliveries — not Coconsult SaaS products.',
+      demo: 'Request a COPHARIA demonstration',
+      explore: 'Browse the screens',
+      productTitle: 'COPHARIA up close',
+      productIntro: 'Real status: in development. Views are anonymized. A demonstration is scoped from Contact.',
+      boundaryKicker: 'Useful boundary',
+      boundaryTitle: 'Product and delivery stay distinct.',
+      productLane: {
+        title: 'Coconsult product',
+        text: 'COPHARIA. Modules shaped around real needs. Demonstration on request.',
+      },
+      deliveryLane: {
+        title: 'Delivered platforms',
+        text: 'Systems handed to clients. The detail lives in the case studies — not a product offer.',
+      },
+      platformsKicker: 'Deliveries',
+      platformsTitle: 'Systems already in use.',
+      platformsIntro: 'Two delivered contexts. Open the case study for the full account.',
+      cases: 'All case studies',
+      endKicker: 'Next step',
+      endTitle: 'See COPHARIA against your context.',
+      endText: 'Share the business and the perimeter. We come back to arrange a conversation about the product in development.',
+    };
+---
+<div class="experience solutions-page">
+  <header class="page-hero solutions-hero" data-page-hero>
+    <div class="container">
+      {crumbs.length > 0 && (
+        <nav aria-label={t.breadcrumb}>
+          <ol class="crumbs">
+            {crumbs.map((crumb) => (
+              <li>
+                {crumb.href ? <a href={crumb.href}>{crumb.label}</a> : <span aria-current="page">{crumb.label}</span>}
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
+      <div class="solutions-hero-grid">
+        <div class="solutions-hero-copy">
+          <p class="eyebrow">{page.eyebrow}</p>
+          <p class="solutions-status"><span>{copy.status}</span> · COPHARIA</p>
+          <h1>{page.h1}</h1>
+          <p class="lede">{copy.heroLead}</p>
+          <div class="cta-row solutions-hero-cta">
+            <a class="btn primary" href={contactPath(locale, 'demo', 'copharia')}>{copy.demo}</a>
+            <a class="btn ghost" href="#copharia-vues">{copy.explore}</a>
+          </div>
+        </div>
+        <figure class="solutions-hero-art">
+          <img
+            src="/assets/copharia/dashboard.webp"
+            alt={fr ? 'Centre de commande COPHARIA, vue anonymisée' : 'COPHARIA command center, anonymized view'}
+            width="1877"
+            height="892"
+            loading="eager"
+            decoding="async"
+          />
+          <figcaption>
+            <span>{copy.heroKicker}</span>
+            <strong>COPHARIA</strong>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </header>
+
+  <section class="section solutions-product" id="copharia-vues" data-reveal>
+    <div class="section-head">
+      <p class="eyebrow">{copy.heroKicker}</p>
+      <div class="section-copy">
+        <h2>{copy.productTitle}</h2>
+        <p class="lede-soft">{copy.productIntro}</p>
+      </div>
+    </div>
+    {copharia?.benefits?.[locale] && (
+      <ul class="solutions-benefits" data-stagger>
+        {copharia.benefits[locale].map((benefit) => (
+          <li>{benefit}</li>
+        ))}
+      </ul>
+    )}
+    <CophariaFeature locale={locale} />
+  </section>
+
+  <section class="section paper solutions-boundary" data-reveal>
+    <div class="section-head">
+      <p class="eyebrow">{copy.boundaryKicker}</p>
+      <div class="section-copy">
+        <h2>{copy.boundaryTitle}</h2>
+      </div>
+    </div>
+    <div class="solutions-lanes">
+      <article class="solutions-lane is-product">
+        <p class="solutions-lane-kicker">01</p>
+        <h3>{copy.productLane.title}</h3>
+        <p>{copy.productLane.text}</p>
+      </article>
+      <article class="solutions-lane is-delivery">
+        <p class="solutions-lane-kicker">02</p>
+        <h3>{copy.deliveryLane.title}</h3>
+        <p>{copy.deliveryLane.text}</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section solutions-platforms" id="plateformes" data-reveal>
+    <div class="section-head">
+      <p class="eyebrow">{copy.platformsKicker}</p>
+      <div class="section-copy">
+        <h2>{copy.platformsTitle}</h2>
+        <p class="lede-soft">{copy.platformsIntro}</p>
+      </div>
+    </div>
+    <div class="work-grid platforms-grid solutions-platforms-grid">
+      <PlatformTeaser locale={locale} id="iaps" />
+      <PlatformTeaser locale={locale} id="cssforever" />
+    </div>
+    <p class="solutions-platforms-more">
+      <a class="btn ghost" href={pathFor(locale, 'cases')}>{copy.cases}</a>
+    </p>
+  </section>
+
+  <FinalCta
+    locale={locale}
+    title={copy.endTitle}
+    text={copy.endText}
+    primary="demo"
+    product="copharia"
+    primaryLabel={copy.demo}
+    secondary="project"
+    image="/assets/people/product-demo.jpg"
+    captionKicker={fr ? 'Démonstration' : 'Demonstration'}
+    captionTitle={fr ? 'Un échange sur le produit' : 'A conversation on the product'}
+  />
+</div>

@@ -3,7 +3,7 @@
  * Facts are copied from the published pages only.
  * Version the text here. Do not add unpublished work, prices, or legal-notice-only data.
  */
-export const KNOWLEDGE_VERSION = '2026-10-23';
+export const KNOWLEDGE_VERSION = '2026-11-18';
 
 export const PUBLIC_EMAIL = 'contact@coconsult.fr';
 
@@ -49,7 +49,7 @@ export const entries = [
     id: 'about',
     group: 'company',
     label: { fr: 'Coconsult', en: 'Coconsult' },
-    keywords: ['qui etes-vous', 'qui etes vous', 'who are you', 'a propos', 'about coconsult', 'paris', 'depuis 2018', 'since 2018'],
+    keywords: ['qui etes-vous', 'qui etes vous', 'who are you', 'a propos', 'about coconsult', 'paris', 'depuis 2018', 'since 2018', 'coconsult', 'societe', 'company', 'presentation'],
     text: {
       fr: 'Coconsult est une société d’ingénierie française, à Paris, fondée en 2018. Elle conçoit, développe et modernise des systèmes métier, de l’intégration à la production. Elle est agréée crédit d’impôt innovation pour 2026 à 2030, décision n° 28910108. Le détail et les limites sont sur la page Innovation. L’adresse publique est contact@coconsult.fr.',
       en: 'Coconsult is a French engineering company in Paris, founded in 2018. It designs, builds and modernises business systems, from integration through production. It holds a French innovation tax credit agreement for 2026 to 2030, decision no. 28910108. The detail and the limits are on the Innovation page. The public address is contact@coconsult.fr.',
@@ -82,7 +82,7 @@ export const entries = [
     id: 'ai',
     group: 'expertise',
     label: { fr: 'IA et data', en: 'AI and data' },
-    keywords: ['intelligence artificielle', ' ia ', 'l ia', 'enterprise ai', 'modele', 'modeles', 'llm', 'data', 'agent', 'agents', 'agent ia'],
+    keywords: ['intelligence artificielle', ' ia ', 'l ia', 'enterprise ai', 'modele', 'modeles', 'llm', 'data', 'agent', 'agents', 'agent ia', 'genai', 'rag', 'chatbot', 'machine learning'],
     text: {
       fr: 'Coconsult intègre des outils d’IA existants, y compris des agents, dans des applications : permissions, traçabilité et cas d’usage cadrés. Le point de départ est un processus déjà connu, pas un catalogue de modèles.',
       en: 'Coconsult integrates existing AI tools, including agents, into applications: permissions, traceability and a framed use case. The starting point is a process you already know, not a catalogue of models.',
@@ -93,7 +93,7 @@ export const entries = [
     id: 'software',
     group: 'expertise',
     label: { fr: 'Développement logiciel', en: 'Software engineering' },
-    keywords: ['developpement', 'developpement logiciel', 'application', 'applications', 'api', 'backend', 'mobile', 'software'],
+    keywords: ['developpement', 'developpement logiciel', 'application', 'applications', 'api', 'backend', 'mobile', 'software', 'web app', 'logiciel', 'fullstack', 'full stack'],
     text: {
       fr: 'Coconsult conçoit et fait évoluer des logiciels métier sur mesure : applications web et mobiles, API, backends et intégration.',
       en: 'Coconsult designs and evolves custom business software: web and mobile applications, APIs, backends and integration.',
@@ -159,10 +159,10 @@ export const entries = [
     id: 'teams',
     group: 'expertise',
     label: { fr: 'Équipes dédiées', en: 'Dedicated teams' },
-    keywords: ['equipe dediee', 'equipes dediees', 'dedicated team', 'staff', 'renfort'],
+    keywords: ['equipe dediee', 'equipes dediees', 'dedicated team', 'staff', 'renfort', 'recrutement tech', 'squad dediee', 'augmenter mon equipe'],
     text: {
-      fr: 'Coconsult constitue des équipes d’ingénierie depuis la France et collabore avec Coconsult Nearshore, société tunisienne indépendante à Sfax. Des consultants indépendants complètent un dispositif lorsque le besoin le justifie. Tous les profils ne sont pas disponibles immédiatement.',
-      en: 'Coconsult builds engineering teams from France and works with Coconsult Nearshore, an independent Tunisian company in Sfax. Independent consultants complete a setup when the need justifies it. Not every profile is available immediately.',
+      fr: 'Coconsult constitue des équipes d’ingénierie depuis la France et collabore avec Coconsult Nearshore, société tunisienne indépendante à Sfax. La composition suit votre stack — backend, front, full-stack, cloud, QA ou data — sans se limiter à deux langages. Des consultants indépendants complètent un dispositif lorsque le besoin le justifie. Tous les profils ne sont pas disponibles immédiatement.',
+      en: 'Coconsult builds engineering teams from France and works with Coconsult Nearshore, an independent Tunisian company in Sfax. The mix follows your stack — backend, front end, full-stack, cloud, QA or data — without limiting the offer to two languages. Independent consultants complete a setup when the need justifies it. Not every profile is available immediately.',
     },
     links: ['teams', 'modes'],
   },
@@ -170,10 +170,10 @@ export const entries = [
     id: 'stack',
     group: 'company',
     label: { fr: 'Technologies', en: 'Technologies' },
-    keywords: ['java', 'spring', 'angular', 'full-stack', 'fullstack', 'technologie', 'technologies', 'stack'],
+    keywords: ['java', 'spring', 'angular', 'react', 'full-stack', 'fullstack', 'technologie', 'technologies', 'stack', 'backend', 'frontend'],
     text: {
-      fr: 'Les profils publiés sont l’ingénierie Java / Spring et full-stack, le front Angular lorsque le produit existant s’appuie dessus, et le cloud / DevOps selon la plateforme déjà en place. Le site ne publie pas une liste plus large.',
-      en: 'The published profiles are Java / Spring and full-stack engineering, Angular when the existing product already uses it, and cloud / DevOps according to the platform already in place. The site does not publish a wider list.',
+      fr: 'Les équipes se composent selon la stack du client. Java / Spring fait partie des profils souvent recherchés ; le front suit le framework déjà en place (Angular, React ou autre). Cloud / DevOps, mobile, QA ou data s’ajoutent lorsque le besoin et la disponibilité le permettent. Un profil indisponible n’est pas annoncé comme prêt.',
+      en: 'Teams are composed around the client’s stack. Java / Spring is among the profiles often sourced; the front end follows the framework already in place (Angular, React or another). Cloud / DevOps, mobile, QA or data are added when the need and availability allow it. An unavailable profile is not presented as ready.',
     },
     links: ['teams'],
   },
@@ -344,26 +344,42 @@ export function contactHref(locale, topic, mode) {
 export function chrome(locale) {
   if (localeOf(locale) === 'en') {
     return {
-      title: 'Coconsult',
-      launcher: 'Assistant',
+      title: 'Coconsult guide',
+      launcher: 'Ask Coconsult',
+      launcherHint: 'Public pages only',
+      status: 'Ready · public pages',
       openLabel: 'Open the Coconsult assistant',
       closeLabel: 'Close the assistant',
+      restartLabel: 'Restart the conversation',
       inputLabel: 'Your question',
+      placeholder: 'e.g. AI, nearshore, COPHARIA…',
       sendLabel: 'Send',
       contactLabel: 'Contact form',
+      suggestionsLabel: 'Suggested next steps',
+      youLabel: 'You',
+      guideLabel: 'Guide',
+      footerHint: 'No account · nothing stored here',
       disclosure:
         'This guide uses the public pages of the site. No external AI model is called. The conversation is not stored. If you ask, the confirmed summary is copied into the form and then deleted.',
     };
   }
   return {
-    title: 'Coconsult',
-    launcher: 'Assistant',
+    title: 'Guide Coconsult',
+    launcher: 'Poser une question',
+    launcherHint: 'Pages publiques',
+    status: 'Prêt · pages publiques',
     openLabel: 'Ouvrir l’assistant Coconsult',
     closeLabel: 'Fermer l’assistant',
+    restartLabel: 'Recommencer la conversation',
     inputLabel: 'Votre question',
+    placeholder: 'ex. IA, nearshore, COPHARIA…',
     sendLabel: 'Envoyer',
     contactLabel: 'Formulaire de contact',
-      disclosure:
+    suggestionsLabel: 'Prochaines étapes',
+    youLabel: 'Vous',
+    guideLabel: 'Guide',
+    footerHint: 'Sans compte · rien n’est stocké ici',
+    disclosure:
       'Ce guide s’appuie sur les pages publiques du site. Aucun modèle d’IA externe n’est appelé. La conversation n’est pas enregistrée. Si vous le demandez, le résumé validé est recopié dans le formulaire puis effacé.',
   };
 }
@@ -375,24 +391,61 @@ export function fold(value) {
     .replace(/\p{M}/gu, '');
 }
 
-export function matchEntry(text) {
+export function scoreEntry(text, entry) {
   const folded = ` ${fold(text)} `;
+  let score = 0;
+  for (const keyword of entry.keywords) {
+    const needle = fold(keyword).trim();
+    if (needle.length < 2) continue;
+    const hit = needle.length <= 3
+      ? new RegExp(`(?:^|\\W)${needle}(?:$|\\W)`, 'i').test(folded)
+      : folded.includes(needle);
+    if (!hit) continue;
+    score = Math.max(score, needle.length + (needle.includes(' ') ? 2 : 0));
+  }
+  const label = fold(entry.label.fr);
+  const labelEn = fold(entry.label.en);
+  if (label.length > 3 && folded.includes(label)) score = Math.max(score, label.length + 1);
+  if (labelEn.length > 3 && folded.includes(labelEn)) score = Math.max(score, labelEn.length + 1);
+  return score;
+}
+
+export function matchEntry(text) {
   let best = null;
   let bestScore = 0;
   for (const entry of entries) {
-    for (const keyword of entry.keywords) {
-      const needle = fold(keyword).trim();
-      if (needle.length < 2) continue;
-      const hit = needle.length <= 3
-        ? new RegExp(`(?:^|\\W)${needle}(?:$|\\W)`, 'i').test(folded)
-        : folded.includes(needle);
-      if (hit && needle.length > bestScore) {
-        best = entry;
-        bestScore = needle.length;
-      }
+    const score = scoreEntry(text, entry);
+    if (score > bestScore) {
+      best = entry;
+      bestScore = score;
     }
   }
   return best;
+}
+
+/** Closest public topics for a free-text question (excluding an optional id). */
+export function suggestEntries(text, limit = 3, excludeId = null) {
+  const ranked = entries
+    .map((entry) => ({ entry, score: scoreEntry(text, entry) }))
+    .filter((row) => row.score > 0 && row.entry.id !== excludeId)
+    .sort((a, b) => b.score - a.score || a.entry.id.localeCompare(b.entry.id));
+  const seen = new Set();
+  const out = [];
+  for (const row of ranked) {
+    if (seen.has(row.entry.id)) continue;
+    seen.add(row.entry.id);
+    out.push(row.entry);
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
+export function relatedEntries(id, limit = 2) {
+  const current = entryById(id);
+  if (!current) return [];
+  return entries
+    .filter((entry) => entry.id !== id && entry.group === current.group)
+    .slice(0, limit);
 }
 
 export function knowledgeNotes(locale) {

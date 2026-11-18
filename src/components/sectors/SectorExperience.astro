@@ -1,4 +1,5 @@
 ---
+import FinalCta from '@/components/FinalCta.astro';
 import SectorMatrix from '@/components/visuals/SectorMatrix.astro';
 import type { Locale, PageContent } from '@/content/types';
 import { contactPath } from '@/data/inquiries';
@@ -20,7 +21,7 @@ const entryText = fr
   : 'AI & Data, software, QA, Cloud & DevOps, cybersecurity and integration: these expertises apply to your business journeys. The industries above show where they have already been put to work.';
 ---
 <div class="experience sectors-page">
-  <header class="page-hero sectors-hero">
+  <header class="page-hero sectors-hero" data-page-hero>
     <div class="container">
       {crumbs.length > 0 && (
         <nav aria-label={t.breadcrumb}>
@@ -33,14 +34,53 @@ const entryText = fr
           </ol>
         </nav>
       )}
-      <p class="eyebrow">{page.eyebrow}</p>
-      <h1>{page.h1}</h1>
-      <p class="lede">{page.intro}</p>
-      <p class="sectors-note">{note}</p>
+      <div class="sectors-hero-grid">
+        <div class="sectors-hero-copy">
+          <p class="eyebrow">{page.eyebrow}</p>
+          <h1>{page.h1}</h1>
+          <p class="lede">{page.intro}</p>
+          <p class="sectors-note">{note}</p>
+        </div>
+        <div class="sectors-hero-art" aria-hidden="true">
+          <svg class="sectors-orbit-art" viewBox="0 0 420 320" role="img">
+            <defs>
+              <radialGradient id="secGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#026d7b" stop-opacity="0.28" />
+                <stop offset="100%" stop-color="#026d7b" stop-opacity="0" />
+              </radialGradient>
+            </defs>
+            <circle cx="210" cy="160" r="118" fill="url(#secGlow)" />
+            <circle class="sec-ring" cx="210" cy="160" r="78" fill="none" stroke="#026d7b" stroke-opacity="0.35" stroke-width="1.4" />
+            <circle class="sec-ring sec-ring-2" cx="210" cy="160" r="112" fill="none" stroke="#005088" stroke-opacity="0.22" stroke-width="1.2" stroke-dasharray="4 8" />
+            <circle cx="210" cy="160" r="28" fill="#fff" stroke="#026d7b" stroke-width="1.6" />
+            <text x="210" y="165" text-anchor="middle" fill="#026d7b" font-size="13" font-family="IBM Plex Mono, monospace">8</text>
+            <g class="sec-nodes" fill="#026d7b">
+              <circle cx="210" cy="52" r="7"><animate attributeName="r" values="6;8;6" dur="3.2s" repeatCount="indefinite" /></circle>
+              <circle cx="300" cy="82" r="7"><animate attributeName="r" values="7;9;7" dur="3.6s" repeatCount="indefinite" /></circle>
+              <circle cx="340" cy="160" r="7"><animate attributeName="r" values="6;8;6" dur="2.8s" repeatCount="indefinite" /></circle>
+              <circle cx="300" cy="238" r="7"><animate attributeName="r" values="7;9;7" dur="3.4s" repeatCount="indefinite" /></circle>
+              <circle cx="210" cy="268" r="7"><animate attributeName="r" values="6;8;6" dur="3s" repeatCount="indefinite" /></circle>
+              <circle cx="120" cy="238" r="7"><animate attributeName="r" values="7;9;7" dur="3.8s" repeatCount="indefinite" /></circle>
+              <circle cx="80" cy="160" r="7"><animate attributeName="r" values="6;8;6" dur="2.6s" repeatCount="indefinite" /></circle>
+              <circle cx="120" cy="82" r="7"><animate attributeName="r" values="7;9;7" dur="3.1s" repeatCount="indefinite" /></circle>
+            </g>
+            <g fill="none" stroke="#026d7b" stroke-opacity="0.28" stroke-width="1.2">
+              <path d="M210 132 V72" />
+              <path d="M232 142 L290 98" />
+              <path d="M238 160 H312" />
+              <path d="M232 178 L290 222" />
+              <path d="M210 188 V248" />
+              <path d="M188 178 L130 222" />
+              <path d="M182 160 H108" />
+              <path d="M188 142 L130 98" />
+            </g>
+          </svg>
+        </div>
+      </div>
     </div>
   </header>
 
-  <section class="section" aria-labelledby="sectors-grid-title">
+  <section class="section sectors-map" aria-labelledby="sectors-grid-title" data-reveal>
     <div class="section-head sectors-grid-head">
       <p class="eyebrow">{fr ? 'Cartographie' : 'Map'}</p>
       <div class="section-copy">
@@ -63,4 +103,14 @@ const entryText = fr
       <a class="btn primary" href={contactPath(locale, 'project')}>{fr ? 'Parler d’un contexte métier' : 'Discuss a business context'}</a>
     </p>
   </section>
+
+  <FinalCta
+    locale={locale}
+    text={
+      fr
+        ? 'Décrivez le contexte métier et le système à construire ou à fiabiliser. Nous revenons avec un premier cadrage.'
+        : 'Describe the business context and the system to build or harden. We come back with a first scoping.'
+    }
+    primary="project"
+  />
 </div>

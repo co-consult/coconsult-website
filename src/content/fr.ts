@@ -179,7 +179,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'Développement, IA, cloud et qualité | Coconsult',
     description:
       'Développement logiciel, applications web et mobiles, cloud, data et IA, qualité, cybersécurité et équipes IT.',
-    eyebrow: 'NOS OFFRES',
+    eyebrow: 'Nos offres',
     h1: 'Six familles de solutions pour vos systèmes.',
     intro:
       'Chaque famille ouvre une page déjà publiée. Les modalités de collaboration viennent ensuite, selon le périmètre.',
@@ -212,38 +212,38 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   dedicated: {
     key: 'dedicated',
-    metaTitle: 'Équipes Java, Angular et full-stack | Coconsult',
+    metaTitle: 'Équipes d’ingénierie dédiées | Coconsult',
     description:
-      'Équipes dédiées Java, Angular, full-stack et DevOps, coordonnées depuis la France, avec Coconsult Nearshore à Sfax, société distincte.',
+      'Équipes d’ingénierie dédiées, composées selon votre stack et votre rythme, coordonnées depuis la France, avec Coconsult Nearshore à Sfax, société distincte.',
     eyebrow: 'ÉQUIPES DÉDIÉES',
     h1: 'Constituer une équipe d’ingénierie adaptée au besoin réel.',
     intro:
-      'Coconsult accompagne ses clients depuis la France et collabore avec Coconsult Nearshore, une société tunisienne juridiquement indépendante basée à Sfax, pour mobiliser des compétences d’ingénierie et constituer des équipes dédiées. Des consultants indépendants complètent un dispositif lorsque le besoin le justifie. Tous les profils ne sont pas disponibles immédiatement.',
+      'Coconsult accompagne ses clients depuis la France et collabore avec Coconsult Nearshore, une société tunisienne juridiquement indépendante basée à Sfax, pour mobiliser des compétences d’ingénierie et constituer des équipes dédiées. La stack se choisit avec vous : backend, front, full-stack, mobile, cloud, QA ou data, selon le produit déjà en place. Des consultants indépendants complètent un dispositif lorsque le besoin le justifie. Tous les profils ne sont pas disponibles immédiatement.',
     blocks: [
       {
         type: 'columns',
         title: 'À qui cela sert',
         items: [
-          { title: 'Renfort ciblé', text: 'Un ou plusieurs ingénieurs Java/Spring, Angular, full-stack ou cloud/DevOps, le temps d’un palier de delivery.' },
+          { title: 'Renfort ciblé', text: 'Un ou plusieurs ingénieurs pour un palier de delivery : backend, front, full-stack, mobile, cloud/DevOps ou QA, selon votre stack.' },
           { title: 'Équipe dédiée', text: 'Une squad stable, avec coordination France–Tunisie, quand le backlog justifie un dispositif continu.' },
           { title: 'Projet au forfait', text: 'Possible lorsque le périmètre est assez clair pour être estimé. Sinon, nous recommandons un cadre en régie ou en équipe.' },
         ],
       },
       {
         type: 'list',
-        title: 'Profils que nous pouvons chercher',
+        title: 'Ce que nous composons avec vous',
         items: [
-          'Ingénierie logicielle Java / Spring et full-stack',
-          'Front Angular lorsque le produit existant s’appuie dessus',
-          'Cloud et DevOps, selon la plateforme déjà en place',
-          'Spécialistes ponctuels, uniquement si le profil est disponible ou recruté pour la mission',
+          'Backend et API : Java / Spring, et d’autres stacks backend lorsque le produit ou le marché le justifie',
+          'Front et full-stack : le framework déjà en place chez vous (Angular, React ou autre), sans imposer une stack',
+          'Mobile, cloud et DevOps : selon la plateforme et le rythme de livraison déjà retenus',
+          'QA, data ou profils spécialisés : uniquement si une personne est disponible ou recrutée pour la mission',
         ],
       },
       {
         type: 'steps',
         title: 'De la demande au rythme de croisière',
         items: [
-          { title: 'Découverte', text: 'Contexte, stack, séniorité attendue, langue, chevauchement horaire et mode de collaboration.' },
+          { title: 'Découverte', text: 'Contexte, stack réelle, séniorité attendue, langue, chevauchement horaire et mode de collaboration.' },
           { title: 'Sourcing et sélection', text: 'Recherche dans l’équipe et, si besoin, auprès de consultants indépendants. Chaque profil proposé est décrit avec son niveau et son expérience.' },
           { title: 'Entretien avec vous', text: 'Vous rencontrez les personnes proposées avant un démarrage.' },
           { title: 'Onboarding', text: 'Accès, référents, outils et périmètre des premières semaines, définis avec vos équipes.' },
@@ -257,9 +257,9 @@ export const pages: Record<RouteKey, PageContent> = {
       },
       {
         type: 'prose',
-        title: 'Java, Angular et nearshore',
+        title: 'La stack du client, pas un catalogue fermé',
         paragraphs: [
-          'Java et Spring sont des profils que nous pouvons chercher. Angular n’est proposé que lorsque le produit existant s’appuie déjà dessus. Un profil qui n’est pas disponible n’est pas annoncé comme prêt à démarrer.',
+          'Nous ne réduisons pas l’offre à deux langages. Java / Spring fait partie des profils que nous savons chercher souvent ; d’autres stacks backend, front ou full-stack se discutent à partir de votre existant. Un profil qui n’est pas disponible n’est pas annoncé comme prêt à démarrer.',
           'Le renfort à Sfax passe par Coconsult Nearshore, société tunisienne juridiquement indépendante. Ce n’est pas un établissement de COCONSULT SAS. Le contrat nomme la société qui s’engage.',
         ],
       },
@@ -528,7 +528,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'Secteurs d’expérience | Coconsult',
     description:
       'Environnements métier où l’ingénierie Coconsult a déjà été exercée : finance et paiements, mobilité, retail, médias, télécoms, sport, systèmes métier, et santé pharmaceutique en domaine émergent.',
-    eyebrow: 'SECTEURS',
+    eyebrow: 'Secteurs',
     h1: 'Notre ingénierie au service de vos métiers.',
     intro:
       'Finance, mobilité, retail, médias, télécoms, sport, systèmes métier et santé : des contextes où nos consultants ont déjà accompagné des projets d’ingénierie logicielle, de DevOps et de QA.',
@@ -539,46 +539,32 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'Solutions et plateformes | Coconsult',
     description:
       'COPHARIA, ERP pharmaceutique en développement, et des plateformes livrées : opérations sportives, gestion documentaire. Demandez une démonstration depuis Contact.',
-    eyebrow: 'SOLUTIONS',
+    eyebrow: 'Solutions',
     h1: 'Les solutions que Coconsult construit.',
     intro:
-      'Une solution Coconsult en cours de développement, et des plateformes déjà livrées. Les deux ne se confondent pas : le produit et les réalisations restent distincts.',
-    blocks: [
-      {
-        type: 'work',
-        source: 'solutions',
-        title: 'Solutions Coconsult',
-        intro: 'COPHARIA, ERP pharmaceutique en développement. Statut réel, vues anonymisées, démonstration sur demande.',
-      },
-      {
-        type: 'work',
-        source: 'platforms',
-        title: 'Plateformes et réalisations',
-        intro:
-          'Des systèmes construits et livrés. Ce ne sont pas des SaaS commercialisés par Coconsult. Le contexte et le résultat sont décrits dans les études de cas.',
-      },
-      {
-        type: 'cta',
-        title: 'Demander une démonstration de COPHARIA.',
-        text: 'Indiquez votre contexte. Nous revenons vers vous pour convenir d’un échange.',
-        primary: 'demo',
-        product: 'copharia',
-      },
-    ],
+      'Un produit Coconsult encore en développement, et des plateformes déjà livrées à des clients. Les deux restent séparés : on ne confond pas une offre produit avec une réalisation.',
+    blocks: [],
   },
   cases: {
     key: 'cases',
     metaTitle: 'Réalisations d’ingénierie | Coconsult',
     description:
       'Réalisations Coconsult : CSS Forever, plateforme sportive en service, et un logiciel métier livré dont les écrans ne sont pas publiés.',
-    eyebrow: 'RÉALISATIONS',
+    eyebrow: 'Réalisations',
     h1: 'Des systèmes livrés, décrits avec précision.',
     intro:
       'Deux réalisations documentées. CSS Forever est montré par trois écrans réels. L’autre logiciel a été livré avec cession du code source ; ses écrans ne sont pas publiés.',
     blocks: [
-      { type: 'work', source: 'cases', title: 'Projets livrés' },
+      {
+        type: 'work',
+        source: 'cases',
+        title: 'Projets livrés',
+        intro: 'Chaque cas décrit le contexte, l’intervention et le résultat — sans transformer un livrable client en produit Coconsult.',
+      },
       {
         type: 'prose',
+        title: 'Une limite claire',
+        visual: 'note',
         paragraphs: [
           'Lorsqu’un logiciel a été remis au client, il n’est pas proposé comme un produit Coconsult.',
         ],
@@ -591,45 +577,44 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'À propos de Coconsult | Paris et Sfax',
     description:
       'COCONSULT SAS, société française fondée en 2018, accompagne ses clients depuis Paris et collabore avec Coconsult Nearshore, société tunisienne indépendante basée à Sfax.',
-    eyebrow: 'À PROPOS',
+    eyebrow: 'À propos',
     h1: 'Une société d’ingénierie française, en collaboration avec Sfax.',
     intro:
-      'Coconsult accompagne ses clients depuis la France et collabore avec Coconsult Nearshore, une société tunisienne juridiquement indépendante basée à Sfax, pour mobiliser des compétences d’ingénierie et constituer des équipes dédiées. Fondée en 2018, la société française conçoit, intègre et exploite des applications métier.',
+      'Depuis 2018, COCONSULT conçoit et intègre des applications métier depuis la France, en collaboration avec Coconsult Nearshore à Sfax — société tunisienne juridiquement indépendante.',
     blocks: [
       {
-        type: 'columns',
-        title: 'La façon de travailler',
-        items: [
-          { title: 'Proximité de cadrage', text: 'Le besoin, les contraintes et les priorités se comprennent avec vos équipes, depuis la France lorsque c’est le bon relais.' },
-          { title: 'Ingénierie à Sfax', text: 'Coconsult Nearshore peut mobiliser des compétences d’ingénierie sur le périmètre convenu. Les deux sociétés ont des dirigeants différents.' },
-          { title: 'Renforts indépendants', text: 'Des consultants indépendants peuvent compléter un dispositif lorsque le besoin le justifie.' },
+        type: 'prose',
+        title: 'Deux sociétés, un dispositif d’ingénierie',
+        visual: 'entities',
+        paragraphs: [
+          'Le cadrage et la relation client partent de la France. Les compétences d’ingénierie peuvent être mobilisées via Coconsult Nearshore à Sfax. Les deux sociétés ont des dirigeants différents.',
+          'Des consultants indépendants complètent le dispositif lorsque le besoin le justifie.',
         ],
       },
       {
         type: 'prose',
         title: 'Ce que l’entreprise vend',
+        visual: 'offers',
         paragraphs: [
-          'Des projets au forfait lorsque le périmètre le permet, de l’intégration dans des systèmes existants, des équipes dédiées, des missions de test et d’ingénierie des paiements, et l’accompagnement de solutions métier en cours de construction.',
+          'Forfait, intégration, équipes dédiées, QA, paiements et solutions métier en construction — selon le périmètre.',
           'Le devis, le contrat et la facture identifient la société qui contracte avec le client.',
         ],
       },
       {
-        type: 'list',
+        type: 'prose',
         title: 'Repères publics',
-        items: [
-          'Fondation en 2018',
-          'Éditeur du site : COCONSULT SAS, Paris',
-          'Agrément CII n° 28910108, années 2026 à 2030, DRIEETS Île-de-France',
-          'Collaboration avec Coconsult Nearshore, Sfax',
-          'Contact : contact@coconsult.fr',
+        visual: 'facts',
+        paragraphs: [
+          'Fondée en 2018 · COCONSULT SAS, Paris · Agrément CII n° 28910108 (2026–2030) · Collaboration avec Coconsult Nearshore, Sfax · contact@coconsult.fr',
         ],
       },
       {
         type: 'prose',
         title: 'Agrément crédit d’impôt innovation',
+        visual: 'cii',
         paragraphs: [
-          'Une décision du 4 février 2026 de la DRIEETS Île-de-France accorde à COCONSULT, TVA FR90838913838, l’agrément n° 28910108 pour les années 2026, 2027, 2028, 2029 et 2030.',
-          'Cet agrément reconnaît une capacité à réaliser des travaux d’innovation. Il ne décide pas qu’une mission est éligible, et il n’ouvre pas automatiquement un crédit d’impôt au client. Coconsult Nearshore, à Sfax, n’est pas titulaire de cette décision.',
+          'Décision DRIEETS Île-de-France du 4 février 2026 : agrément n° 28910108 pour 2026 à 2030.',
+          'Il reconnaît une capacité d’innovation. Il ne décide pas qu’une mission est éligible, ni n’ouvre un crédit d’impôt automatique. Coconsult Nearshore n’en est pas titulaire.',
         ],
       },
       {
@@ -638,7 +623,7 @@ export const pages: Record<RouteKey, PageContent> = {
         items: [
           { title: 'Innovation et CII', text: 'Le cadre de l’agrément, et ce qu’il ne garantit pas.', hrefKey: 'innovation' },
           { title: 'Développement logiciel', text: 'Applications web, mobiles, API et logiciels métier.', hrefKey: 'software' },
-          { title: 'Équipes dédiées', text: 'Java, Angular, full-stack ou DevOps, avec une société distincte à Sfax.', hrefKey: 'dedicated' },
+          { title: 'Équipes dédiées', text: 'Des profils d’ingénierie selon votre stack, avec une société distincte à Sfax.', hrefKey: 'dedicated' },
         ],
       },
       { type: 'cta', title: 'Rencontrer l’équipe sur un sujet concret.', text: 'Un message suffit pour proposer un créneau. Le contexte du projet compte plus qu’une présentation générale.', primary: 'project', secondary: 'partnership' },
@@ -649,7 +634,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'Agrément CII et innovation logicielle | Coconsult',
     description:
       'Décision DRIEETS Île-de-France du 4 février 2026 : agrément n° 28910108 pour 2026-2030. Il ne rend pas un projet éligible au crédit d’impôt.',
-    eyebrow: 'INNOVATION',
+    eyebrow: 'Innovation',
     h1: 'Accompagner un projet d’innovation logicielle.',
     intro:
       'COCONSULT conçoit et fait évoluer des logiciels. Une décision du 4 février 2026 de la DRIEETS Île-de-France lui accorde un agrément Crédit d’impôt innovation, n° 28910108, pour les années 2026 à 2030. Cet agrément ne décide pas, à lui seul, qu’un projet ouvre droit à un crédit d’impôt.',
@@ -696,42 +681,21 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'Partenariats et clients pilotes | Coconsult',
     description:
       'Coconsult accueille des clients pilotes et des partenaires commerciaux ou techniques. Le cadre, le périmètre et le statut du pilote sont écrits avant de commencer.',
-    eyebrow: 'PARTENARIATS',
+    eyebrow: 'Partenariats',
     h1: 'Pilotes et partenariats, avec un périmètre écrit.',
     intro:
       'Un pilote sert à vérifier qu’une solution en développement ou qu’un dispositif d’équipe répond à un cas réel. Un partenariat commercial ou technique se discute lorsque les rôles de chacun sont clairs.',
-    blocks: [
-      {
-        type: 'columns',
-        title: 'Trois portes d’entrée',
-        items: [
-          { title: 'Client pilote', text: 'Vous testez une solution en développement sur un périmètre limité, avec un statut affiché comme tel et une démonstration préalable.' },
-          { title: 'Partenaire commercial', text: 'Vous apportez un accès à un marché ou à des opérations, et Coconsult apporte l’ingénierie. Le cadre se contractualise avant toute promesse commune.' },
-          { title: 'Partenaire technique', text: 'Éditeur, intégrateur ou hébergeur : la collaboration porte sur une brique précise du système.' },
-        ],
-      },
-      {
-        type: 'list',
-        title: 'Ce qu’un premier échange clarifie',
-        items: [
-          'Le cas d’usage et le secteur, décrits sans données confidentielles dans l’e-mail',
-          'Ce que chaque partie fournit',
-          'La durée envisagée du pilote',
-          'Ce qui sera décidé à la fin : étendre, modifier ou arrêter',
-        ],
-      },
-      { type: 'cta', title: 'Proposer un pilote ou un partenariat.', text: 'Le type de demande est déjà sélectionné lorsque vous arrivez depuis cette page.', primary: 'partnership' },
-    ],
+    blocks: [],
   },
   contact: {
     key: 'contact',
     metaTitle: 'Parlons de votre prochain système | Coconsult',
     description:
       'Décrivez le système à construire : projet, équipe, intelligence artificielle ou démonstration. L’adresse contact@coconsult.fr est sur la page.',
-    eyebrow: 'CONTACT',
+    eyebrow: 'Contact',
     h1: 'Parlons de votre prochain système.',
     h1Accent: 'Projet, équipe, IA ou démonstration.',
-    intro: 'La confirmation n’apparaît qu’une fois la demande acceptée. Sinon, le message se prépare dans votre messagerie.',
+    intro: 'Après envoi, une confirmation s’affiche seulement si la demande est bien reçue. Sinon, le message reste prêt dans votre messagerie.',
     blocks: [
       {
         type: 'inquiries',
@@ -739,14 +703,14 @@ export const pages: Record<RouteKey, PageContent> = {
         intro: 'Le sujet est déjà indiqué si vous arrivez depuis une expertise, une offre ou une solution.',
         ids: ['project', 'team', 'qaDiscuss', 'qaTeam', 'payments', 'automation', 'ai', 'partnership', 'demo'],
       },
-      { type: 'note', text: 'Pour ce premier échange, restez sur le contexte du projet. Les données de cartes et les secrets se traitent ensuite sur un canal adapté.' },
+      { type: 'note', text: 'Pour ce premier message, décrivez le contexte du projet. Les données sensibles (cartes, secrets, accès) se traitent ensuite sur un canal dédié.' },
     ],
   },
   software: {
     key: 'software',
-    metaTitle: 'Développement sur mesure Java et Angular | Coconsult',
+    metaTitle: 'Développement logiciel sur mesure | Coconsult',
     description:
-      'Applications sur mesure, évolution d’un existant ou modernisation progressive. Java, Spring et Angular, avec une équipe dédiée si le projet dure.',
+      'Applications sur mesure, évolution d’un existant ou modernisation progressive. Stack adaptée au projet, avec une équipe dédiée si le travail dure.',
     eyebrow: 'DÉVELOPPEMENT LOGICIEL',
     h1: 'Concevoir et faire évoluer vos applications.',
     intro:
@@ -759,7 +723,7 @@ export const pages: Record<RouteKey, PageContent> = {
           { title: 'Applications', text: 'Interfaces web ou mobiles reliées aux règles métier et aux données dont vous disposez déjà.' },
           { title: 'API et intégration', text: 'Des contrats d’interface stables entre vos outils, avec reprises et observabilité lorsque le flux est critique.' },
           { title: 'Architecture', text: 'Un découpage lisible quand le produit grandit, sans refonte décorative.' },
-          { title: 'Java, Spring et Angular', text: 'Ces expertises couvrent une application neuve, l’évolution d’un existant et une modernisation menée par étapes.' },
+          { title: 'Stack du projet', text: 'Backend, front, mobile ou full-stack selon votre existant. Java/Spring ou Angular sont des forces fréquentes, pas un catalogue fermé.' },
         ],
       },
       {
@@ -786,7 +750,7 @@ export const pages: Record<RouteKey, PageContent> = {
         items: [
           { title: 'Intelligence artificielle', text: 'Brancher génération, modèles ou agents sur une application déjà en place.', hrefKey: 'ai' },
           { title: 'Cloud et DevOps', text: 'Mettre en production et tenir l’exploitation de ce qui est livré.', hrefKey: 'cloud' },
-          { title: 'Équipes Java et Angular', text: 'Une squad Java, Spring ou Angular pour la durée du projet, lorsque le besoin dépasse une intervention ponctuelle.', hrefKey: 'dedicated' },
+          { title: 'Équipes dédiées', text: 'Une squad d’ingénierie selon votre stack, pour la durée du projet, lorsque le besoin dépasse une intervention ponctuelle.', hrefKey: 'dedicated' },
           { title: 'Innovation et CII', text: 'Lire le cadre de l’agrément avant d’appeler une mission un projet d’innovation.', hrefKey: 'innovation' },
         ],
       },
@@ -848,14 +812,16 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'Externalisation IT, équipes dédiées et nearshore | Coconsult',
     description:
       'Externalisation IT en assistance technique, équipes dédiées, nearshore en Tunisie ou collaboration au forfait. Coconsult Nearshore est une société distincte.',
-    eyebrow: 'MODES D’INTERVENTION',
+    eyebrow: 'Modes d’intervention',
     h1: 'Choisir la forme de l’externalisation IT.',
     intro:
       'Selon le périmètre, la collaboration se fait en assistance technique, en équipes dédiées, en nearshore en Tunisie ou au forfait. Le conseil s’ajoute lorsque le projet doit être cadré avant ou pendant la réalisation.',
     blocks: [
       {
         type: 'columns',
+        layout: 'rail',
         title: 'Cinq façons de travailler',
+        intro: 'Un même interlocuteur en France. La forme change selon le périmètre, le rythme et le niveau de cadrage.',
         items: [
           { title: 'Assistance technique', text: 'Régie d’un ou plusieurs ingénieurs, pour un palier identifié.' },
           { title: 'Équipes dédiées', text: 'Une squad suivie dans la durée, avec coordination depuis la France.' },
@@ -866,6 +832,8 @@ export const pages: Record<RouteKey, PageContent> = {
       },
       {
         type: 'prose',
+        visual: 'collab',
+        title: 'Deux sociétés, un dispositif',
         paragraphs: [
           'L’externalisation IT est portée depuis la France par COCONSULT. Lorsqu’elle inclut un nearshore en Tunisie, les compétences passent par Coconsult Nearshore, société tunisienne juridiquement indépendante, basée à Sfax. Les deux sociétés ne se confondent pas.',
           'Le devis, le contrat et la facture identifient la société qui contracte avec le client.',
@@ -873,6 +841,7 @@ export const pages: Record<RouteKey, PageContent> = {
       },
       {
         type: 'prose',
+        visual: 'entities',
         title: 'Nearshore en Tunisie',
         paragraphs: [
           'Coconsult Nearshore, à Sfax, mobilise des compétences d’ingénierie pour des clients accompagnés depuis la France. Les deux sociétés ont des dirigeants différents. Aucun lien capitalistique n’est affirmé.',
@@ -883,7 +852,7 @@ export const pages: Record<RouteKey, PageContent> = {
         type: 'cards',
         title: 'Selon le besoin',
         items: [
-          { title: 'Équipes dédiées', text: 'Java, Angular, full-stack ou DevOps, suivis dans la durée.', hrefKey: 'dedicated' },
+          { title: 'Équipes dédiées', text: 'Backend, front, full-stack, cloud ou QA, suivis dans la durée.', hrefKey: 'dedicated' },
           { title: 'Développement logiciel', text: 'Applications web, mobiles, API et intégration.', hrefKey: 'software' },
           { title: 'Intelligence artificielle', text: 'Intégration d’IA générative, d’agents et de modèles dans vos outils.', hrefKey: 'ai' },
           { title: 'Innovation et CII', text: 'Le numéro d’agrément, les années couvertes, et ce qui reste à vérifier côté client.', hrefKey: 'innovation' },

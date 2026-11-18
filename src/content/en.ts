@@ -133,7 +133,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'Software, AI, cloud and quality | Coconsult',
     description:
       'Software development, web and mobile applications, cloud, data and AI, quality, cybersecurity and IT teams.',
-    eyebrow: 'OUR OFFERS',
+    eyebrow: 'Our offers',
     h1: 'Six solution families for your systems.',
     intro:
       'Each family opens a page that is already published. How we collaborate comes next, according to the scope.',
@@ -166,38 +166,38 @@ export const pages: Record<RouteKey, PageContent> = {
   },
   dedicated: {
     key: 'dedicated',
-    metaTitle: 'Java, Angular and full-stack teams | Coconsult',
+    metaTitle: 'Dedicated engineering teams | Coconsult',
     description:
-      'Dedicated Java, Angular, full-stack and DevOps teams, coordinated from France, with Coconsult Nearshore in Sfax, a separate company.',
+      'Dedicated engineering teams, shaped around your stack and pace, coordinated from France, with Coconsult Nearshore in Sfax, a separate company.',
     eyebrow: 'DEDICATED TEAMS',
     h1: 'Build an engineering team around the work you actually have.',
     intro:
-      'Coconsult supports its clients from France and works with Coconsult Nearshore, a legally independent Tunisian company based in Sfax, to bring in engineering skills and build dedicated teams. Independent consultants complete a setup when the role calls for it. Not every profile is free to start immediately.',
+      'Coconsult supports its clients from France and works with Coconsult Nearshore, a legally independent Tunisian company based in Sfax, to bring in engineering skills and build dedicated teams. The stack is chosen with you: backend, front end, full-stack, mobile, cloud, QA or data, according to the product already in place. Independent consultants complete a setup when the role calls for it. Not every profile is free to start immediately.',
     blocks: [
       {
         type: 'columns',
         title: 'Who it is for',
         items: [
-          { title: 'Targeted reinforcement', text: 'One or more Java/Spring, Angular, full-stack or cloud/DevOps engineers for a defined stretch of delivery.' },
+          { title: 'Targeted reinforcement', text: 'One or more engineers for a defined stretch of delivery: backend, front end, full-stack, mobile, cloud/DevOps or QA, matched to your stack.' },
           { title: 'Dedicated squad', text: 'A stable team, coordinated between France and Tunisia, when the backlog justifies a continuous setup.' },
           { title: 'Fixed scope', text: 'Possible when the scope is clear enough to estimate. Otherwise we recommend time and materials or a dedicated team.' },
         ],
       },
       {
         type: 'list',
-        title: 'Profiles we can look for',
+        title: 'What we compose with you',
         items: [
-          'Java / Spring and full-stack software engineers',
-          'Angular engineers when that is what the product already uses',
-          'Cloud and DevOps, matched to the platform you run',
-          'Specialists for a specific gap, only when someone is available or hired for that mission',
+          'Backend and APIs: Java / Spring, and other backend stacks when the product or the market justifies them',
+          'Front end and full-stack: the framework already in place (Angular, React or another), without imposing a stack',
+          'Mobile, cloud and DevOps: according to the platform and delivery rhythm you already run',
+          'QA, data or specialist profiles: only when someone is available or hired for that mission',
         ],
       },
       {
         type: 'steps',
         title: 'From the request to a steady rhythm',
         items: [
-          { title: 'Discovery', text: 'Context, stack, seniority, language, overlap hours and how you want to collaborate.' },
+          { title: 'Discovery', text: 'Context, real stack, seniority, language, overlap hours and how you want to collaborate.' },
           { title: 'Sourcing and selection', text: 'Search within the team and, if needed, among independent consultants. Each proposed profile is described with their level and experience.' },
           { title: 'Your interview', text: 'You meet the proposed people before anyone starts.' },
           { title: 'Onboarding', text: 'Access, counterparts, tools and the first weeks of scope, defined with your team.' },
@@ -208,9 +208,9 @@ export const pages: Record<RouteKey, PageContent> = {
       { type: 'note', text: 'The quotation, the contract and the invoice name the company that contracts with the client. Engineers based in Sfax are not employees of COCONSULT SAS merely because of this collaboration.' },
       {
         type: 'prose',
-        title: 'Java, Angular and nearshore',
+        title: 'Your stack, not a closed catalogue',
         paragraphs: [
-          'Java and Spring are profiles we can look for. Angular is proposed only when the existing product already uses it. A profile that is not available is not presented as ready to start.',
+          'We do not reduce the offer to two languages. Java / Spring is among the profiles we often know how to source; other backend, front-end or full-stack stacks are discussed from what you already run. A profile that is not available is not presented as ready to start.',
           'Reinforcement in Sfax goes through Coconsult Nearshore, a legally independent Tunisian company. It is not an establishment of COCONSULT SAS. The contract names the company that commits.',
         ],
       },
@@ -479,7 +479,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'Industry experience | Coconsult',
     description:
       'Business environments where Coconsult engineering has already been practised: finance and payments, mobility, retail, media, telecom, sports, business systems, and healthcare pharmaceuticals as an emerging domain.',
-    eyebrow: 'INDUSTRIES',
+    eyebrow: 'Industries',
     h1: 'Our engineering in the service of your industries.',
     intro:
       'Finance, mobility, retail, media, telecom, sports, business systems and healthcare: contexts where our consultants have already supported software engineering, DevOps and QA projects.',
@@ -490,46 +490,32 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'Solutions and platforms | Coconsult',
     description:
       'COPHARIA, a pharmaceutical ERP in development, and delivered platforms: sports operations, document workflows. Request a demonstration from Contact.',
-    eyebrow: 'SOLUTIONS',
+    eyebrow: 'Solutions',
     h1: 'Products Coconsult is building.',
     intro:
-      'One Coconsult solution still in development, and platforms already delivered. The two stay distinct: the product and the case studies are not the same thing.',
-    blocks: [
-      {
-        type: 'work',
-        source: 'solutions',
-        title: 'Coconsult solutions',
-        intro: 'COPHARIA, a pharmaceutical ERP in development. Real status, anonymized views, demonstration on request.',
-      },
-      {
-        type: 'work',
-        source: 'platforms',
-        title: 'Platforms and deliveries',
-        intro:
-          'Systems that were built and handed over. These are not SaaS products sold by Coconsult. The context and the result are described in the case studies.',
-      },
-      {
-        type: 'cta',
-        title: 'Request a COPHARIA demonstration.',
-        text: 'Share your context. We will come back to arrange a conversation.',
-        primary: 'demo',
-        product: 'copharia',
-      },
-    ],
+      'One Coconsult product still in development, and platforms already delivered to clients. The two stay separate: a product offer is not a case study.',
+    blocks: [],
   },
   cases: {
     key: 'cases',
     metaTitle: 'Engineering case studies | Coconsult',
     description:
       'Coconsult deliveries: CSS Forever, a sports platform in use, and a business system whose screens are not published.',
-    eyebrow: 'CASE STUDIES',
+    eyebrow: 'Case studies',
     h1: 'Systems we have delivered.',
     intro:
       'Two documented deliveries. CSS Forever is shown with three real screens. The other system was delivered with its source code transferred; its screens are not published.',
     blocks: [
-      { type: 'work', source: 'cases', title: 'Delivered projects' },
+      {
+        type: 'work',
+        source: 'cases',
+        title: 'Delivered projects',
+        intro: 'Each case states the context, the work and the outcome — without turning a client deliverable into a Coconsult product.',
+      },
       {
         type: 'prose',
+        title: 'A clear boundary',
+        visual: 'note',
         paragraphs: [
           'When software was handed to the client, it is not offered as a Coconsult product.',
         ],
@@ -542,45 +528,44 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'About Coconsult | Paris and Sfax',
     description:
       'COCONSULT SAS, a French company founded in 2018, supports clients from Paris and works with Coconsult Nearshore, an independent Tunisian company based in Sfax.',
-    eyebrow: 'ABOUT',
+    eyebrow: 'About',
     h1: 'A French engineering company, in collaboration with Sfax.',
     intro:
-      'Coconsult supports its clients from France and works with Coconsult Nearshore, a legally independent Tunisian company based in Sfax, to bring in engineering skills and build dedicated teams. Founded in 2018, the French company designs, integrates and runs business applications.',
+      'Since 2018, COCONSULT designs and integrates business applications from France, working with Coconsult Nearshore in Sfax — a legally independent Tunisian company.',
     blocks: [
       {
-        type: 'columns',
-        title: 'How the company works',
-        items: [
-          { title: 'Scoping close to the client', text: 'Needs, constraints and priorities are understood with your team, from France when that is the right relay.' },
-          { title: 'Engineering in Sfax', text: 'Coconsult Nearshore can mobilise engineering skills for the agreed scope. The two companies have different directors.' },
-          { title: 'Independent specialists', text: 'Independent consultants can complete a setup when the role calls for it.' },
+        type: 'prose',
+        title: 'Two companies, one engineering setup',
+        visual: 'entities',
+        paragraphs: [
+          'Client scoping starts in France. Engineering skills can be mobilised through Coconsult Nearshore in Sfax. The two companies have different directors.',
+          'Independent consultants complete the setup when the role calls for it.',
         ],
       },
       {
         type: 'prose',
         title: 'What the company sells',
+        visual: 'offers',
         paragraphs: [
-          'Fixed-scope projects when the scope allows it, integration into existing systems, dedicated teams, testing and payments engineering, and support for business solutions still being built.',
+          'Fixed scope, integration, dedicated teams, QA, payments and business solutions still being built — depending on the perimeter.',
           'The quotation, the contract and the invoice name the company that contracts with the client.',
         ],
       },
       {
-        type: 'list',
+        type: 'prose',
         title: 'Public facts',
-        items: [
-          'Founded in 2018',
-          'Site publisher: COCONSULT SAS, Paris',
-          'CII agreement no. 28910108, years 2026 to 2030, DRIEETS Île-de-France',
-          'Collaboration with Coconsult Nearshore, Sfax',
-          'Contact: contact@coconsult.fr',
+        visual: 'facts',
+        paragraphs: [
+          'Founded in 2018 · COCONSULT SAS, Paris · CII agreement no. 28910108 (2026–2030) · Collaboration with Coconsult Nearshore, Sfax · contact@coconsult.fr',
         ],
       },
       {
         type: 'prose',
         title: 'Innovation tax credit agreement',
+        visual: 'cii',
         paragraphs: [
-          'A decision of 4 February 2026 by DRIEETS Île-de-France grants COCONSULT, VAT FR90838913838, agreement no. 28910108 for 2026, 2027, 2028, 2029 and 2030.',
-          'The agreement recognises a capacity to carry out innovation work. It does not decide that an assignment is eligible, and it does not automatically create a tax credit for the client. Coconsult Nearshore, in Sfax, is not the holder of this decision.',
+          'DRIEETS Île-de-France decision of 4 February 2026: agreement no. 28910108 for 2026 to 2030.',
+          'It recognises an innovation capacity. It does not decide that an assignment is eligible, and it does not create an automatic tax credit. Coconsult Nearshore is not the holder.',
         ],
       },
       {
@@ -589,7 +574,7 @@ export const pages: Record<RouteKey, PageContent> = {
         items: [
           { title: 'Innovation and CII', text: 'The scope of the agreement, and what it does not promise.', hrefKey: 'innovation' },
           { title: 'Software development', text: 'Web and mobile applications, APIs and business software.', hrefKey: 'software' },
-          { title: 'Dedicated teams', text: 'Java, Angular, full-stack or DevOps, with a separate company in Sfax.', hrefKey: 'dedicated' },
+          { title: 'Dedicated teams', text: 'Engineering profiles matched to your stack, with a separate company in Sfax.', hrefKey: 'dedicated' },
         ],
       },
       { type: 'cta', title: 'Meet the team on a concrete subject.', text: 'A message is enough to propose a time. The project context matters more than a general presentation.', primary: 'project', secondary: 'partnership' },
@@ -600,7 +585,7 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'CII agreement and software innovation | Coconsult',
     description:
       'DRIEETS Île-de-France decision of 4 February 2026: agreement no. 28910108 for 2026-2030. It does not make a project eligible for the tax credit.',
-    eyebrow: 'INNOVATION',
+    eyebrow: 'Innovation',
     h1: 'Support a software innovation project.',
     intro:
       'COCONSULT designs and evolves software. A decision of 4 February 2026 by DRIEETS Île-de-France grants it a French innovation tax credit agreement, no. 28910108, for 2026 to 2030. The agreement does not, by itself, mean a project qualifies for a tax credit.',
@@ -647,42 +632,21 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'Partnerships and pilot customers | Coconsult',
     description:
       'Coconsult works with pilot customers and commercial or technical partners. Scope and pilot status are written down before work starts.',
-    eyebrow: 'PARTNERSHIPS',
+    eyebrow: 'Partnerships',
     h1: 'Pilots and partnerships with a written scope.',
     intro:
       'A pilot checks whether a solution in development, or a team setup, fits a real case. A commercial or technical partnership is discussed when each side’s role is clear.',
-    blocks: [
-      {
-        type: 'columns',
-        title: 'Three ways in',
-        items: [
-          { title: 'Pilot customer', text: 'You try a solution in development on a limited scope, with that status shown openly, after a demo.' },
-          { title: 'Commercial partner', text: 'You bring market or operational access. Coconsult brings engineering. The frame is contracted before any joint promise.' },
-          { title: 'Technical partner', text: 'A vendor, integrator or host: the collaboration is about a specific part of the system.' },
-        ],
-      },
-      {
-        type: 'list',
-        title: 'What a first conversation clarifies',
-        items: [
-          'The use case and sector, described without confidential data in the email',
-          'What each party provides',
-          'How long the pilot is expected to run',
-          'What will be decided at the end: extend, change or stop',
-        ],
-      },
-      { type: 'cta', title: 'Propose a pilot or a partnership.', text: 'The request type is already selected when you arrive from this page.', primary: 'partnership' },
-    ],
+    blocks: [],
   },
   contact: {
     key: 'contact',
     metaTitle: "Let's talk about your next system | Coconsult",
     description:
       'Describe the system to build: a project, a team, artificial intelligence or a demonstration. contact@coconsult.fr is on the page.',
-    eyebrow: 'CONTACT',
+    eyebrow: 'Contact',
     h1: "Let's talk about your next system.",
     h1Accent: 'A project, a team, AI, or a demonstration.',
-    intro: 'Confirmation appears only after the enquiry is accepted. Otherwise the message is prepared in your mail software.',
+    intro: 'After you send, a confirmation appears only if the enquiry is received. Otherwise the message stays ready in your mail app.',
     blocks: [
       {
         type: 'inquiries',
@@ -690,14 +654,14 @@ export const pages: Record<RouteKey, PageContent> = {
         intro: 'The subject is already set if you arrive from an expertise, an offer or a solution.',
         ids: ['project', 'team', 'qaDiscuss', 'qaTeam', 'payments', 'automation', 'ai', 'partnership', 'demo'],
       },
-      { type: 'note', text: 'For this first note, stay with the project context. Card data and secrets belong on a channel agreed afterwards.' },
+      { type: 'note', text: 'For this first message, describe the project context. Sensitive data (cards, secrets, access) belongs on a dedicated channel afterwards.' },
     ],
   },
   software: {
     key: 'software',
-    metaTitle: 'Custom Java and Angular development | Coconsult',
+    metaTitle: 'Custom software engineering | Coconsult',
     description:
-      'Custom applications, evolution of an existing one, or progressive modernisation. Java, Spring and Angular, with a dedicated team when the work lasts.',
+      'Custom applications, evolution of an existing one, or progressive modernisation. Stack matched to the project, with a dedicated team when the work lasts.',
     eyebrow: 'SOFTWARE DEVELOPMENT',
     h1: 'Design and evolve your applications.',
     intro:
@@ -710,7 +674,7 @@ export const pages: Record<RouteKey, PageContent> = {
           { title: 'Applications', text: 'Web or mobile interfaces tied to the business rules and the data you already have.' },
           { title: 'APIs and integration', text: 'Stable interfaces between your tools, with retries and observability when the flow is critical.' },
           { title: 'Architecture', text: 'A readable structure as the product grows, without a decorative rewrite.' },
-          { title: 'Java, Spring and Angular', text: 'These skills cover a new application, the evolution of an existing one and a modernisation carried out in stages.' },
+          { title: 'Project stack', text: 'Backend, front, mobile or full-stack according to what you already run. Java/Spring or Angular are frequent strengths, not a closed catalogue.' },
         ],
       },
       {
@@ -737,7 +701,7 @@ export const pages: Record<RouteKey, PageContent> = {
         items: [
           { title: 'Artificial intelligence', text: 'Connect generation, models or agents to an application already in place.', hrefKey: 'ai' },
           { title: 'Cloud and DevOps', text: 'Release what is built, then keep it running.', hrefKey: 'cloud' },
-          { title: 'Java and Angular teams', text: 'A Java, Spring or Angular squad for the life of the project, when the work is more than a short intervention.', hrefKey: 'dedicated' },
+          { title: 'Dedicated teams', text: 'An engineering squad matched to your stack, for the life of the project, when the work is more than a short intervention.', hrefKey: 'dedicated' },
           { title: 'Innovation and CII', text: 'Read the agreement before calling an assignment an innovation project.', hrefKey: 'innovation' },
         ],
       },
@@ -799,14 +763,16 @@ export const pages: Record<RouteKey, PageContent> = {
     metaTitle: 'IT outsourcing, dedicated teams and nearshore | Coconsult',
     description:
       'IT outsourcing as staff augmentation, dedicated teams, nearshore in Tunisia or a fixed scope. Coconsult Nearshore is a separate company.',
-    eyebrow: 'WAYS OF WORKING',
+    eyebrow: 'Ways of working',
     h1: 'Choose the form of IT outsourcing.',
     intro:
       'Depending on the scope, the work is staff augmentation, a dedicated team, nearshore in Tunisia or a fixed scope. Advisory is added when the project needs a frame before or during delivery.',
     blocks: [
       {
         type: 'columns',
+        layout: 'rail',
         title: 'Five ways to engage',
+        intro: 'One counterpart in France. The shape changes with scope, pace and how much framing the project needs.',
         items: [
           { title: 'Staff augmentation', text: 'One or more engineers on a time-and-materials basis, for an identified stretch of delivery.' },
           { title: 'Dedicated teams', text: 'A squad followed over time, coordinated from France.' },
@@ -817,6 +783,8 @@ export const pages: Record<RouteKey, PageContent> = {
       },
       {
         type: 'prose',
+        visual: 'collab',
+        title: 'Two companies, one setup',
         paragraphs: [
           'IT outsourcing is led from France by COCONSULT. When it includes nearshore work in Tunisia, the skills come through Coconsult Nearshore, a legally independent Tunisian company based in Sfax. The two companies are not the same.',
           'The quotation, the contract and the invoice name the company that contracts with the client.',
@@ -824,6 +792,7 @@ export const pages: Record<RouteKey, PageContent> = {
       },
       {
         type: 'prose',
+        visual: 'entities',
         title: 'Nearshore in Tunisia',
         paragraphs: [
           'Coconsult Nearshore, in Sfax, brings engineering skills for clients supported from France. The two companies have different directors. No capital link is asserted.',
@@ -834,7 +803,7 @@ export const pages: Record<RouteKey, PageContent> = {
         type: 'cards',
         title: 'Depending on the need',
         items: [
-          { title: 'Dedicated teams', text: 'Java, Angular, full-stack or DevOps, followed over time.', hrefKey: 'dedicated' },
+          { title: 'Dedicated teams', text: 'Backend, front end, full-stack, cloud or QA, followed over time.', hrefKey: 'dedicated' },
           { title: 'Software development', text: 'Web and mobile applications, APIs and integration.', hrefKey: 'software' },
           { title: 'Artificial intelligence', text: 'Generative AI, agents and models integrated into the tools you run.', hrefKey: 'ai' },
           { title: 'Innovation and CII', text: 'The agreement number, the years covered, and what the client still has to check.', hrefKey: 'innovation' },

@@ -1,4 +1,5 @@
 ---
+import FinalCta from '@/components/FinalCta.astro';
 import CophariaFeature from '@/components/visuals/CophariaFeature.astro';
 import PlatformTeaser from '@/components/visuals/PlatformTeaser.astro';
 import WorkCase from '@/components/visuals/WorkCase.astro';
@@ -22,9 +23,21 @@ const laneFor = (key?: string) => {
 };
 ---
 {blocks.map((block, index) => {
-  const tone = block.type === 'cta' ? 'band-dark' : tones[index % tones.length];
+  if (block.type === 'cta') {
+    return (
+      <FinalCta
+        locale={locale}
+        title={block.title}
+        text={block.text}
+        primary={block.primary}
+        secondary={block.secondary}
+        product={block.product}
+      />
+    );
+  }
+  const tone = tones[index % tones.length];
   return (
-    <section class:list={['section', tone]}>
+    <section class:list={['section', tone]} data-reveal style={`--reveal-delay:${Math.min(index, 4) * 60}ms`}>
       <div class="container">
         {block.type === 'cards' && (
           <>
@@ -32,16 +45,28 @@ const laneFor = (key?: string) => {
               <h2>{block.title}</h2>
               {block.intro && <p>{block.intro}</p>}
             </div>
-            <div class:list={['card-grid', { bento: block.layout === 'bento', five: block.layout !== 'bento' && block.items.length > 4 }]}>
-              {block.items.map((item) => (
-                <article class="service-card" data-lane={laneFor(item.hrefKey)}>
-                  {item.kicker && <p class="kicker-no">{item.kicker}</p>}
-          <h3>{item.hrefKey ? <a href={pathFor(locale, item.hrefKey)}>{item.title}</a> : item.title}</h3>
-          <p>{item.text}</p>
-          {item.link && <p><a class="text-link" href={pathFor(locale, item.link.hrefKey)}>{item.link.label}</a></p>}
-                  {item.inquiry && <p><a class="text-link" href={contactPath(locale, item.inquiry)}>{getInquiry(locale, item.inquiry).label}</a></p>}
-                </article>
-              ))}
+            <div class:list={['need-mosaic', 'card-grid', { bento: block.layout === 'bento', five: block.layout !== 'bento' && block.items.length > 4 }]} data-stagger>
+              {block.items.map((item, itemIndex) => {
+                const href = item.hrefKey ? pathFor(locale, item.hrefKey) : undefined;
+                const body = (
+                  <>
+                    <span class="need-index" aria-hidden="true">{String(itemIndex + 1).padStart(2, '0')}</span>
+                    <div class="need-body">
+                      {item.kicker && <p class="kicker-no">{item.kicker}</p>}
+                      <h3>{item.title}</h3>
+                      <p>{item.text}</p>
+                      {item.link && !href && <p><a class="text-link" href={pathFor(locale, item.link.hrefKey)}>{item.link.label}</a></p>}
+                      {item.inquiry && <p><a class="text-link" href={contactPath(locale, item.inquiry)}>{getInquiry(locale, item.inquiry).label}</a></p>}
+                    </div>
+                    {href && <span class="need-go" aria-hidden="true">→</span>}
+                  </>
+                );
+                return href ? (
+                  <a class="need-tile service-card is-link" data-lane={laneFor(item.hrefKey)} href={href}>{body}</a>
+                ) : (
+                  <article class="need-tile service-card" data-lane={laneFor(item.hrefKey)}>{body}</article>
+                );
+              })}
             </div>
           </>
         )}
@@ -77,15 +102,31 @@ const laneFor = (key?: string) => {
               <h2>{block.title}</h2>
               {block.intro && <p>{block.intro}</p>}
             </div>
-            <div class:list={['column-grid', { rail: block.layout === 'rail' }]}>
-              {block.items.map((item, itemIndex) => (
-                <article class="info-card">
-                  {block.layout === 'rail' && <span class="rail-no">{String(itemIndex + 1).padStart(2, '0')}</span>}
-                  <h3>{item.title}</h3>
-                  <p>{item.text}</p>
-                </article>
-              ))}
-            </div>
+            {block.layout === 'rail' ? (
+              <div class="way-board" data-stagger>
+                <div class="way-spine" aria-hidden="true"></div>
+                {block.items.map((item, itemIndex) => (
+                  <article class="way-item" style={`--way-i:${itemIndex}`}>
+                    <span class="way-node" aria-hidden="true">
+                      <span>{String(itemIndex + 1).padStart(2, '0')}</span>
+                    </span>
+                    <div class="way-copy">
+                      <h3>{item.title}</h3>
+                      <p>{item.text}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <div class:list={['column-grid', { quad: block.items.length === 4 }]} data-stagger>
+                {block.items.map((item) => (
+                  <article class="info-card">
+                    <h3>{item.title}</h3>
+                    <p>{item.text}</p>
+                  </article>
+                ))}
+              </div>
+            )}
           </>
         )}
         {block.type === 'steps' && (
@@ -94,7 +135,7 @@ const laneFor = (key?: string) => {
               <h2>{block.title}</h2>
               {block.intro && <p>{block.intro}</p>}
             </div>
-            <div class="steps">
+            <div class="steps" data-stagger>
               {block.items.map((item, stepIndex) => (
                 <article class="step">
                   <span class="step-no">{String(stepIndex + 1).padStart(2, '0')}</span>
@@ -108,9 +149,115 @@ const laneFor = (key?: string) => {
           </>
         )}
         {block.type === 'prose' && (
-          <div class="prose section-intro">
-            {block.title && <h2>{block.title}</h2>}
-            {block.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+          <div class:list={['prose-block', block.visual && 'has-visual', block.visual && `prose-visual-${block.visual}`, block.visual === 'note' && 'prose-note']}>
+            <div class="prose section-intro">
+              {block.title && <h2>{block.title}</h2>}
+              {block.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+            </div>
+            {block.visual === 'note' && (
+              <aside class="prose-note-mark" aria-hidden="true">
+                <span>{locale === 'fr' ? 'Limite' : 'Boundary'}</span>
+                <strong>{locale === 'fr' ? 'Livrable client ≠ produit Coconsult' : 'Client deliverable ≠ Coconsult product'}</strong>
+              </aside>
+            )}
+            {block.visual === 'collab' && (
+              <figure class="prose-photo-panel">
+                <img src="/assets/people/nearshore-pair.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
+                <figcaption>
+                  <span>{locale === 'fr' ? 'Collaboration' : 'Collaboration'}</span>
+                  <strong>{locale === 'fr' ? 'Paris · Sfax · un même cadrage' : 'Paris · Sfax · one framing'}</strong>
+                </figcaption>
+              </figure>
+            )}
+            {block.visual === 'entities' && (
+              <div class="entity-map prose-visual-panel" aria-hidden="true">
+                <div class="entity-card entity-fr">
+                  <span class="entity-pin"></span>
+                  <strong>COCONSULT</strong>
+                  <span>{locale === 'fr' ? 'France · Paris' : 'France · Paris'}</span>
+                </div>
+                <div class="entity-link">
+                  <span class="entity-dot"></span>
+                  <span class="entity-rail"></span>
+                  <span class="entity-dot"></span>
+                </div>
+                <div class="entity-card entity-tn">
+                  <span class="entity-pin"></span>
+                  <strong>Coconsult Nearshore</strong>
+                  <span>{locale === 'fr' ? 'Tunisie · Sfax' : 'Tunisia · Sfax'}</span>
+                </div>
+              </div>
+            )}
+            {block.visual === 'nearshore' && (
+              <div class="nearshore-visual prose-visual-panel" aria-hidden="true">
+                <svg viewBox="0 0 120 120" width="120" height="120">
+                  <circle cx="60" cy="60" r="52" fill="none" stroke="currentColor" stroke-width="1.4" opacity="0.25" />
+                  <circle cx="60" cy="60" r="34" fill="none" stroke="currentColor" stroke-width="1.6" opacity="0.45" />
+                  <path d="M38 68c8-18 36-18 44 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <circle cx="48" cy="48" r="7" fill="none" stroke="currentColor" stroke-width="2" />
+                  <circle cx="72" cy="48" r="7" fill="none" stroke="currentColor" stroke-width="2" />
+                </svg>
+              </div>
+            )}
+            {block.visual === 'offers' && (
+              <div class="prose-visual-panel" aria-hidden="true">
+                <div class="offer-mosaic">
+                  {(locale === 'fr'
+                    ? [
+                        ['Forfait', 'Périmètre cadré'],
+                        ['Intégration', 'Systèmes existants'],
+                        ['Équipes', 'Squads dédiées'],
+                        ['QA & paiements', 'Missions ciblées'],
+                        ['Solutions métier', 'En construction'],
+                      ]
+                    : [
+                        ['Fixed scope', 'When the perimeter is clear'],
+                        ['Integration', 'Existing systems'],
+                        ['Teams', 'Dedicated squads'],
+                        ['QA & payments', 'Focused missions'],
+                        ['Business solutions', 'Still being built'],
+                      ]
+                  ).map(([title, text]) => (
+                    <div class="offer-chip">
+                      <strong>{title}</strong>
+                      <span>{text}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            {block.visual === 'cii' && (
+              <div class="prose-visual-panel cii-visual" aria-hidden="true">
+                <div class="cii-visual-seal">
+                  <div>
+                    <strong>CII</strong>
+                    <span>{company.cii.number}</span>
+                    <span>2026 — 2030</span>
+                  </div>
+                </div>
+              </div>
+            )}
+            {block.visual === 'facts' && (
+              <div class="prose-visual-panel facts-orbit" aria-hidden="true">
+                <svg viewBox="0 0 280 240" role="img">
+                  <circle cx="140" cy="120" r="34" fill="#fff" stroke="currentColor" stroke-width="1.6" />
+                  <text x="140" y="116" text-anchor="middle" fill="currentColor" font-size="13" font-family="IBM Plex Mono, monospace">2018</text>
+                  <text x="140" y="134" text-anchor="middle" fill="#24384c" font-size="11" font-family="IBM Plex Mono, monospace">Paris</text>
+                  <g class="fact-ring" fill="none" stroke="currentColor" stroke-opacity="0.35" stroke-width="1.3">
+                    <circle cx="140" cy="120" r="72" stroke-dasharray="4 7" />
+                    <circle cx="140" cy="120" r="98" stroke-dasharray="2 8" />
+                  </g>
+                  <g fill="currentColor">
+                    <circle cx="140" cy="48" r="6"><animate attributeName="r" values="5;7;5" dur="2.8s" repeatCount="indefinite" /></circle>
+                    <circle cx="212" cy="88" r="6"><animate attributeName="r" values="6;8;6" dur="3.2s" repeatCount="indefinite" /></circle>
+                    <circle cx="212" cy="152" r="6"><animate attributeName="r" values="5;7;5" dur="2.6s" repeatCount="indefinite" /></circle>
+                    <circle cx="140" cy="192" r="6"><animate attributeName="r" values="6;8;6" dur="3.4s" repeatCount="indefinite" /></circle>
+                    <circle cx="68" cy="152" r="6"><animate attributeName="r" values="5;7;5" dur="3s" repeatCount="indefinite" /></circle>
+                    <circle cx="68" cy="88" r="6"><animate attributeName="r" values="6;8;6" dur="2.9s" repeatCount="indefinite" /></circle>
+                  </g>
+                </svg>
+              </div>
+            )}
           </div>
         )}
         {block.type === 'list' && (
@@ -165,7 +312,7 @@ const laneFor = (key?: string) => {
                   })}
               </div>
             ) : (
-              <div class="work-grid">
+              <div class="work-grid" data-stagger>
                 {visibleWork(block.source === 'cases' ? 'case' : 'solution').map((item) => {
                   if (item.id === 'iaps' || item.id === 'cssforever') return <WorkCase locale={locale} id={item.id} />;
                   if (item.id === 'copharia') return <CophariaFeature locale={locale} />;
@@ -234,16 +381,6 @@ const laneFor = (key?: string) => {
               </form>
             </div>
           </>
-        )}
-        {block.type === 'cta' && (
-          <div class="section-intro">
-            <h2>{block.title}</h2>
-            <p>{block.text}</p>
-            <div class="cta-actions">
-              <a class="btn primary" href={contactPath(locale, block.primary, block.product)}>{block.product === 'copharia' ? (locale === 'fr' ? 'Demander une démonstration de COPHARIA' : 'Request a COPHARIA demonstration') : getInquiry(locale, block.primary).label}</a>
-              {block.secondary && <a class="btn secondary" href={contactPath(locale, block.secondary)}>{block.secondary === 'team' ? (locale === 'fr' ? 'Constituer une équipe' : 'Build your team') : getInquiry(locale, block.secondary).label}</a>}
-            </div>
-          </div>
         )}
       </div>
     </section>

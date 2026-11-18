@@ -1,0 +1,85 @@
+---
+import type { InquiryId, Locale } from '@/content/types';
+import { contactPath, getInquiry } from '@/data/inquiries';
+
+interface Props {
+  locale: Locale;
+  title?: string;
+  text?: string;
+  primary?: InquiryId;
+  secondary?: InquiryId;
+  product?: string;
+  primaryLabel?: string;
+  secondaryLabel?: string;
+  image?: string;
+  captionKicker?: string;
+  captionTitle?: string;
+}
+
+const {
+  locale,
+  title,
+  text,
+  primary = 'project',
+  secondary,
+  product,
+  primaryLabel,
+  secondaryLabel,
+  image = '/assets/people/delivery-room.jpg',
+  captionKicker,
+  captionTitle,
+} = Astro.props;
+
+const fr = locale === 'fr';
+const copy = {
+  kicker: fr ? 'Prochaine étape' : 'Next step',
+  title: title ?? (fr ? 'Parlons de votre projet.' : "Let's talk about your project."),
+  text:
+    text ??
+    (fr
+      ? 'Un message suffit pour démarrer. Nous revenons avec un premier cadrage.'
+      : 'One message is enough to start. We come back with a first scoping.'),
+  captionKicker: captionKicker ?? (fr ? 'Échange' : 'Exchange'),
+  captionTitle: captionTitle ?? (fr ? 'Un premier contact concret' : 'A concrete first contact'),
+};
+
+const resolvedPrimaryLabel =
+  primaryLabel ??
+  (product === 'copharia'
+    ? fr
+      ? 'Demander une démonstration de COPHARIA'
+      : 'Request a COPHARIA demonstration'
+    : getInquiry(locale, primary).label);
+
+const resolvedSecondaryLabel =
+  secondaryLabel ??
+  (secondary === 'team'
+    ? fr
+      ? 'Constituer une équipe'
+      : 'Build your team'
+    : secondary
+      ? getInquiry(locale, secondary).label
+      : undefined);
+---
+<section class="final-cta" data-reveal>
+  <div class="final-cta-inner">
+    <div class="final-cta-copy">
+      <p class="final-cta-kicker">{copy.kicker}</p>
+      <h2>{copy.title}</h2>
+      <p class="final-cta-text">{copy.text}</p>
+      <div class="final-cta-actions">
+        <a class="btn primary" href={contactPath(locale, primary, product)}>{resolvedPrimaryLabel}</a>
+        {secondary && resolvedSecondaryLabel && (
+          <a class="btn ghost" href={contactPath(locale, secondary)}>{resolvedSecondaryLabel}</a>
+        )}
+      </div>
+    </div>
+    <figure class="final-cta-media" aria-hidden="true">
+      <img src={image} alt="" width="1280" height="720" loading="lazy" decoding="async" />
+      <figcaption>
+        <span>{copy.captionKicker}</span>
+        <strong>{copy.captionTitle}</strong>
+      </figcaption>
+    </figure>
+  </div>
+</section>

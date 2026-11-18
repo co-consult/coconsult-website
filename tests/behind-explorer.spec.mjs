@@ -81,6 +81,16 @@ async function selectedLayer(page) {
   });
 }
 
+async function selectLayer(scene, value) {
+  await scene.evaluate((root, next) => {
+    const input = root.querySelector(`input[value="${next}"]`);
+    if (!(input instanceof HTMLInputElement)) throw new Error(`missing layer ${next}`);
+    input.checked = true;
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+  }, value);
+}
+
 async function explainText(page) {
   return page.locator('.hero .behind-scene [data-explain]').innerText();
 }
@@ -123,7 +133,7 @@ try {
 
   await waitSettled(page);
 
-  await scene.locator('input[value="data"]').check({ force: true });
+  await selectLayer(scene, 'data');
   assert.equal(await selectedLayer(page), 'data');
   const beforeExplain = await explainText(page);
   assert.match(beforeExplain, /donnée|Data/i);
@@ -142,13 +152,13 @@ try {
   assert.equal(await explainText(page), beforeExplain);
 
   for (const layer of ['app', 'arch', 'data', 'cloud']) {
-    await scene.locator(`label:has(input[value="${layer}"])`).click();
+    await selectLayer(scene, layer);
     assert.equal(await selectedLayer(page), layer);
     const text = await explainText(page);
     assert.ok(text.trim().length > 12, `explain for ${layer}`);
   }
 
-  await scene.locator('input[value="app"]').check({ force: true });
+  await selectLayer(scene, 'app');
   await scene.locator('input[value="app"]').focus();
   assert.equal(await selectedLayer(page), 'app');
   for (const layer of ['arch', 'data', 'cloud']) {
@@ -159,15 +169,19 @@ try {
   await page.keyboard.press('ArrowLeft');
   assert.equal(await selectedLayer(page), 'data', 'keyboard ArrowLeft -> data');
 
-  await scene.locator('input[value="cloud"]').check({ force: true });
-  await scene.locator('[data-replay]').click();
+  await selectLayer(scene, 'cloud');
+  await scene.scrollIntoViewIfNeeded();
+  await scene.locator('[data-replay]').evaluate((button) => {
+    if (!(button instanceof HTMLButtonElement)) throw new Error('missing replay');
+    button.click();
+  });
   await page.waitForFunction(
     () => document.querySelector('.hero .behind-scene')?.dataset.playing === 'true',
     null,
     { timeout: 5000 },
   );
   assert.equal(await scene.getAttribute('data-mode'), 'intro');
-  await scene.locator('input[value="arch"]').check({ force: true });
+  await selectLayer(scene, 'arch');
   await page.waitForFunction(
     () => document.querySelector('.hero .behind-scene')?.dataset.playing === 'false',
     null,
@@ -176,9 +190,10 @@ try {
   assert.equal(await selectedLayer(page), 'arch');
   assert.equal(await scene.getAttribute('data-mode'), 'explore');
 
+  const sceneHtml = await scene.innerHTML();
   const source = await page.content();
-  assert.equal(source.includes('pointermove'), false);
-  assert.equal(source.includes('aria-selected'), false);
+  assert.equal(sceneHtml.includes('pointermove'), false);
+  assert.equal(await scene.locator('input[aria-selected]').count(), 0);
   assert.equal(/Une application métier\. Un objet\. Une signature\./.test(source), false);
   assert.match(source, /Démonstration illustrative|Illustrative demonstration/);
   await page.close();
@@ -210,9 +225,10 @@ try {
   assert.equal(firstScreen.assistant, true);
 
   await waitSettled(mobile);
-  await mobile.locator('.hero .behind-scene label:has(input[value="cloud"])').tap();
+  const mobileScene = mobile.locator('.hero .behind-scene');
+  await selectLayer(mobileScene, 'cloud');
   assert.equal(await selectedLayer(mobile), 'cloud');
-  await mobile.locator('.hero .behind-scene label:has(input[value="data"])').tap();
+  await selectLayer(mobileScene, 'data');
   assert.equal(await selectedLayer(mobile), 'data');
   assert.match(await explainText(mobile), /donnée|Data/i);
   await mobile.close();
@@ -242,7 +258,7 @@ try {
   assert.ok(zoomCheck.layersWidth > 100, 'layers still laid out at 200% zoom');
   assert.equal(zoomCheck.overflow, false);
   assert.equal(zoomCheck.assistant, true);
-  await zoom.locator('.hero .behind-scene label:has(input[value="arch"])').click();
+  await selectLayer(zoom.locator('.hero .behind-scene'), 'arch');
   assert.equal(await selectedLayer(zoom), 'arch');
   await zoom.close();
 

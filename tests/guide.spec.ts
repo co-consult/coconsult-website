@@ -42,8 +42,10 @@ test('the French guide qualifies a need and copies the summary into the form', a
   await dialog.getByRole('button', { name: 'Qualifier mon besoin' }).focus();
   await page.keyboard.press('Enter');
   await dialog.getByRole('button', { name: 'Un projet' }).click();
+  await expect(dialog.getByRole('button', { name: 'Passer cette question' })).toBeVisible();
   await dialog.locator('#cc-assistant-input').fill('Un prototype logiciel a cadrer.');
   await dialog.locator('#cc-assistant-input').press('Enter');
+  await expect(dialog.getByRole('button', { name: 'Valider ce résumé' })).toBeVisible({ timeout: 10_000 });
   await dialog.getByRole('button', { name: 'Valider ce résumé' }).click();
   await dialog.getByRole('button', { name: 'Reprendre ce résumé dans le formulaire' }).click();
 
@@ -75,7 +77,7 @@ test('opening the form without the summary leaves the message empty', async ({ p
   await expect(page).toHaveURL(/\/contact\/\?type=project$/);
   await expect(page.locator('[data-need="software"]')).toHaveAttribute('aria-pressed', 'true');
   await expect(page.locator('#message')).toHaveValue('');
-  await expect(page.locator('[data-step="1"]')).toBeVisible();
+  await expect(page.locator('[data-step="2"]')).toBeVisible();
   await expect(page.locator('[data-contact-panel]')).toHaveAttribute('data-journey', 'guide');
 });
 
@@ -91,8 +93,10 @@ test('the English guide works on a phone width and does not call a model', async
   await expect(dialog).toContainText('agents');
   await dialog.getByRole('button', { name: 'Describe my need' }).click();
   await dialog.getByRole('button', { name: 'A project' }).click();
+  await expect(dialog.getByRole('button', { name: 'Skip this question' })).toBeVisible();
   await dialog.locator('#cc-assistant-input').fill('Connect a model to a process we already run.');
-  await dialog.getByRole('button', { name: 'Send' }).click();
+  await dialog.locator('#cc-assistant-input').press('Enter');
+  await expect(dialog.getByRole('button', { name: 'Confirm this summary' })).toBeVisible({ timeout: 10_000 });
   await dialog.getByRole('button', { name: 'Confirm this summary' }).click();
   await dialog.getByRole('button', { name: 'Use this summary in the form' }).click();
   await expect(page).toHaveURL(/\/en\/contact\/\?type=ai$/);

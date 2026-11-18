@@ -235,6 +235,12 @@
       else item.removeAttribute('aria-current');
       item.disabled = value > state.reached;
     });
+    const progress = panel.querySelector('[data-progress-bar]');
+    if (progress instanceof HTMLElement) {
+      const total = isDemoMode() ? 2 : 4;
+      const index = isDemoMode() ? (step === 3 ? 1 : 2) : step;
+      progress.style.width = `${Math.max(12, (index / total) * 100)}%`;
+    }
     if (step === 2 && !isDemoMode()) paintHints();
     if (step === 4) paintSummary();
     if (!moveFocus) return;
@@ -321,6 +327,8 @@
       setInquiry(inquiry);
       if (flag) flag.hidden = state.topic !== 'copharia';
       if (`${state.need}|${state.inquiry}|${state.topic}` !== previous) invalidatePrepared();
+      // Selecting a need advances — no separate Continuer on step 1.
+      goto(2, 1);
     });
   });
 
@@ -595,6 +603,12 @@
     refreshMail();
     if (applyGuideSummary(guideSummary) && fieldValue(message).length >= 20) {
       state.reached = 2;
+      show(2, true);
+      return;
+    }
+    // URL preselect (except open-ended demo) advances past the need grid — no Continuer on step 1.
+    if (state.need && type !== 'demo') {
+      state.reached = Math.max(state.reached, 2);
       show(2, true);
       return;
     }
