@@ -733,7 +733,7 @@ export const pages: Record<RouteKey, PageContent> = {
     eyebrow: 'Contact',
     h1: 'Parlons de votre prochain système.',
     h1Accent: 'Projet, équipe, IA ou démonstration.',
-    intro: 'Après envoi, une confirmation s’affiche seulement si la demande est bien reçue. Sinon, le message reste prêt dans votre messagerie.',
+    intro: 'Décrivez votre besoin. Nous répondons sous deux jours ouvrés.',
     blocks: [
       {
         type: 'inquiries',

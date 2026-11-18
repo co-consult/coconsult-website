@@ -1,5 +1,6 @@
 ---
 import FinalCta from '@/components/FinalCta.astro';
+import PeopleImg from '@/components/visuals/PeopleImg.astro';
 import SectorMatrix from '@/components/visuals/SectorMatrix.astro';
 import WorkCase from '@/components/visuals/WorkCase.astro';
 import type { Locale } from '@/content/types';
@@ -57,7 +58,7 @@ const copy = fr
         ['cloud', 'Cloud & DevOps', "Parcours cloud : une version se construit, se teste, se déploie, puis s'observe."],
         ['quality', 'Qualité & Sécurité', 'Parcours qualité et sécurité : les tests et les droits protègent ce qui est exposé.'],
       ],
-      focusAll: 'Quatre orbites relient le même système. Touchez-en une pour la suivre.',
+      focusAll: 'Quatre orbites relient le même système. Sélectionnez-en une pour la suivre.',
       systemHint: 'Explorer une orbite',
       exKicker: 'Expertises',
       exTitle: 'Découvrez nos expertises en action.',
@@ -120,7 +121,7 @@ const copy = fr
         ['cloud', 'Cloud & DevOps', 'Cloud path: a release is built, tested, deployed, then watched.'],
         ['quality', 'Quality & Security', 'Quality and security path: tests and access rights protect what is exposed.'],
       ],
-      focusAll: 'Four orbits feed the same system. Touch one to follow it.',
+      focusAll: 'Four orbits feed the same system. Select one to follow it.',
       systemHint: 'Explore an orbit',
       exKicker: 'Expertise',
       exTitle: 'Discover our expertise in action.',
@@ -353,7 +354,12 @@ const demo = fr
     </div>
     <div class="value-body">
       <figure class="people-frame">
-        <img src="/assets/people/workshop-journey.jpg" alt={imageAlt('/assets/people/workshop-journey.jpg', locale)} width="1280" height="720" loading="lazy" decoding="async" />
+        <PeopleImg
+          src="/assets/people/workshop-journey.jpg"
+          alt={imageAlt('/assets/people/workshop-journey.jpg', locale)}
+          width={1280}
+          height={720}
+        />
         <figcaption>
           <span class="people-kicker">{fr ? 'Maison d’ingénierie' : 'Engineering house'}</span>
           <strong>{fr ? 'Cadrage, architecture, delivery' : 'Scoping, architecture, delivery'}</strong>
@@ -435,7 +441,12 @@ const demo = fr
     </div>
     <div class="expertise-body expertise-stack">
       <figure class="people-frame expertise-photo">
-        <img src="/assets/people/engineer-focus.jpg" alt={imageAlt('/assets/people/engineer-focus.jpg', locale)} width="1280" height="720" loading="lazy" decoding="async" />
+        <PeopleImg
+          src="/assets/people/engineer-focus.jpg"
+          alt={imageAlt('/assets/people/engineer-focus.jpg', locale)}
+          width={1280}
+          height={720}
+        />
         <figcaption>
           <span class="people-kicker">{fr ? 'Expertise en action' : 'Expertise in action'}</span>
           <strong>{fr ? 'Du schéma au système livré' : 'From sketch to shipped system'}</strong>
@@ -563,7 +574,12 @@ const demo = fr
     </div>
     <div class="modes-body">
       <figure class="people-frame">
-        <img src="/assets/people/team-standup.jpg" alt={imageAlt('/assets/people/team-standup.jpg', locale)} width="1280" height="720" loading="lazy" decoding="async" />
+        <PeopleImg
+          src="/assets/people/team-standup.jpg"
+          alt={imageAlt('/assets/people/team-standup.jpg', locale)}
+          width={1280}
+          height={720}
+        />
         <figcaption>
           <span class="people-kicker">{fr ? 'Collaboration' : 'Collaboration'}</span>
           <strong>{fr ? 'Des ingénieurs au plus près du métier' : 'Engineers close to the business'}</strong>
@@ -596,7 +612,7 @@ const demo = fr
 
   <section class="section paper solutions-strip" id="solutions" data-reveal>
     <div class="section-head">
-      <p class="eyebrow">{fr ? 'Solutions' : 'Solutions'}</p>
+      <p class="eyebrow">{fr ? 'Produits' : 'Products'}</p>
       <div class="section-copy">
         <h2>{fr ? 'Des systèmes métier que nous construisons.' : 'Business systems we build.'}</h2>
         <p class="lede-soft">

@@ -491,7 +491,7 @@ export const pages: Record<RouteKey, PageContent> = {
     key: 'sectors',
     metaTitle: 'Industry experience | Coconsult',
     description:
-      'Business environments where Coconsult engineering has already been practised: finance and payments, mobility, retail, media, telecom, sports, business systems, and healthcare pharmaceuticals as an emerging domain.',
+      'Finance, payments, mobility, retail, media, telecom, sports, business systems, and healthcare: sectors where Coconsult engineering has already been practised.',
     eyebrow: 'Industries',
     h1: 'Our engineering in the service of your industries.',
     intro:
@@ -684,7 +684,7 @@ export const pages: Record<RouteKey, PageContent> = {
     eyebrow: 'Contact',
     h1: "Let's talk about your next system.",
     h1Accent: 'A project, a team, AI, or a demonstration.',
-    intro: 'After you send, a confirmation appears only if the enquiry is received. Otherwise the message stays ready in your mail app.',
+    intro: 'Tell us what you need. We reply within two working days.',
     blocks: [
       {
         type: 'inquiries',

@@ -1,0 +1,39 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  loading?: 'eager' | 'lazy';
+  decoding?: 'async' | 'auto' | 'sync';
+  sizes?: string;
+}
+const {
+  src,
+  alt,
+  width = 1280,
+  height = 720,
+  loading = 'lazy',
+  decoding = 'async',
+  sizes = '(max-width: 700px) 92vw, (max-width: 1100px) 46vw, 640px',
+} = Astro.props;
+const base = src.replace(/\.(jpe?g|png|webp)$/i, '');
+const ext = (src.match(/\.(jpe?g|png|webp)$/i) || ['.jpg'])[0];
+---
+<picture>
+  <source
+    type="image/webp"
+    srcset={`${base}-480w.webp 480w, ${base}-768w.webp 768w, ${base}.webp 1280w`}
+    sizes={sizes}
+  />
+  <img
+    src={src}
+    srcset={`${base}-480w${ext} 480w, ${base}-768w${ext} 768w, ${src} 1280w`}
+    sizes={sizes}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={loading}
+    decoding={decoding}
+  />
+</picture>
