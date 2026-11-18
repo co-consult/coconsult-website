@@ -327,6 +327,8 @@
       setInquiry(inquiry);
       if (flag) flag.hidden = state.topic !== 'copharia';
       if (`${state.need}|${state.inquiry}|${state.topic}` !== previous) invalidatePrepared();
+      // Selecting a need advances — no separate Continuer on step 1.
+      goto(2, 1);
     });
   });
 

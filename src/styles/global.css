@@ -1558,9 +1558,21 @@ h1 {
 .column-grid:not(.rail) {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
+.column-grid.quad {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (min-width: 1100px) {
+  .column-grid.quad,
+  .page-surface-services .column-grid.quad {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
 .column-grid:not(.rail) > .info-card:nth-child(4),
 .column-grid:not(.rail) > .info-card:nth-child(5) {
   grid-column: span 1;
+}
+.column-grid.quad > .info-card {
+  grid-column: auto;
 }
 @media (min-width: 901px) {
   .column-grid:not(.rail):has(> :nth-child(5):last-child) {

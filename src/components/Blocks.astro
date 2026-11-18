@@ -77,7 +77,7 @@ const laneFor = (key?: string) => {
               <h2>{block.title}</h2>
               {block.intro && <p>{block.intro}</p>}
             </div>
-            <div class:list={['column-grid', { rail: block.layout === 'rail' }]} data-stagger>
+            <div class:list={['column-grid', { rail: block.layout === 'rail', quad: !block.layout && block.items.length === 4 }]} data-stagger>
               {block.items.map((item, itemIndex) => (
                 <article class="info-card">
                   {block.layout === 'rail' && <span class="rail-no">{String(itemIndex + 1).padStart(2, '0')}</span>}
@@ -121,7 +121,7 @@ const laneFor = (key?: string) => {
             )}
             {block.visual === 'collab' && (
               <figure class="prose-photo-panel">
-                <img src="/assets/people/team-standup.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
+                <img src="/assets/people/nearshore-pair.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
                 <figcaption>
                   <span>{locale === 'fr' ? 'Collaboration' : 'Collaboration'}</span>
                   <strong>{locale === 'fr' ? 'Paris · Sfax · un même cadrage' : 'Paris · Sfax · one framing'}</strong>
@@ -352,7 +352,7 @@ const laneFor = (key?: string) => {
               </div>
             </div>
             <figure class="cta-photo" aria-hidden="true">
-              <img src="/assets/people/project-handoff.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
+              <img src="/assets/people/engineer-desk.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
             </figure>
           </div>
         )}

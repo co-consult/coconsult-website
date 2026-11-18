@@ -688,7 +688,7 @@ export const pages: Record<RouteKey, PageContent> = {
     eyebrow: 'Contact',
     h1: "Let's talk about your next system.",
     h1Accent: 'A project, a team, AI, or a demonstration.',
-    intro: 'Confirmation appears only after the enquiry is accepted. Otherwise the message is prepared in your mail software.',
+    intro: 'After you send, a confirmation appears only if the enquiry is received. Otherwise the message stays ready in your mail app.',
     blocks: [
       {
         type: 'inquiries',
@@ -696,7 +696,7 @@ export const pages: Record<RouteKey, PageContent> = {
         intro: 'The subject is already set if you arrive from an expertise, an offer or a solution.',
         ids: ['project', 'team', 'qaDiscuss', 'qaTeam', 'payments', 'automation', 'ai', 'partnership', 'demo'],
       },
-      { type: 'note', text: 'For this first note, stay with the project context. Card data and secrets belong on a channel agreed afterwards.' },
+      { type: 'note', text: 'For this first message, describe the project context. Sensitive data (cards, secrets, access) belongs on a dedicated channel afterwards.' },
     ],
   },
   software: {

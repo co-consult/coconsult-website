@@ -737,7 +737,7 @@ export const pages: Record<RouteKey, PageContent> = {
     eyebrow: 'Contact',
     h1: 'Parlons de votre prochain système.',
     h1Accent: 'Projet, équipe, IA ou démonstration.',
-    intro: 'La confirmation n’apparaît qu’une fois la demande acceptée. Sinon, le message se prépare dans votre messagerie.',
+    intro: 'Après envoi, une confirmation s’affiche seulement si la demande est bien reçue. Sinon, le message reste prêt dans votre messagerie.',
     blocks: [
       {
         type: 'inquiries',
@@ -745,7 +745,7 @@ export const pages: Record<RouteKey, PageContent> = {
         intro: 'Le sujet est déjà indiqué si vous arrivez depuis une expertise, une offre ou une solution.',
         ids: ['project', 'team', 'qaDiscuss', 'qaTeam', 'payments', 'automation', 'ai', 'partnership', 'demo'],
       },
-      { type: 'note', text: 'Pour ce premier échange, restez sur le contexte du projet. Les données de cartes et les secrets se traitent ensuite sur un canal adapté.' },
+      { type: 'note', text: 'Pour ce premier message, décrivez le contexte du projet. Les données sensibles (cartes, secrets, accès) se traitent ensuite sur un canal dédié.' },
     ],
   },
   software: {

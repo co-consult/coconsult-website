@@ -247,7 +247,7 @@ const copy = fr
           ))}
         </div>
         <p class="error" id="err-1" role="alert"></p>
-        <button class="btn primary" type="button" data-next="2">{copy.next}</button>
+        <p class="choice-hint">{fr ? 'Choisissez un besoin pour continuer.' : 'Choose a need to continue.'}</p>
       </section>
       <section class="panel" data-step="2" data-generic-only hidden>
         <div class="hints" id="hints"></div>
@@ -333,5 +333,5 @@ const copy = fr
   </div>
   {note && note.type === 'note' && <p class="contact-note">{note.text}</p>}
   <script type="application/json" id="contact-hints" set:html={JSON.stringify(copy.hints)}></script>
-  <script is:inline src="/assets/contact.js?v=20261026" defer></script>
+  <script is:inline src="/assets/contact.js?v=20261118" defer></script>
 </div>
