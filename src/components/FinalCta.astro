@@ -1,5 +1,6 @@
 ---
 import type { InquiryId, Locale } from '@/content/types';
+import { imageAlt } from '@/data/image-alts';
 import { contactPath, getInquiry } from '@/data/inquiries';
 
 interface Props {
@@ -74,8 +75,8 @@ const resolvedSecondaryLabel =
         )}
       </div>
     </div>
-    <figure class="final-cta-media" aria-hidden="true">
-      <img src={image} alt="" width="1280" height="720" loading="lazy" decoding="async" />
+    <figure class="final-cta-media">
+      <img src={image} alt={imageAlt(image, locale)} width="1280" height="720" loading="lazy" decoding="async" />
       <figcaption>
         <span>{copy.captionKicker}</span>
         <strong>{copy.captionTitle}</strong>

@@ -7,6 +7,7 @@ import { contactPath } from '@/data/inquiries';
 import { sportsShots } from '@/data/sports-shots';
 import { workItems, type WorkItem } from '@/data/work';
 import { crumbsFor } from '@/lib/seo';
+import { imageAlt } from '@/data/image-alts';
 import { pageVisuals } from '@/data/page-visuals';
 import { pathFor } from '@/data/routes';
 
@@ -80,7 +81,7 @@ const copy = fr
         </div>
         {visual && (
           <div class="cases-hero-art">
-            <img src={visual.image} alt="" width="1200" height="900" loading="eager" decoding="async" />
+            <img src={visual.image} alt={imageAlt(visual.image, locale)} width="1200" height="900" loading="eager" decoding="async" />
             <span>{visual.overlay[locale]}</span>
           </div>
         )}

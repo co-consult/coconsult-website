@@ -2,6 +2,7 @@
 import { ui } from '@/content/ui';
 import type { Locale, PageContent } from '@/content/types';
 import { company } from '@/data/company';
+import { imageAlt } from '@/data/image-alts';
 import { contactIntentOrder, getInquiry, plainMailto } from '@/data/inquiries';
 import { crumbsFor } from '@/lib/seo';
 import { pathFor } from '@/data/routes';
@@ -211,7 +212,7 @@ const copy = fr
         <p data-copy-status aria-live="polite"></p>
       </div>
       <figure class="contact-aside-visual">
-        <img src="/assets/people/contact-exchange.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async" />
+        <img src="/assets/people/contact-exchange.jpg" alt={imageAlt('/assets/people/contact-exchange.jpg', locale)} width="1280" height="720" loading="lazy" decoding="async" />
         <figcaption>{fr ? 'Un échange concret, pas un formulaire anonyme.' : 'A concrete exchange, not an anonymous form.'}</figcaption>
       </figure>
     </header>

@@ -637,6 +637,57 @@ assert.match(devFr, /rel="canonical" href="https:\/\/coconsult\.fr\/services\/de
 assert.match(devEn, /hreflang="fr" href="https:\/\/coconsult\.fr\/services\/developpement\/"/);
 assert.equal((devFr.match(/<h1\b/g) ?? []).length, 1);
 
+const bingAltPages = [
+  '/',
+  '/en/',
+  '/services/',
+  '/en/services/',
+  '/services/ia-entreprise/',
+  '/en/services/enterprise-ai/',
+  '/services/automatisation/',
+  '/en/services/business-automation/',
+  '/services/cloud-devops/',
+  '/en/services/cloud-devops/',
+  '/realisations/',
+  '/en/case-studies/',
+  '/modes-intervention/',
+  '/en/engagement/',
+  '/a-propos/',
+  '/en/about/',
+  '/contact/',
+  '/en/contact/',
+];
+const decorativeEmptyAlt = new Set(['/assets/brand/coconsult-logo.png']);
+for (const urlPath of bingAltPages) {
+  const html = read(urlPath);
+  const imgs = [...html.matchAll(/<img\b[^>]*>/gi)].map((match) => match[0]);
+  assert.ok(imgs.length > 0, `${urlPath} expected images`);
+  for (const tag of imgs) {
+    assert.match(tag, /\balt=/i, `${urlPath} missing alt attribute: ${tag.slice(0, 120)}`);
+    const src = (tag.match(/\bsrc=(["'])([^"']+)\1/i) || [])[2] || '';
+    const alt = (tag.match(/\balt=(["'])([^"']*)\1/i) || [])[2];
+    assert.equal(typeof alt, 'string', `${urlPath} unparsed alt: ${tag.slice(0, 120)}`);
+    if (src.startsWith('/assets/people/')) {
+      assert.ok(alt.length > 0, `${urlPath} people photo needs non-empty alt: ${src}`);
+      assert.equal(/crédit d’impôt|tax credit|\bCII\b|\bCloud\b|\bIA\b|\bAI\b/i.test(alt), false, `${urlPath} keyword stuffing in alt: ${alt}`);
+    }
+    if (decorativeEmptyAlt.has(src) && /cii-seal/i.test(html) && tag.includes('coconsult-logo.png')) {
+      // Seal logo may be empty when adjacent labelled text names the brand.
+      continue;
+    }
+  }
+  const emptyPeople = imgs.filter((tag) => {
+    const src = (tag.match(/\bsrc=(["'])([^"']+)\1/i) || [])[2] || '';
+    const alt = (tag.match(/\balt=(["'])([^"']*)\1/i) || [])[2];
+    return src.startsWith('/assets/people/') && alt === '';
+  });
+  assert.equal(emptyPeople.length, 0, `${urlPath} empty people alts: ${emptyPeople.join(' | ')}`);
+}
+assert.match(read('/'), /workshop-journey\.jpg"[^>]*alt="Deux collègues/);
+assert.match(read('/en/'), /workshop-journey\.jpg"[^>]*alt="Two colleagues/);
+assert.match(read('/contact/'), /contact-exchange\.jpg"[^>]*alt="Un homme et une femme/);
+assert.match(read('/en/contact/'), /contact-exchange\.jpg"[^>]*alt="A man and a woman/);
+
 for (const file of fs.readdirSync(dist, { recursive: true })) {
   const full = path.join(dist, String(file));
   if (!fs.statSync(full).isFile()) continue;

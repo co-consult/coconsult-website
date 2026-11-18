@@ -14,6 +14,7 @@ import { ui } from '@/content/ui';
 import type { Locale, PageContent, RouteKey } from '@/content/types';
 import { crumbsFor } from '@/lib/seo';
 import { routes } from '@/data/routes';
+import { imageAlt } from '@/data/image-alts';
 import { pageVisuals } from '@/data/page-visuals';
 
 interface Props { locale: Locale; page: PageContent; }
@@ -83,7 +84,7 @@ const isEditorial = editorialKeys.includes(page.key);
               <img
                 class="about-hero-photo"
                 src={visual.image}
-                alt=""
+                alt={imageAlt(visual.image, locale)}
                 width="1200"
                 height="900"
                 loading="eager"
