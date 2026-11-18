@@ -1,3 +1,4 @@
+import { pageLastmod } from '@/data/page-lastmod';
 import { absoluteUrl, routeOrder, routes } from '@/data/routes';
 
 export function renderSitemap(): string {
@@ -5,8 +6,10 @@ export function renderSitemap(): string {
     .map((key) => {
       const fr = absoluteUrl(routes[key].fr);
       const en = absoluteUrl(routes[key].en);
+      const lastmod = pageLastmod[key];
+      const lastmodTag = lastmod ? `<lastmod>${lastmod}</lastmod>` : '';
       const block = (loc: string) =>
-        `  <url><loc>${loc}</loc><xhtml:link rel="alternate" hreflang="fr" href="${fr}"/><xhtml:link rel="alternate" hreflang="en" href="${en}"/><xhtml:link rel="alternate" hreflang="x-default" href="${fr}"/></url>`;
+        `  <url><loc>${loc}</loc>${lastmodTag}<xhtml:link rel="alternate" hreflang="fr" href="${fr}"/><xhtml:link rel="alternate" hreflang="en" href="${en}"/><xhtml:link rel="alternate" hreflang="x-default" href="${fr}"/></url>`;
       return `${block(fr)}\n${block(en)}`;
     })
     .join('\n');

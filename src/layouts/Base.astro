@@ -7,7 +7,7 @@ import { ui } from '@/content/ui';
 import type { Locale, RouteKey } from '@/content/types';
 import { company } from '@/data/company';
 import { absoluteUrl, pathFor, routes } from '@/data/routes';
-import { breadcrumbLd, ciiPermitLd, crumbsFor, faqLd, jsonScript, organizationLd, serviceLd, webPageLd } from '@/lib/seo';
+import { breadcrumbLd, ciiPermitLd, crumbsFor, faqLd, jsonScript, organizationLd, serviceLd, webPageLd, webSiteLd } from '@/lib/seo';
 
 interface Props {
   locale: Locale;
@@ -31,14 +31,17 @@ const ldCrumbs = crumbs.map((item) => ({
   label: item.label,
   href: item.href ?? (routeKey === 'notFound' ? '/' : pathFor(locale, routeKey)),
 }));
-const graph: object[] = routeKey === 'home'
-  ? [organizationLd(), webPageLd(locale, 'home', title, description)]
-  : routeKey === 'notFound'
-    ? []
-    : [webPageLd(locale, routeKey, title, description), breadcrumbLd(ldCrumbs)];
-if (routeKey !== 'notFound' && serviceName) graph.push(serviceLd(locale, routeKey, serviceName, description));
-if (routeKey === 'innovation') graph.push(ciiPermitLd(locale));
-if (faqs.length > 0) graph.push(faqLd(faqs));
+const graph: object[] = [];
+if (routeKey === 'home') graph.push(organizationLd());
+if (routeKey !== 'notFound') {
+  graph.push(webSiteLd(), webPageLd(locale, routeKey, title, description));
+  if (routeKey !== 'home') graph.push(breadcrumbLd(ldCrumbs));
+  if (serviceName) graph.push(serviceLd(locale, routeKey, serviceName, description));
+  if (routeKey === 'innovation') graph.push(ciiPermitLd(locale));
+  if (faqs.length > 0) graph.push(faqLd(faqs));
+}
+const ogLocale = locale === 'fr' ? 'fr_FR' : 'en_US';
+const ogLocaleAlternate = locale === 'fr' ? 'en_US' : 'fr_FR';
 ---
 <!doctype html>
 <html lang={locale}>
@@ -55,7 +58,8 @@ if (faqs.length > 0) graph.push(faqLd(faqs));
     {routeKey !== 'notFound' && <link rel="alternate" hreflang="x-default" href={frHref} />}
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={company.name} />
-    <meta property="og:locale" content={locale === 'fr' ? 'fr_FR' : 'en_US'} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogLocaleAlternate} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
